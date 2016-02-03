@@ -1,0 +1,96 @@
+<div class="padding">
+    <a href class="btn btn-sm btn-info pull-right hidden-print" onClick="window.print();">Print</a>
+    <p><i class="fa fa-apple fa fa-3x"></i></p>
+    <div class="row">
+      <div class="col-xs-6">
+        <h4 class="text-md">Apple Inc.</h4>
+        <p><a href="http://www.apple.com">www.apple.com</a></p>
+        <p>1 Infinite Loop <br>
+          95014 Cuperino, CA<br>
+          United States
+        </p>
+        <p>
+          Telephone:  800-692-7753<br>
+          Fax:  800-692-7753
+        </p>
+      </div>
+      <div class="col-xs-6 text-right">
+        <p class="text-md m-t-lg">#9048392</p>
+        <p>7th Jun 2015</p>           
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="box p-a">
+          <strong class="text-muted">TO:</strong>
+          <h6>Jack Perez</h6>
+          <p class="text-muted">
+            2nd Floor<br>
+            St John Street, Aberdeenshire 2541<br>
+            United Kingdom<br>
+            Phone: 031-432-678<br>
+            Email: youemail@gmail.com<br>
+          </p>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="box p-a">
+          <strong class="text-muted">SHIP TO:</strong>
+          <h6>Jack Perez</h6>
+          <p class="text-muted">
+            2nd Floor<br>
+            St John Street, Aberdeenshire 2541<br>
+            United Kingdom<br>
+            Phone: 031-432-678<br>
+            Email: youemail@gmail.com<br>
+          </p>
+        </div>
+      </div>
+    </div>
+    <p>Order date: <strong>26th Mar 2013</strong><br>
+        Order status: <span class="label success">Shipped</span><br>
+        Order ID: <strong>#9399034</strong>
+    </p>
+    <div class="table-responsive">
+      <table class="table table-striped white b-a">
+        <thead>
+          <tr>
+            <th style="width: 60px">QTY</th>
+            <th>DESCRIPTION</th>
+            <th style="width: 140px">UNIT PRICE</th>
+            <th style="width: 90px">TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>iPhone 5 32GB White & Silver (GSM) Unlocked</td>
+            <td>$749.00</td>
+            <td>$749.00</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>iPad mini with Wi-Fi 32GB - White & Silver</td>
+            <td>$429.00</td>
+            <td>$858.00</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-right"><strong>Subtotal</strong></td>
+            <td>$1607.00</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-right no-border"><strong>Shipping</strong></td>
+            <td>$0.00</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-right no-border"><strong>VAT Included in Total</strong></td>
+            <td>$0.00</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-right no-border"><strong>Total</strong></td>
+            <td><strong>$1607.00</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>          
+  </div>

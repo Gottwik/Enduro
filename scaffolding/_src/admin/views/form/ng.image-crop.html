@@ -1,0 +1,35 @@
+<div class="padding">
+  <div class="m-b">
+    Select an image file
+    <input type="file" id="fileInput" />
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="box" style="height:256px">
+        <img-crop 
+          image="myImage" 
+          result-image="myCroppedImage"
+          result-image-size="128"
+          area-type="{{cropType}}"
+        ></img-crop>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="inline">
+        <div class="box img-{{cropType}}">
+          <img ng-src="{{myCroppedImage}}" class="img-{{cropType}}" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn white active" ng-click="cropType='circle'">
+        <input type="radio" name="options"> Circle
+      </label>
+      <label class="btn white" ng-click="cropType='square'">
+        <input type="radio" name="options"> Square
+      </label>
+    </div>
+  </div>
+</div>

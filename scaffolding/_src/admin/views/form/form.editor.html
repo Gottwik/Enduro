@@ -1,0 +1,54 @@
+<div class="padding">
+  <p>Summernote</p>
+
+  <h6>Basic</h6>
+  <p>Super Simple WYSIWYG Editor on Bootstrap</p>
+  <div class="box m-b-md">
+    <div ui-jp="summernote">
+      <h3>Try me!</h3>
+      <p>Super Simple WYSIWYG Editor on Bootstrap</p>
+      <p><b>Features:</b></p>
+      <ol>
+        <li>Worldwide Bootstrap</li>
+        <li style="color: blue;">Easy to Install</li>
+        <li><strong>Open Source</strong></li>
+        <li>Customizing</li>
+        <li>Smart Shortcuts</li>
+        <li>Works with Firefox, Chrome, and IE9+</li>
+      </ol>
+      <p><b>Code at GitHub:</b> <a href="https://github.com/summernote/summernote/">Here</a> </p>
+    </div>
+  </div>
+
+  <h6>Air-mode</h6>
+  <p>Air-mode gives clearer interface with hiddened toolbar. To reveal toolbar, select a text where you want to shape up. Simply turn on airMode and just focus on text.</p>
+  <div class="box p-a m-b-md">
+    <div ui-jp="summernote" ui-options="{airMode: true}">
+      <h3>Try me!</h3>
+      <p>Super Simple WYSIWYG Editor on Bootstrap</p>
+      <p><b>Features:</b></p>
+      <ol>
+        <li>Worldwide Bootstrap</li>
+        <li style="color: blue;">Easy to Install</li>
+        <li><strong>Open Source</strong></li>
+        <li>Customizing</li>
+        <li>Smart Shortcuts</li>
+        <li>Works with Firefox, Chrome, and IE9+</li>
+      </ol>
+      <p><b>Code at GitHub:</b> <a href="https://github.com/summernote/summernote/">Here</a> </p>
+    </div>
+  </div>
+
+  <h6>Custom toolbar</h6>
+  <p>Summernote allows you to make own custom toolbar.</p>
+  <div class="box m-b-md">
+    <div ui-jp="summernote" ui-options="{height: 150,
+            toolbar: [
+              ['style', ['bold', 'italic', 'underline', 'clear']],
+              ['color', ['color']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['height', ['height']]
+            ]}">
+    </div>
+  </div>
+</div>

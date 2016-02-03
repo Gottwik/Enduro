@@ -1,0 +1,208 @@
+<div class="padding">
+  <div class="box">
+    <div class="box-header">
+      <h3>Positions</h3>
+      <small>Arrows with color and position options</small>
+    </div>
+    <div class="box-body dker">
+      <p class="m-b-lg">[top, right, bottom, left]</p>
+      <div class="row text-center">
+        <div class="col-sm-3">
+          <div class="box-color text-color pos-rlt">
+            <span class="arrow top b-white"></span>
+            <div class="box-body">
+              Arrow at the top
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box-color text-color pos-rlt">
+            <span class="arrow right b-white"></span>
+            <div class="box-body">
+              Arrow at the right
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box-color text-color pos-rlt">
+            <span class="arrow bottom b-white"></span>
+            <div class="box-body">
+              Arrow at the bottom
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box-color text-color pos-rlt">
+            <span class="arrow left b-white"></span>
+            <div class="box-body">
+              Arrow at the left
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-sm-3">
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="box-color text-color pos-rlt">
+                <span class="arrow top pull-left b-white"></span>
+                <div class="box-body">
+                  pull-left
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <div class="box-color text-color pos-rlt">
+                <span class="arrow top pull-right b-white"></span>
+                <div class="box-body">
+                  pull-right
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="box-color text-color pos-rlt">
+                <span class="arrow right pull-top b-white"></span>
+                <div class="box-body">
+                  pull-top
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <div class="box-color text-color pos-rlt">
+                <span class="arrow right pull-bottom b-white"></span>
+                <div class="box-body">
+                  pull-bottom
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="box-color text-color pos-rlt">
+                <span class="arrow bottom pull-left b-white"></span>
+                <div class="box-body">
+                  pull-left
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <div class="box-color text-color pos-rlt">
+                <span class="arrow bottom pull-right b-white"></span>
+                <div class="box-body">
+                  pull-right
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="box-color text-color pos-rlt">
+                <span class="arrow left pull-top b-white"></span>
+                <div class="box-body">
+                  pull-top
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <div class="box-color text-color pos-rlt">
+                <span class="arrow left pull-bottom b-white"></span>
+                <div class="box-body">
+                  pull-bottom
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="box-header">
+      <h3>Colors</h3>
+      <small>Arrows with color and position options</small>
+    </div>
+    <div class="box-body dker">
+      <p class="m-b-lg">b-primary[primary, info, success, warning, danger, white, light]</p>
+      <div class="row text-center">
+        <div class="col-sm-3">
+          <div class="box-color primary pos-rlt">
+            <span class="arrow top b-primary"></span>
+            <div class="box-body">
+              b-primary
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box-color info pos-rlt">
+            <span class="arrow right b-info"></span>
+            <div class="box-body">
+              b-info
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box-color success pos-rlt">
+            <span class="arrow bottom b-success"></span>
+            <div class="box-body">
+              b-success
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box-color warning pos-rlt">
+            <span class="arrow left b-warning"></span>
+            <div class="box-body">
+              b-warning
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-sm-3">
+          <div class="box-color warn pos-rlt">
+            <span class="arrow top b-warn"></span>
+            <div class="box-body">
+              b-warn
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box-color dark pos-rlt">
+            <span class="arrow right b-dark"></span>
+            <div class="box-body">
+              b-dark
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box-color accent pos-rlt">
+            <span class="arrow bottom b-accent"></span>
+            <div class="box-body">
+              b-accent
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box-color danger pos-rlt">
+            <span class="arrow left b-danger"></span>
+            <div class="box-body">
+              b-danger
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>Code</p>
+      <div>
+        <code>&lt;span class="arrow left b-white pull-left">&lt;/span></code>
+      </div>
+    </div>
+  </div>
+</div>

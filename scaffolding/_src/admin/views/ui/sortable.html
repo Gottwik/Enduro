@@ -1,0 +1,117 @@
+<div class="padding">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <p class="m-a-0 m-b">HTML5 Sortable</p>
+      <ul class="list-group m-b" ui-jp="sortable">
+        <li class="list-group-item">
+          <div class="block _500">A lightweight jQuery plugin</div>
+          <span class="clear text-ellipsis text-muted">to create sortable lists and grids using native HTML5 drag and drop API.</span>
+        </li>
+        <li class="list-group-item">
+          <a href class="block _500">Less than 1KB (minified and gzipped).</a>
+          <span class="text-muted">Morbi id neque quam</span>
+        </li>
+        <li class="list-group-item">
+          <a href>
+            <span class="block _500">Built using native HTML5 drag and drop API.</span>
+            <span class="text-muted">Aliquam sollicitudin venenatis ipsum</span>
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href><span class="block _500">Supports both list and grid style layouts.</span></a>
+          <span class="clear text-ellipsis text-muted">Vestibulum ullamcorper sodales nisi nec condimentum Aliquam sollicitudin venenatis ipsum</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <p class="m-a-0 m-b">Handles</p>
+      <ul class="list-group m-b" ui-jp="sortable" ui-options="{
+        forcePlaceholderSize: true,
+        connectWith: 'js-inner-connected',
+        handle: '.js-handle',
+        items: 'li'
+      }">
+        <li class="list-group-item">
+          <span class="pull-left js-handle m-r text-muted"><i class="fa fa-reorder"></i></span>
+          Consectetur adipiscing elit.
+        </li>
+        <li class="list-group-item">
+          <span class="pull-left js-handle m-r text-muted"><i class="fa fa-reorder"></i></span>
+          Lorem ipsum dolor sit amet
+        </li>
+        <li class="list-group-item">
+          <span class="pull-left js-handle m-r text-muted"><i class="fa fa-reorder"></i></span>
+          Ullamcorper solli citudin venenatis ipsum 
+        </li>
+        <li class="list-group-item">
+          <span class="pull-left js-handle m-r text-muted"><i class="fa fa-reorder"></i></span>
+          Aliquam sodales nisi nec condimentum
+        </li>
+        <li class="list-group-item">
+          <span class="pull-left js-handle m-r text-muted"><i class="fa fa-reorder"></i></span>
+          Mauris at pellentesque
+        </li>
+        <li class="list-group-item">
+          <span class="pull-left js-handle m-r text-muted"><i class="fa fa-reorder"></i></span>
+          Ullamcorper solli citudin venenatis ipsum 
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <p class="m-a-0 m-b">Nestable</p>
+      <div ui-jp="nestable"  class="dd">
+        <ol class="dd-list">
+          <li class="dd-item" data-id="1">
+              <div class="dd-handle box">Item 1</div>
+          </li>
+          <li class="dd-item" data-id="2">
+              <div class="dd-handle box">Item 2</div>
+              <ol class="dd-list">
+                  <li class="dd-item" data-id="3"><div class="dd-handle box">Item 3</div></li>
+                  <li class="dd-item" data-id="4"><div class="dd-handle box">Item 4</div></li>
+                  <li class="dd-item" data-id="5">
+                      <div class="dd-handle box">Item 5</div>
+                      <ol class="dd-list">
+                          <li class="dd-item" data-id="6"><div class="dd-handle box">Item 6</div></li>
+                          <li class="dd-item" data-id="7"><div class="dd-handle box">Item 7</div></li>
+                          <li class="dd-item" data-id="8"><div class="dd-handle box">Item 8</div></li>
+                      </ol>
+                  </li>
+                  <li class="dd-item" data-id="9"><div class="dd-handle box">Item 9</div></li>
+              </ol>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <p class="m-a-0 m-b">Nestable with handle</p>
+      <div ui-jp="nestable" class="dd">
+        <ol class="dd-list dd-list-handle">
+          <li class="dd-item" data-id="13">
+              <div class="dd-content box"><div class="dd-handle"><i class="fa fa-reorder text-muted"></i></div> Item 13</div>
+          </li>
+          <li class="dd-item" data-id="14">
+              <div class="dd-content box"><div class="dd-handle"><i class="fa fa-reorder text-muted"></i></div> Item 14</div>
+          </li>
+          <li class="dd-item" data-id="15">
+              <div class="dd-content box"><div class="dd-handle"><i class="fa fa-reorder text-muted"></i></div>Item 15</div>
+              <ol class="dd-list">
+                  <li class="dd-item" data-id="16">
+                      <div class="dd-content box"><div class="dd-handle"><i class="fa fa-reorder text-muted"></i></div>Item 16</div>
+                  </li>
+                  <li class="dd-item" data-id="17">
+                      <div class="dd-content box"><div class="dd-handle"><i class="fa fa-reorder text-muted"></i></div>Item 17</div>
+                  </li>
+                  <li class="dd-item" data-id="18">
+                      <div class="dd-content box"><div class="dd-handle"><i class="fa fa-reorder text-muted"></i></div>Item 18</div>
+                  </li>
+              </ol>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

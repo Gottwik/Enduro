@@ -1,0 +1,525 @@
+<div class="padding">
+  <div class="row">
+    <div class="col-lg-6">
+      <!-- accordion -->
+      <div ng-controller="AccordionCtl" class="m-b-lg">
+          <script type="text/ng-template" id="group-template.html">
+            <div class="box m-b-xs {{panelClass || 'panel-default'}}">
+              <div class="box-header">
+                <h6 style="color:#fa39c3">
+                  <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading"><span
+                    ng-class="{'text-muted': isDisabled}">{{heading}}</span></a>
+                </h6>
+              </div>
+              <div class="panel-collapse collapse" uib-collapse="!isOpen">
+                <div class="box-body" style="text-align: right" ng-transclude></div>
+              </div>
+            </div>
+          </script>
+
+          <p>
+            <button type="button" class="btn white btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
+            <button type="button" class="btn white btn-sm" ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable / Disable first panel</button>
+          </p>
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="oneAtATime">
+              Open only one at a time
+            </label>
+          </div>
+          <uib-accordion close-others="oneAtATime">
+            <uib-accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+              This content is straight in the template.
+            </uib-accordion-group>
+            <uib-accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+              {{group.content}}
+            </uib-accordion-group>
+            <uib-accordion-group heading="Dynamic Body Content">
+              <p>The body of the uib-accordion group grows to fit the contents</p>
+              <button type="button" class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
+              <div ng-repeat="item in items">{{item}}</div>
+            </uib-accordion-group>
+            <uib-accordion-group heading="Custom template" template-url="group-template.html">
+              Hello
+            </uib-accordion-group>
+            <uib-accordion-group heading="Delete account" panel-class="panel-danger">
+              <p>Please, to delete your account, click the button below</p>
+              <button class="btn btn-danger">Delete</button>
+            </uib-accordion-group>
+            <uib-accordion-group is-open="status.open">
+              <uib-accordion-heading>
+                I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+              </uib-accordion-heading>
+              This is just some content to illustrate fancy headings.
+            </uib-accordion-group>
+          </uib-accordion>
+      </div>
+      <!-- / accordion -->
+
+      <div ng-controller="AlertCtl" class="m-b-lg">
+        <script type="text/ng-template" id="alert.html">
+          <div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+            <div ng-transclude></div>
+          </div>
+        </script>
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+        <uib-alert template-url="alert.html">A happy alert!</uib-alert>
+        <button type="button" class='btn white' ng-click="addAlert()">Add Alert</button>
+      </div>
+
+      <div ng-controller="ButtonsCtl" class="m-b-lg">
+        <p>Single toggle ({{singleModel}})</p>
+        <button type="button" class="btn white m-b" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+            Single Toggle
+        </button>
+        <p>Checkbox ({{checkResults}})</p>
+        <div class="btn-group m-b">
+            <label class="btn primary" ng-model="checkModel.left" uib-btn-checkbox>Left</label>
+            <label class="btn primary" ng-model="checkModel.middle" uib-btn-checkbox>Middle</label>
+            <label class="btn primary" ng-model="checkModel.right" uib-btn-checkbox>Right</label>
+        </div>
+        <p>Radio &amp; Uncheckable Radio ({{radioModel || 'null'}})</p>
+        <div class="btn-group">
+            <label class="btn primary" ng-model="radioModel" uib-btn-radio="'Left'">Left</label>
+            <label class="btn primary" ng-model="radioModel" uib-btn-radio="'Middle'">Middle</label>
+            <label class="btn primary" ng-model="radioModel" uib-btn-radio="'Right'">Right</label>
+        </div>
+        <div class="btn-group">
+            <label class="btn success" ng-model="radioModel" uib-btn-radio="'Left'" uncheckable>Left</label>
+            <label class="btn success" ng-model="radioModel" uib-btn-radio="'Middle'" uncheckable>Middle</label>
+            <label class="btn success" ng-model="radioModel" uib-btn-radio="'Right'" uncheckable>Right</label>
+        </div>
+      </div>
+      <!-- carousel -->
+      <div ng-controller="CarouselCtl" class="box">
+        <div class="box-header">
+          <h4>Carousel</h4>
+        </div>
+        <div>
+          <uib-carousel interval="myInterval" no-wrap="noWrapSlides">
+            <uib-slide ng-repeat="slide in slides" active="slide.active">
+              <img ng-src="{{slide.image}}" style="margin:auto;" class="w-full">
+              <div class="carousel-caption">
+                <h6>Slide {{$index}}</h6>
+                <p>{{slide.text}}</p>
+              </div>
+            </uib-slide>
+          </uib-carousel>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <button type="button" class="btn white m-b" ng-click="addSlide()">Add Slide</button>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="noWrapSlides">
+                  Disable Slide Looping
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              Interval, in milliseconds: <input type="number" class="form-control" ng-model="myInterval">
+              <br />Enter a negative number or 0 to stop the interval.
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- / carousel -->      
+
+      <!-- collapse -->
+      <div class="box">
+        <div class="box-header">
+          <button class="btn white btn-xs pull-right" ng-init="isCollapsed = false" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
+          <h4>Collapse </h4>
+        </div>
+        <div uib-collapse="isCollapsed" class="box-body">
+          Some content
+        </div>
+      </div>
+      <!-- / collapse -->
+
+      <!-- dropdown -->
+      <div ng-controller="DropdownCtl" class="box">
+        <div class="box-header"><h4>Dropdown</h4></div>
+        <div class="box-body btn-groups">
+          <!-- Simple dropdown -->
+          <span uib-dropdown on-toggle="toggled(open)">
+            <a href id="simple-dropdown" uib-dropdown-toggle>
+              Click me for a dropdown, yo!
+            </a>
+            <ul class="uib-dropdown-menu" aria-labelledby="simple-dropdown">
+              <li ng-repeat="choice in items">
+                <a href>{{choice}}</a>
+              </li>
+            </ul>
+          </span>
+
+          <!-- Single button -->
+          <div class="btn-group" uib-dropdown is-open="status.isopen">
+            <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+              Button dropdown <span class="caret"></span>
+            </button>
+            <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+              <li role="menuitem"><a href="#">Action</a></li>
+              <li role="menuitem"><a href="#">Another action</a></li>
+              <li role="menuitem"><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li role="menuitem"><a href="#">Separated link</a></li>
+            </ul>
+          </div>
+
+          <!-- Split button -->
+          <div class="btn-group" uib-dropdown>
+            <button id="split-button" type="button" class="btn btn-danger">Action</button>
+            <button type="button" class="btn btn-danger" uib-dropdown-toggle>
+              <span class="caret"></span>
+              <span class="sr-only">Split button!</span>
+            </button>
+            <ul class="uib-dropdown-menu" role="menu" aria-labelledby="split-button">
+              <li role="menuitem"><a href="#">Action</a></li>
+              <li role="menuitem"><a href="#">Another action</a></li>
+              <li role="menuitem"><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li role="menuitem"><a href="#">Separated link</a></li>
+            </ul>
+          </div>
+
+          <!-- Single button using append-to-body -->
+          <div class="btn-group" uib-dropdown dropdown-append-to-body>
+            <button id="btn-append-to-body" type="button" class="btn btn-primary" uib-dropdown-toggle>
+              Dropdown on Body <span class="caret"></span>
+            </button>
+            <ul class="uib-dropdown-menu" role="menu" aria-labelledby="btn-append-to-body">
+              <li role="menuitem"><a href="#">Action</a></li>
+              <li role="menuitem"><a href="#">Another action</a></li>
+              <li role="menuitem"><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li role="menuitem"><a href="#">Separated link</a></li>
+            </ul>
+          </div>
+
+          <!-- Single button using template-url -->
+          <div class="btn-group" uib-dropdown>
+            <button id="button-template-url" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+              Dropdown using template <span class="caret"></span>
+            </button>
+            <ul class="uib-dropdown-menu" template-url="dropdown.html" aria-labelledby="button-template-url">
+            </ul>
+          </div>
+
+          <p class="m-t">
+              <button type="button" class="btn btn-default btn-sm" ng-click="toggleDropdown($event)">Toggle button dropdown</button>
+              <button type="button" class="btn btn-warning btn-sm" ng-click="disabled = !disabled">Enable/Disable</button>
+          </p>
+
+          <!-- Single button with keyboard nav -->
+          <div class="btn-group" uib-dropdown uib-keyboard-nav>
+              <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                  Dropdown with keyboard navigation <span class="caret"></span>
+              </button>
+              <ul class="uib-dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                  <li role="menuitem"><a href="#">Action</a></li>
+                  <li role="menuitem"><a href="#">Another action</a></li>
+                  <li role="menuitem"><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li role="menuitem"><a href="#">Separated link</a></li>
+              </ul>
+          </div>
+
+          <script type="text/ng-template" id="dropdown.html">
+              <ul class="uib-dropdown-menu" role="menu" aria-labelledby="button-template-url">
+                <li role="menuitem"><a href="#">Action in Template</a></li>
+                <li role="menuitem"><a href="#">Another action in Template</a></li>
+                <li role="menuitem"><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li role="menuitem"><a href="#">Separated link in Template</a></li>
+              </ul>
+          </script>
+        </div>
+      </div>
+      <!-- / dropdown -->
+
+      <!-- modal -->
+      <div ng-controller="ModalCtl" class="box">
+          <script type="text/ng-template" id="myModalContent.html">
+              <div class="modal-header">
+                  <h5 class="modal-title">I am a modal!</h5>
+              </div>
+              <div class="modal-body">
+                  <ul>
+                      <li ng-repeat="item in items">
+                          <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                      </li>
+                  </ul>
+                  Selected: <b>{{ selected.item }}</b>
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                  <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+              </div>
+          </script>
+          <div class="box-header"><h4>Modal</h4></div>
+          <div class="box-body">
+            <button class="btn btn-success" ng-click="open()">Open me!</button>
+            <button class="btn white" ng-click="open('lg')">Large modal</button>
+            <button class="btn white" ng-click="open('sm')">Small modal</button>
+          </div>
+      </div>
+      <!-- /modal -->
+
+      <!-- pagination -->
+      <div ng-controller="PaginationCtl">
+        <h6>Pagination</h6>
+        <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></uib-pagination>
+        <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm m-t-none m-b" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+        <uib-pagination direction-links="false" boundary-links="true" total-items="totalItems" ng-model="currentPage" class="m-t-none m-b"></uib-pagination>
+        <uib-pagination direction-links="false" total-items="totalItems" ng-model="currentPage" num-pages="smallnumPages" class="m-t-none m-b"></uib-pagination>
+        <div>
+          <span class="m-r">The selected page no: <strong>{{currentPage}}</strong></span>
+          <button class="btn white btn-xs" ng-click="setPage(3)">Set current page to: 3</button>
+        </div>
+        <p>Pager</p>
+        <uib-pager total-items="totalItems" ng-model="currentPage"></uib-pager>
+        <p>Limit the maximum visible buttons <span class="text-sm">(Page: {{bigCurrentPage}} / {{numPages}})</span></p>
+        <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm m-t-sm m-b" boundary-links="true"></uib-pagination>
+        <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" num-pages="numPages"></uib-pagination>
+      </div>
+      <!-- / pagination -->
+
+      <!-- popover -->
+      <div ng-controller="PopoverCtl" class="m-y">
+        <h6>Popover</h6>
+        <div class="row">
+          <div class="form-group col-sm-6">
+            <label>Popup Text:</label>
+            <input type="text" ng-model="dynamicPopover" class="form-control">
+          </div>
+          <div class="form-group col-sm-6">
+            <label>Popup Title:</label>
+            <input type="text" ng-model="dynamicPopoverTitle" class="form-control">
+          </div>
+        </div>
+        <button uib-popover="{{dynamicPopover}}" popover-title="{{dynamicPopoverTitle}}" class="btn info">Dynamic Popover</button>
+        
+        <p class="m-t-md">Positional</p>
+        <button popover-placement="top" uib-popover="On the Top!" class="btn white">Top</button>
+        <button popover-placement="left" uib-popover="On the Left!" class="btn white">Left</button>
+        <button popover-placement="right" uib-popover="On the Right!" class="btn white">Right</button>
+        <button popover-placement="bottom" uib-popover="On the Bottom!" class="btn white">Bottom</button>
+        
+        <p class="m-t-md">Triggers</p>
+        <div class="row">
+          <div class="col-sm-6">
+            <button uib-popover="I appeared on mouse enter!" popover-trigger="mouseenter" class="btn btn-success">Mouseenter</button>
+          </div>
+          <div class="col-sm-6">
+            <input type="text" value="Click me!" uib-popover="I appeared on focus! Click away and I'll vanish..."  popover-trigger="focus" class="form-control">
+          </div>
+        </div>
+
+        <p class="m-t-md">Other</p>
+        <button popover-animation="true" uib-popover="I fade in and out!" class="btn white">fading</button>
+        <button uib-popover="I have a title!" popover-title="The title." class="btn white">title</button>
+      </div>
+      <!-- / popover -->
+    </div>
+    <div class="col-lg-6">
+      <!-- progressbar -->
+      <div ng-controller="ProgressCtl" class="box">
+        <div class="box-header">
+          <ul class="nav nav-pills pull-right">
+            <li class="nav-item"><a href ng-click="random()">Random</a></li>
+            <li class="nav-item"><a href ng-click="randomStacked()">Stack</a></li>
+          </ul>
+          <h4>Progressbar</h4>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item">
+            <uib-progressbar value="35" class="progress-xxs m-t-sm"></uib-progressbar>
+            <uib-progressbar value="55" class="progress-xs" type="info"></uib-progressbar>
+            <uib-progressbar class="progress-striped progress-xs" value="22" type="success"></uib-progressbar>
+            <uib-progressbar class="progress-striped active progress-xs m-b-sm" max="200" value="90" type="warning"></uib-progressbar>
+          </div>
+          <div class="list-group-item">
+            <uib-progressbar max="max" value="dynamic" type="info" class="progress-sm m-t-sm"><span style="white-space:nowrap;">{{dynamic}} / {{max}}</span></uib-progressbar>            
+            <uib-progressbar animate="false" value="dynamic" type="success"><b>{{dynamic}}%</b></uib-progressbar>
+            <uib-progressbar class="progress-striped active m-b-sm" value="dynamic" type="{{type}}">{{type}} <i ng-show="showWarning">!!! Watch out !!!</i></uib-progressbar>
+          </div>
+          <div class="list-group-item">
+            <uib-progress><uib-bar ng-repeat="bar in stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></uib-bar></uib-progress>
+          </div>
+        </div>
+      </div>
+      <!-- / progressbar -->
+
+      <!-- rating -->
+      <div ng-controller="RatingCtl" class="m-b-lg">
+        <h6>Rating</h6>
+        <uib-rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" state-on="'fa fa-star text-warning'" state-off="'fa fa-star-o'"></uib-rating>
+        <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+
+        <div class="m-b">Rate: <b>{{rate}}</b> - Readonly is: <i>{{isReadonly}}</i> - Hovering over: <b>{{overStar || "none"}}</b></div>
+
+        <button class="btn btn-sm white" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button>
+        <button class="btn btn-sm white" ng-click="isReadonly = ! isReadonly">Toggle Readonly</button>
+
+        <div class="m-t">Custom icons</div>
+        <div ng-init="xx = 4" class="m-b">
+          <uib-rating ng-model="xx" max="5" state-on="'fa fa-heart text-danger'" state-off="'fa fa-heart-o'"></uib-rating> <b>({{xx}})</b>
+        </div>
+        <div ng-init="x = 5">
+          <uib-rating ng-model="x" max="15" state-on="'fa fa-female text-info'" state-off="'fa fa-female'"></uib-rating> <b>(<i>Person:</i> {{x}})</b>
+        </div>
+      </div>
+      <!-- / rating -->
+
+      <!-- tab -->
+      <div ng-controller="TabsCtl">
+        <h6>Tabs</h6>
+        <p>Select a tab by setting active binding to true:</p>
+        <p>
+          <button class="btn white btn-sm" ng-click="tabs[0].active = true">Select second tab</button>
+          <button class="btn white btn-sm" ng-click="tabs[1].active = true">Select third tab</button>
+          <button class="btn white btn-sm" ng-click="tabs[1].disabled = ! tabs[1].disabled">Enable / Disable third tab</button>
+        </p>
+
+        <uib-tabset class="nav-active-white tab-container">
+          <uib-tab heading="Static title">
+            <div class="p-a">Static content</div>
+          </uib-tab>
+          <uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
+            <div class="p-a">{{tab.content}}</div>
+          </uib-tab>
+          <uib-tab>
+            <uib-tab-heading>
+              <i class="glyphicon glyphicon-bell"></i> Alert!
+            </uib-tab-heading>
+            <div class="p-a">
+              I've got an HTML heading, and a select callback. Pretty cool!
+            </div>
+          </uib-tab>
+        </uib-tabset>
+
+        <uib-tabset justified="true" class="nav-active-info tab-container">
+          <uib-tab heading="Justified">
+            <div class="p-a">Justified content</div>
+          </uib-tab>
+          <uib-tab heading="SJ">
+            <div class="p-a">Short Labeled Justified content</div>
+          </uib-tab>
+          <uib-tab heading="Long Justified">
+            <div class="p-a">Long Labeled Justified content</div>
+          </uib-tab>
+        </uib-tabset>
+      </div>
+      <!-- / tab -->
+
+      <!-- tooltip -->
+      <div ng-controller="TooltipCtl" class="box">
+        <div class="box-header"><h4>Tooltip</h4></div>
+        <div class="box-body">
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Dynamic Tooltip Text</label>
+              <input type="text" ng-model="dynamicTooltipText" class="form-control">
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Dynamic Tooltip Popup Text</label>
+              <input type="text" ng-model="dynamicTooltip" class="form-control">
+            </div>
+          </div>
+          <p>
+            Pellentesque <a href="#" class="text-info" uib-tooltip="{{dynamicTooltip}}">{{dynamicTooltipText}}</a>,
+            sit amet 
+            <a href="#" class="text-info" tooltip-placement="left" uib-tooltip="On the Left!">left</a> eget arcu
+            <a href="#" class="text-info" tooltip-placement="right" uib-tooltip="On the Right!">right</a> unc sed 
+            <a href="#" class="text-info" tooltip-placement="bottom" uib-tooltip="On the Bottom!">bottom</a> pharetra convallis, 
+            <a href="#" class="text-info" tooltip-animation="false" uib-tooltip="I don't fade. :-(">fading</a> at elementum eu
+            <a href="#" class="text-info" tooltip-popup-delay='1000' uib-tooltip='appears with delay'>delayed</a> turpis.
+            <a href="#" class="text-info" uib-tooltip-template="'myTooltipTemplate.html'">Custom template</a>
+          </p>
+          <p>
+            I can even contain HTML. <a href class="text-info" uib-tooltip-html="htmlTooltip">Check me out!</a>
+          </p>
+          <form role="form">
+            <div class="form-group">
+              <label>Or use custom triggers, like focus: </label>
+              <input type="text" value="Click me!" uib-tooltip="See? Now click away..."  tooltip-trigger="focus" tooltip-placement="top" class="form-control" />
+            </div>
+          </form>
+          <script type="text/ng-template" id="myTooltipTemplate.html">
+            <span>Special Tooltip with <strong>markup</strong> and {{ dynamicTooltipText }}</span>
+          </script>
+        </div>
+      </div>
+      <!-- / tooltip -->
+
+      <!-- typehead -->
+      <div ng-controller="TypeaheadCtl" class="m-b-lg">
+        <h6>Typehead</h6>
+        <div>Static arrays ({{selected | json}})</div>
+        <input type="text" ng-model="selected" uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+
+        <div class="m-t">Asynchronous results ({{asyncSelected | json}})</div>
+        <div class="pos-rlt">
+          <i ng-show="loadingLocations" class="fa fa-spinner fa-spin form-control-spin"></i>
+          <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" uib-typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" class="form-control">
+        </div>        
+      </div>
+      <!-- / typehead -->
+
+      <!-- datepicker -->
+      <div ng-controller="DatepickerCtl" class="m-b-lg">
+        <h6>Datepicker</h6>
+        <div>Inline</div>
+        <div class="m-b">
+          <uib-datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="datepicker"></uib-datepicker>
+        </div>
+        <pre class="alert alert-info">Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>    
+        <div class="row">
+          <div class="col-md-6">
+            <label>Popup</label>
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn white" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+          </div>
+          <div class="col-md-6">
+            <label>Format:</label> <select class="form-control" ng-model="format" ng-options="f for f in formats"><option></option></select>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
+        <button type="button" class="btn btn-sm white" ng-click="dt = '2009-08-24'">2009-08-24</button>
+        <button type="button" class="btn btn-sm white" ng-click="clear()">Clear</button>
+        <button type="button" class="btn btn-sm white" ng-click="toggleMin()" uib-tooltip="After today restriction">Min date</button>
+      </div>
+      <!-- / datepicker -->
+
+      <!-- timepicker -->
+      <div ng-controller="TimepickerCtl" class="m-b-lg">
+        <h6>Timepicker</h6>
+        <uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+
+        <pre class="alert alert-info">Time is: {{mytime | date:'shortTime' }}</pre>
+
+        <div class="row m-b"> 
+          <div class="col-xs-6">
+              Hours step is:
+            <select class="form-control" ng-model="hstep" ng-options="opt for opt in options.hstep"></select>
+          </div>
+          <div class="col-xs-6">
+              Minutes step is:
+            <select class="form-control" ng-model="mstep" ng-options="opt for opt in options.mstep"></select>
+          </div>
+        </div>
+        <button class="btn btn-info" ng-click="toggleMode()">12H / 24H</button>
+        <button class="btn white" ng-click="update()">Set to 14:00</button>
+        <button class="btn white" ng-click="clear()">Clear</button>
+      </div>
+    </div>
+  </div>
+</div>

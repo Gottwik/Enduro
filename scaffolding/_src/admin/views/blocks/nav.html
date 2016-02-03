@@ -1,0 +1,27 @@
+<ul class="nav" ui-nav>
+	
+	<li class="nav-header hidden-folded">
+		<small class="text-muted">Main</small>
+	</li>
+	
+	<li ng-controller="PageListGenerator">
+		<a>
+			<span class="nav-caret">
+				<i class="fa fa-caret-down"></i>
+			</span>
+
+			<span class="nav-icon">
+				<i class="material-icons">&#xe5c3;<span ui-include="'assets/images/i_1.svg'"></span></i>
+			</span>
+			<span class="nav-text">Pages</span>
+		</a>
+		<ul class="nav-sub">
+			
+			<li ui-sref-active="active" ng-repeat="(key, value) in pages">
+				<a ui-sref="app.zebra({q:'{{value}}'})"><span class="nav-text">{{value}}</span></a>
+			</li>
+
+		</ul>
+	</li>
+
+</ul>

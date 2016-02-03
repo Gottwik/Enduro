@@ -1,0 +1,22 @@
+<div class="padding">
+  <p>Angular directive for <a href="http://summernote.org/">Summernote</a></p>
+
+  <h6>Basic</h6>
+  <p>Super Simple WYSIWYG Editor on Bootstrap</p>
+  <div class="box m-b-md">
+  	<summernote height="300" ng-model="text"></summernote>
+  </div>
+
+  <h6>Air-mode</h6>
+  <p>Air-mode gives clearer interface with hiddened toolbar. To reveal toolbar, select a text where you want to shape up. Simply turn on airMode and just focus on text.</p>
+  <div class="box p-a m-b-md">
+    <summernote airMode ng-model="text">
+    </summernote>
+  </div>
+
+  <h6>Custom toolbar</h6>
+  <p>Summernote allows you to make own custom toolbar.</p>
+  <div class="box m-b-md">
+    <summernote config="options"></summernote>
+  </div>
+</div>

@@ -6,7 +6,7 @@ var path = require("path")
 var arg, base;
 do arg = args.shift();
 while ( fs.realpathSync(arg) !== __filename
-  && !(base = path.basename(arg)).match(/^anif$|^anif.js$|^anif$/)
+  && !(base = path.basename(arg)).match(/^enduro$|^enduro.js$|^enduro$/)
 )
 
 require("./index").run(args)

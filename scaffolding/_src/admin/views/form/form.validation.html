@@ -1,0 +1,227 @@
+<div class="padding">
+  
+  <div class="row">
+    <div class="col-sm-6">
+      <form ui-jp="parsley">
+        <div class="box">
+          <div class="box-header">
+            <h2>Register</h2>
+          </div>
+          <div class="box-body">
+            <p class="text-muted">Please fill the information to continue</p>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" class="form-control" required>                        
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control" required>                        
+            </div>
+            <div class="row m-b">
+              <div class="col-sm-6">
+                <label>Enter password</label>
+                <input type="password" class="form-control" required id="pwd">   
+              </div>
+              <div class="col-sm-6">
+                <label>Confirm password</label>
+                <input type="password" class="form-control" data-parsley-equalto="#pwd" required>      
+              </div>   
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="number" class="form-control" placeholder="XXX XXXX XXX" required>
+            </div>
+            <div class="checkbox">
+              <label class="ui-check">
+                <input type="checkbox" name="check" checked required="true"><i></i> I agree to the <a href="#" class="text-info">Terms of Service</a>
+              </label>
+            </div>
+          </div>
+          <div class="dker p-a text-right">
+            <button type="submit" class="btn info">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-6">
+      <form ui-jp="parsley">
+        <div class="box">
+          <div class="box-header">
+            <h2>Contact</h2>
+          </div>
+          <div class="box-body">
+            <p class="text-muted">Need support? please fill the fields below.</p>                        
+              <div class="row m-b">
+                <div class="col-sm-6">
+                  <label>Your name</label>
+                  <input type="text" class="form-control" placeholder="Name" required>
+                </div>
+                <div class="col-sm-6">
+                  <label>Email</label>
+                  <input type="email" class="form-control" placeholder="Enter email" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Your website</label>
+                <input type="url" required class="form-control" placeholder="Your website url">
+              </div>
+              <div class="form-group">
+                <label>Message</label>
+                <textarea class="form-control" rows="6" data-minwords="6" required placeholder="Type your message"></textarea>
+              </div>
+          </div>
+          <div class="dker p-a text-right">
+            <button type="submit" class="btn info">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <form ui-jp="parsley">
+        <div class="box">
+          <div class="box-header">
+            <h2>Basic constraints</h2>
+          </div>
+          <div class="box-body">                    
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Required</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" required placeholder="required field">
+                <select required class="form-control c-select m-y">
+                    <option value="">Please choose</option>
+                    <option value="foo">Foo</option>
+                    <option value="bar">Bar</option>
+                </select>
+                <div class="checkbox">
+                  <label class="checkbox ui-check">
+                    <input type="checkbox" name="inlineCheckbox1" value="option1" required data-parsley-error-message="You must agree to the site policy."><i></i> Agree to the policy
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Min Length</label>
+              <div class="col-sm-9">
+                <input type="text" minlength="6" class="form-control" placeholder="minlength = 6">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Max Length</label>
+              <div class="col-sm-9">
+                <input type="text" maxlength="6" class="form-control" placeholder="maxlength = 6">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Range Length</label>
+              <div class="col-sm-9">
+                <input type="text" data-parsley-length="[6, 10]" class="form-control" placeholder="data-rangelength = [5,10]">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Min</label>
+              <div class="col-sm-9">
+                <input type="text" min="6" class="form-control" placeholder="min = 6">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Max</label>
+              <div class="col-sm-9">
+                <input type="text" max="100" class="form-control" placeholder="max = 100">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Range</label>
+              <div class="col-sm-9">
+                <input type="text" data-parsley-range="[6, 10]" class="form-control" placeholder="data-range = [6, 10]">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Pattern</label>
+              <div class="col-sm-9">
+                <input type="text" pattern="#[A-Fa-f0-9]{6}" class="form-control" placeholder="hexa color code">
+              </div>
+            </div>
+          </div>
+          <div class="dker p-a text-right">
+            <button type="submit" class="btn info">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-6">
+      <form ui-jp="parsley">
+        <div class="box">
+          <div class="box-header">
+            <h2>Type constraints</h2>
+          </div>
+          <div class="box-body">                    
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Email</label>
+              <div class="col-sm-9">
+                <input type="email" class="form-control" required placeholder="email">    
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Url</label>
+              <div class="col-sm-9">
+                <input type="url" class="form-control" placeholder="url">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Integer</label>
+              <div class="col-sm-9">
+                <input type="text" data-parsley-type="integer" class="form-control" placeholder="Integer">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Digits</label>
+              <div class="col-sm-9">
+                <input type="text" data-parsley-type="digits" class="form-control" placeholder="digits">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Number</label>
+              <div class="col-sm-9">
+                <input type="text" data-parsley-type="number" class="form-control" placeholder="number">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Alphanum</label>
+              <div class="col-sm-9">
+                <input type="text" data-parsley-type="alphanum" class="form-control" placeholder="alphanumeric string">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Equal To</label>
+              <div class="col-sm-9">
+                <div class="row">
+                  <div class="col-sm-6"><input type="text" value="foo" id="foo" class="form-control"></div>
+                  <div class="col-sm-6"><input type="text" data-parsley-equalto="#foo" placeholder="equal to foo" class="form-control"></div>
+                </div>                            
+              </div>
+            </div>
+          </div>
+          <div class="dker p-a text-right">
+            <button type="submit" class="btn info">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

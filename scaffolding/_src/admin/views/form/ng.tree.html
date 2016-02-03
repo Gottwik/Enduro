@@ -1,0 +1,45 @@
+  <div class="row-col">
+    <div class="col-sm w-lg w-auto-xs light lt bg-auto">
+      <div class="p-a">
+          <span ng-if="doing_async">...loading...</span>
+          <div>
+            <abn-tree 
+              tree-data         = "my_data" 
+              tree-control      = "my_tree" 
+              on-select         = "my_tree_handler(branch)" 
+              expand-level      = "2" 
+              initial-selection = "Granny Smith"
+              icon-leaf         = "fa fa-circle-o fa-fw m-r-xs text-muted"
+              icon-expand       = "fa fa-caret-right fa-fw m-r-xs"
+              icon-collapse     = "fa fa-caret-down fa-fw m-r-xs"
+              >
+            </abn-tree>
+          </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="p-a pos-rlt">
+        <div class="alert alert-info">{{output}}</div>
+        <button ng-click="try_changing_the_tree_data()" class="btn white p-x-md">Change The Tree Definition</button>
+        <button ng-click="try_async_load()" class="btn white p-x-md">Load Tree Data Asynchronously</button>
+        <h6 class="m-t">API:</h6>
+       
+        <div class="btn-groups">
+          <button ng-click="my_tree.select_first_branch()" class="btn white btn-sm">First Branch</button>
+          <button ng-click="my_tree.select_next_sibling()" class="btn white btn-sm">Next Sibling</button>
+          <button ng-click="my_tree.select_prev_sibling()" class="btn white btn-sm">Prev Sibling</button>
+          <button ng-click="my_tree.select_next_branch()" class="btn white btn-sm">Next Branch</button>
+          <button ng-click="my_tree.select_prev_branch()" class="btn white btn-sm">Prev Branch</button>
+          <button ng-click="my_tree.select_parent_branch()" class="btn white btn-sm">Parent</button>
+        </div>
+        
+        <div class="m-y-sm btn-groups">
+          <button ng-click="my_tree.expand_branch()" class="btn white btn-sm">Expand</button>
+          <button ng-click="my_tree.collapse_branch()" class="btn white btn-sm">Collapse</button>
+          <button ng-click="my_tree.expand_all()" class="btn white btn-sm">Expand All</button>
+          <button ng-click="my_tree.collapse_all()" class="btn white btn-sm">Collapse All</button>
+        </div>
+        <button ng-click="try_adding_a_branch()" class="btn info btn-sm"><i class="fa fa-fw m-r-xs fa-plus"></i> Add Branch</button>
+      </div>
+    </div>
+  </div>

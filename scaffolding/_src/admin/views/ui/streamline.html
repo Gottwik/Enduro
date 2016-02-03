@@ -1,0 +1,119 @@
+<div class="padding">
+  <div class="box">
+    <div class="box-header">
+      <h3>Basic Usage</h3>
+    </div>
+    <div class="box-body">
+      <div class="p-a">
+        <div class="streamline b-l m-b">
+          <div class="sl-item">
+            <div class="sl-content">
+              <div class="sl-date text-muted">2 minutes ago</div>
+              <p>Check your Internet connection</p>
+            </div>
+          </div>
+          <div class="sl-item">
+            <div class="sl-content">
+              <div class="sl-date text-muted">9:30</div>
+              <p>Meeting with tech leader</p>
+            </div>
+          </div>
+          <div class="sl-item b-success">
+            <div class="sl-content">
+              <div class="sl-date text-muted">8:30</div>
+              <p>Call to customer <a href class="text-info">Jacob</a> and discuss the detail.</p>
+            </div>
+          </div>
+          <div class="sl-item">
+            <div class="sl-content">
+              <div class="sl-date text-muted">Wed, 25 Mar</div>
+              <p>Finished task <a href class="text-info">Testing</a>.</p>
+            </div>
+          </div>
+          <div class="sl-item">
+            <div class="sl-content">
+              <div class="sl-date text-muted">Thu, 10 Mar</div>
+              <p>Trip to the moon</p>
+            </div>
+          </div>
+          <div class="sl-item b-info">
+            <div class="sl-content">
+              <div class="sl-date text-muted">Sat, 5 Mar</div>
+              <p>Prepare for presentation</p>
+            </div>
+          </div>
+          <div class="sl-item">
+            <div class="sl-content">
+              <div class="sl-date text-muted">Sun, 11 Feb</div>
+              <p><a href class="text-info">Jessi</a> assign you a task <a href class="text-info">Mockup Design</a>.</p>
+            </div>
+          </div>
+          <div class="sl-item">
+            <div class="sl-content">
+              <div class="sl-date text-muted">Thu, 17 Jan</div>
+              <p>Follow up to close deal</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-a">
+        <div class="streamline b-l m-b">
+          <div class="sl-item">
+            <div class="sl-content">
+              <div class="sl-date text-muted">Just now</div>
+              <p>Finished task <a href class="text-info">#features 4</a>.</p>
+            </div>
+          </div>
+          <div class="sl-item b-success">
+            <div class="sl-icon">
+              <i class="fa fa-twitter text-success"></i>
+            </div>
+            <div class="sl-content">
+              <div class="sl-date text-muted">11:30</div>
+              <p><a href>@Jessi</a> retwit your post</p>
+            </div>
+          </div>
+          <div class="sl-item b-primary b-l">
+            <div class="sl-content">
+              <div class="sl-date text-muted">10:30</div>
+              <p>Call to customer <a href class="text-info">Jacob</a> and discuss the detail.</p>
+            </div>
+          </div>
+          <div class="sl-item b-info">
+            <div class="sl-icon">
+              <i class="fa fa-bolt text-info"></i>
+            </div>
+            <div class="sl-content">
+              <div class="sl-date text-muted">3 days ago</div>
+              <p><a href class="text-info">Jessi</a> commented your post.</p>
+            </div>
+          </div>
+          <div class="sl-item b-warning">
+            <div class="sl-content">
+              <div class="sl-date text-muted">Thu, 10 Mar</div>
+              <p>Trip to the moon</p>
+            </div>
+          </div>
+          <div class="sl-item b-info">
+            <div class="sl-content">
+              <div class="sl-date text-muted">Sat, 5 Mar</div>
+              <p>Prepare for presentation</p>
+            </div>
+          </div>
+          <div class="sl-item">
+            <div class="sl-content">
+              <div class="sl-date text-muted">Sun, 11 Feb</div>
+              <p><a href class="text-info">Jessi</a> assign you a task <a href class="text-info">Mockup Design</a>.</p>
+            </div>
+          </div>
+          <div class="sl-item">
+            <div class="sl-content">
+              <div class="sl-date text-muted">Thu, 17 Jan</div>
+              <p>Follow up to close deal</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

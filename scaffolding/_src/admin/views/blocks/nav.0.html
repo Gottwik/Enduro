@@ -1,0 +1,105 @@
+
+<ul class="nav" ui-nav>
+  <li class="nav-header hidden-folded">
+    <span class="text-xs text-muted">Header</span>
+  </li>
+  
+  <li>
+    <a>
+      <span class="nav-icon">
+        <i class="material-icons">
+          play_circle_outline
+          <span ui-include="'assets/images/i_a.svg'"></span>
+        </i>
+      </span>
+      <span class="nav-text">Video</span>
+    </a>
+  </li>
+  <li class="active">
+    <a>
+      <span class="nav-caret text-muted">
+        <i class="fa fa-caret-down"></i>
+      </span>
+      <i class="nav-label"><b class="label label-sm no-bg">6</b></i>
+      <span class="nav-icon">
+        <i class="material-icons">
+          queue_music
+          <span ui-include="'assets/images/i_b.svg'"></span>
+        </i>
+      </span>
+      <span class="nav-text">Music</span>
+    </a>
+    <ul class="nav-sub">
+      <li>
+        <a><span class="nav-text">Action</span></a>
+      </li>
+      <li>
+        <a><span class="nav-text">Another action</span></a>
+      </li>
+      <li>
+        <a>
+        	<span class="nav-caret text-muted">
+	          <i class="fa fa-caret-down"></i>
+	        </span>
+        	<span class="nav-text">Action with sub</span>
+        </a>
+        <ul class="nav-sub">
+        <li>
+          <a><span class="nav-text">Action</span></a>
+        </li>
+        <li>
+          <a>
+          	<span class="nav-caret text-muted">
+		          <i class="fa fa-caret-down"></i>
+		        </span>
+          	<span class="nav-text">Another action</span>
+          </a>
+          <ul class="nav-sub">
+	        <li>
+	          <a><span class="nav-text">Action</span></a>
+	        </li>
+	        <li>
+	          <a><span class="nav-text">Another action</span></a>
+	        </li>
+	      </ul>
+        </li>
+      </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a>
+      <span class="nav-icon">
+        <i class="material-icons">
+          crop_original
+          <span ui-include="'assets/images/i_c.svg'"></span>
+        </i>
+      </span>
+      <span class="nav-text">Photo</span>
+    </a>
+  </li>
+  <li>
+    <a>
+      <span class="nav-icon">
+        <i class="material-icons">
+          subject
+          <span ui-include="'assets/images/i_d.svg'"></span>
+        </i>
+      </span>
+      <i class="nav-label"><b class="label label-sm {{app.setting.theme.primary}}">2</b></i>
+      <span class="nav-text">Blog</span>
+    </a>
+  </li>
+  <li>
+    <a>
+    	<i class="nav-label hidden-folded"><b class="label label-xs no-bg b-a">NEW</b></i>
+      <span class="nav-icon">
+        <i class="material-icons">
+          card_travel
+          <span ui-include="'assets/images/i_e.svg'"></span>
+        </i>
+      </span>
+      <span class="nav-text">Shop</span>
+    </a>
+  </li>
+</ul>

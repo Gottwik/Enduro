@@ -1,5 +1,5 @@
 {
-  "name": "anif",
+  "name": "enduro",
   "version": "1.0.8",
   "description": "",
   "main": "gruntfile.js",
@@ -8,6 +8,7 @@
     "bluebird": "^3.1.5",
     "browser-sync": "^2.11.1",
     "chalk": "^1.1.1",
+    "express": "^4.13.4",
     "extend": "^3.0.0",
     "grunt-browser-sync": "^2.2.0",
     "grunt-contrib-watch": "^0.6.1",
@@ -25,7 +26,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "anif": "./cli.js"
+    "enduro": "./cli.js"
   },
   "author": "",
   "license": "ISC"

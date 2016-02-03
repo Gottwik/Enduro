@@ -9,11 +9,11 @@ var bulkSass = require('gulp-sass-bulk-import');
 
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	Kiska 7 Task
+// * 	Enduro Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('kiska7', function() {
+gulp.task('enduro', function() {
 	watch([process.cwd() + '/pages/**/*.hbs', process.cwd() + '/components/**/*.hbs', process.cwd() + '/cms/*.js'], function() {
-		spawn('anif', ['render'], {stdio: 'inherit'})
+		spawn('enduro', ['render'], {stdio: 'inherit'})
 	})
 });
 
@@ -27,20 +27,21 @@ gulp.task('browserSync', ['sass'], function() {
 		server: {
 			baseDir: process.cwd() + '/_src',
 			middleware: function(req, res, next) {
-				if(!(req.url.indexOf('.')+1) && req.url.length > 3){
+				if(req.url == '/admin/'){ req.url = '/admin/index.html' }
+				else if(!(req.url.indexOf('.')+1) && req.url.length > 3){
 					req.url += '.html'
 				}
-				return next();
+				return next()
 			},
 		},
-		ui: false,
-		logLevel: 'silent',
+		// ui: false,
+		// logLevel: 'silent',
 		notify: false,
-		logPrefix: 'K7'
+		logPrefix: 'Enduro'
 	});
 
-	gulp.watch(process.cwd() + '/_src/assets/css/**/*.scss', ['sass'])
-	gulp.watch(process.cwd() + '/_src/**/*.html', browserSync.reload);
+	gulp.watch(process.cwd() + '/assets/css/**/*.scss', ['sass'])
+	gulp.watch(process.cwd() + '/_src/**/*.html', browserSync.reload)
 });
 
 
@@ -52,11 +53,11 @@ gulp.task('sass', function() {
 		.pipe(bulkSass())
 		.pipe(sass())
 		.pipe(gulp.dest(process.cwd() + '/_src/assets/css'))
-		.pipe(browserSync.stream());
+		.pipe(browserSync.stream())
 });
 
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['kiska7', 'sass', 'browserSync']);
+gulp.task('default', ['enduro', 'sass', 'browserSync'])

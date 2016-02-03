@@ -1,0 +1,472 @@
+<div class="padding">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="box">
+        <div class="box-header">
+          <span class="label danger pull-right">6</span>
+          <h3>Tasks</h3>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Progress</th>
+              <th>Item</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="progress progress-sm m-y-0">
+                  <div class="progress-bar info" style="width: 45%"></div>
+                </div>
+              </td>
+              <td>App prototype design</td>
+            </tr>
+            <tr>                    
+              <td>
+                <div class="progress progress-sm m-y-0">
+                  <div class="progress-bar success" style="width: 25%"></div>
+                </div>
+              </td>
+              <td>Design documents</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="progress progress-sm m-y-0">
+                  <div class="progress-bar danger" style="width: 55%"></div>
+                </div>
+              </td>
+              <td>UI toolkit</td>
+            </tr>
+            <tr>                    
+              <td>
+                <div class="progress progress-sm m-y-xs">
+                  <div class="progress-bar warning" style="width: 15%"></div>
+                </div>
+              </td>
+              <td>Testing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="box">
+        <div class="box-header">
+          <h3>Stats</h3>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width:60px;" class="text-center">Graph</th>
+              <th>Item</th>                    
+              <th style="width:70px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div ui-jp="sparkline" ui-refresh="app.setting.color" ui-options="[ 16,15,15,14,17,18,16,15,16 ], {type:'bar', height:19, barWidth:4, barSpacing:2, barColor:'{{app.setting.color.primary}}'}" class="sparkline inline">loading...</div>
+              </td>
+              <td>App downloads</td>
+              <td class="text-success">
+                <i class="fa fa-level-up"></i> 40%
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">
+                <div ui-jp="sparkline" ui-refresh="app.setting.color" ui-options="[ 60,30,10 ], {type:'pie', height:19, sliceColors:['{{app.setting.color.warn}}','#fff','{{app.setting.color.primary}}']}" class="sparkline inline">loading...</div>
+              </td>
+              <td>Social connection</td>
+              <td class="text-success">
+                <i class="fa fa-level-up"></i> 20%
+              </td>
+            </tr>
+            <tr>                    
+              <td>
+                <div ui-jp="sparkline" ui-refresh="app.setting.color" ui-options="[ 16,15,15,14,17,18,16,15,16 ], {type:'line', height:19, width:60, lineColor:'{{app.setting.color.primary}}', fillColor:'transparent'}" class="sparkline inline">loading...</div>
+              </td>
+              <td>Revenue</td>
+              <td class="text-warning">
+                <i class="fa fa-level-down"></i> 5%
+              </td>
+            </tr>
+            <tr>                    
+              <td>
+                <div ui-jp="sparkline" ui-refresh="app.setting.color" ui-options="[ 16,15,15,14,17,18,16,15,16 ], {type:'discrete', height:19, width:60, lineColor:'{{app.color.success}}'}" class="sparkline inline">loading...</div>
+              </td>
+              <td>Customer increase</td>
+              <td class="text-danger">
+                <i class="fa fa-level-down"></i> 20%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="box-header">
+      <h3>Table with elements</h3>
+    </div>
+    <div class="row p-a">
+      <div class="col-sm-5">
+        <select class="input-sm form-control w-sm inline v-middle">
+          <option value="0">Bulk action</option>
+          <option value="1">Delete selected</option>
+          <option value="2">Bulk edit</option>
+          <option value="3">Export</option>
+        </select>
+        <button class="btn btn-sm white">Apply</button>                
+      </div>
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" placeholder="Search">
+          <span class="input-group-btn">
+            <button class="btn b-a white" type="button">Go!</button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t">
+        <thead>
+          <tr>
+            <th style="width:20px;">
+              <label class="ui-check m-a-0">
+                <input type="checkbox"><i></i>
+              </label>
+            </th>
+            <th>Project</th>
+            <th>Task</th>
+            <th>Date</th>
+            <th style="width:50px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><label class="ui-check m-a-0"><input type="checkbox" name="post[]"><i class="dark-white"></i></label></td>
+            <td>Idrawfast</td>
+            <td>4c</td>
+            <td>Jul 25, 2013</td>
+            <td>
+              <a href class="active" ui-toggle-class><i class="fa fa-check text-success none"></i><i class="fa fa-times text-danger inline"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="ui-check m-a-0"><input type="checkbox" name="post[]"><i class="dark-white"></i></label></td>
+            <td>Formasa</td>
+            <td>8c</td>
+            <td>Jul 22, 2013</td>
+            <td>
+              <a href ui-toggle-class><i class="fa fa-check text-success none"></i><i class="fa fa-times text-danger inline"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="ui-check m-a-0"><input type="checkbox" name="post[]"><i class="dark-white"></i></label></td>
+            <td>Avatar system</td>
+            <td>15c</td>
+            <td>Jul 15, 2013</td>
+            <td>
+              <a href class="active" ui-toggle-class><i class="fa fa-check text-success none"></i><i class="fa fa-times text-danger inline"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="ui-check m-a-0"><input type="checkbox" name="post[]"><i class="dark-white"></i></label></td>
+            <td>Throwdown</td>
+            <td>4c</td>
+            <td>Jul 11, 2013</td>
+            <td>
+              <a href class="active" ui-toggle-class><i class="fa fa-check text-success none"></i><i class="fa fa-times text-danger inline"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="ui-check m-a-0"><input type="checkbox" name="post[]"><i class="dark-white"></i></label></td>
+            <td>Idrawfast</td>
+            <td>4c</td>
+            <td>Jul 7, 2013</td>
+            <td>
+              <a href class="active" ui-toggle-class><i class="fa fa-check text-success none"></i><i class="fa fa-times text-danger inline"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="ui-check m-a-0"><input type="checkbox" name="post[]"><i class="dark-white"></i></label></td>
+            <td>Formasa</td>
+            <td>8c</td>
+            <td>Jul 3, 2013</td>
+            <td>
+              <a href class="active" ui-toggle-class><i class="fa fa-check text-success none"></i><i class="fa fa-times text-danger inline"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="ui-check m-a-0"><input type="checkbox" name="post[]"><i class="dark-white"></i></label></td>
+            <td>Avatar system</td>
+            <td>15c</td>
+            <td>Jul 2, 2013</td>
+            <td>
+              <a href class="active" ui-toggle-class><i class="fa fa-check text-success none"></i><i class="fa fa-times text-danger inline"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="ui-check m-a-0"><input type="checkbox" name="post[]"><i class="dark-white"></i></label></td>
+            <td>Videodown</td>
+            <td>4c</td>
+            <td>Jul 1, 2013</td>
+            <td>
+              <a href class="active" ui-toggle-class><i class="fa fa-check text-success none"></i><i class="fa fa-times text-danger inline"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <footer class="dker p-a">
+      <div class="row">
+        <div class="col-sm-4 hidden-xs">
+          <select class="input-sm form-control w-sm inline v-middle">
+            <option value="0">Bulk action</option>
+            <option value="1">Delete selected</option>
+            <option value="2">Bulk edit</option>
+            <option value="3">Export</option>
+          </select>
+          <button class="btn btn-sm white">Apply</button>                  
+        </div>
+        <div class="col-sm-4 text-center">
+          <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+        </div>
+        <div class="col-sm-4 text-right text-center-xs">                
+          <ul class="pagination pagination-sm m-a-0">
+            <li><a href><i class="fa fa-chevron-left"></i></a></li>
+            <li class="active"><a href>1</a></li>
+            <li><a href>2</a></li>
+            <li><a href>3</a></li>
+            <li><a href>4</a></li>
+            <li><a href>5</a></li>
+            <li><a href><i class="fa fa-chevron-right"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="box">
+        <div class="box-header">
+          <h2>Basic</h2>
+          <small>Add the base class .table to any &lt;table>.</small>
+        </div>
+        <div class="box-divider m-a-0"></div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="box">
+        <div class="box-header">
+          <h2>Striped rows</h2>
+          <small>
+            Use .table-striped to add zebra-striping to any table row within the &lt;tbody>.
+          </small>
+        </div>
+        <table class="table table-striped b-t">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="box">
+        <div class="box-header">
+          <h2>Bordered table</h2>
+          <small>Add the class .table-bordered to any &lt;table>.</small>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2">1</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@TwBootstrap</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td colspan="2">Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="box">
+        <div class="box-header">
+          <h2>Table hover</h2>
+          <small>Add the class .table-hover to any &lt;table>.</small>
+        </div>
+        <table class="table table-hover b-t">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2">1</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@TwBootstrap</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td colspan="2">Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="box">
+    <div class="box-header">
+      <h2>Responsive table</h2>
+      <small>Wrap the table in a div with .table-responsive class</small>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered m-a-0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Table heading</th>
+            <th>Table heading</th>
+            <th>Table heading</th>
+            <th>Table heading</th>
+            <th>Table heading</th>
+            <th>Table heading</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="padding">
+  <p class="m-b-md"><strong>Dropzone</strong> <a href="http://www.dropzonejs.com/" target="blank"><i class="fa fa-link text-muted"></i></a></p>
+  <p class="text-muted">DropzoneJS is an open source library that provides drag’n’drop file uploads with image previews.</p>
+  <form action="api/dropzone" class="dropzone white">
+    <div class="dz-message" ui-jp="dropzone" ui-options="{ url: 'api/dropzone' }">
+        <h4 class="m-t-lg m-b-md">Drop files here or click to upload.</h4>
+        <span class="text-muted block m-b-lg">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+    </div>
+  </form>
+</div>

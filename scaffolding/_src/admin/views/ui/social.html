@@ -1,0 +1,1401 @@
+<div class="padding">
+  <h6>Social icons</h6>
+  <div class="btn-groups m-b">
+
+    <a href class="btn btn-icon btn-social white" title="Facebook" >
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-facebook indigo"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Twitter" >
+        <i class="fa fa-twitter"></i>
+        <i class="fa fa-twitter light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Google+" >
+        <i class="fa fa-google-plus"></i>
+        <i class="fa fa-google-plus red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Delicious" >
+        <i class="fa fa-delicious"></i>
+        <i class="fa fa-delicious blue-A700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="PayPal" >
+        <i class="fa fa-paypal"></i>
+        <i class="fa fa-paypal light-blue-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Android" >
+        <i class="fa fa-android"></i>
+        <i class="fa fa-android light-green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Google" >
+        <i class="fa fa-google"></i>
+        <i class="fa fa-google blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Apple" >
+        <i class="fa fa-apple"></i>
+        <i class="fa fa-apple grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Slack" >
+        <i class="fa fa-slack"></i>
+        <i class="fa fa-slack blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Html5" >
+        <i class="fa fa-html5"></i>
+        <i class="fa fa-html5 orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Google Wallet" >
+        <i class="fa fa-google-wallet"></i>
+        <i class="fa fa-google-wallet blue-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="StumbleUpon" >
+        <i class="fa fa-stumbleupon"></i>
+        <i class="fa fa-stumbleupon red"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="FourSquare" >
+        <i class="fa fa-foursquare"></i>
+        <i class="fa fa-foursquare blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Digg" >
+        <i class="fa fa-digg"></i>
+        <i class="fa fa-digg grey-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Spotify" >
+        <i class="fa fa-spotify"></i>
+        <i class="fa fa-spotify light-green-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Reddit" >
+        <i class="fa fa-reddit"></i>
+        <i class="fa fa-reddit grey-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Creative Commons" >
+        <i class="fa fa-cc"></i>
+        <i class="fa fa-cc light-green-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Dribbble" >
+        <i class="fa fa-dribbble"></i>
+        <i class="fa fa-dribbble pink-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="LinkedIn" >
+        <i class="fa fa-linkedin"></i>
+        <i class="fa fa-linkedin light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Flickr" >
+        <i class="fa fa-flickr"></i>
+        <i class="fa fa-flickr pink-A200"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="VK" >
+        <i class="fa fa-vk"></i>
+        <i class="fa fa-vk light-blue-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="RSS" >
+        <i class="fa fa-rss"></i>
+        <i class="fa fa-rss orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Skype" >
+        <i class="fa fa-skype"></i>
+        <i class="fa fa-skype light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Youtube" >
+        <i class="fa fa-youtube"></i>
+        <i class="fa fa-youtube red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Dropbox" >
+        <i class="fa fa-dropbox"></i>
+        <i class="fa fa-dropbox blue-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="SoundCloud" >
+        <i class="fa fa-soundcloud"></i>
+        <i class="fa fa-soundcloud orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Trumblr" >
+        <i class="fa fa-tumblr"></i>
+        <i class="fa fa-tumblr blue-grey-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Wordpress" >
+        <i class="fa fa-wordpress"></i>
+        <i class="fa fa-wordpress blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Yelp" >
+        <i class="fa fa-yelp"></i>
+        <i class="fa fa-yelp red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Bit Bucket" >
+        <i class="fa fa-bitbucket"></i>
+        <i class="fa fa-bitbucket blue-grey-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Xing" >
+        <i class="fa fa-xing"></i>
+        <i class="fa fa-xing cyan-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Instagram" >
+        <i class="fa fa-instagram"></i>
+        <i class="fa fa-instagram light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="OpenId" >
+        <i class="fa fa-openid"></i>
+        <i class="fa fa-openid amber-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Steam" >
+        <i class="fa fa-steam"></i>
+        <i class="fa fa-steam grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Pinterst" >
+        <i class="fa fa-pinterest"></i>
+        <i class="fa fa-pinterest red-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="GE" >
+        <i class="fa fa-ge"></i>
+        <i class="fa fa-ge blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Stack Overflow" >
+        <i class="fa fa-stack-overflow"></i>
+        <i class="fa fa-stack-overflow orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="Wechat" >
+        <i class="fa fa-wechat"></i>
+        <i class="fa fa-wechat green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white" title="QQ" >
+        <i class="fa fa-qq"></i>
+        <i class="fa fa-qq blue-400"></i>
+    </a>
+
+  </div>
+  <h6>Dark style</h6>
+  <div class="btn-groups m-b">
+
+    <a href class="btn btn-icon btn-social grey" title="Facebook" >
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-facebook indigo"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Twitter" >
+        <i class="fa fa-twitter"></i>
+        <i class="fa fa-twitter light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Google+" >
+        <i class="fa fa-google-plus"></i>
+        <i class="fa fa-google-plus red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Delicious" >
+        <i class="fa fa-delicious"></i>
+        <i class="fa fa-delicious blue-A700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="PayPal" >
+        <i class="fa fa-paypal"></i>
+        <i class="fa fa-paypal light-blue-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Android" >
+        <i class="fa fa-android"></i>
+        <i class="fa fa-android light-green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Google" >
+        <i class="fa fa-google"></i>
+        <i class="fa fa-google blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Apple" >
+        <i class="fa fa-apple"></i>
+        <i class="fa fa-apple grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Slack" >
+        <i class="fa fa-slack"></i>
+        <i class="fa fa-slack blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Html5" >
+        <i class="fa fa-html5"></i>
+        <i class="fa fa-html5 orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Google Wallet" >
+        <i class="fa fa-google-wallet"></i>
+        <i class="fa fa-google-wallet blue-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="StumbleUpon" >
+        <i class="fa fa-stumbleupon"></i>
+        <i class="fa fa-stumbleupon red"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="FourSquare" >
+        <i class="fa fa-foursquare"></i>
+        <i class="fa fa-foursquare blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Digg" >
+        <i class="fa fa-digg"></i>
+        <i class="fa fa-digg grey-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Spotify" >
+        <i class="fa fa-spotify"></i>
+        <i class="fa fa-spotify light-green-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Reddit" >
+        <i class="fa fa-reddit"></i>
+        <i class="fa fa-reddit grey-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Creative Commons" >
+        <i class="fa fa-cc"></i>
+        <i class="fa fa-cc light-green-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Dribbble" >
+        <i class="fa fa-dribbble"></i>
+        <i class="fa fa-dribbble pink-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="LinkedIn" >
+        <i class="fa fa-linkedin"></i>
+        <i class="fa fa-linkedin light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Flickr" >
+        <i class="fa fa-flickr"></i>
+        <i class="fa fa-flickr pink-A200"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="VK" >
+        <i class="fa fa-vk"></i>
+        <i class="fa fa-vk light-blue-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="RSS" >
+        <i class="fa fa-rss"></i>
+        <i class="fa fa-rss orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Skype" >
+        <i class="fa fa-skype"></i>
+        <i class="fa fa-skype light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Youtube" >
+        <i class="fa fa-youtube"></i>
+        <i class="fa fa-youtube red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Dropbox" >
+        <i class="fa fa-dropbox"></i>
+        <i class="fa fa-dropbox blue-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="SoundCloud" >
+        <i class="fa fa-soundcloud"></i>
+        <i class="fa fa-soundcloud orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Trumblr" >
+        <i class="fa fa-tumblr"></i>
+        <i class="fa fa-tumblr blue-grey-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Wordpress" >
+        <i class="fa fa-wordpress"></i>
+        <i class="fa fa-wordpress blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Yelp" >
+        <i class="fa fa-yelp"></i>
+        <i class="fa fa-yelp red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Bit Bucket" >
+        <i class="fa fa-bitbucket"></i>
+        <i class="fa fa-bitbucket blue-grey-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Xing" >
+        <i class="fa fa-xing"></i>
+        <i class="fa fa-xing cyan-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Instagram" >
+        <i class="fa fa-instagram"></i>
+        <i class="fa fa-instagram light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="OpenId" >
+        <i class="fa fa-openid"></i>
+        <i class="fa fa-openid amber-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Steam" >
+        <i class="fa fa-steam"></i>
+        <i class="fa fa-steam grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Pinterst" >
+        <i class="fa fa-pinterest"></i>
+        <i class="fa fa-pinterest red-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="GE" >
+        <i class="fa fa-ge"></i>
+        <i class="fa fa-ge blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Stack Overflow" >
+        <i class="fa fa-stack-overflow"></i>
+        <i class="fa fa-stack-overflow orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="Wechat" >
+        <i class="fa fa-wechat"></i>
+        <i class="fa fa-wechat green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey" title="QQ" >
+        <i class="fa fa-qq"></i>
+        <i class="fa fa-qq blue-400"></i>
+    </a>
+
+  </div>
+  <h6>Rounded</h6>
+  <div class="btn-groups m-b">
+
+    <a href class="btn btn-icon btn-social white rounded" title="Facebook" >
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-facebook indigo"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Twitter" >
+        <i class="fa fa-twitter"></i>
+        <i class="fa fa-twitter light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Google+" >
+        <i class="fa fa-google-plus"></i>
+        <i class="fa fa-google-plus red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Delicious" >
+        <i class="fa fa-delicious"></i>
+        <i class="fa fa-delicious blue-A700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="PayPal" >
+        <i class="fa fa-paypal"></i>
+        <i class="fa fa-paypal light-blue-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Android" >
+        <i class="fa fa-android"></i>
+        <i class="fa fa-android light-green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Google" >
+        <i class="fa fa-google"></i>
+        <i class="fa fa-google blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Apple" >
+        <i class="fa fa-apple"></i>
+        <i class="fa fa-apple grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Slack" >
+        <i class="fa fa-slack"></i>
+        <i class="fa fa-slack blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Html5" >
+        <i class="fa fa-html5"></i>
+        <i class="fa fa-html5 orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Google Wallet" >
+        <i class="fa fa-google-wallet"></i>
+        <i class="fa fa-google-wallet blue-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="StumbleUpon" >
+        <i class="fa fa-stumbleupon"></i>
+        <i class="fa fa-stumbleupon red"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="FourSquare" >
+        <i class="fa fa-foursquare"></i>
+        <i class="fa fa-foursquare blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Digg" >
+        <i class="fa fa-digg"></i>
+        <i class="fa fa-digg grey-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Spotify" >
+        <i class="fa fa-spotify"></i>
+        <i class="fa fa-spotify light-green-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Reddit" >
+        <i class="fa fa-reddit"></i>
+        <i class="fa fa-reddit grey-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Creative Commons" >
+        <i class="fa fa-cc"></i>
+        <i class="fa fa-cc light-green-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Dribbble" >
+        <i class="fa fa-dribbble"></i>
+        <i class="fa fa-dribbble pink-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="LinkedIn" >
+        <i class="fa fa-linkedin"></i>
+        <i class="fa fa-linkedin light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Flickr" >
+        <i class="fa fa-flickr"></i>
+        <i class="fa fa-flickr pink-A200"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="VK" >
+        <i class="fa fa-vk"></i>
+        <i class="fa fa-vk light-blue-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="RSS" >
+        <i class="fa fa-rss"></i>
+        <i class="fa fa-rss orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Skype" >
+        <i class="fa fa-skype"></i>
+        <i class="fa fa-skype light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Youtube" >
+        <i class="fa fa-youtube"></i>
+        <i class="fa fa-youtube red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Dropbox" >
+        <i class="fa fa-dropbox"></i>
+        <i class="fa fa-dropbox blue-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="SoundCloud" >
+        <i class="fa fa-soundcloud"></i>
+        <i class="fa fa-soundcloud orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Trumblr" >
+        <i class="fa fa-tumblr"></i>
+        <i class="fa fa-tumblr blue-grey-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Wordpress" >
+        <i class="fa fa-wordpress"></i>
+        <i class="fa fa-wordpress blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Yelp" >
+        <i class="fa fa-yelp"></i>
+        <i class="fa fa-yelp red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Bit Bucket" >
+        <i class="fa fa-bitbucket"></i>
+        <i class="fa fa-bitbucket blue-grey-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Xing" >
+        <i class="fa fa-xing"></i>
+        <i class="fa fa-xing cyan-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Instagram" >
+        <i class="fa fa-instagram"></i>
+        <i class="fa fa-instagram light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="OpenId" >
+        <i class="fa fa-openid"></i>
+        <i class="fa fa-openid amber-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Steam" >
+        <i class="fa fa-steam"></i>
+        <i class="fa fa-steam grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Pinterst" >
+        <i class="fa fa-pinterest"></i>
+        <i class="fa fa-pinterest red-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="GE" >
+        <i class="fa fa-ge"></i>
+        <i class="fa fa-ge blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Stack Overflow" >
+        <i class="fa fa-stack-overflow"></i>
+        <i class="fa fa-stack-overflow orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="Wechat" >
+        <i class="fa fa-wechat"></i>
+        <i class="fa fa-wechat green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white rounded" title="QQ" >
+        <i class="fa fa-qq"></i>
+        <i class="fa fa-qq blue-400"></i>
+    </a>
+
+  </div>
+
+  <h6>Dark rounded</h6>
+  <div class="btn-groups m-b">
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Facebook" >
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-facebook indigo"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Twitter" >
+        <i class="fa fa-twitter"></i>
+        <i class="fa fa-twitter light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Google+" >
+        <i class="fa fa-google-plus"></i>
+        <i class="fa fa-google-plus red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Delicious" >
+        <i class="fa fa-delicious"></i>
+        <i class="fa fa-delicious blue-A700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="PayPal" >
+        <i class="fa fa-paypal"></i>
+        <i class="fa fa-paypal light-blue-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Android" >
+        <i class="fa fa-android"></i>
+        <i class="fa fa-android light-green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Google" >
+        <i class="fa fa-google"></i>
+        <i class="fa fa-google blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Apple" >
+        <i class="fa fa-apple"></i>
+        <i class="fa fa-apple grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Slack" >
+        <i class="fa fa-slack"></i>
+        <i class="fa fa-slack blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Html5" >
+        <i class="fa fa-html5"></i>
+        <i class="fa fa-html5 orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Google Wallet" >
+        <i class="fa fa-google-wallet"></i>
+        <i class="fa fa-google-wallet blue-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="StumbleUpon" >
+        <i class="fa fa-stumbleupon"></i>
+        <i class="fa fa-stumbleupon red"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="FourSquare" >
+        <i class="fa fa-foursquare"></i>
+        <i class="fa fa-foursquare blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Digg" >
+        <i class="fa fa-digg"></i>
+        <i class="fa fa-digg grey-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Spotify" >
+        <i class="fa fa-spotify"></i>
+        <i class="fa fa-spotify light-green-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Reddit" >
+        <i class="fa fa-reddit"></i>
+        <i class="fa fa-reddit grey-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Creative Commons" >
+        <i class="fa fa-cc"></i>
+        <i class="fa fa-cc light-green-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Dribbble" >
+        <i class="fa fa-dribbble"></i>
+        <i class="fa fa-dribbble pink-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="LinkedIn" >
+        <i class="fa fa-linkedin"></i>
+        <i class="fa fa-linkedin light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Flickr" >
+        <i class="fa fa-flickr"></i>
+        <i class="fa fa-flickr pink-A200"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="VK" >
+        <i class="fa fa-vk"></i>
+        <i class="fa fa-vk light-blue-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="RSS" >
+        <i class="fa fa-rss"></i>
+        <i class="fa fa-rss orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Skype" >
+        <i class="fa fa-skype"></i>
+        <i class="fa fa-skype light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Youtube" >
+        <i class="fa fa-youtube"></i>
+        <i class="fa fa-youtube red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Dropbox" >
+        <i class="fa fa-dropbox"></i>
+        <i class="fa fa-dropbox blue-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="SoundCloud" >
+        <i class="fa fa-soundcloud"></i>
+        <i class="fa fa-soundcloud orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Trumblr" >
+        <i class="fa fa-tumblr"></i>
+        <i class="fa fa-tumblr blue-grey-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Wordpress" >
+        <i class="fa fa-wordpress"></i>
+        <i class="fa fa-wordpress blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Yelp" >
+        <i class="fa fa-yelp"></i>
+        <i class="fa fa-yelp red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Bit Bucket" >
+        <i class="fa fa-bitbucket"></i>
+        <i class="fa fa-bitbucket blue-grey-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Xing" >
+        <i class="fa fa-xing"></i>
+        <i class="fa fa-xing cyan-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Instagram" >
+        <i class="fa fa-instagram"></i>
+        <i class="fa fa-instagram light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="OpenId" >
+        <i class="fa fa-openid"></i>
+        <i class="fa fa-openid amber-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Steam" >
+        <i class="fa fa-steam"></i>
+        <i class="fa fa-steam grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Pinterst" >
+        <i class="fa fa-pinterest"></i>
+        <i class="fa fa-pinterest red-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="GE" >
+        <i class="fa fa-ge"></i>
+        <i class="fa fa-ge blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Stack Overflow" >
+        <i class="fa fa-stack-overflow"></i>
+        <i class="fa fa-stack-overflow orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="Wechat" >
+        <i class="fa fa-wechat"></i>
+        <i class="fa fa-wechat green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social grey rounded" title="QQ" >
+        <i class="fa fa-qq"></i>
+        <i class="fa fa-qq blue-400"></i>
+    </a>
+
+  </div>
+
+  <h6>Large icons</h6>
+  <div class="btn-groups m-b">
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Facebook" >
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-facebook indigo"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Twitter" >
+        <i class="fa fa-twitter"></i>
+        <i class="fa fa-twitter light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Google+" >
+        <i class="fa fa-google-plus"></i>
+        <i class="fa fa-google-plus red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Delicious" >
+        <i class="fa fa-delicious"></i>
+        <i class="fa fa-delicious blue-A700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="PayPal" >
+        <i class="fa fa-paypal"></i>
+        <i class="fa fa-paypal light-blue-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Android" >
+        <i class="fa fa-android"></i>
+        <i class="fa fa-android light-green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Google" >
+        <i class="fa fa-google"></i>
+        <i class="fa fa-google blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Apple" >
+        <i class="fa fa-apple"></i>
+        <i class="fa fa-apple grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Slack" >
+        <i class="fa fa-slack"></i>
+        <i class="fa fa-slack blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Html5" >
+        <i class="fa fa-html5"></i>
+        <i class="fa fa-html5 orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Google Wallet" >
+        <i class="fa fa-google-wallet"></i>
+        <i class="fa fa-google-wallet blue-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="StumbleUpon" >
+        <i class="fa fa-stumbleupon"></i>
+        <i class="fa fa-stumbleupon red"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="FourSquare" >
+        <i class="fa fa-foursquare"></i>
+        <i class="fa fa-foursquare blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Digg" >
+        <i class="fa fa-digg"></i>
+        <i class="fa fa-digg grey-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Spotify" >
+        <i class="fa fa-spotify"></i>
+        <i class="fa fa-spotify light-green-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Reddit" >
+        <i class="fa fa-reddit"></i>
+        <i class="fa fa-reddit grey-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Creative Commons" >
+        <i class="fa fa-cc"></i>
+        <i class="fa fa-cc light-green-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Dribbble" >
+        <i class="fa fa-dribbble"></i>
+        <i class="fa fa-dribbble pink-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="LinkedIn" >
+        <i class="fa fa-linkedin"></i>
+        <i class="fa fa-linkedin light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Flickr" >
+        <i class="fa fa-flickr"></i>
+        <i class="fa fa-flickr pink-A200"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="VK" >
+        <i class="fa fa-vk"></i>
+        <i class="fa fa-vk light-blue-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="RSS" >
+        <i class="fa fa-rss"></i>
+        <i class="fa fa-rss orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Skype" >
+        <i class="fa fa-skype"></i>
+        <i class="fa fa-skype light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Youtube" >
+        <i class="fa fa-youtube"></i>
+        <i class="fa fa-youtube red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Dropbox" >
+        <i class="fa fa-dropbox"></i>
+        <i class="fa fa-dropbox blue-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="SoundCloud" >
+        <i class="fa fa-soundcloud"></i>
+        <i class="fa fa-soundcloud orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Trumblr" >
+        <i class="fa fa-tumblr"></i>
+        <i class="fa fa-tumblr blue-grey-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Wordpress" >
+        <i class="fa fa-wordpress"></i>
+        <i class="fa fa-wordpress blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Yelp" >
+        <i class="fa fa-yelp"></i>
+        <i class="fa fa-yelp red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Bit Bucket" >
+        <i class="fa fa-bitbucket"></i>
+        <i class="fa fa-bitbucket blue-grey-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Xing" >
+        <i class="fa fa-xing"></i>
+        <i class="fa fa-xing cyan-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Instagram" >
+        <i class="fa fa-instagram"></i>
+        <i class="fa fa-instagram light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="OpenId" >
+        <i class="fa fa-openid"></i>
+        <i class="fa fa-openid amber-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Steam" >
+        <i class="fa fa-steam"></i>
+        <i class="fa fa-steam grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Pinterst" >
+        <i class="fa fa-pinterest"></i>
+        <i class="fa fa-pinterest red-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="GE" >
+        <i class="fa fa-ge"></i>
+        <i class="fa fa-ge blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Stack Overflow" >
+        <i class="fa fa-stack-overflow"></i>
+        <i class="fa fa-stack-overflow orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="Wechat" >
+        <i class="fa fa-wechat"></i>
+        <i class="fa fa-wechat green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-lg" title="QQ" >
+        <i class="fa fa-qq"></i>
+        <i class="fa fa-qq blue-400"></i>
+    </a>
+
+  </div>
+
+
+  <h6>Small icons</h6>
+  <div class="btn-groups m-b">
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Facebook" >
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-facebook indigo"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Twitter" >
+        <i class="fa fa-twitter"></i>
+        <i class="fa fa-twitter light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Google+" >
+        <i class="fa fa-google-plus"></i>
+        <i class="fa fa-google-plus red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Delicious" >
+        <i class="fa fa-delicious"></i>
+        <i class="fa fa-delicious blue-A700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="PayPal" >
+        <i class="fa fa-paypal"></i>
+        <i class="fa fa-paypal light-blue-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Android" >
+        <i class="fa fa-android"></i>
+        <i class="fa fa-android light-green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Google" >
+        <i class="fa fa-google"></i>
+        <i class="fa fa-google blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Apple" >
+        <i class="fa fa-apple"></i>
+        <i class="fa fa-apple grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Slack" >
+        <i class="fa fa-slack"></i>
+        <i class="fa fa-slack blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Html5" >
+        <i class="fa fa-html5"></i>
+        <i class="fa fa-html5 orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Google Wallet" >
+        <i class="fa fa-google-wallet"></i>
+        <i class="fa fa-google-wallet blue-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="StumbleUpon" >
+        <i class="fa fa-stumbleupon"></i>
+        <i class="fa fa-stumbleupon red"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="FourSquare" >
+        <i class="fa fa-foursquare"></i>
+        <i class="fa fa-foursquare blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Digg" >
+        <i class="fa fa-digg"></i>
+        <i class="fa fa-digg grey-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Spotify" >
+        <i class="fa fa-spotify"></i>
+        <i class="fa fa-spotify light-green-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Reddit" >
+        <i class="fa fa-reddit"></i>
+        <i class="fa fa-reddit grey-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Creative Commons" >
+        <i class="fa fa-cc"></i>
+        <i class="fa fa-cc light-green-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Dribbble" >
+        <i class="fa fa-dribbble"></i>
+        <i class="fa fa-dribbble pink-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="LinkedIn" >
+        <i class="fa fa-linkedin"></i>
+        <i class="fa fa-linkedin light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Flickr" >
+        <i class="fa fa-flickr"></i>
+        <i class="fa fa-flickr pink-A200"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="VK" >
+        <i class="fa fa-vk"></i>
+        <i class="fa fa-vk light-blue-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="RSS" >
+        <i class="fa fa-rss"></i>
+        <i class="fa fa-rss orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Skype" >
+        <i class="fa fa-skype"></i>
+        <i class="fa fa-skype light-blue"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Youtube" >
+        <i class="fa fa-youtube"></i>
+        <i class="fa fa-youtube red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Dropbox" >
+        <i class="fa fa-dropbox"></i>
+        <i class="fa fa-dropbox blue-400"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="SoundCloud" >
+        <i class="fa fa-soundcloud"></i>
+        <i class="fa fa-soundcloud orange-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Trumblr" >
+        <i class="fa fa-tumblr"></i>
+        <i class="fa fa-tumblr blue-grey-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Wordpress" >
+        <i class="fa fa-wordpress"></i>
+        <i class="fa fa-wordpress blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Yelp" >
+        <i class="fa fa-yelp"></i>
+        <i class="fa fa-yelp red-600"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Bit Bucket" >
+        <i class="fa fa-bitbucket"></i>
+        <i class="fa fa-bitbucket blue-grey-500"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Xing" >
+        <i class="fa fa-xing"></i>
+        <i class="fa fa-xing cyan-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Instagram" >
+        <i class="fa fa-instagram"></i>
+        <i class="fa fa-instagram light-blue-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="OpenId" >
+        <i class="fa fa-openid"></i>
+        <i class="fa fa-openid amber-900"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Steam" >
+        <i class="fa fa-steam"></i>
+        <i class="fa fa-steam grey-800"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Pinterst" >
+        <i class="fa fa-pinterest"></i>
+        <i class="fa fa-pinterest red-700"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="GE" >
+        <i class="fa fa-ge"></i>
+        <i class="fa fa-ge blue-300"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Stack Overflow" >
+        <i class="fa fa-stack-overflow"></i>
+        <i class="fa fa-stack-overflow orange"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="Wechat" >
+        <i class="fa fa-wechat"></i>
+        <i class="fa fa-wechat green"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social white btn-sm" title="QQ" >
+        <i class="fa fa-qq"></i>
+        <i class="fa fa-qq blue-400"></i>
+    </a>
+
+  </div>
+
+
+  <h6>Colored icons</h6>
+  <div class="btn-groups m-b">
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored indigo" title="Facebook" >
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-facebook"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored light-blue" title="Twitter" >
+        <i class="fa fa-twitter"></i>
+        <i class="fa fa-twitter"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored red-600" title="Google+" >
+        <i class="fa fa-google-plus"></i>
+        <i class="fa fa-google-plus"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored blue-A700" title="Delicious" >
+        <i class="fa fa-delicious"></i>
+        <i class="fa fa-delicious"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored light-blue-900" title="PayPal" >
+        <i class="fa fa-paypal"></i>
+        <i class="fa fa-paypal"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored light-green" title="Android" >
+        <i class="fa fa-android"></i>
+        <i class="fa fa-android"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored blue" title="Google" >
+        <i class="fa fa-google"></i>
+        <i class="fa fa-google"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored grey-800" title="Apple" >
+        <i class="fa fa-apple"></i>
+        <i class="fa fa-apple"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored blue" title="Slack" >
+        <i class="fa fa-slack"></i>
+        <i class="fa fa-slack"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored orange-700" title="Html5" >
+        <i class="fa fa-html5"></i>
+        <i class="fa fa-html5"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored blue-700" title="Google Wallet" >
+        <i class="fa fa-google-wallet"></i>
+        <i class="fa fa-google-wallet"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored red" title="StumbleUpon" >
+        <i class="fa fa-stumbleupon"></i>
+        <i class="fa fa-stumbleupon"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored blue-300" title="FourSquare" >
+        <i class="fa fa-foursquare"></i>
+        <i class="fa fa-foursquare"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored grey-900" title="Digg" >
+        <i class="fa fa-digg"></i>
+        <i class="fa fa-digg"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored light-green-500" title="Spotify" >
+        <i class="fa fa-spotify"></i>
+        <i class="fa fa-spotify"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored grey-300" title="Reddit" >
+        <i class="fa fa-reddit"></i>
+        <i class="fa fa-reddit"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored light-green-700" title="Creative Commons" >
+        <i class="fa fa-cc"></i>
+        <i class="fa fa-cc"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored pink-400" title="Dribbble" >
+        <i class="fa fa-dribbble"></i>
+        <i class="fa fa-dribbble"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored light-blue-800" title="LinkedIn" >
+        <i class="fa fa-linkedin"></i>
+        <i class="fa fa-linkedin"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored pink-A200" title="Flickr" >
+        <i class="fa fa-flickr"></i>
+        <i class="fa fa-flickr"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored light-blue-600" title="VK" >
+        <i class="fa fa-vk"></i>
+        <i class="fa fa-vk"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored orange" title="RSS" >
+        <i class="fa fa-rss"></i>
+        <i class="fa fa-rss"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored light-blue" title="Skype" >
+        <i class="fa fa-skype"></i>
+        <i class="fa fa-skype"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored red-600" title="Youtube" >
+        <i class="fa fa-youtube"></i>
+        <i class="fa fa-youtube"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored blue-400" title="Dropbox" >
+        <i class="fa fa-dropbox"></i>
+        <i class="fa fa-dropbox"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored orange-700" title="SoundCloud" >
+        <i class="fa fa-soundcloud"></i>
+        <i class="fa fa-soundcloud"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored blue-grey-600" title="Trumblr" >
+        <i class="fa fa-tumblr"></i>
+        <i class="fa fa-tumblr"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored blue-800" title="Wordpress" >
+        <i class="fa fa-wordpress"></i>
+        <i class="fa fa-wordpress"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored red-600" title="Yelp" >
+        <i class="fa fa-yelp"></i>
+        <i class="fa fa-yelp"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored blue-grey-500" title="Bit Bucket" >
+        <i class="fa fa-bitbucket"></i>
+        <i class="fa fa-bitbucket"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored cyan-900" title="Xing" >
+        <i class="fa fa-xing"></i>
+        <i class="fa fa-xing"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored light-blue-800" title="Instagram" >
+        <i class="fa fa-instagram"></i>
+        <i class="fa fa-instagram"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored amber-900" title="OpenId" >
+        <i class="fa fa-openid"></i>
+        <i class="fa fa-openid"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored grey-800" title="Steam" >
+        <i class="fa fa-steam"></i>
+        <i class="fa fa-steam"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored red-700" title="Pinterst" >
+        <i class="fa fa-pinterest"></i>
+        <i class="fa fa-pinterest"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored blue-300" title="GE" >
+        <i class="fa fa-ge"></i>
+        <i class="fa fa-ge"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored orange" title="Stack Overflow" >
+        <i class="fa fa-stack-overflow"></i>
+        <i class="fa fa-stack-overflow"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored green" title="Wechat" >
+        <i class="fa fa-wechat"></i>
+        <i class="fa fa-wechat"></i>
+    </a>
+
+    <a href class="btn btn-icon btn-social rounded btn-social-colored blue-400" title="QQ" >
+        <i class="fa fa-qq"></i>
+        <i class="fa fa-qq"></i>
+    </a>
+
+  </div>
+</div>

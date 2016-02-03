@@ -1,0 +1,501 @@
+<div class="padding">
+  <div class="box">
+    <div class="box-header">
+      <h3>Background options</h3>
+    </div>
+    <div class="box-body dker">
+      <p>.primary[primary, accent, warn, info, success, warning, danger, light]</p>
+      <div class="row row-xs">
+        <div class="col-md-6">
+          <div class="row row-xs">
+            <div class="col-md-3">
+              <div class="box">
+                <div class="row-col primary">
+                  <div class="row-cell lt"></div>
+                  <div class="row-cell p-y-md"></div>
+                  <div class="row-cell dk"></div>
+                </div>
+                <div class="p-a text-center">
+                  primary
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box">
+                <div class="row-col accent">
+                  <div class="row-cell lt"></div>
+                  <div class="row-cell p-y-md"></div>
+                  <div class="row-cell dk"></div>
+                </div>
+                <div class="p-a text-center">
+                  accent
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box">
+                <div class="row-col warn">
+                  <div class="row-cell lt"></div>
+                  <div class="row-cell p-y-md"></div>
+                  <div class="row-cell dk"></div>
+                </div>
+                <div class="p-a text-center">
+                  warn
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box">       
+                <div class="row-col info">
+                  <div class="row-cell lt"></div>
+                  <div class="row-cell p-y-md"></div>
+                  <div class="row-cell dk"></div>
+                </div>
+                <div class="p-a text-center">
+                  info
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row row-xs">
+            <div class="col-md-3">
+              <div class="box">       
+                <div class="row-col success">
+                  <div class="row-cell lt"></div>
+                  <div class="row-cell p-y-md"></div>
+                  <div class="row-cell dk"></div>
+                </div>
+                <div class="p-a text-center">
+                  success
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box">       
+                <div class="row-col warning">
+                  <div class="row-cell lt"></div>
+                  <div class="row-cell p-y-md"></div>
+                  <div class="row-cell dk"></div>
+                </div>
+                <div class="p-a text-center">
+                  warning
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box">       
+                <div class="row-col danger">
+                  <div class="row-cell lt"></div>
+                  <div class="row-cell p-y-md"></div>
+                  <div class="row-cell dk"></div>
+                </div>
+                <div class="p-a text-center">
+                  danger
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box">       
+                <div class="row-col">
+                  <div class="row-cell light"></div>
+                  <div class="row-cell p-y-md dark"></div>
+                  <div class="row-cell black"></div>
+                </div>
+                <div class="p-a text-center">
+                  light/dark/black
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="box-header">
+      <h3>Color palette</h3>
+      <small>Material Design color palette</small>
+    </div>
+    <div class="box-body">
+      <div class="row no-gutter m-b text-xs l-h-1x">
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a red-500">
+            <div class="h-3x text-u-c _600 text-sm">Red</div>
+          </div>
+          <div class="p-a-sm h-3x red-50">@red-50</div>
+          <div class="p-a-sm h-3x red-100">@red-100</div>
+          <div class="p-a-sm h-3x red-200">@red-200</div>
+          <div class="p-a-sm h-3x red-300">@red-300</div>
+          <div class="p-a-sm h-3x red-400">@red-400</div>
+          <div class="p-a-sm h-3x red-500">@red-500</div>
+          <div class="p-a-sm h-3x red-600">@red-600</div>
+          <div class="p-a-sm h-3x red-700">@red-700</div>
+          <div class="p-a-sm h-3x red-800">@red-800</div>
+          <div class="p-a-sm h-3x red-900">@red-900</div>
+          <div class="p-a-sm h-3x red-A100">@red-A100</div>
+          <div class="p-a-sm h-3x red-A200">@red-A200</div>
+          <div class="p-a-sm h-3x red-A400">@red-A400</div>
+          <div class="p-a-sm h-3x red-A700">@red-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a pink-500">
+            <div class="h-3x text-u-c _600 text-sm">pink</div>
+          </div>
+          <div class="p-a-sm h-3x pink-50">@pink-50</div>
+          <div class="p-a-sm h-3x pink-100">@pink-100</div>
+          <div class="p-a-sm h-3x pink-200">@pink-200</div>
+          <div class="p-a-sm h-3x pink-300">@pink-300</div>
+          <div class="p-a-sm h-3x pink-400">@pink-400</div>
+          <div class="p-a-sm h-3x pink-500">@pink-500</div>
+          <div class="p-a-sm h-3x pink-600">@pink-600</div>
+          <div class="p-a-sm h-3x pink-700">@pink-700</div>
+          <div class="p-a-sm h-3x pink-800">@pink-800</div>
+          <div class="p-a-sm h-3x pink-900">@pink-900</div>
+          <div class="p-a-sm h-3x pink-A100">@pink-A100</div>
+          <div class="p-a-sm h-3x pink-A200">@pink-A200</div>
+          <div class="p-a-sm h-3x pink-A400">@pink-A400</div>
+          <div class="p-a-sm h-3x pink-A700">@pink-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a purple-500">
+            <div class="h-3x text-u-c _600 text-sm">purple</div>
+          </div>
+          <div class="p-a-sm h-3x purple-50">@purple-50</div>
+          <div class="p-a-sm h-3x purple-100">@purple-100</div>
+          <div class="p-a-sm h-3x purple-200">@purple-200</div>
+          <div class="p-a-sm h-3x purple-300">@purple-300</div>
+          <div class="p-a-sm h-3x purple-400">@purple-400</div>
+          <div class="p-a-sm h-3x purple-500">@purple-500</div>
+          <div class="p-a-sm h-3x purple-600">@purple-600</div>
+          <div class="p-a-sm h-3x purple-700">@purple-700</div>
+          <div class="p-a-sm h-3x purple-800">@purple-800</div>
+          <div class="p-a-sm h-3x purple-900">@purple-900</div>
+          <div class="p-a-sm h-3x purple-A100">@purple-A100</div>
+          <div class="p-a-sm h-3x purple-A200">@purple-A200</div>
+          <div class="p-a-sm h-3x purple-A400">@purple-A400</div>
+          <div class="p-a-sm h-3x purple-A700">@purple-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a deep-purple-500">
+            <div class="h-3x text-u-c _600 text-sm">deep-purple</div>
+          </div>
+          <div class="p-a-sm h-3x deep-purple-50">@deep-purple-50</div>
+          <div class="p-a-sm h-3x deep-purple-100">@deep-purple-100</div>
+          <div class="p-a-sm h-3x deep-purple-200">@deep-purple-200</div>
+          <div class="p-a-sm h-3x deep-purple-300">@deep-purple-300</div>
+          <div class="p-a-sm h-3x deep-purple-400">@deep-purple-400</div>
+          <div class="p-a-sm h-3x deep-purple-500">@deep-purple-500</div>
+          <div class="p-a-sm h-3x deep-purple-600">@deep-purple-600</div>
+          <div class="p-a-sm h-3x deep-purple-700">@deep-purple-700</div>
+          <div class="p-a-sm h-3x deep-purple-800">@deep-purple-800</div>
+          <div class="p-a-sm h-3x deep-purple-900">@deep-purple-900</div>
+          <div class="p-a-sm h-3x deep-purple-A100">@deep-purple-A100</div>
+          <div class="p-a-sm h-3x deep-purple-A200">@deep-purple-A200</div>
+          <div class="p-a-sm h-3x deep-purple-A400">@deep-purple-A400</div>
+          <div class="p-a-sm h-3x deep-purple-A700">@deep-purple-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a indigo-500">
+            <div class="h-3x text-u-c _600 text-sm">indigo</div>
+          </div>
+          <div class="p-a-sm h-3x indigo-50">@indigo-50</div>
+          <div class="p-a-sm h-3x indigo-100">@indigo-100</div>
+          <div class="p-a-sm h-3x indigo-200">@indigo-200</div>
+          <div class="p-a-sm h-3x indigo-300">@indigo-300</div>
+          <div class="p-a-sm h-3x indigo-400">@indigo-400</div>
+          <div class="p-a-sm h-3x indigo-500">@indigo-500</div>
+          <div class="p-a-sm h-3x indigo-600">@indigo-600</div>
+          <div class="p-a-sm h-3x indigo-700">@indigo-700</div>
+          <div class="p-a-sm h-3x indigo-800">@indigo-800</div>
+          <div class="p-a-sm h-3x indigo-900">@indigo-900</div>
+          <div class="p-a-sm h-3x indigo-A100">@indigo-A100</div>
+          <div class="p-a-sm h-3x indigo-A200">@indigo-A200</div>
+          <div class="p-a-sm h-3x indigo-A400">@indigo-A400</div>
+          <div class="p-a-sm h-3x indigo-A700">@indigo-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a blue-500">
+            <div class="h-3x text-u-c _600 text-sm">blue</div>
+          </div>
+          <div class="p-a-sm h-3x blue-50">@blue-50</div>
+          <div class="p-a-sm h-3x blue-100">@blue-100</div>
+          <div class="p-a-sm h-3x blue-200">@blue-200</div>
+          <div class="p-a-sm h-3x blue-300">@blue-300</div>
+          <div class="p-a-sm h-3x blue-400">@blue-400</div>
+          <div class="p-a-sm h-3x blue-500">@blue-500</div>
+          <div class="p-a-sm h-3x blue-600">@blue-600</div>
+          <div class="p-a-sm h-3x blue-700">@blue-700</div>
+          <div class="p-a-sm h-3x blue-800">@blue-800</div>
+          <div class="p-a-sm h-3x blue-900">@blue-900</div>
+          <div class="p-a-sm h-3x blue-A100">@blue-A100</div>
+          <div class="p-a-sm h-3x blue-A200">@blue-A200</div>
+          <div class="p-a-sm h-3x blue-A400">@blue-A400</div>
+          <div class="p-a-sm h-3x blue-A700">@blue-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a light-blue-500">
+            <div class="h-3x text-u-c _600 text-sm">light-blue</div>
+          </div>
+          <div class="p-a-sm h-3x light-blue-50">@light-blue-50</div>
+          <div class="p-a-sm h-3x light-blue-100">@light-blue-100</div>
+          <div class="p-a-sm h-3x light-blue-200">@light-blue-200</div>
+          <div class="p-a-sm h-3x light-blue-300">@light-blue-300</div>
+          <div class="p-a-sm h-3x light-blue-400">@light-blue-400</div>
+          <div class="p-a-sm h-3x light-blue-500">@light-blue-500</div>
+          <div class="p-a-sm h-3x light-blue-600">@light-blue-600</div>
+          <div class="p-a-sm h-3x light-blue-700">@light-blue-700</div>
+          <div class="p-a-sm h-3x light-blue-800">@light-blue-800</div>
+          <div class="p-a-sm h-3x light-blue-900">@light-blue-900</div>
+          <div class="p-a-sm h-3x light-blue-A100">@light-blue-A100</div>
+          <div class="p-a-sm h-3x light-blue-A200">@light-blue-A200</div>
+          <div class="p-a-sm h-3x light-blue-A400">@light-blue-A400</div>
+          <div class="p-a-sm h-3x light-blue-A700">@light-blue-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a cyan-500">
+            <div class="h-3x text-u-c _600 text-sm">cyan</div>
+          </div>
+          <div class="p-a-sm h-3x cyan-50">@cyan-50</div>
+          <div class="p-a-sm h-3x cyan-100">@cyan-100</div>
+          <div class="p-a-sm h-3x cyan-200">@cyan-200</div>
+          <div class="p-a-sm h-3x cyan-300">@cyan-300</div>
+          <div class="p-a-sm h-3x cyan-400">@cyan-400</div>
+          <div class="p-a-sm h-3x cyan-500">@cyan-500</div>
+          <div class="p-a-sm h-3x cyan-600">@cyan-600</div>
+          <div class="p-a-sm h-3x cyan-700">@cyan-700</div>
+          <div class="p-a-sm h-3x cyan-800">@cyan-800</div>
+          <div class="p-a-sm h-3x cyan-900">@cyan-900</div>
+          <div class="p-a-sm h-3x cyan-A100">@cyan-A100</div>
+          <div class="p-a-sm h-3x cyan-A200">@cyan-A200</div>
+          <div class="p-a-sm h-3x cyan-A400">@cyan-A400</div>
+          <div class="p-a-sm h-3x cyan-A700">@cyan-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a teal-500">
+            <div class="h-3x text-u-c _600 text-sm">teal</div>
+          </div>
+          <div class="p-a-sm h-3x teal-50">@teal-50</div>
+          <div class="p-a-sm h-3x teal-100">@teal-100</div>
+          <div class="p-a-sm h-3x teal-200">@teal-200</div>
+          <div class="p-a-sm h-3x teal-300">@teal-300</div>
+          <div class="p-a-sm h-3x teal-400">@teal-400</div>
+          <div class="p-a-sm h-3x teal-500">@teal-500</div>
+          <div class="p-a-sm h-3x teal-600">@teal-600</div>
+          <div class="p-a-sm h-3x teal-700">@teal-700</div>
+          <div class="p-a-sm h-3x teal-800">@teal-800</div>
+          <div class="p-a-sm h-3x teal-900">@teal-900</div>
+          <div class="p-a-sm h-3x teal-A100">@teal-A100</div>
+          <div class="p-a-sm h-3x teal-A200">@teal-A200</div>
+          <div class="p-a-sm h-3x teal-A400">@teal-A400</div>
+          <div class="p-a-sm h-3x teal-A700">@teal-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a green-500">
+            <div class="h-3x text-u-c _600 text-sm">green</div>
+          </div>
+          <div class="p-a-sm h-3x green-50">@green-50</div>
+          <div class="p-a-sm h-3x green-100">@green-100</div>
+          <div class="p-a-sm h-3x green-200">@green-200</div>
+          <div class="p-a-sm h-3x green-300">@green-300</div>
+          <div class="p-a-sm h-3x green-400">@green-400</div>
+          <div class="p-a-sm h-3x green-500">@green-500</div>
+          <div class="p-a-sm h-3x green-600">@green-600</div>
+          <div class="p-a-sm h-3x green-700">@green-700</div>
+          <div class="p-a-sm h-3x green-800">@green-800</div>
+          <div class="p-a-sm h-3x green-900">@green-900</div>
+          <div class="p-a-sm h-3x green-A100">@green-A100</div>
+          <div class="p-a-sm h-3x green-A200">@green-A200</div>
+          <div class="p-a-sm h-3x green-A400">@green-A400</div>
+          <div class="p-a-sm h-3x green-A700">@green-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a light-green-500">
+            <div class="h-3x text-u-c _600 text-sm">light-green</div>
+          </div>
+          <div class="p-a-sm h-3x light-green-50">@light-green-50</div>
+          <div class="p-a-sm h-3x light-green-100">@light-green-100</div>
+          <div class="p-a-sm h-3x light-green-200">@light-green-200</div>
+          <div class="p-a-sm h-3x light-green-300">@light-green-300</div>
+          <div class="p-a-sm h-3x light-green-400">@light-green-400</div>
+          <div class="p-a-sm h-3x light-green-500">@light-green-500</div>
+          <div class="p-a-sm h-3x light-green-600">@light-green-600</div>
+          <div class="p-a-sm h-3x light-green-700">@light-green-700</div>
+          <div class="p-a-sm h-3x light-green-800">@light-green-800</div>
+          <div class="p-a-sm h-3x light-green-900">@light-green-900</div>
+          <div class="p-a-sm h-3x light-green-A100">@light-green-A100</div>
+          <div class="p-a-sm h-3x light-green-A200">@light-green-A200</div>
+          <div class="p-a-sm h-3x light-green-A400">@light-green-A400</div>
+          <div class="p-a-sm h-3x light-green-A700">@light-green-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a lime-500">
+            <div class="h-3x text-u-c _600 text-sm">lime</div>
+          </div>
+          <div class="p-a-sm h-3x lime-50">@lime-50</div>
+          <div class="p-a-sm h-3x lime-100">@lime-100</div>
+          <div class="p-a-sm h-3x lime-200">@lime-200</div>
+          <div class="p-a-sm h-3x lime-300">@lime-300</div>
+          <div class="p-a-sm h-3x lime-400">@lime-400</div>
+          <div class="p-a-sm h-3x lime-500">@lime-500</div>
+          <div class="p-a-sm h-3x lime-600">@lime-600</div>
+          <div class="p-a-sm h-3x lime-700">@lime-700</div>
+          <div class="p-a-sm h-3x lime-800">@lime-800</div>
+          <div class="p-a-sm h-3x lime-900">@lime-900</div>
+          <div class="p-a-sm h-3x lime-A100">@lime-A100</div>
+          <div class="p-a-sm h-3x lime-A200">@lime-A200</div>
+          <div class="p-a-sm h-3x lime-A400">@lime-A400</div>
+          <div class="p-a-sm h-3x lime-A700">@lime-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a yellow-500">
+            <div class="h-3x text-u-c _600 text-sm">yellow</div>
+          </div>
+          <div class="p-a-sm h-3x yellow-50">@yellow-50</div>
+          <div class="p-a-sm h-3x yellow-100">@yellow-100</div>
+          <div class="p-a-sm h-3x yellow-200">@yellow-200</div>
+          <div class="p-a-sm h-3x yellow-300">@yellow-300</div>
+          <div class="p-a-sm h-3x yellow-400">@yellow-400</div>
+          <div class="p-a-sm h-3x yellow-500">@yellow-500</div>
+          <div class="p-a-sm h-3x yellow-600">@yellow-600</div>
+          <div class="p-a-sm h-3x yellow-700">@yellow-700</div>
+          <div class="p-a-sm h-3x yellow-800">@yellow-800</div>
+          <div class="p-a-sm h-3x yellow-900">@yellow-900</div>
+          <div class="p-a-sm h-3x yellow-A100">@yellow-A100</div>
+          <div class="p-a-sm h-3x yellow-A200">@yellow-A200</div>
+          <div class="p-a-sm h-3x yellow-A400">@yellow-A400</div>
+          <div class="p-a-sm h-3x yellow-A700">@yellow-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a amber-500">
+            <div class="h-3x text-u-c _600 text-sm">amber</div>
+          </div>
+          <div class="p-a-sm h-3x amber-50">@amber-50</div>
+          <div class="p-a-sm h-3x amber-100">@amber-100</div>
+          <div class="p-a-sm h-3x amber-200">@amber-200</div>
+          <div class="p-a-sm h-3x amber-300">@amber-300</div>
+          <div class="p-a-sm h-3x amber-400">@amber-400</div>
+          <div class="p-a-sm h-3x amber-500">@amber-500</div>
+          <div class="p-a-sm h-3x amber-600">@amber-600</div>
+          <div class="p-a-sm h-3x amber-700">@amber-700</div>
+          <div class="p-a-sm h-3x amber-800">@amber-800</div>
+          <div class="p-a-sm h-3x amber-900">@amber-900</div>
+          <div class="p-a-sm h-3x amber-A100">@amber-A100</div>
+          <div class="p-a-sm h-3x amber-A200">@amber-A200</div>
+          <div class="p-a-sm h-3x amber-A400">@amber-A400</div>
+          <div class="p-a-sm h-3x amber-A700">@amber-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a orange-500">
+            <div class="h-3x text-u-c _600 text-sm">orange</div>
+          </div>
+          <div class="p-a-sm h-3x orange-50">@orange-50</div>
+          <div class="p-a-sm h-3x orange-100">@orange-100</div>
+          <div class="p-a-sm h-3x orange-200">@orange-200</div>
+          <div class="p-a-sm h-3x orange-300">@orange-300</div>
+          <div class="p-a-sm h-3x orange-400">@orange-400</div>
+          <div class="p-a-sm h-3x orange-500">@orange-500</div>
+          <div class="p-a-sm h-3x orange-600">@orange-600</div>
+          <div class="p-a-sm h-3x orange-700">@orange-700</div>
+          <div class="p-a-sm h-3x orange-800">@orange-800</div>
+          <div class="p-a-sm h-3x orange-900">@orange-900</div>
+          <div class="p-a-sm h-3x orange-A100">@orange-A100</div>
+          <div class="p-a-sm h-3x orange-A200">@orange-A200</div>
+          <div class="p-a-sm h-3x orange-A400">@orange-A400</div>
+          <div class="p-a-sm h-3x orange-A700">@orange-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a deep-orange-500">
+            <div class="h-3x text-u-c _600 text-sm">deep-orange</div>
+          </div>
+          <div class="p-a-sm h-3x deep-orange-50">@deep-orange-50</div>
+          <div class="p-a-sm h-3x deep-orange-100">@deep-orange-100</div>
+          <div class="p-a-sm h-3x deep-orange-200">@deep-orange-200</div>
+          <div class="p-a-sm h-3x deep-orange-300">@deep-orange-300</div>
+          <div class="p-a-sm h-3x deep-orange-400">@deep-orange-400</div>
+          <div class="p-a-sm h-3x deep-orange-500">@deep-orange-500</div>
+          <div class="p-a-sm h-3x deep-orange-600">@deep-orange-600</div>
+          <div class="p-a-sm h-3x deep-orange-700">@deep-orange-700</div>
+          <div class="p-a-sm h-3x deep-orange-800">@deep-orange-800</div>
+          <div class="p-a-sm h-3x deep-orange-900">@deep-orange-900</div>
+          <div class="p-a-sm h-3x deep-orange-A100">@deep-orange-A100</div>
+          <div class="p-a-sm h-3x deep-orange-A200">@deep-orange-A200</div>
+          <div class="p-a-sm h-3x deep-orange-A400">@deep-orange-A400</div>
+          <div class="p-a-sm h-3x deep-orange-A700">@deep-orange-A700</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a brown-500">
+            <div class="h-3x text-u-c _600 text-sm">brown</div>
+          </div>
+          <div class="p-a-sm h-3x brown-50">@brown-50</div>
+          <div class="p-a-sm h-3x brown-100">@brown-100</div>
+          <div class="p-a-sm h-3x brown-200">@brown-200</div>
+          <div class="p-a-sm h-3x brown-300">@brown-300</div>
+          <div class="p-a-sm h-3x brown-400">@brown-400</div>
+          <div class="p-a-sm h-3x brown-500">@brown-500</div>
+          <div class="p-a-sm h-3x brown-600">@brown-600</div>
+          <div class="p-a-sm h-3x brown-700">@brown-700</div>
+          <div class="p-a-sm h-3x brown-800">@brown-800</div>
+          <div class="p-a-sm h-3x brown-900">@brown-900</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a blue-grey-500">
+            <div class="h-3x text-u-c _600 text-sm">blue-grey</div>
+          </div>
+          <div class="p-a-sm h-3x blue-grey-50">@blue-grey-50</div>
+          <div class="p-a-sm h-3x blue-grey-100">@blue-grey-100</div>
+          <div class="p-a-sm h-3x blue-grey-200">@blue-grey-200</div>
+          <div class="p-a-sm h-3x blue-grey-300">@blue-grey-300</div>
+          <div class="p-a-sm h-3x blue-grey-400">@blue-grey-400</div>
+          <div class="p-a-sm h-3x blue-grey-500">@blue-grey-500</div>
+          <div class="p-a-sm h-3x blue-grey-600">@blue-grey-600</div>
+          <div class="p-a-sm h-3x blue-grey-700">@blue-grey-700</div>
+          <div class="p-a-sm h-3x blue-grey-800">@blue-grey-800</div>
+          <div class="p-a-sm h-3x blue-grey-900">@blue-grey-900</div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+          <div class="p-a grey-500">
+            <div class="h-3x text-u-c _600 text-sm">grey</div>
+          </div>
+          <div class="p-a-sm h-3x grey-50">@grey-50</div>
+          <div class="p-a-sm h-3x grey-100">@grey-100</div>
+          <div class="p-a-sm h-3x grey-200">@grey-200</div>
+          <div class="p-a-sm h-3x grey-300">@grey-300</div>
+          <div class="p-a-sm h-3x grey-400">@grey-400</div>
+          <div class="p-a-sm h-3x grey-500">@grey-500</div>
+          <div class="p-a-sm h-3x grey-600">@grey-600</div>
+          <div class="p-a-sm h-3x grey-700">@grey-700</div>
+          <div class="p-a-sm h-3x grey-800">@grey-800</div>
+          <div class="p-a-sm h-3x grey-900">@grey-900</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="box-header">
+      <h3>Border options</h3>
+    </div>
+    <div class="box-body dker">
+      <p>
+        color: b-t[top, right, bottom, left]-primary[primary, info, success, warning, danger, accent, dark]<br>
+        width: b-t[top, right, bottom, left]-2x[2x, 3x, 4x, 5x]
+      </p>
+      <div class="m-b">
+        <div class="box p-a r-3x b-t b-t-primary inline">b-t-primary</div>
+        <div class="box p-a r-3x b-r b-r-info inline">b-r-info</div>
+        <div class="box p-a r-3x b-b b-b-success inline">b-b-success</div>
+        <div class="box p-a r-3x b-l b-l-warning inline">b-l-warning</div>
+        <div class="box p-a r-3x b-t b-t-dark b-t-2x inline">b-t-2x</div>
+        <div class="box p-a r-3x b-r b-r-accent b-r-3x inline">b-r-3x</div>
+        <div class="box p-a r-3x b-b b-b-info b-b-4x inline">b-b-4x</div>
+        <div class="box p-a r-3x b-l b-l-warn b-l-5x inline">b-l-5x</div>
+      </div>
+      <h6>Text options</h6>
+      <p>text-primary[primary, info, success, warning, danger]</p>
+      <div class="h-3x text-u-c _600 text-sm">
+        <span class="text-primary m-r-sm">text-primary</span><span class="text-info m-r-sm">text-info</span><span class="text-success">text-success</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,186 @@
+<div class="padding">
+  <h6>Dropdown menu</h6>
+  <div class="pos-rlt clearfix m-b-md">
+    <div class="dropdown pull-left m-r">
+      <div class="dropdown-menu pos-stc inline" role="menu">
+        <a class="dropdown-item" href>Action</a>
+        <a class="dropdown-item" href>Another action</a>
+        <a class="dropdown-item" href>Something else here</a>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-item dropdown-submenu">
+          <a tabindex="-1" href>Separated link</a>
+          <div class="dropdown-menu" role="menu">
+            <a class="dropdown-item" href>Action</a>
+            <a class="dropdown-item" href>Another action</a>
+            <a class="dropdown-item" href>Something else here</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dropdown dropup m-r pull-left">
+      <div class="dropdown-menu pos-stc inline pull-left" role="menu">
+        <a class="dropdown-item" href>Action</a>
+        <a class="dropdown-item" href>Another action</a>
+        <a class="dropdown-item" href>Something else here</a>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-item dropdown-submenu">
+          <a tabindex="-1" href>Separated link</a>
+          <div class="dropdown-menu pull-left" role="menu">
+            <a class="dropdown-item" href>Action</a>
+            <a class="dropdown-item" href>Another action</a>
+            <a class="dropdown-item" href>Something else here</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dropdown dropup m-r pull-left">
+      <div class="dropdown-menu pos-stc inline dark" role="menu">
+        <a class="dropdown-item" href>Action</a>
+        <a class="dropdown-item" href>Another action</a>
+        <a class="dropdown-item" href>Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item">Separated link</a>
+      </div>
+    </div>
+    <div class="dropdown dropup m-r pull-left">
+      <div class="dropdown-menu pos-stc inline info" role="menu">
+        <a class="dropdown-item" href>Action</a>
+        <a class="dropdown-item" href>Another action</a>
+        <a class="dropdown-item" href>Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item">Separated link</a>
+      </div>
+    </div>
+  </div>
+  <h6>Dropdowns</h6>
+
+  <p class="text-muted">Single button dropdowns</p>
+  <div class="m-b-md">
+    <div class="dropdown inline">
+      <button class="btn white dropdown-toggle" data-toggle="dropdown">Action </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href>Action</a>
+        <a class="dropdown-item" href>Another action</a>
+        <a class="dropdown-item" href>Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item">Separated link</a>
+      </div>
+    </div>
+    <div class="dropdown inline">
+      <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">Action </button>
+      <div class="dropdown-menu pull-right">
+        <a class="dropdown-item" href>Action</a>
+        <a class="dropdown-item" href>Another action</a>
+        <a class="dropdown-item" href>Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item">Separated link</a>
+      </div>
+    </div>
+    <div class="dropdown dropup inline">
+      <button class="btn white dropdown-toggle" data-toggle="dropdown">Action </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href>Action</a>
+        <a class="dropdown-item" href>Another action</a>
+        <a class="dropdown-item" href>Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item">Separated link</a>
+      </div>
+    </div>
+  </div>
+  <p class="text-muted">Split button dropdowns & variation </p>
+  <div class="m-b-md">
+    <div class="m-b-xs">
+      <div class="btn-group dropdown">
+        <button class="btn white">Dropdown</button>
+        <button class="btn white dropdown-toggle" data-toggle="dropdown"></button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href>Action</a>
+          <a class="dropdown-item" href>Another action</a>
+          <a class="dropdown-item" href>Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item">Separated link</a>
+        </div>
+      </div>
+      <div class="btn-group dropdown">
+        <button class="btn white">Dropdown right</button>
+        <button class="btn white dropdown-toggle" data-toggle="dropdown"></button>
+        <div class="dropdown-menu pull-right">
+          <a class="dropdown-item" href>Action</a>
+          <a class="dropdown-item" href>Another action</a>
+          <a class="dropdown-item" href>Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item">Separated link</a>
+        </div>
+      </div>
+    </div>
+    <div class="btn-group dropdown dropup">
+      <button class="btn white">Dropup</button>
+      <button class="btn white dropdown-toggle" data-toggle="dropdown"></button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href>Action</a>
+        <a class="dropdown-item" href>Another action</a>
+        <a class="dropdown-item" href>Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item">Separated link</a>
+      </div>
+    </div>
+    <div class="btn-group dropdown dropup">
+      <button class="btn white">Dropup right</button>
+      <button class="btn white dropdown-toggle" data-toggle="dropdown"></button>
+      <div class="dropdown-menu pull-right">
+        <a class="dropdown-item" href>Action</a>
+        <a class="dropdown-item" href>Another action</a>
+        <a class="dropdown-item" href>Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item">Separated link</a>
+      </div>
+    </div>
+  </div>
+
+  <h6>Dropdown scale</h6>
+  <p>Dropdown with scale animation</p>
+  <div class="m-b-lg">
+    <div class="m-b-xs">
+      <div class="btn-group dropdown">
+        <button class="btn white dropdown-toggle" data-toggle="dropdown">Dropdown</button>
+        <div class="dropdown-menu dropdown-menu-scale">
+          <a class="dropdown-item" href>Action</a>
+          <a class="dropdown-item" href>Another action</a>
+          <a class="dropdown-item" href>Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item">Separated link</a>
+        </div>
+      </div>
+      <div class="btn-group dropdown">
+        <button class="btn white dropdown-toggle" data-toggle="dropdown">Dropdown right</button>
+        <div class="dropdown-menu dropdown-menu-scale pull-right">
+          <a class="dropdown-item" href>Action</a>
+          <a class="dropdown-item" href>Another action</a>
+          <a class="dropdown-item" href>Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item">Separated link</a>
+        </div>
+      </div>
+    </div>
+    <div class="btn-group dropdown dropup">
+      <button class="btn white dropdown-toggle" data-toggle="dropdown">Dropup</button>
+      <div class="dropdown-menu dropdown-menu-scale">
+        <a class="dropdown-item" href>Action</a>
+        <a class="dropdown-item" href>Another action</a>
+        <a class="dropdown-item" href>Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item">Separated link</a>
+      </div>
+    </div>
+    <div class="btn-group dropdown dropup">
+      <button class="btn white dropdown-toggle" data-toggle="dropdown">Dropup right</button>
+      <div class="dropdown-menu dropdown-menu-scale pull-right">
+        <a class="dropdown-item" href>Action</a>
+        <a class="dropdown-item" href>Another action</a>
+        <a class="dropdown-item" href>Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item">Separated link</a>
+      </div>
+    </div>
+  </div>
+</div>

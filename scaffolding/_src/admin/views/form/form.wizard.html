@@ -1,0 +1,77 @@
+<div class="padding">
+  
+  <div class="box">
+    <div class="box-header b-b">
+      <h3>Form Wizard</h3>
+    </div>
+    <div class="box-body">
+        <form ui-jp="parsley" id="form">
+          <div id="rootwizard" ui-jp="bootstrapWizard" ui-options="{
+            onTabClick: function(tab, navigation, index) {
+              return false;
+            },
+            onNext: function(tab, navigation, index) {
+              var instance = $('#form').parsley();
+              instance.validate();
+              if(!instance.isValid()) {
+                return false;
+              }
+            }
+            }">
+            <ul class="nav nav-pills clearfix m-b">
+              <li class="nav-item"><a class="nav-link" href="#tab1" data-toggle="tab">First</a></li>
+              <li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab">Second</a></li>
+              <li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab">Third</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane" id="tab1">
+                  <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" required>                        
+                  </div>
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" required>                        
+                  </div>
+                  <div class="row m-b">
+                    <div class="col-sm-6">
+                      <label>Enter password</label>
+                      <input type="password" class="form-control" required id="pwd">   
+                    </div>
+                    <div class="col-sm-6">
+                      <label>Confirm password</label>
+                      <input type="password" class="form-control" data-parsley-equalto="#pwd" required>      
+                    </div>   
+                  </div>
+                  <div class="form-group">
+                    <label>Phone</label>
+                    <input type="number" class="form-control" placeholder="XXX XXXX XXX" required>
+                  </div>
+                  <div class="checkbox">
+                    <label class="ui-check">
+                      <input type="checkbox" name="check" checked required="true"><i></i> I agree to the <a href="#" class="text-info">Terms of Service</a>
+                    </label>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab2">
+                  <div class="form-group">
+                    <label>URL</label>
+                    <input type="url" class="form-control">
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab3">
+                3
+                </div>
+                <ul class="pager wizard">
+                  <li class="previous first" style="display:none;"><a href="#">First</a></li>
+                  <li class="previous"><a href="#">Previous</a></li>
+                  <li class="next last" style="display:none;"><a href="#">Last</a></li>
+                  <li class="next"><a href="#">Next</a></li>
+                </ul>
+            </div>  
+          </div>
+        </form>
+    </div>
+  </div>
+
+</div>

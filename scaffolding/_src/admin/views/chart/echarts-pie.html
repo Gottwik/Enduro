@@ -1,0 +1,293 @@
+<div class="padding">
+    <div class="row">
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Basic Pie</h3>
+            <small class="block text-muted">set center, radius</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options=" {
+              tooltip : {
+                  trigger: 'item',
+                  formatter: '{a} <br/>{b} : {c} ({d}%)'
+              },
+              legend: {
+                  orient : 'vertical',
+                  x : 'left',
+                  data:['Direct','Mail','Affiliate','AD','Search']
+              },
+              calculable : true,
+              series : [
+                  {
+                      name:'Source',
+                      type:'pie',
+                      radius : '55%',
+                      center: ['50%', '60%'],
+                      data:[
+                          {value:335, name:'Direct'},
+                          {value:310, name:'Mail'},
+                          {value:234, name:'Affiliate'},
+                          {value:135, name:'AD'},
+                          {value:1548, name:'Search'}
+                      ]
+                  }
+              ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Doughnut</h3>
+            <small class="block text-muted">set center and radius, tooltip display</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options="{
+                tooltip : {
+                  trigger: 'item',
+                  formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'left',
+                    data:['Direct','Mail','Affiliate','AD','Search']
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'Source',
+                        type:'pie',
+                        radius : ['50%', '70%'],
+                        data:[
+                            {value:335, name:'Direct'},
+                            {value:310, name:'Mail'},
+                            {value:234, name:'Affiliate'},
+                            {value:135, name:'AD'},
+                            {value:1548, name:'Search'}
+                        ]
+                    }
+                ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Nested Pie</h3>
+            <small class="block text-muted">set multiple pies' centers and radii</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options="{
+                tooltip : {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'left',
+                    data:['Direct','AD','Search','Mail','Affiliate','Video','Baidu','Google','Bing','Other']
+                },
+                calculable : false,
+                series : [
+                    {
+                        name:'Source',
+                        type:'pie',
+                        selectedMode: 'single',
+                        radius : [0, 50],
+                        
+                        // for funnel
+                        x: '20%',
+                        width: '40%',
+                        funnelAlign: 'right',
+                        max: 1548,
+                        
+                        itemStyle : {
+                            normal : {
+                                label : {
+                                    position : 'inner'
+                                },
+                                labelLine : {
+                                    show : false
+                                }
+                            }
+                        },
+                        data:[
+                            {value:335, name:'Direct'},
+                            {value:679, name:'AD'},
+                            {value:1548, name:'Search', selected:true}
+                        ]
+                    },
+                    {
+                        name:'Source',
+                        type:'pie',
+                        radius : [80, 100],
+                        
+                        // for funnel
+                        x: '60%',
+                        width: '35%',
+                        funnelAlign: 'left',
+                        max: 1048,
+                        
+                        data:[
+                            {value:335, name:'Direct'},
+                            {value:310, name:'Mail'},
+                            {value:234, name:'Affiliate'},
+                            {value:135, name:'Video'},
+                            {value:1048, name:'Baidu'},
+                            {value:251, name:'Google'},
+                            {value:147, name:'Bing'},
+                            {value:102, name:'Other'}
+                        ]
+                    }
+                ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Doughnut</h3>
+            <small class="block text-muted">infographic style, extra content addition</small>
+          </div>
+          <div class="box-body" id="pie">
+            <div ui-jp="chart" ui-options="{
+                title: {
+                    text: 'It is Cool？',
+                    subtext: 'From Echarts',
+                    x: 'center',
+                    y: 'center',
+                    itemGap: 20,
+                    textStyle : {
+                        color : 'rgba(30,144,255,0.8)',
+                        fontSize : 20,
+                        fontWeight : 'bolder'
+                    }
+                },
+                tooltip : {
+                    show: true,
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : $('#pie').width()/2 + 10,
+                    y : 25,
+                    itemGap:12,
+                    data:['68% Disagree','29% Agree','3% No idea']
+                },
+                series : [
+                    {
+                        name:'1',
+                        type:'pie',
+                        clockWise:false,
+                        radius : [105, 130],
+                        itemStyle : {
+                           normal: {
+                              label: {show:false},
+                              labelLine: {show:false}
+                          }
+                        },
+                        data:[
+                            {
+                                value:68,
+                                name:'68% Disagree'
+                            },
+                            {
+                                value:32,
+                                name:'invisible',
+                                itemStyle : {
+                                    normal : {
+                                        color: 'rgba(0,0,0,0)',
+                                        label: {show:false},
+                                        labelLine: {show:false}
+                                    },
+                                    emphasis : {
+                                        color: 'rgba(0,0,0,0)'
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        name:'2',
+                        type:'pie',
+                        clockWise:false,
+                        radius : [80, 105],
+                        itemStyle : {
+                           normal: {
+                              label: {show:false},
+                              labelLine: {show:false}
+                          }
+                        },
+                        data:[
+                            {
+                                value:29, 
+                                name:'29% Agree'
+                            },
+                            {
+                                value:71,
+                                name:'invisible',
+                                itemStyle : {
+                                    normal : {
+                                        color: 'rgba(0,0,0,0)',
+                                        label: {show:false},
+                                        labelLine: {show:false}
+                                    },
+                                    emphasis : {
+                                        color: 'rgba(0,0,0,0)'
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        name:'3',
+                        type:'pie',
+                        clockWise:false,
+                        radius : [55, 80],
+                        itemStyle : {
+                           normal: {
+                              label: {show:false},
+                              labelLine: {show:false}
+                          }
+                        },
+                        data:[
+                            {
+                                value:3, 
+                                name:'3% No idea'
+                            },
+                            {
+                                value:97,
+                                name:'invisible',
+                                itemStyle : {
+                                    normal : {
+                                        color: 'rgba(0,0,0,0)',
+                                        label: {show:false},
+                                        labelLine: {show:false}
+                                    },
+                                    emphasis : {
+                                        color: 'rgba(0,0,0,0)'
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+</div>

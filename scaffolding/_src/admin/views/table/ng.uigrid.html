@@ -1,0 +1,18 @@
+<div class="padding">
+ 	<div class="box">
+ 		<div class="box-header">
+ 			<h2>Basic</h2>
+ 		</div>
+	    <div class="table-responsive m-b-lg">
+	      <div ui-grid="gridOptionsSimple"></div>
+	    </div>
+    </div>
+ 	<div class="box">
+ 		<div class="box-header">
+ 			<h2>Complex</h2>
+ 		</div>
+		<div class="table-responsive">
+		  <div ui-grid="gridOptionsComplex" ui-grid-edit ui-grid-resize-columns ></div>
+		</div>
+	</div>
+</div>

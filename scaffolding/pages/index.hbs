@@ -1,11 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
-	<link href="/assets/css/main.css" rel="stylesheet" type="text/css">
+		<title>EnduroCMS</title>
+		<link rel="stylesheet" href="assets/css/main.css">
+		<style type="text/css"></style>
 	</head>
 	<body>
-		{{#each root}}
-			{{partial @key}}
-		{{/each}}
+		<p>Hey {{greeting}}</p>
+		<p>I went to {{place}}</p>
+		<p>and ate a huge {{food}}</p>
+		{{>end}}
 	</body>
 </html>

@@ -1,0 +1,144 @@
+<div class="padding">
+  <div class="row-col b-a white m-b">
+    <div class="col-md-9">
+      <div class="box-header b-b"><h3>World Map</h3></div>
+      <div class="box-body">
+        <p class="m-b-lg text-muted">Many maps of the world, world regions, countries and cities are available for download from <a href="http://jvectormap.com/">http://jvectormap.com/</a>. All of them are made from the data in public domain or data licensed under the free licenses, so you can use them for any purpose without of charge.</p>
+        <div class="m-b-lg" style="height:240px;" ui-jp="vectorMap" ui-options="{
+          map: 'world_mill_en',
+          markers: {{world_markers}},
+          normalizeFunction: 'polynomial',
+          backgroundColor: 'transparent',
+          regionsSelectable: true,
+          markersSelectable: true,
+          regionStyle: {
+            initial: {
+              fill: '{{app.setting.color.primary}}'
+            },
+            hover: {
+              fill: '{{app.setting.color.accent}}',
+              stroke: '#fff'
+            },
+          },
+          markerStyle: {
+            initial: {
+              fill: '{{app.color.info}}',
+              stroke: '#fff'
+            },
+            hover: {
+              fill: '{{app.color.primary}}',
+              stroke: '#fff'
+            }
+          },
+          series: {
+            markers: [{
+              attribute: 'fill',
+              scale: ['{{app.color.primary}}','{{app.color.warning}}', '{{app.color.success}}'],
+              values: {{cityAreaData}}
+            },{
+              attribute: 'r',
+              scale: [5, 20],
+              values: {{cityAreaData}}
+            }]
+          }
+        }" >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 b-l no-border-sm">
+      <div class="box-header"><h3>Infomation</h3></div>
+      <div class="list-group list-group-sm no-borders no-radius">
+        <div class="list-group-item">
+          <span class="pull-right">293,200</span>
+          <i class="fa fa-fw fa-circle text-danger"></i>
+          Vatican City
+        </div>
+        <div class="list-group-item">
+          <span class="pull-right">203,000</span>
+          <i class="fa fa-fw fa-circle text-warning"></i>
+          San Marino
+        </div>
+        <div class="list-group-item">
+          <span class="pull-right">180,230</span>
+          <i class="fa fa-fw fa-circle text-success"></i>
+          Marshall Islands
+        </div>
+        <div class="list-group-item">
+          <span class="pull-right">130,100</span>
+          <i class="fa fa-fw fa-circle text-info"></i>
+          Maldives
+        </div>
+        <div class="list-group-item">
+          <span class="pull-right">98,000</span>
+          <i class="fa fa-fw fa-circle text-primary"></i>
+          Palau
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="row-col b-a white m-b">
+    <div class="col-md-9">
+      <div class="box-header b-b"><h3>USA Map</h3></div>
+      <div class="box-body">
+        <p class="m-b-lg text-muted">For identification of the countries and regions ISO 3166 standard is used. So you easily visualize data which is compliant with this standard.</p>                   
+        <div class="m-b-lg" style="height:240px;" ui-jp="vectorMap" ui-options="{
+          map: 'us_aea_en',
+          markers: {{usa_markers}},
+          backgroundColor: 'transparent',
+          regionsSelectable: true,
+          markersSelectable: true,
+          regionStyle: {
+            initial: {
+              fill: '{{app.color.info}}'
+            },
+            selected: {
+              fill: '{{app.color.info}}'
+            }
+          },
+          series: {
+            markers: [{
+              attribute: 'fill',
+              scale: ['{{app.color.primary}}','{{app.color.warning}}', '{{app.color.success}}'],
+              values: {{cityAreaData}}
+            },{
+              attribute: 'r',
+              scale: [5, 20],
+              values: {{cityAreaData}}
+            }]
+          }
+        }" >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 b-l no-border-sm">
+      <div class="p-a-md">
+        <div class="text-muted">Total steps taken</div>
+        <div class="text-md m-b-lg font-bold">234,344,450</div>
+        <div>
+          <div class="m-b">
+            <i class="fa text-3x pull-left fa-circle text-info"></i>
+            <div class="clear">
+              <span>232,000</span>
+              <div class="text-muted">Silicon Valley</div>
+            </div>
+          </div>
+          <div class="m-b">
+            <i class="fa text-3x pull-left fa-circle text-success"></i>
+            <div class="clear">
+              <span>9,632,000</span>
+              <div class="text-muted">Los Angeles</div>
+            </div>
+          </div>
+          <div class="m-b">
+            <i class="fa text-3x pull-left fa-circle text-warning"></i>
+            <div class="clear">
+              <span>23,200,000</span>
+              <div class="text-muted">Philadelphia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

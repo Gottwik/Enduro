@@ -19,8 +19,8 @@ ComponentHandler.prototype.readComponents = function(){
 				fs.readFile(file, 'utf8', function (err,data) {
 					if (err) { reject(err) }
 					kiskaLogger.twolog('component ' + filename, 'registered')
-					__templating_engine.registerPartial(filename, data)
-					callback()				
+					__templating_engine.registerPartial(filename.toLowerCase(), data)
+					callback()
 				})
 			}, function(){
 				kiskaLogger.line();

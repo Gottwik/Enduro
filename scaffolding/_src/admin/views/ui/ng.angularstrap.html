@@ -1,0 +1,446 @@
+<div class="p-a white">
+  AngularJS 1.2+ native directives for Bootstrap
+</div>
+<div class="padding">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="m-b">
+        <h5>Affix</h5>
+        <p>Append a 'bs-affix' attribute to any element to enable the plugin.</p>
+        <p>
+          <a class="btn white" data-offset-top="-60" bs-affix>
+            Affix<br><small>Affix top</small>
+          </a>
+        </p>
+      </div>
+      <div ng-controller="AlertCtrl" class="m-b">
+        <h5>Alerts</h5>
+        <p>Alerts are styled tiny dialogs that inherit the behavior of modals.</p>
+        <div class="btn-groups" append-source>
+          <!-- Button to trigger a default alert with a scope as an object {title:'', content:'', etc.} -->
+          <button type="button" class="btn btn-sm white" data-placement="top-right" data-container="#content" data-duration="3" bs-alert="alert">Click to toggle alert
+            <br />
+            <small>(using an object)</small>
+          </button>
+          <!-- You can also use data-attrs to assign scope variables -->
+          <button type="button" class="btn btn-sm white" title="{{alert.title}}" data-content="{{alert.content}}" data-type="success" data-container="#alerts-container" bs-alert>Click to toggle alert
+            <br />
+            <small>(using data-attrs)</small>
+          </button>
+          <!-- You can use a custom html template with the `data-template` attr -->
+          <button type="button" class="btn btn-sm white" data-template-url="views/blocks/tpl.alert.html" data-placement="top" data-duration="3" data-animation="am-fade-and-slide-top" data-container="#content" data-keyboard="true" bs-alert="alert">Custom alert
+            <br />
+            <small>(using data-template)</small>
+          </button>
+          <!-- Element container to append the first alert -->
+          <div id="alerts-container" class="m-t"></div>
+        </div>
+      </div>
+      
+      <div ng-controller="ButtonCtrl" class="m-b hide">
+        <h5>Button</h5>
+        <p>Do more with buttons. Control button states or create groups of buttons for more components like toolbars.</p>
+        <pre class="bs-example-scope">$scope.button = {{button | json}};</pre>
+        <div>
+
+          <label>Toggle:</label>
+          <button type="button" class="btn btn-default" ng-model="button.toggle" bs-checkbox>Toggle</button>
+          <!-- You can also use custom values with the `data-true-value` & `data-false-value` attributes -->
+
+          <label>Checkboxes:</label>
+          <div class="btn-group" ng-model="button.checkbox" bs-checkbox-group>
+            <label class="btn btn-default"><input type="checkbox" value="left" autocomplete="off"> Left</label>
+            <label class="btn btn-default"><input type="checkbox" value="middle" autocomplete="off"> Middle</label>
+            <label class="btn btn-default"><input type="checkbox" value="right" autocomplete="off"> Right</label>
+          </div>
+
+          <label>Radios:</label>
+          <div class="btn-group" ng-model="button.radio" bs-radio-group>
+            <label class="btn btn-default"><input type="radio" class="btn btn-default" value="0"> First</label>
+            <label class="btn btn-default"><input type="radio" class="btn btn-default" value="1"> Second</label>
+            <label class="btn btn-default"><input type="radio" class="btn btn-default" value="2"> Third</label>
+          </div>
+
+        </div>
+      </div>
+
+      <div ng-controller="CollapseCtrl" class="m-b">
+        <h5>Collapse</h5>
+        <p>Add quick, dynamic collapsable functionality to transition through panels of local content.</p>
+        
+        <!-- ngModel is optional -->
+        <div class="m-b" ng-model="panels.activePanel" bs-collapse>
+          <div class="box m-b-xs" ng-repeat="panel in panels">
+            <div class="box-header">
+              <a bs-collapse-toggle>
+                {{ panel.title }}
+              </a>
+            </div>
+            <div class="panel-collapse" bs-collapse-target>
+              <div class="box-body b-t">
+                {{ panel.body }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="m-b-sm hide">
+          <div class="btn-group" ng-model="panels.activePanel" bs-radio-group>
+            <label class="btn btn-default" ng-repeat="panel in panels">
+              <input type="radio" class="btn btn-default" value="{{ $index }}">Panel n°{{ $index + 1 }}
+            </label>
+          </div>
+        </div>
+        <div class="btn white" ng-click="pushPanel()">Add new panel</div>
+      </div>
+
+      <div ng-controller="DropdownCtrl" class="m-b">
+        <h5>Dropdown</h5>
+        <p>Add dropdown menus to nearly anything with this simple plugin, including the navbar, tabs, and pills.</p>
+        <p>Append a bs-dropdown attribute to any element to enable the plugin.</p>
+
+        <div class="m-b-xs">
+          <!-- Button to trigger a default dropdown with a scope as an object [{title:'', content:'', etc.}] -->
+          <button type="button" class="btn btn-sm white" data-animation="am-flip-x" data-html="true" bs-dropdown="dropdown">Click to toggle dropdown
+            <br />
+            <small>(using an object)</small>
+          </button>
+
+          <button type="button" class="btn btn-sm white" data-animation="am-flip-x" data-template-url="views/blocks/tpl.dropdown.html" data-placement="top-left" bs-dropdown="dropdown">Custom dropdown
+            <br />
+            <small>(using data-template)</small>
+          </button>
+        </div>
+        <div>
+          <button type="button" class="btn btn-sm white" data-animation="am-flip-x" data-template-url="views/blocks/tpl.dropdown.html" data-placement="right" bs-dropdown="dropdown">Right position
+            <br />
+            <small>(using data-template)</small>
+          </button>
+
+          <button type="button" class="btn btn-sm white" data-animation="am-flip-x" data-template-url="views/blocks/tpl.dropdown.html" data-placement="left" bs-dropdown="dropdown">Left position
+            <br />
+            <small>(using data-template)</small>
+          </button>
+        </div>
+      </div>
+
+
+      <div ng-controller="TooltipCtrl" class="m-b">
+        <h5>Tooltip</h5>
+        <p>Add small overlays of content on hover, to any element for housing secondary information.</p>
+
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" class="form-control" ng-model="tooltip.title" placeholder="Title">
+        </div>
+        <!-- Markup for a default tooltip with a scope passed as an object {title:''} -->
+        <p>Tight pants next level keffiyeh <a href data-animation="am-flip-x" data-placement="tooltip-top" data-html="true" bs-tooltip="tooltip" class="text-info">you probably</a> haven't heard of them. Photo booth beard raw denim letterpress vegan messenger bag stumptown.</p>
+
+        <div class="input-group m-b-sm">
+          <span class="input-group-btn">
+            <!-- You can also use data-attrs to assign scope variables -->
+            <button class="btn white" type="button" 
+            data-placement="tooltip-top" 
+            data-trigger="click" 
+            data-html="true" 
+            data-container="body" 
+            data-type="success" 
+            data-title="{{tooltip.title}}" 
+            bs-tooltip>Click me</button>
+          </span>
+          <input type="text" class="form-control" 
+          data-placement="tooltip-top" 
+          data-html="true" 
+          data-type="info" 
+          data-container="body" 
+          placeholder="Focus to toggle tooltip" 
+          data-trigger="focus" 
+          bs-tooltip="tooltip">
+        </div>
+        <div class="checkbox">
+          <label 
+          data-placement="bottom-left" 
+          data-type="success" 
+          data-html="true" 
+          data-animation="am-fade-and-scale" 
+          bs-tooltip="tooltip">
+            <input type="checkbox" ng-model="tooltip.checked"> Remember me
+          </label>
+        </div>
+      </div>
+
+      <div ng-controller="PopoverCtrl" class="m-b">
+        <h5>Popover</h5>
+        <p>Add small overlays of content on tap, like those on the iPad, to any element for housing secondary information.</p>
+
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" class="form-control" ng-model="popover.title" placeholder="Title">
+          <label class="m-t">Content</label>
+          <textarea class="form-control" ng-model="popover.content" rows="3"></textarea>
+        </div>
+        <div class="m-b">
+          <!-- Button to trigger a default popover with a scope as an object {title:'', content:'', etc.} -->
+          <button type="button" class="btn btn-sm white"  
+          data-html="true" 
+          data-placement="popover-top" 
+          data-animation="am-flip-x" 
+          bs-popover="popover">Click to toggle popover
+            <br />
+            <small>(using an object)</small>
+          </button>
+
+          <!-- You can also use data-attrs to assign scope variables -->
+          <button type="button" class="btn btn-sm white" 
+          data-html="true" 
+          title="{{popover.title}}" 
+          data-content="{{popover.content}}" 
+          data-trigger="focus" 
+          bs-popover>Click to toggle popover
+            <br />
+            <small>(using data-attrs)</small>
+          </button>
+
+          <!-- You can use a custom html template with the `data-template` attr -->
+          <button type="button" class="btn btn-sm white" 
+          title="{{popover.title}}" 
+          data-content="{{popover.content}}" 
+          data-template-url="views/blocks/tpl.popover.html" 
+          data-animation="am-flip-x" 
+          bs-popover>Custom Popover
+            <br />
+            <small>(using data-template)</small>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-6">
+
+      <div ng-controller="DatepickerCtrl" class="m-b">
+        <h5>Datepicker</h5>
+        <p>Add datepicker functionality with any form text input.</p>
+
+        <form name="datepickerForm" role="form">
+          <!-- Basic example -->
+          <div class="form-group row" ng-class="{'has-error': datepickerForm.date.$invalid}">
+            <label class="col-sm-4 form-control-label">Date <small>(as date)</small></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" 
+              ng-model="selectedDate" 
+              data-icon-left="fa fa-chevron-left" 
+              data-icon-right="fa fa-chevron-right" 
+              name="date" 
+              bs-datepicker>
+            </div>
+          </div>
+          <!-- Custom example -->
+          <div class="form-group row" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+            <label class="col-sm-4 form-control-label">Date <small>(as number)</small></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" 
+              ng-model="selectedDateAsNumber" 
+              data-date-format="yyyy-MM-dd" 
+              data-date-type="number" 
+              data-autoclose="true" 
+              data-min-date="02/10/86" 
+              data-max-date="today" 
+              data-icon-left="fa fa-chevron-left" 
+              data-icon-right="fa fa-chevron-right" 
+              name="date2" 
+              bs-datepicker>
+            </div>
+          </div>
+          <!-- Date range example -->
+          <div class="form-group row">
+            <label class="col-sm-4 form-control-label">Date range <small>(dynamic)</small></label>
+            <div class="col-sm-8">
+              <input type="text" size="8" class="form-control w-auto inline" 
+              ng-model="fromDate" 
+              data-max-date="{{untilDate}}" 
+              data-icon-left="fa fa-chevron-left" 
+              data-icon-right="fa fa-chevron-right" 
+              placeholder="From" 
+              bs-datepicker>
+              <input type="text" size="8" class="form-control w-auto inline" 
+              ng-model="untilDate" 
+              data-min-date="{{fromDate}}" 
+              data-icon-left="fa fa-chevron-left" 
+              data-icon-right="fa fa-chevron-right" 
+              placeholder="Until" 
+              bs-datepicker>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div ng-controller="TimepickerCtrl" class="m-b">
+        <h5>Timepicker</h5>
+        <p>Add quick, dynamic timepicker functionality with any form text input.</p>
+        <form name="timepickerForm" class="form-inline" role="form">
+
+          <!-- Basic example -->
+          <div class="form-group" ng-class="{'has-error': timepickerForm.time.$invalid}">
+            <label class="form-control-label"><i class="fa fa-clock-o"></i> Time <small>(as date)</small></label>
+            <input type="text" size="8" class="form-control" 
+            ng-model="time" 
+            name="time" 
+            data-icon-up="fa fa-chevron-up" 
+            data-icon-down="fa fa-chevron-down"
+            bs-timepicker>
+          </div>
+
+          <!-- Custom example -->
+          <div class="form-group" ng-class="{'has-error': timepickerForm.time2.$invalid}">
+            <label class="form-control-label"><i class="fa fa-clock-o"></i> Time <small>(as number)</small></label>
+            <input type="text" size="8" class="form-control" 
+            ng-model="selectedTimeAsNumber" 
+            data-time-format="HH:mm" 
+            data-time-type="number" 
+            data-min-time="10:00" 
+            data-max-time="13:30" 
+            data-autoclose="1" 
+            name="time2"
+            data-icon-up="fa fa-chevron-up" 
+            data-icon-down="fa fa-chevron-down"
+            bs-timepicker>
+          </div>
+          <!-- Datetime example -->
+          <div class="form-group m-t">
+            <label class="form-control-label">Datetime picker</label>
+            <div class="form-group">
+              <input type="text" size="8" class="form-control" 
+              ng-model="sharedDate" 
+              data-autoclose="1" 
+              placeholder="Date"
+              data-icon-left="fa fa-chevron-left" 
+              data-icon-right="fa fa-chevron-right" 
+              bs-datepicker>
+            </div>
+            <div class="form-group">
+              <input type="text" size="8" class="form-control" 
+              ng-model="sharedDate" 
+              data-autoclose="1" 
+              placeholder="Time" 
+              data-icon-up="fa fa-chevron-up" 
+              data-icon-down="fa fa-chevron-down" 
+              bs-timepicker>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <div ng-controller="SelectCtrl" class="m-b">
+        <h5>Select</h5>
+        <p>Add quick, dynamic select functionality with any form text input.</p>
+        <div class="m-b">
+          <label>Single select:&nbsp;</label>
+          <button type="button" class="btn white" 
+            ng-model="selectedIcon" data-html="1" 
+            bs-options="icon.value as icon.label for icon in icons" 
+            bs-select>
+            Action <span class="caret"></span>
+          </button>
+        </div>
+        <div>
+          <label>Multiple select:&nbsp;</label>
+          <button type="button" class="btn white" 
+            ng-model="selectedIcons" 
+            data-html="1" 
+            data-multiple="1" 
+            data-animation="am-flip-x" 
+            bs-options="icon.value as icon.label for icon in icons" 
+            bs-select>
+            Action <span class="caret"></span>
+          </button>
+        </div>
+      </div>
+
+      <div ng-controller="TypeaheadCtrl" class="m-b">
+        <h5>Typehead</h5>
+        <p>Add quick, dynamic typeahead functionality with any form text input.</p>
+        <form class="form-inline" role="form">
+          <div class="form-group">
+            <label>State</label>
+            <input type="text" class="form-control" 
+            ng-model="selectedState" 
+            bs-options="state for state in states" 
+            placeholder="Enter state" 
+            bs-typeahead>
+          </div>
+          <div class="form-group">
+            <label>Icon</label>
+            <input type="text" class="form-control" 
+            ng-model="selectedIcon" 
+            data-min-length="0" 
+            data-html="1" 
+            data-animation="am-flip-x" 
+            bs-options="icon as icon.label for icon in icons" 
+            placeholder="Enter icon" 
+            bs-typeahead>
+          </div>
+
+          <!-- Using an async data provider -->
+          <div class="form-groupm m-t">
+            <label>Address <small>(async via maps.googleapis.com)</small></label>
+            <input type="text" class="form-control" 
+            ng-model="selectedAddress" 
+            data-animation="am-flip-x" 
+            bs-options="address.formatted_address as address.formatted_address for address in getAddress($viewValue)" 
+            placeholder="Enter address" 
+            bs-typeahead>
+          </div>
+        </form>
+      </div>
+
+      <div ng-controller="ModalCtrl" class="m-b">
+        <h5>Modal</h5>
+        <p>Modals are streamlined, but flexible, dialog prompts with the minimum required functionality and smart defaults.</p>
+        <div class="btn-groups">
+          <!-- Button to trigger a default modal with a scope as an object {title:'', content:'', etc.} -->
+          <button type="button" class="btn btn-sm white" data-html="true" data-animation="am-fade-and-scale" data-placement="center" data-container="body" bs-modal="modal">Click to toggle modal
+            <br />
+            <small>(using an object)</small>
+          </button>
+
+          <!-- You can use a custom html template with the `data-template` attr -->
+          <button type="button" class="btn btn-sm white" 
+          data-animation="am-fade-and-slide-top" 
+          data-template-url="views/blocks/tpl.modal.html" 
+          bs-modal="modal">Custom Modal
+            <br />
+            <small>(using data-template)</small>
+          </button>
+
+          <button type="button" class="btn btn-sm white" 
+          data-animation="am-fade-and-slide-top" 
+          data-content-template="views/blocks/tpl.modal.content.html"
+          bs-modal="modal">Custom Modal
+            <br />
+            <small>(using data-content-template)</small>
+          </button>
+        </div>
+      </div>
+
+      <div ng-controller="AsideCtrl" class="m-b">
+        <h5>Aside</h5>
+        <p>Asides are custom panels, drawers that inherit the behavior of modals.</p>
+        <div>
+          <!-- Button to trigger a default aside with a scope as an object {title:'', content:'', etc.} -->
+          <button type="button" class="btn btn-sm white" data-animation="am-slide-right aside-open-backdrop" bs-aside="aside" data-html="true">Click to toggle aside
+            <br />
+            <small>(using an object)</small>
+          </button>
+
+          <!-- You can use a custom html template with the `data-template` attr -->
+          <button type="button" class="btn btn-sm white" data-template-url="views/blocks/tpl.aside.html" data-placement="left" data-animation="am-slide-left aside-open-backdrop" bs-aside="aside" data-container="body">Custom aside
+            <br />
+            <small>(using data-template)</small>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

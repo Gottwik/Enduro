@@ -1,0 +1,26 @@
+<div class="padding">
+  <p class="m-b-md">Slider directive for AngularJS. <a href="https://github.com/Venturocket/angular-slider" target="blank"><i class="fa fa-link text-muted"></i></a></p>
+  <div>
+    <p>Single: ( {{cost}} )</p>
+    <slider
+        ng-model="cost"
+        floor="1"
+        ceiling="100">
+    </slider>
+    <p>Multiple: ( min:{{range.min}} - max:{{range.max}} )</p>
+    <slider
+        ng-model="range.min"
+        ng-model-range="range.max"
+        floor="1"
+        ceiling="100">
+    </slider>
+
+    <p>Formatting:</p>
+    <slider
+        ng-model="cost"
+        translate-fn="currencyFormatting"
+        floor="1"
+        ceiling="100">
+    </slider>
+  </div>
+</div>

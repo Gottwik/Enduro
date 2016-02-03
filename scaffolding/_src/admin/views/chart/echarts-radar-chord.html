@@ -1,0 +1,245 @@
+<div class="padding">
+    <div class="row">
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Basic Radar</h3>
+            <small class="block text-muted">set polar coordinate system</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options=" {
+              tooltip : {
+                  trigger: 'axis'
+              },
+              legend: {
+                  orient : 'vertical',
+                  x : 'left',
+                  y : 0,
+                  data:['Allocated Budget','Actual Spending']
+              },
+              polar : [
+                 {
+                     indicator : [
+                         { text: 'Sales', max: 6000},
+                         { text: 'Administration', max: 16000},
+                         { text: 'Information Techology', max: 30000},
+                         { text: 'Customer Support', max: 38000},
+                         { text: 'Development', max: 52000},
+                         { text: 'Marketing', max: 25000}
+                      ]
+                  }
+              ],
+              calculable : true,
+              series : [
+                  {
+                      name: 'Budget vs spending',
+                      type: 'radar',
+                      data : [
+                          {
+                              value : [4300, 10000, 28000, 35000, 50000, 19000],
+                              name : 'Allocated Budget'
+                          },
+                           {
+                              value : [5000, 14000, 28000, 31000, 42000, 21000],
+                              name : 'Actual Spending'
+                          }
+                      ]
+                  }
+              ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Basic Filled Radar</h3>
+            <small class="block text-muted">fill style</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options="{
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'left',
+                    y : 0,
+                    data:['Ronaldo','Shevchenko']
+                },
+                calculable : true,
+                polar : [
+                    {
+                        indicator : [
+                            {text : 'Attack', max  : 100},
+                            {text : 'Defend', max  : 100},
+                            {text : 'Physical', max  : 100},
+                            {text : 'Speed', max  : 100},
+                            {text : 'Strength', max  : 100},
+                            {text : 'Skill', max  : 100}
+                        ],
+                        radius : 130
+                    }
+                ],
+                series : [
+                    {
+                        name: 'Players entirely live data',
+                        type: 'radar',
+                        itemStyle: {
+                            normal: {
+                                areaStyle: {
+                                    type: 'default'
+                                }
+                            }
+                        },
+                        data : [
+                            {
+                                value : [97, 42, 88, 94, 90, 86],
+                                name : 'Shevchenko'
+                            },
+                            {
+                                value : [97, 32, 74, 95, 88, 92],
+                                name : 'Ronaldo'
+                            }
+                        ]
+                    }
+                ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Basic Chord</h3>
+            <small class="block text-muted">data format, sorting</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options="{
+                tooltip : {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        if (params.indicator2) { // is edge
+                            return params.value.weight;
+                        } else {// is node
+                            return params.name
+                        }
+                    }
+                },
+                legend: {
+                    orient : 'vertical',
+                    x: 'left',
+                    data:['group1','group2', 'group3', 'group4']
+                },
+                series : [
+                    {
+                        type:'chord',
+                        sort : 'ascending',
+                        sortSub : 'descending',
+                        showScale : true,
+                        showScaleText : true,
+                        data : [
+                            {name : 'group1'},
+                            {name : 'group2'},
+                            {name : 'group3'},
+                            {name : 'group4'}
+                        ],
+                        itemStyle : {
+                            normal : {
+                                label : {
+                                    show : false
+                                }
+                            }
+                        },
+                        matrix : [
+                            [11975,  5871, 8916, 2868],
+                            [ 1951, 10048, 2060, 6171],
+                            [ 8010, 16145, 8090, 8045],
+                            [ 1013,   990,  940, 6907]
+                        ]
+                    }
+                ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Non-ribbon Chord</h3>
+            <small class="block text-muted">data format, sorting</small>
+          </div>
+          <div class="box-body" id="pie">
+            <div ui-jp="chart" ui-options="{
+              legend: {
+                  x: 'left',
+                  data:['A', 'B', 'C']
+              },
+              series : [
+                  {
+                      type:'chord',
+                      sort : 'ascending',
+                      sortSub : 'descending',
+                      ribbonType: false,
+                      radius: '60%',
+                      itemStyle : {
+                          normal : {
+                              label : {
+                                  rotate : true
+                              }
+                          }
+                      },
+                      minRadius: 7,
+                      maxRadius: 20,
+                      nodes: [
+                          {name:'A1'},
+                          {name:'A2'},
+                          {name:'A3'},
+                          {name:'B1'},
+                          {name:'B2'},
+                          {name:'B3'},
+                          {name:'B4'},
+                          {name:'B5'},
+                          {name:'B6', symbol: 'star'},
+                          {name:'B7'},
+                          {name:'C1'},
+                          {name:'C2'},
+                          {name:'C3'},
+                          {name:'C4'},
+                          {name:'A'},
+                          {name:'B'},
+                          {name:'C'}
+                      ],
+                      links: [
+                          {source: 'A', target: 'A1', weight: 1, name: '效力'},
+                          {source: 'A', target: 'A2', weight: 1, name: '效力'},
+                          {source: 'A', target: 'A3', weight: 1, name: '效力'},
+                          {source: 'B', target: 'B1', weight: 1, name: '效力'},
+                          {source: 'B', target: 'B2', weight: 1, name: '效力'},
+                          {source: 'B', target: 'B3', weight: 1, name: '效力'},
+                          {source: 'B', target: 'B4', weight: 1, name: '效力'},
+                          {source: 'B', target: 'B5', weight: 1, name: '效力'},
+                          {source: 'B', target: 'B6', weight: 1, name: '效力'},
+                          {source: 'B', target: 'B7', weight: 1, name: '效力'},
+                          {source: 'C', target: 'C1', weight: 1, name: '效力'},
+                          {source: 'C', target: 'C2', weight: 1, name: '效力'},
+                          {source: 'C', target: 'C3', weight: 1, name: '效力'},
+                          {source: 'C', target: 'C4', weight: 1, name: '效力'}
+                      ]
+                  }
+              ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+</div>

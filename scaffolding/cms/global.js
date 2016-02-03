@@ -1,3 +1,3 @@
 module.exports = {
-	company_name: 'magura'
+	company_name: "something"
 }

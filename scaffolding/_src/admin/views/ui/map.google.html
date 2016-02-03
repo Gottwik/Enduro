@@ -1,0 +1,49 @@
+<div class="app-body-inner">
+      <div class="row-col light lt">
+        <div class="col-md-3">
+          <div class="row-col">
+            <div class="row-row">
+              <div class="row-body">
+                <div class="row-inner">
+                  <div class="p-a">
+                    <h6 class="m-a-0 m-b">Click to add a marker!</h6>
+                    <p>{{zoomMessage}}</p>
+                    <ul class="list-group">
+                      <li class="list-group-item" ng-repeat="marker in myMarkers">
+                        <a class="" ng-click="myMap.panTo(marker.getPosition())">
+                          Pan to Marker {{$index}}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- this is the confusing part. we have to point the map marker directive
+                        at an existing google.maps.Marker object, so it can hook up events -->
+                  <div ng-repeat="marker in myMarkers" ui-map-marker="myMarkers[$index]"
+                       ui-event="{'map-click': 'openMarkerInfo(marker)'}">
+                  </div>
+
+                  <div ui-map-info-window="myInfoWindow">
+                    <div class="m-b-sm">Marker</div>
+                    <div class="m-b-sm">
+                      <div class="pull-left m-t-xs">Lat: </div>
+                      <input ng-model="currentMarkerLat" class="form-control input-sm w-sm m-l-lg">
+                    </div>
+                    <div class="m-b-sm">
+                      <div class="pull-left m-t-xs">Lng: </div>
+                      <input ng-model="currentMarkerLng" class="form-control input-sm w-sm m-l-lg">
+                    </div>
+                    <a class="btn white btn-sm m-l-lg m-b-sm" ng-click="setMarkerPosition(currentMarker, currentMarkerLat, currentMarkerLng)">Set Position</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div style="position:relative; height:100%; min-height:320px" ui-map="myMap"
+               ui-event="{'map-click': 'addMarker($event, $params)', 'map-zoom_changed': 'setZoomMessage(myMap.getZoom())' }"
+               ui-options="mapOptions">
+          </div>
+        </div>
+      </div>
+</div>

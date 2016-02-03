@@ -1,0 +1,373 @@
+<div class="padding">
+    <div class="row">
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Basic Angular Gauge</h3>
+            <small class="block text-muted">customizable</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options=" {
+              tooltip : {
+                  formatter: '{a} <br/>{b} : {c}%'
+              },
+              series : [
+                  {
+                      name:'Task',
+                      type:'gauge',
+                      detail : {formatter:'{value}%'},
+                      data:[{value: 50, name: 'Finished'}]
+                  }
+              ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Multiple Angular Gauges</h3>
+            <small>customizable</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options="{
+                tooltip : {
+                    formatter: '{a} <br/>{c} {b}'
+                },
+                series : [
+                    {
+                        name:'Speed',
+                        type:'gauge',
+                        z: 3,
+                        min:0,
+                        max:220,
+                        splitNumber:11,  
+                        radius : '60%',
+                        axisLine: {            
+                            lineStyle: {       
+                                width: 10
+                            }
+                        },
+                        axisTick: {            
+                            length :15,       
+                            lineStyle: {      
+                                color: 'auto'
+                            }
+                        },
+                        splitLine: {           
+                            length :20,        
+                            lineStyle: {       
+                                color: 'auto'
+                            }
+                        },
+                        title : {
+                            textStyle: {       
+                                fontWeight: 'bolder',
+                                fontSize: 14,
+                                fontStyle: 'italic'
+                            }
+                        },
+                        detail : {
+                            textStyle: {       
+                                fontWeight: 'bolder'
+                            }
+                        },
+                        data:[{value: 40, name: 'km/h'}]
+                    },
+                    {
+                        name:'Roll',
+                        type:'gauge',
+                        center : ['25%', '55%'],    
+                        radius : '40%',
+                        min:0,
+                        max:7,
+                        endAngle:45,
+                        splitNumber:7,
+                        axisLine: {            
+                            lineStyle: {       
+                                width: 8
+                            }
+                        },
+                        axisTick: {           
+                            length :12,       
+                            lineStyle: {      
+                                color: 'auto'
+                            }
+                        },
+                        splitLine: {          
+                            length :20,      
+                            lineStyle: {   
+                                color: 'auto'
+                            }
+                        },
+                        pointer: {
+                            width:5
+                        },
+                        title : {
+                            offsetCenter: [0, '-30%'],
+                            textStyle: {
+                                fontSize: 11,
+                            }
+                        },
+                        detail : {
+                            textStyle: {      
+                                fontWeight: 'bolder'
+                            }
+                        },
+                        data:[{value: 1.5, name: 'x1000 r/min'}]
+                    },
+                    {
+                        name:'Gas',
+                        type:'gauge',
+                        center : ['75%', '50%'], 
+                        radius : '40%',
+                        min:0,
+                        max:2,
+                        startAngle:135,
+                        endAngle:45,
+                        splitNumber:2,
+                        axisLine: {            
+                            lineStyle: {       
+                                color: [[0.2, '#ff4500'],[0.8, '#48b'],[1, '#228b22']], 
+                                width: 8
+                            }
+                        },
+                        axisTick: {           
+                            splitNumber:5,
+                            length :10,      
+                            lineStyle: {     
+                                color: 'auto'
+                            }
+                        },
+                        axisLabel: {
+                            formatter:function(v){
+                                switch (v + '') {
+                                    case '0' : return 'E';
+                                    case '1' : return 'Gas';
+                                    case '2' : return 'F';
+                                }
+                            }
+                        },
+                        splitLine: {         
+                            length :15,      
+                            lineStyle: {      
+                                color: 'auto'
+                            }
+                        },
+                        pointer: {
+                            width:2
+                        },
+                        title : {
+                            show: false
+                        },
+                        detail : {
+                            show: false
+                        },
+                        data:[{value: 0.5, name: 'gas'}]
+                    },
+                    {
+                        name:'Water',
+                        type:'gauge',
+                        center : ['75%', '50%'],  
+                        radius : '40%',
+                        min:0,
+                        max:2,
+                        startAngle:315,
+                        endAngle:225,
+                        splitNumber:2,
+                        axisLine: {           
+                            lineStyle: {       
+                                color: [[0.2, '#ff4500'],[0.8, '#48b'],[1, '#228b22']], 
+                                width: 8
+                            }
+                        },
+                        axisTick: {            
+                            show: false
+                        },
+                        axisLabel: {
+                            formatter:function(v){
+                                switch (v + '') {
+                                    case '0' : return 'H';
+                                    case '1' : return 'Water';
+                                    case '2' : return 'C';
+                                }
+                            }
+                        },
+                        splitLine: {          
+                            length :15,       
+                            lineStyle: {     
+                                color: 'auto'
+                            }
+                        },
+                        pointer: {
+                            width:2
+                        },
+                        title : {
+                            show: false
+                        },
+                        detail : {
+                            show: false
+                        },
+                        data:[{value: 0.5, name: 'gas'}]
+                    }
+                ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Basic Funnel</h3>
+            <small class="block text-muted">customizable</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options="{
+                tooltip : {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c}%'
+                },
+                legend: {
+                    data : ['A','B','C','D','E']
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'Funnel',
+                        type:'funnel',
+                        width: '40%',
+                        data:[
+                            {value:60, name:'A'},
+                            {value:40, name:'B'},
+                            {value:20, name:'C'},
+                            {value:80, name:'D'},
+                            {value:100, name:'E'}
+                        ]
+                    },
+                    {
+                        name:'Funnel',
+                        type:'funnel',
+                        x : '50%',
+                        sort : 'ascending',
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    position: 'left'
+                                }
+                            }
+                        },
+                        data:[
+                            {value:60, name:'A'},
+                            {value:40, name:'B'},
+                            {value:20, name:'C'},
+                            {value:80, name:'D'},
+                            {value:100, name:'E'}
+                        ]
+                    }
+                ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Multiple Funnels</h3>
+            <small class="block text-muted">custoizable</small>
+          </div>
+          <div class="box-body" id="pie">
+            <div ui-jp="chart" ui-options="{
+              color : [
+                  'rgba(255, 69, 0, 0.5)',
+                  'rgba(255, 150, 0, 0.5)',
+                  'rgba(255, 200, 0, 0.5)',
+                  'rgba(155, 200, 50, 0.5)',
+                  'rgba(55, 200, 100, 0.5)'
+              ],
+              tooltip : {
+                  trigger: 'item',
+                  formatter: '{a} <br/>{b} : {c}%'
+              },
+              legend: {
+                  data : ['A','B','C','D','E']
+              },
+              calculable : true,
+              series : [
+                  {
+                      name:'Expected',
+                      type:'funnel',
+                      x: '10%',
+                      width: '80%',
+                      itemStyle: {
+                          normal: {
+                              label: {
+                                  formatter: '{b}Expected'
+                              },
+                              labelLine: {
+                                  show : false
+                              }
+                          },
+                          emphasis: {
+                              label: {
+                                  position:'inside',
+                                  formatter: '{b}Real : {c}%'
+                              }
+                          }
+                      },
+                      data:[
+                          {value:60, name:'A'},
+                          {value:40, name:'B'},
+                          {value:20, name:'C'},
+                          {value:80, name:'D'},
+                          {value:100, name:'E'}
+                      ]
+                  },
+                  {
+                      name:'实际',
+                      type:'funnel',
+                      x: '10%',
+                      width: '80%',
+                      maxSize: '80%',
+                      itemStyle: {
+                          normal: {
+                              borderColor: '#fff',
+                              borderWidth: 2,
+                              label: {
+                                  position: 'inside',
+                                  formatter: '{c}%',
+                                  textStyle: {
+                                      color: '#fff'
+                                  }
+                              }
+                          },
+                          emphasis: {
+                              label: {
+                                  position:'inside',
+                                  formatter: '{b}Real : {c}%'
+                              }
+                          }
+                      },
+                      data:[
+                          {value:30, name:'A'},
+                          {value:10, name:'B'},
+                          {value:5, name:'C'},
+                          {value:50, name:'D'},
+                          {value:80, name:'E'}
+                      ]
+                  }
+              ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+</div>

@@ -1,0 +1,230 @@
+<div class="padding">
+  <div class="row">
+    <div class="col-sm-6">
+      <form name="form" class="form-validation">
+        <div class="box">
+          <div class="box-header">
+            <h2>Register Form</h2>
+          </div>
+          <div class="box-body">
+            <div class="form-group">
+              <label>Username <em class="text-muted">(allow 'a-zA-Z0-9', 4-10 length)</em></label>
+              <input type="text" class="form-control" ng-model="user.name" ng-pattern="/^[a-zA-Z0-9]{4,10}$/" required >
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control" ng-model="user.email" required >
+            </div>
+            <div class="row">
+              <div class="col-sm-6 m-b">
+                <label>Enter password</label>
+                <input type="password" class="form-control" name="password" ng-model="password" required >   
+              </div>
+              <div class="col-sm-6 m-b">
+                <label>Confirm password</label>
+                <input type="password" class="form-control" name="confirm_password" required ng-model="confirm_password" ui-validate=" '$value==password' " ui-validate-watch=" 'password' ">
+                <span ng-show='form.confirm_password.$error.validator'>Passwords do not match!</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="text" class="form-control" placeholder="(XXX) XXXX XXX" ng-model="phone" ng-pattern="/\([0-9]{3}\) ([0-9]{3}) ([0-9]{3})$/" required >
+            </div>
+            <div class="checkbox">
+              <label class="ui-check">
+                <input type="checkbox" ng-model="agree" required><i class="dark-white"></i> I agree to the <a href class="text-info">Terms of Service</a>
+              </label>
+            </div>
+          </div>
+          <footer class="dker p-a text-right">
+            <button type="submit" class="btn btn-info" ng-disabled="form.$invalid">Submit</button>
+          </footer>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-6">
+      <form name="form-contact" class="form-validation">
+        <div class="box">
+          <div class="box-header">
+            <h2>Contact</h2>
+          </div>
+          <div class="box-body">                   
+            <div class="row">
+              <div class="col-sm-6 m-b">
+                <label>Your name</label>
+                <input type="text" class="form-control" placeholder="Name" ng-model="contact.name" required >
+              </div>
+              <div class="col-sm-6 m-b">
+                <label>Email</label>
+                <input type="email" class="form-control" placeholder="Enter email" ng-model="contact.email" required >
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Your website</label>
+              <input type="url" class="form-control" placeholder="http://" ng-model="contact.url" required>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea class="form-control" rows="6" placeholder="Type your message"></textarea>
+            </div>
+          </div>
+          <footer class="p-a dker text-right">
+            <button type="submit" class="btn btn-info">Submit</button>
+          </footer>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <form name="formValidate" class="form-validation">
+        <div class="box">
+          <div class="box-header">
+            <h2>Basic constraints</h2>
+          </div>
+          <div class="box-body">
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Required</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control m-b" placeholder="required field" ng-model="f.a" required >
+                <select class="form-control c-select m-b" ng-model="f.b" required >
+                    <option value="">Please choose</option>
+                    <option value="foo">Foo</option>
+                    <option value="bar">Bar</option>
+                </select>
+                <label class="checkbox ui-check">
+                  <input type="checkbox" ng-model="f.c" required><i></i> Agree to the policy
+                </label>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Min Length</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="minlength = 5" ng-model="f.d" ng-minlength="5" required>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Max Length</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="maxlength = 5" ng-model="f.e" ng-maxlength="5" required>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Range Length</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="minlength = 5 maxlength = 10" ng-model="f.f" ng-minlength="5" ng-maxlength="10" required>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Min</label>
+              <div class="col-sm-9">
+                <input type="number" class="form-control" placeholder="min = 5" ng-model="f.g" ui-validate=" '$value >= 5' " required>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Max</label>
+              <div class="col-sm-9">
+                <input type="number" class="form-control" placeholder="max = 5" ng-model="f.h" ui-validate=" '$value <= 5' " required>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Range</label>
+              <div class="col-sm-9">
+                <input type="number" class="form-control" placeholder="min = 5 max = 10" ng-model="f.i" ui-validate="{ a:'$value >= 5', b:'$value <= 10' }" required>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">RegExp</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="hexa color code" ng-model="f.j" ng-pattern="/^#(?:[0-9a-fA-F]{3}){1,2}$/" required>
+              </div>
+            </div>
+          </div>
+          <footer class="p-a dker text-right">
+            <button type="submit" class="btn btn-info">Submit</button>
+          </footer>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-6">
+      <form name="forma" class="form-horizontal form-validation">
+        <div class="box">
+          <div class="box-header">
+            <h2>Type constraints</h2>
+          </div>
+          <div class="box-body">
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Email</label>
+              <div class="col-sm-9">
+                <input type="email" class="form-control" placeholder="email" ng-model="g.a" required >    
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Url</label>
+              <div class="col-sm-9">
+                <input type="url" class="form-control" placeholder="http://" ng-model="g.b" required >
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Digits</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="digits" ng-model="g.c" ng-pattern="/^[0-9]+$/" required >
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Number</label>
+              <div class="col-sm-9">
+                <input type="number" class="form-control" placeholder="number" ng-model="g.d" required >
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Alphanum</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="alphanumeric string" ng-model="g.e" ng-pattern="/^[a-zA-Z]+$/" required >
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Date Iso</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="YYYY-MM-DD" ng-model="g.f" ng-pattern="/[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])$/" required >
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Phone</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="(XXX) XXXX XXX" ng-model="g.g" ng-pattern="/\([0-9]{3}\) ([0-9]{3}) ([0-9]{3})$/" required >
+              </div>
+            </div>            
+            
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Equal To</label>
+              <div class="col-sm-9">
+                <div class="row">
+                  <div class="col-sm-6"><input type="text" name="foo" class="form-control" ng-model="g.h" required></div>
+                  <div class="col-sm-6"><input type="text" name="confirm_foo" class="form-control" required ng-model="g.i" ui-validate=" '$value==g.h' " ui-validate-watch=" 'g.h' ">
+                  <span ng-show='forma.confirm_foo.$error.validator'>Not match!</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer class="dker p-a text-right">
+            <button type="submit" class="btn btn-info">Submit</button>
+          </footer>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

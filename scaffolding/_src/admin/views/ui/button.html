@@ -1,0 +1,217 @@
+<div class="padding">
+  <div class="row">
+    <div class="col-sm-6">
+
+      <div class="">
+        <div class="box-header">
+          <h3>Options</h3>
+          <small>Button options extended from bootstrap buttons</small>
+        </div>
+        <div class="box-divider"></div>
+        <div class="box-body">
+          <p>Colors</p>
+          <p class="m-b btn-groups">
+            <button class="btn btn-fw white">White</button>
+            <button class="btn btn-fw primary">Primary</button>
+            <button class="btn btn-fw accent">Accent</button>
+            <button class="btn btn-fw warn">Warn</button>
+            <button class="btn btn-fw success">Success</button>
+            <button class="btn btn-fw info">Info</button>
+            <button class="btn btn-fw warning">Warning</button>
+            <button class="btn btn-fw danger">Danger</button>
+            <button class="btn btn-fw dark">Dark</button>
+            <button class="btn btn-fw black">Black</button>
+            <button class="btn btn-fw" disabled>Disabled</button>
+          </p>
+          <p>Size</p>
+          <p>
+            <button class="btn btn-sm white">btn-sm</button>
+            <button class="btn white">btn</button>
+            <button class="btn btn-lg white">btn-lg</button>
+          </p>
+          <p>Rounded</p>
+          <p class="m-b">
+            <button class="btn rounded white">Rounded</button>
+            <button class="btn rounded white p-x-md">More padding</button>
+          </p>
+          <p>Outline</p>
+          <p class="btn-groups">
+            <button class="btn btn-outline b-primary text-primary">Primary</button>
+            <button class="btn btn-outline b-info text-info">Info</button>
+            <button class="btn btn-outline b-success text-success">success</button>
+            <button class="btn btn-outline b-warning text-warning">warning</button>
+            <button class="btn btn-outline b-danger text-danger">danger</button>
+            <button class="btn btn-outline b-accent text-accent">accent</button>
+            <button class="btn btn-outline b-warn text-warn">warn</button>
+            <button class="btn btn-outline b-black text-black">Black</button>
+          </p>
+          <p class="btn-groups">
+            <button class="btn btn-outline rounded b-primary text-primary">Primary</button>
+            <button class="btn btn-outline rounded b-info text-info">Info</button>
+            <button class="btn btn-outline rounded b-success text-success">success</button>
+            <button class="btn btn-outline rounded b-warning text-warning">warning</button>
+            <button class="btn btn-outline rounded b-danger text-danger">danger</button>
+            <button class="btn btn-outline rounded b-accent text-accent">accent</button>
+            <button class="btn btn-outline rounded b-warn text-warn">warn</button>
+            <button class="btn btn-outline rounded b-primary text-primary b-2x">b-2x</button>
+          </p>
+          <p>Block button</p>
+          <p>
+            <button class="btn white btn-lg btn-block"><i class="fa fa-bars pull-right"></i> Block button with icon</button>
+          </p>
+          <p>
+            <button class="btn info btn-block"><i class="fa fa-bars pull-left"></i> Block button with icon</button>
+          </p>
+          <p>Icon</p>
+          <p class="m-b">
+            <button class="btn btn-icon white">
+              <i class="fa fa-plus"></i>
+            </button>
+            <button class="btn btn-icon white">
+              <i class="fa fa-remove"></i>
+            </button>
+            <button class="btn btn-icon btn-rounded btn-info">
+              <i class="fa fa-twitter"></i>
+            </button>
+            <button class="btn btn-icon btn-rounded btn-danger">
+              <i class="fa fa-google-plus"></i>
+            </button>
+          </p>
+          <p>App</p>
+          <div class="btn-groups">
+            <a href class="btn btn-lg black m-r-xs">
+              <span class="pull-left m-r-sm">
+                <i class="fa fa-apple fa-2x"></i>
+              </span>
+              <span class="clear text-left l-h-1x">
+                <span class="text-muted text-xs">Available on the</span>
+                <b class="text-md block m-b-xs">App Store</b>
+              </span>
+            </a>
+            <a href class="btn btn-lg black">
+              <span class="pull-left m-r-sm">
+                <i class="fa fa-play fa-2x"></i>
+              </span>
+              <span class="clear text-left l-h-1x">
+                <span class="text-muted text-xs">Get it on</span>
+                <b class="text-md block m-b-xs">Google Play</b>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-6">
+
+      <div class="">
+        <div class="box-header">
+          <h3>Groups</h3>
+          <small>Buttons group</small>
+        </div>
+        <div class="box-divider"></div>
+        <div class="box-body">
+          <div class="m-b">
+            <div class="btn-group">
+              <button type="button" class="btn btn-outline b-info">Left</button>
+              <button type="button" class="btn btn-outline b-info">Middle</button>
+              <button type="button" class="btn btn-outline b-info">Right</button>
+            </div>
+          </div>
+          <div class="m-b">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm info active">Left</button>
+              <button type="button" class="btn btn-sm info">Middle</button>
+              <button type="button" class="btn btn-sm info">Right</button>
+            </div>
+          </div>
+          <p>Vertical</p>
+          <div class="btn-group-vertical m-b">
+            <button type="button" class="btn white">Top</button>
+            <button type="button" class="btn white">Middle</button>
+            <button type="button" class="btn white">Bottom</button>
+          </div>
+          <p>Nested</p>
+          <div class="btn-group m-b">
+            <button type="button" class="btn white">1</button>
+            <button type="button" class="btn btn-info">2</button>
+            <button type="button" class="btn white">3</button>
+            <div class="btn-group dropdown">
+              <button type="button" class="btn white" data-toggle="dropdown">
+                Dropdown <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu animated fadeIn">
+                <li class="dropdown-item"><a href>Action</a></li>
+                <li class="dropdown-item"><a href>Another action</a></li>
+                <li class="dropdown-item"><a href>Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-item"><a href>Separated link</a></li>
+              </ul>
+            </div>
+          </div>
+          <p>Multiple</p>
+          <div class="btn-toolbar m-b">
+            <div class="btn-group">
+              <button type="button" class="btn white">1</button>
+              <button type="button" class="btn white">2</button>
+              <button type="button" class="btn white active">3</button>
+              <button type="button" class="btn white">4</button>
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn white">5</button>
+              <button type="button" class="btn white">6</button>
+              <button type="button" class="btn white">7</button>
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn white">8</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="">
+        <div class="box-header">
+          <h3>Material buttons</h3>
+          <small>Material design style buttons</small>
+        </div>
+        <div class="box-divider"></div>
+        <div class="box-body">
+            <div class="m-b">
+              <p>Flat button</p>
+              <button class="md-btn md-flat m-b-sm w-xs">Default</button>
+              <button class="md-btn md-flat m-b-sm w-xs text-primary">Primary</button>
+              <button class="md-btn md-flat m-b-sm w-xs text-accent">Accent</button>
+              <button class="md-btn md-flat m-b-sm w-xs text-warn">Warn</button>
+              <button class="md-btn md-flat m-b-sm w-xs text-success">Success</button>
+              <button class="md-btn md-flat m-b-sm w-xs text-warning">Warning</button>
+              <button class="md-btn md-flat m-b-sm w-xs text-danger">Danger</button>
+              <button class="md-btn md-flat m-b-sm w-xs text-danger" disabled>Disabled</button>
+            </div>
+            <div class="m-b">
+              <p>Raised button</p>
+              <button class="md-btn md-raised m-b-sm w-xs white">White</button>
+              <button class="md-btn md-raised m-b-sm w-xs indigo">Indigo</button>
+              <button class="md-btn md-raised m-b-sm w-xs pink">Pink</button>
+              <button class="md-btn md-raised m-b-sm w-xs blue">Blue</button>
+              <button class="md-btn md-raised m-b-sm w-xs green">Green</button><br>
+              <button class="md-btn md-raised m-b-sm w-xs orange">Orange</button>
+              <button class="md-btn md-raised m-b-sm w-xs red">Red</button>
+              <button class="md-btn md-raised m-b-sm w-xs purple">Purple</button>
+              <button class="md-btn md-raised m-b-sm w-xs red" disabled>Disabled</button>
+            </div>
+            <div>
+              <p>Icon</p>
+              <button class="md-btn md-fab m-b-sm white"><i class="material-icons md-24">&#xe145;</i></button>
+              <button class="md-btn md-fab m-b-sm indigo"><i class="material-icons md-24">&#xe8b6;</i></button>
+              <button class="md-btn md-fab m-b-sm pink"><i class="material-icons md-24">&#xe551;</i></button>
+              <button class="md-btn md-fab m-b-sm blue"><i class="material-icons md-24">&#xe0bc;</i></button>
+              <button class="md-btn md-fab m-b-sm grey" disabled><i class="material-icons md-24">&#xe539;</i></button>
+            </div>
+        </div>
+      </div>
+      <a href class="md-btn md-fab md-fab-bottom-right pos-fix teal hide"><i class="material-icons md-24">&#xe150;</i></a>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,268 @@
+<div class="padding">
+    <div class="row">
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Basic Line</h3>
+            <small class="block text-muted">label, custom line shadow</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options=" {
+              tooltip : {
+                  trigger: 'axis'
+              },
+              legend: {
+                  data:['Max','Min']
+              },
+              calculable : true,
+              xAxis : [
+                  {
+                      type : 'category',
+                      boundaryGap : false,
+                      data : ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+                  }
+              ],
+              yAxis : [
+                  {
+                      type : 'value',
+                      axisLabel : {
+                          formatter: '{value} °C'
+                      }
+                  }
+              ],
+              series : [
+                  {
+                      name:'Max',
+                      type:'line',
+                      data:[11, 11, 15, 13, 12, 13, 10],
+                      markPoint : {
+                          data : [
+                              {type : 'max', name: 'Max'},
+                              {type : 'min', name: 'Min'}
+                          ]
+                      },
+                      markLine : {
+                          data : [
+                              {type : 'average', name: 'Average'}
+                          ]
+                      }
+                  },
+                  {
+                      name:'Min',
+                      type:'line',
+                      data:[1, -2, 2, 5, 3, 2, 0],
+                      markPoint : {
+                          data : [
+                              {name : 'Min of Week', value : -2, xAxis: 1, yAxis: -1.5}
+                          ]
+                      },
+                      markLine : {
+                          data : [
+                              {type : 'average', name : 'Average'}
+                          ]
+                      }
+                  }
+              ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Stacked Line</h3>
+            <small class="block text-muted">multiple sreies stack</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options="{
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['A','B','C','D','E']
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                grid : {
+                  x2 : 10
+                },
+                series : [
+                    {
+                        name:'A',
+                        type:'line',
+                        stack: 'total',
+                        data:[120, 132, 101, 134, 90, 230, 210]
+                    },
+                    {
+                        name:'B',
+                        type:'line',
+                        stack: 'total',
+                        data:[220, 182, 191, 234, 290, 330, 310]
+                    },
+                    {
+                        name:'C',
+                        type:'line',
+                        stack: 'total',
+                        data:[150, 232, 201, 154, 190, 330, 410]
+                    },
+                    {
+                        name:'D',
+                        type:'line',
+                        stack: 'total',
+                        data:[320, 332, 301, 334, 390, 330, 320]
+                    },
+                    {
+                        name:'E',
+                        type:'line',
+                        stack: 'total',
+                        data:[820, 932, 901, 934, 1290, 1330, 1320]
+                    }
+                ]
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Basic area</h3>
+            <small class="block text-muted">vertical fill, smoothed line</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options="{
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['Preorder','Sale','Deal']
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'Deal',
+                        type:'line',
+                        smooth:true,
+                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                        data:[10, 12, 21, 54, 260, 830, 710]
+                    },
+                    {
+                        name:'Sale',
+                        type:'line',
+                        smooth:true,
+                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                        data:[30, 182, 434, 791, 390, 30, 10]
+                    },
+                    {
+                        name:'Preorder',
+                        type:'line',
+                        smooth:true,
+                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                        data:[1320, 1132, 601, 234, 120, 90, 20]
+                    }
+                ]
+                    
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-sm-6">
+        <div class="box">
+          <div class="box-header">
+            <h3>Irregular line</h3>
+            <small class="block text-muted">two value axis</small>
+          </div>
+          <div class="box-body">
+            <div ui-jp="chart" ui-options="{
+              tooltip : {
+                  trigger: 'axis'
+              },
+              legend: {
+                  data:['Data1','Data2']
+              },
+              calculable : true,
+              xAxis : [
+                  {
+                      type: 'value'
+                  }
+              ],
+              yAxis : [
+                  {
+                      type: 'value',
+                      axisLine: {
+                          lineStyle: {
+                              color: '#dc143c'
+                          }
+                      }
+                  }
+              ],
+              series : [
+                  {
+                      name:'Data1',
+                      type:'line',
+                      data:[
+                          [1.5, 10], [5, 7], [8, 8], [12, 6], [11, 12], [16, 9], [14, 6], [17, 4], [19, 9]
+                      ],
+                      markPoint : {
+                          data : [
+                              {type : 'max', name: 'Max',symbol: 'emptyCircle', itemStyle:{normal:{color:'#dc143c',label:{position:'top'}}}},
+                              {type : 'min', name: 'Min',symbol: 'emptyCircle', itemStyle:{normal:{color:'#dc143c',label:{position:'bottom'}}}},
+                              {type : 'max', name: 'Max', valueIndex: 0, symbol: 'emptyCircle', itemStyle:{normal:{color:'#1e90ff',label:{position:'right'}}}},
+                              {type : 'min', name: 'Min', valueIndex: 0, symbol: 'emptyCircle', itemStyle:{normal:{color:'#1e90ff',label:{position:'left'}}}}
+                          ]
+                      },
+                      markLine : {
+                          data : [
+                              {type : 'max', name: 'Max', itemStyle:{normal:{color:'#dc143c'}}},
+                              {type : 'min', name: 'Min', itemStyle:{normal:{color:'#dc143c'}}},
+                              {type : 'average', name : 'Avarege', itemStyle:{normal:{color:'#dc143c'}}},
+                              {type : 'max', name: 'Max', valueIndex: 0, itemStyle:{normal:{color:'#1e90ff'}}},
+                              {type : 'min', name: 'Min', valueIndex: 0, itemStyle:{normal:{color:'#1e90ff'}}},
+                              {type : 'average', name : 'Avarege', valueIndex: 0, itemStyle:{normal:{color:'#1e90ff'}}}
+                          ]
+                      }
+                  },
+                  {
+                      name:'Data2',
+                      type:'line',
+                      data:[
+                          [1, 2], [2, 3], [4, 2], [7, 5], [11, 2], [18, 3]
+                      ]
+                  }
+              ] 
+            }" style="height:300px" >
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="padding">
+  <div class="box">
+    <div class="box-body">
+      <h6>Colors</h6>
+      <div class="progress">
+        <div class="progress-bar primary" style="width: 25%">25%</div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar info" style="width: 45%">45%</div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar success" style="width: 55%">55%</div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar warning" style="width: 35%">35%</div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar danger" style="width: 65%">65%</div>
+      </div>
+      <h6>Striped</h6>
+      <div class="progress progress-striped">
+        <div class="progress-bar primary" style="width: 25%">25%</div>
+      </div>
+      <div class="progress progress-striped">
+        <div class="progress-bar info" style="width: 45%">45%</div>
+      </div>
+      <div class="progress progress-striped">
+        <div class="progress-bar success" style="width: 55%">55%</div>
+      </div>
+      <div class="progress progress-striped">
+        <div class="progress-bar warning" style="width: 35%">35%</div>
+      </div>
+      <div class="progress progress-striped">
+        <div class="progress-bar danger" style="width: 65%">65%</div>
+      </div>
+      <h6>Animated</h6>
+      <div class="progress progress-striped active">
+        <div class="progress-bar primary" style="width: 25%">25%</div>
+      </div>
+      <div class="progress progress-striped active">
+        <div class="progress-bar info" style="width: 45%">45%</div>
+      </div>
+      <h6>Size</h6>
+      <div class="progress progress-sm">
+        <div class="progress-bar primary" style="width: 25%"></div>
+      </div>
+      <div class="progress progress-xs">
+        <div class="progress-bar info" style="width: 45%"></div>
+      </div>
+      <div class="progress progress-xxs">
+        <div class="progress-bar success" style="width: 55%"></div>
+      </div>
+    </div>
+  </div>
+</div>

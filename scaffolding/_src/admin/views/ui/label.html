@@ -1,0 +1,94 @@
+<div class="padding">
+  <div class="box">
+    <div class="box-header">
+      <h3>Labels</h3>
+      <small>Label with multiple options</small>
+    </div>
+    <div class="box-body">
+      <p>Label Colors</p>
+      <p>
+        <span class="label">A</span> 
+        <span class="label red">B</span> 
+        <span class="label pink">C</span> 
+        <span class="label purple">D</span> 
+        <span class="label deep-purple">E</span>
+        <span class="label indigo">F</span>
+        <span class="label blue">G</span>
+        <span class="label light-blue">H</span>
+        <span class="label cyan">I</span>
+        <span class="label teal">J</span>
+        <span class="label green">K</span>
+        <span class="label light-green">M</span>
+        <span class="label lime">N</span>
+        <span class="label yellow">O</span>
+        <span class="label amber">P</span>
+        <span class="label orange">Q</span>
+        <span class="label deep-orange">R</span>
+        <span class="label brown">S</span>
+        <span class="label blue-grey">T</span>
+      </p>
+      <p>Size</p>
+      <p>
+        <span class="label label-lg">A</span> 
+        <span class="label primary">B</span>
+        <span class="label label-sm success">C</span>
+        <span class="label label-xs danger">D</span>
+      </p>
+      <p>With arrow</p>
+      <p>
+        <span class="label label-lg primary pos-rlt m-r-xs"><b class="arrow left b-primary"></b>NEW</span>
+        <span class="label success pos-rlt m-r-xs"><b class="arrow top b-success pull-in"></b>SUCCESS</span>
+        <span class="label info pos-rlt m-r-xs"><b class="arrow right b-info pull-in"></b>INFO</span>
+        <span class="label dark pos-rlt m-r-xs"><b class="arrow bottom b-dark pull-in"></b>DARK</span>
+      </p>
+      <p>Usage</p>
+      <div class="m-b-lg">
+        <span class="label success pos-rlt m-r-xs"><b class="arrow right b-success pull-in"></b>Tags</span>
+        <a href class="m-x-xs">Angular</a>
+        <a href class="m-x-xs">Bootstrap</a>
+        <a href class="m-x-xs">Web</a>
+        <a href class="m-x-xs">App</a>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="box-header">
+      <h3>Label pills</h3>
+      <small>label pills with multiple options</small>
+    </div>
+    <div class="box-body">
+      <p class="m-a-0 m-b">label Colors</p>
+      <p>
+        <span class="label rounded">14</span> 
+        <span class="label rounded primary">250</span> 
+        <span class="label rounded info">6</span> 
+        <span class="label rounded success">9</span> 
+        <span class="label rounded warning">20</span>
+        <span class="label rounded danger">5</span>
+        <span class="label rounded dark">2</span>
+        <span class="label rounded black">8</span>
+        <span class="label rounded warn">8</span>
+      </p>
+      <p>Size</p>
+      <p>
+        <span class="label rounded label-lg">8</span> 
+        <span class="label rounded primary">50</span>
+        <span class="label rounded label-sm success">6</span>
+        <span class="label rounded label-xs danger">3</span>
+      </p>
+      <p>With arrow</p>
+      <p>
+        <span class="label rounded label-lg primary pos-rlt m-r-xs"><b class="arrow left b-primary pull-in"></b>5</span>
+        <span class="label rounded success pos-rlt text-sm m-r-xs"><b class="arrow top b-success pull-in"></b>9</span>
+        <span class="label rounded info pos-rlt text-sm m-r-xs"><b class="arrow right b-info pull-in"></b>10</span>
+        <span class="label rounded dark pos-rlt text-sm m-r-xs"><b class="arrow bottom b-dark pull-in"></b>2</span>
+      </p>
+      <p>Usage</p>
+      <div class="m-b-lg">
+        <button class="btn info">Notifications <b class="label rounded success m-l-xs">23</b></button>
+        <i class="fa fa-bell text-lg m-l"></i><b class="label rounded danger up">3</b>
+        <i class="fa fa-bell-o m-l"></i><b class="label rounded label-xs success up">5</b>
+      </div>
+    </div>
+  </div>
+</div>

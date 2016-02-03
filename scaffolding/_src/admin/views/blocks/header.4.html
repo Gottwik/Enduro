@@ -1,0 +1,82 @@
+  <div class="navbar">
+        <a data-toggle="collapse" data-target="#navbar-4" class="navbar-item pull-right hidden-md-up m-a-0 m-l">
+          <i class="material-icons">&#xe5d2;</i>
+        </a>
+        <div ui-include="'views/blocks/navbar.brand.html'"></div>
+
+        <!-- nabar right -->
+        <ul class="nav navbar-nav pull-right">
+          <li class="nav-item">
+            <a class="nav-link" ui-fullscreen>
+              <span><i class="fa fa-fw fa-arrows-v"></i></span> 
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href class="nav-link" data-toggle="dropdown">
+              <i class="material-icons">&#xe5c3;</i>
+              <span class="label up p-a-0 accent"></span>
+            </a>
+            <div ui-include="'views/blocks/dropdown.grid.html'"></div>
+          </li>
+          <li class="nav-item dropdown">
+            <a href class="nav-link" data-toggle="dropdown">
+              <i class="material-icons">&#xe7f5;</i>
+              <span class="label up p-a-0 warn"></span>
+            </a>
+            <div ui-include="'views/blocks/dropdown.notification.html'"></div>
+          </li>
+          <li class="nav-item dropdown">
+            <a href class="nav-link dropdown-toggle clear" data-toggle="dropdown">
+              <span class="avatar w-32">
+                <img src="assets/images/a2.jpg" alt="...">
+                <i class="busy b-white right"></i>
+              </span>
+            </a>
+            <div ui-include="'views/blocks/dropdown.user.html'"></div>
+          </li>
+        </ul>
+        <!-- / navbar right -->
+
+        <!-- navbar collapse -->
+        <div class="collapse navbar-toggleable-sm" id="navbar-4" data-pjax>
+          <div ui-include="'views/blocks/navbar.form.right.html'"></div>
+          <!-- link and dropdown -->
+          <ul class="nav navbar-nav pull-left nav-active-border b-{{app.setting.theme.primary}}">
+            <li class="nav-item">
+              <a href="dashboard.4.html" class="nav-link" ui-sref="app.dashboard" ui-sref-active="active">
+                <span class="nav-text">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item dropdown pos-stc">
+              <a href class="nav-link dropdown-toggle" data-toggle="dropdown">
+                <span class="nav-text">UI</span>
+              </a>
+              <div ui-include="'views/blocks/dropdown.mega.html'"></div>
+            </li>
+            <li class="nav-item">
+              <a href="widget.html" class="nav-link" ui-sref="app.widget" ui-sref-active="active">
+                <span class="nav-text">Widget</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="chart.html" class="nav-link" ui-sref="app.chart" ui-sref-active="active">
+                <span class="nav-text">Chart</span>
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href data-toggle="dropdown">
+                <span class="nav-text">Apps</span>
+              </a>
+              <div class="dropdown-menu">
+                <a  href="inbox.html" class="dropdown-item" ui-sref="app.inbox.list"><span class="nav-text">Inbox</span></a>
+                <a class="dropdown-item hide" ui-sref="app.contact" ng-class="{'show': 1}"><span class="nav-text">Contacts</span></a>
+                <a class="dropdown-item hide" ui-sref="app.calendar" ng-class="{'show': 1}"><span class="nav-text">Calendar</span></a>
+                <a class="dropdown-item hide" ui-sref="app.note.list" ng-class="{'show': 1}"><span class="nav-text">Note</span></a>
+                <a class="dropdown-item hide" ui-sref="app.todo" ng-class="{'show': 1}"><span class="nav-text">Todo</span></a>
+              </div>
+            </li>
+          </ul>
+          <!-- / link and dropdown -->
+        </div>
+        <!-- / navbar collapse -->
+  </div>

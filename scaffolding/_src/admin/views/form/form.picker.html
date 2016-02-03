@@ -1,0 +1,201 @@
+<div class="padding">
+  <div class="row">
+    <div class="col-sm-6">
+      <h6>Basic</h6>
+      <div class="form-group">
+          <div class='input-group date' ui-jp="datetimepicker" ui-options="{
+                icons: {
+                  time: 'fa fa-clock-o',
+                  date: 'fa fa-calendar',
+                  up: 'fa fa-chevron-up',
+                  down: 'fa fa-chevron-down',
+                  previous: 'fa fa-chevron-left',
+                  next: 'fa fa-chevron-right',
+                  today: 'fa fa-screenshot',
+                  clear: 'fa fa-trash',
+                  close: 'fa fa-remove'
+                }
+              }">
+              <input type='text' class="form-control" >
+              <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+              </span>
+          </div>
+      </div>
+
+      <h6>No icon</h6>
+      <div class="form-group">
+          <input type='text' class="form-control" ui-jp="datetimepicker" ui-options="{
+            icons: {
+              time: 'fa fa-clock-o',
+              date: 'fa fa-calendar',
+              up: 'fa fa-chevron-up',
+              down: 'fa fa-chevron-down',
+              previous: 'fa fa-chevron-left',
+              next: 'fa fa-chevron-right',
+              today: 'fa fa-screenshot',
+              clear: 'fa fa-trash',
+              close: 'fa fa-remove'
+            }
+          }">
+      </div>
+
+      <h6>Custom formats</h6>
+      <div class="form-group">
+          <div class='input-group date' ui-jp="datetimepicker" ui-options="{
+                format: 'LT',
+                icons: {
+                  time: 'fa fa-clock-o',
+                  date: 'fa fa-calendar',
+                  up: 'fa fa-chevron-up',
+                  down: 'fa fa-chevron-down',
+                  previous: 'fa fa-chevron-left',
+                  next: 'fa fa-chevron-right',
+                  today: 'fa fa-screenshot',
+                  clear: 'fa fa-trash',
+                  close: 'fa fa-remove'
+                }
+              }">
+              <input type='text' class="form-control" />
+              <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+              </span>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <div class='input-group date' ui-jp="datetimepicker" ui-options="{
+                format: 'DD/MM/YYYY',
+                icons: {
+                  time: 'fa fa-clock-o',
+                  date: 'fa fa-calendar',
+                  up: 'fa fa-chevron-up',
+                  down: 'fa fa-chevron-down',
+                  previous: 'fa fa-chevron-left',
+                  next: 'fa fa-chevron-right',
+                  today: 'fa fa-screenshot',
+                  clear: 'fa fa-trash',
+                  close: 'fa fa-remove'
+                }
+              }">
+              <input type='text' class="form-control" />
+              <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+              </span>
+          </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <h6>Enabled/Disabled dates</h6>
+      <div class="form-group">
+          <div class='input-group date' ui-jp="datetimepicker" ui-options="{
+                defaultDate: '11/1/2015',
+                disabledDates: [
+                    '11/2/2015 00:53'
+                ],
+                icons: {
+                  time: 'fa fa-clock-o',
+                  date: 'fa fa-calendar',
+                  up: 'fa fa-chevron-up',
+                  down: 'fa fa-chevron-down',
+                  previous: 'fa fa-chevron-left',
+                  next: 'fa fa-chevron-right',
+                  today: 'fa fa-screenshot',
+                  clear: 'fa fa-trash',
+                  close: 'fa fa-remove'
+                }
+              }">
+              <input type='text' class="form-control" />
+              <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+              </span>
+          </div>
+      </div>
+
+      <h6>Disabled days of the week</h6>
+      <div class="form-group">
+          <div class='input-group date' ui-jp="datetimepicker" ui-options="{
+                daysOfWeekDisabled: [0, 6],
+                icons: {
+                  time: 'fa fa-clock-o',
+                  date: 'fa fa-calendar',
+                  up: 'fa fa-chevron-up',
+                  down: 'fa fa-chevron-down',
+                  previous: 'fa fa-chevron-left',
+                  next: 'fa fa-chevron-right',
+                  today: 'fa fa-screenshot',
+                  clear: 'fa fa-trash',
+                  close: 'fa fa-remove'
+                }
+              }">
+              <input type='text' class="form-control" />
+              <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+              </span>
+          </div>
+      </div>
+
+      <h6>View mode</h6>
+      <div class="form-group">
+          <div class='input-group date' ui-jp="datetimepicker" ui-options="{
+                viewMode: 'years',
+                icons: {
+                  time: 'fa fa-clock-o',
+                  date: 'fa fa-calendar',
+                  up: 'fa fa-chevron-up',
+                  down: 'fa fa-chevron-down',
+                  previous: 'fa fa-chevron-left',
+                  next: 'fa fa-chevron-right',
+                  today: 'fa fa-screenshot',
+                  clear: 'fa fa-trash',
+                  close: 'fa fa-remove'
+                }
+              }">
+              <input type='text' class="form-control" />
+              <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+              </span>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <div class='input-group date' ui-jp="datetimepicker" ui-options="{
+                viewMode: 'years',
+                format: 'MM/YYYY',
+                icons: {
+                  time: 'fa fa-clock-o',
+                  date: 'fa fa-calendar',
+                  up: 'fa fa-chevron-up',
+                  down: 'fa fa-chevron-down',
+                  previous: 'fa fa-chevron-left',
+                  next: 'fa fa-chevron-right',
+                  today: 'fa fa-screenshot',
+                  clear: 'fa fa-trash',
+                  close: 'fa fa-remove'
+                }
+              }">
+              <input type='text' class="form-control" />
+              <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+              </span>
+          </div>
+      </div>
+    </div>
+  </div>
+  <h6>Inline</h6>
+  <div class="m-b" ui-jp="datetimepicker" ui-options="{
+    inline: true,
+    sideBySide: true,
+    icons: {
+      time: 'fa fa-clock-o',
+      date: 'fa fa-calendar',
+      up: 'fa fa-chevron-up',
+      down: 'fa fa-chevron-down',
+      previous: 'fa fa-chevron-left',
+      next: 'fa fa-chevron-right',
+      today: 'fa fa-screenshot',
+      clear: 'fa fa-trash',
+      close: 'fa fa-remove'
+    }
+  }"></div>
+</div>

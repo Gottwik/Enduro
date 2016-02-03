@@ -11,25 +11,32 @@ var sevenRender = require('./libs/seven_render')
 var gulp = require('gulp')
 var gulpfile = require('./gulpfile')
 
+var enduroServer = require('./server');
 
 exports.run = run
 
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Run
+
 // *	Entry point from cli anif
 // * ———————————————————————————————————————————————————————— * //
 function run(args){
+
+	// No arguments at all
 	if(args.length == 0){
 		return start();
 	}
 
+	// Parse arguments
 	var caught = false;
-
 	while (arg = args.shift()) {
 		if(arg == 'render' || arg == 'r'){
 			caught = true
 			return render()
+		} else if(arg == 'start'){
+			caught = true
+			return enduroServer.run();
 		} else if(arg == 'create' || arg == 'c'){
 			caught = true
 			scaffolder.scaffold()
@@ -39,9 +46,8 @@ function run(args){
 		}
 	}
 
-	if(!caught){
-		console.log('Arguments not recognized', args)
-	}
+	// Some weird arguments
+	if(!caught){ console.log('Arguments not recognized', args) }
 }
 
 

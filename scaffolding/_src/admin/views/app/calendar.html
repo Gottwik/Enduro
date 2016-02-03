@@ -1,0 +1,93 @@
+<div class="padding">
+    <div class="row m-b">
+      <div class="col-sm-4 m-b-sm">
+        <button type="button" class="btn btn-sm white" id="todayview">today</button>
+      </div>
+      <div class="col-sm-8 text-sm-right">
+        <div class="btn-group m-l-xs">
+          <button class="btn btn-sm white" id="dayview">Day</button>
+          <button class="btn btn-sm white" id="weekview">Week</button>
+          <button class="btn btn-sm white" id="monthview">Month</button>
+        </div>
+      </div>
+    </div>
+    <div class="fullcalendar" ui-jp="fullCalendar" ui-options="{
+        header: {
+          left: 'prev',
+          center: 'title',
+          right: 'next'
+        },
+        defaultDate: '2015-12-12',
+        editable: true,
+        eventLimit: false,
+        events: [
+          {
+            title: 'All Day Event',
+            start: '2015-12-01',
+            className: ['white']
+          },
+          {
+            title: 'Long Event',
+            start: '2015-12-07',
+            end: '2015-12-10',
+            className: ['danger']
+          },
+          {
+            id: 999,
+            title: 'Repeating Event',
+            start: '2015-12-09T16:00:00',
+            className: ['white']
+          },
+          {
+            id: 999,
+            title: 'Repeating Event',
+            start: '2015-12-16T16:00:00',
+            className: ['green']
+          },
+          {
+            title: 'Conference',
+            start: '2015-12-11',
+            end: '2015-12-13',
+            className: ['white']
+          },
+          {
+            title: 'Meeting',
+            start: '2015-12-12T10:30:00',
+            end: '2015-12-12T12:30:00',
+            className: ['white']
+          },
+          {
+            title: 'Lunch',
+            start: '2015-12-12T12:00:00',
+            className: ['white']
+          },
+          {
+            title: 'Meeting',
+            start: '2015-12-12T14:30:00',
+            className: ['white']
+          },
+          {
+            title: 'Happy Hour',
+            start: '2015-12-12T17:30:00',
+            className: ['white']
+          },
+          {
+            title: 'Dinner',
+            start: '2015-12-12T20:00:00',
+            className: ['white']
+          },
+          {
+            title: 'Birthday Party',
+            start: '2015-12-13T07:00:00',
+            className: ['white']
+          },
+          {
+            title: 'Click for Google',
+            url: 'http://google.com/',
+            start: '2015-12-28',
+            className: ['white']
+          }
+        ]
+      }">
+    </div>
+</div>

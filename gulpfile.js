@@ -4,7 +4,8 @@ var browserSync = require('browser-sync').create()
 var sass = require('gulp-sass')
 var url = require('url')
 var fs = require('fs')
-var bulkSass = require('gulp-sass-bulk-import');
+var bulkSass = require('gulp-sass-bulk-import')
+var copy = require('gulp-copy')
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -47,6 +48,9 @@ gulp.task('browserSync', ['sass'], function() {
 	});
 
 	gulp.watch(process.cwd() + '/assets/css/main.scss', ['sass'])
+	gulp.watch(process.cwd() + '/assets/js/**/*', ['js'])
+	gulp.watch(process.cwd() + '/assets/img/**/*', ['img'])
+	gulp.watch(process.cwd() + '/assets/vendor/**/*', ['vendor'])
 	gulp.watch(process.cwd() + '/_src/**/*.html', browserSync.reload)
 });
 
@@ -55,7 +59,7 @@ gulp.task('browserSync', ['sass'], function() {
 // * 	Sass Task
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('sass', function() {
-	return gulp.src(process.cwd() + '/assets/css/*.scss')
+	return gulp.src(process.cwd() + '/assets/css/main.scss')
 		.pipe(bulkSass())
 		.pipe(sass())
 		.pipe(gulp.dest(process.cwd() + '/_src/assets/css'))
@@ -64,8 +68,36 @@ gulp.task('sass', function() {
 
 
 // * ———————————————————————————————————————————————————————— * //
+// * 	js
+// *	Todo: require js optimization should go here
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('js', function() {
+	return gulp.src(process.cwd() + '/assets/js/**/*.js')
+		.pipe(gulp.dest(process.cwd() + '/_src/assets/js'));
+});
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	img
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('img', function() {
+	return gulp.src(process.cwd() + '/assets/img/**/*')
+		.pipe(gulp.dest(process.cwd() + '/_src/assets/img'));
+});
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	vendor
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('vendor', function() {
+	return gulp.src(process.cwd() + '/assets/vendor/**/*')
+		.pipe(gulp.dest(process.cwd() + '/_src/assets/vendor'));
+});
+
+
+// * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['enduro', 'sass', 'browserSync'])
+gulp.task('default', ['enduro', 'sass', 'js', 'img', 'vendor', 'browserSync'])
 
 module.exports = gulp

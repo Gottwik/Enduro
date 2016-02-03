@@ -1,13 +1,17 @@
+
+// Stores templating engine for possible future replacement
 global.__templating_engine = require('Handlebars')
 
-var scaffolder = require('./libs/scaffolder')
+global.__data = {}
 
+var scaffolder = require('./libs/scaffolder')
 var kiskaLogger = require('./libs/kiska_logger')
 var globalData = require('./libs/global_data')
 var helperHandler = require('./libs/helper_handler')
 var componentsHandler = require('./libs/components_handler')
 var enduroRender = require('./libs/enduro_render')
 
+// Gets gulp tasks and extend it with refresh function which will render enduro
 var gulp = require('./gulpfile')
 gulp.setRefresh(function(callback){
 	render(function(){
@@ -15,22 +19,22 @@ gulp.setRefresh(function(callback){
 	})
 })
 
+// Stores enduroServer and extends it with render
 var enduroServer = require('./server');
 enduroServer.setRefresh(function(callback){
 	render(function(){
 		callback()
 	})
 })
-exports.run = run
 
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Run
-// *	Entry point from cli anif
+// *	Entry point from the cli
 // * ———————————————————————————————————————————————————————— * //
 function run(args){
 
-	// No arguments at all
+	// No arguments at all - User ran $ enduro
 	if(args.length == 0){
 		return start();
 	}
@@ -95,3 +99,6 @@ function start(){
 		gulp.start('default')
 	})
 }
+
+
+exports.run = run

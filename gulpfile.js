@@ -5,7 +5,7 @@ var sass = require('gulp-sass')
 var url = require('url')
 var fs = require('fs')
 var bulkSass = require('gulp-sass-bulk-import')
-var copy = require('gulp-copy')
+var kiskaLogger = require('./libs/kiska_logger')
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -17,9 +17,10 @@ gulp.enduroRefresh = function () {
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Enduro Task
+// *	Watches for changes in pages, components or cms data and run enduro refresh
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('enduro', function() {
-	watch([process.cwd() + '/pages/**/*.hbs', process.cwd() + '/components/**/*.hbs', process.cwd() + '/cms/*.js'], function() {
+	watch([process.cwd() + '/pages/**/*.hbs', process.cwd() + '/components/**/*.hbs', process.cwd() + '/cms/**/*.js'], function() {
 		gulp.enduroRefresh(() => {})
 	})
 });
@@ -41,8 +42,8 @@ gulp.task('browserSync', ['sass'], function() {
 				return next()
 			},
 		},
-		// ui: false,
-		// logLevel: 'silent',
+		ui: false,
+		logLevel: 'silent',
 		notify: false,
 		logPrefix: 'Enduro'
 	});
@@ -58,11 +59,20 @@ gulp.task('browserSync', ['sass'], function() {
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Sass Task
+// *	Processes assets/css/main.scss file
+// *	All other scss files need to be imported in main.scss to get compiled
+// *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('sass', function() {
 	return gulp.src(process.cwd() + '/assets/css/main.scss')
 		.pipe(bulkSass())
 		.pipe(sass())
+		.on('error', function(err){
+			kiskaLogger.errBlockStart('Sass error')
+			console.log(err.message)
+			kiskaLogger.errBlockEnd()
+			this.emit('end');
+		})
 		.pipe(gulp.dest(process.cwd() + '/_src/assets/css'))
 		.pipe(browserSync.stream())
 });
@@ -110,4 +120,6 @@ gulp.task('fonts', function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('default', ['enduro', 'sass', 'js', 'img', 'vendor', 'browserSync'])
 
+
+// Export gulp to enable access for enduro
 module.exports = gulp

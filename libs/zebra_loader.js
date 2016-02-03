@@ -1,3 +1,9 @@
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Zebra Loader
+// *	Replacement for the stock require to go around caching
+// * ———————————————————————————————————————————————————————— * //
+
 var path = require('path');
 
 var zebra_loader = function () {}

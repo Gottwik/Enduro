@@ -41,8 +41,8 @@
 				})
 				.then(function(res){
 					$http.get('/admin_api_refresh')
-						.then(function(){
-							console.log('Enduro Refreshed')
+						.then(function(data){
+							console.log(data, 'Enduro Refreshed')
 						})
 				})
 			})

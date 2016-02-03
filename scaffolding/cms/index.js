@@ -1,5 +1,1 @@
-module.exports = {
-	greeting: "Y'All",
-	place: "the mall",
-	food: "buritto"
-}
+module.exports = {"greeting":"Y'All","place":"this someelse","food":"buritto"}

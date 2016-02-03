@@ -46,7 +46,7 @@ gulp.task('browserSync', ['sass'], function() {
 		logPrefix: 'Enduro'
 	});
 
-	gulp.watch(process.cwd() + '/assets/css/**/*.scss', ['sass'])
+	gulp.watch(process.cwd() + '/assets/css/main.scss', ['sass'])
 	gulp.watch(process.cwd() + '/_src/**/*.html', browserSync.reload)
 });
 

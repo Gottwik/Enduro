@@ -6,13 +6,17 @@ var kiskaLogger = require('./libs/kiska_logger')
 var globalData = require('./libs/global_data')
 var helperHandler = require('./libs/helper_handler')
 var componentsHandler = require('./libs/components_handler')
-var sevenRender = require('./libs/seven_render')
+var enduroRender = require('./libs/enduro_render')
 
 var gulp = require('gulp')
 var gulpfile = require('./gulpfile')
 
 var enduroServer = require('./server');
-
+enduroServer.setRefresh(function(callback){
+	render(function(){
+		callback()
+	})
+})
 exports.run = run
 
 
@@ -59,6 +63,7 @@ function run(args){
 // *	- Renders files in ../pages
 // * ———————————————————————————————————————————————————————— * //
 function render(callback){
+	console.log('rendering')
 	kiskaLogger.init()
 	globalData.getGlobalData()
 		.then(() => {
@@ -68,7 +73,7 @@ function render(callback){
 			return helperHandler.readHelpers()
 		})
 		.then(() => {
-			return sevenRender.render()
+			return enduroRender.render()
 		})
 		.then(() => {
 			kiskaLogger.end()

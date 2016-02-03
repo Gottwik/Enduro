@@ -11,8 +11,9 @@ EnduroServer.prototype.run = function () {
 	app.use(express.static(process.cwd()+'/_src'))
 
 	app.get('/admin_api_refresh', function (req, res) {
-		es.enduroRefresh()
-		res.send({success: true, message: 'refreshed successfully'})
+		es.enduroRefresh(function(){
+			res.send({success: true, message: 'refreshed successfully'})
+		})
 	});
 
 	app.get('/admin_api/*', function (req, res) {
@@ -25,8 +26,12 @@ EnduroServer.prototype.run = function () {
 
 }
 
+EnduroServer.prototype.setRefresh = function (callback) {
+	EnduroServer.prototype.enduroRefresh = callback;
+}
+
 EnduroServer.prototype.enduroRefresh = function () {
-	spawn('enduro', ['render'], {stdio: 'inherit'})
+	console.log('refresh not defined')
 }
 
 module.exports = new EnduroServer()

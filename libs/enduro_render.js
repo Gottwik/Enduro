@@ -8,6 +8,8 @@ var extend = require('extend')
 var k7_helpers = require('./k7_helpers')
 var kiskaLogger = require('./kiska_logger')
 
+var zebra_loader = require('./zebra_loader')
+
 var SevenRender = function () {}
 
 // Current terminal window
@@ -38,12 +40,11 @@ function render(file, callback){
 		var template = __templating_engine.compile(data)
 		var context = {}
 		if(k7_helpers.fileExists(DATA_PATH + '/cms/'+filename+'.js')){
-			context = require(DATA_PATH + '/cms/'+filename+'.js')
+			context = zebra_loader.load(DATA_PATH + '/cms/'+filename+'.js')
 		}
 		if(typeof __data !== 'undefined'){
 			extend(true, context, __data)
 		}
-
 		var output = template(context)
 
 		ensureDirectoryExistence(DATA_PATH + '/_src/' + filename)

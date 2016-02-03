@@ -8,8 +8,12 @@ var helperHandler = require('./libs/helper_handler')
 var componentsHandler = require('./libs/components_handler')
 var enduroRender = require('./libs/enduro_render')
 
-var gulp = require('gulp')
-var gulpfile = require('./gulpfile')
+var gulp = require('./gulpfile')
+gulp.setRefresh(function(callback){
+	render(function(){
+		callback()
+	})
+})
 
 var enduroServer = require('./server');
 enduroServer.setRefresh(function(callback){
@@ -22,7 +26,6 @@ exports.run = run
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Run
-
 // *	Entry point from cli anif
 // * ———————————————————————————————————————————————————————— * //
 function run(args){
@@ -63,7 +66,6 @@ function run(args){
 // *	- Renders files in ../pages
 // * ———————————————————————————————————————————————————————— * //
 function render(callback){
-	console.log('rendering')
 	kiskaLogger.init()
 	globalData.getGlobalData()
 		.then(() => {

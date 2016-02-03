@@ -5,7 +5,7 @@
 		.directive('zebrify', ['$http', function($http) {
 			return {
 				compile: function(tElem,attrs) {
-					//do optional DOM transformation here
+
 					return function(scope,elem,attrs) {
 						var cms_name = scope.q
 						$http.get('/admin_api/get_cms?cms_name='+cms_name, {cache: false})
@@ -30,7 +30,6 @@
 				$(formdata ).each(function(index, obj){
 					serialized[obj.name] = obj.value;
 				});
-				console.log(serialized)
 				$http({
 					method: 'GET',
 					url: '/admin_api/save_cms',

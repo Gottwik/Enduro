@@ -1,19 +1,25 @@
 var gulp = require('gulp')
 var watch = require('gulp-watch')
-var spawn = require('child_process').spawn
 var browserSync = require('browser-sync').create()
 var sass = require('gulp-sass')
 var url = require('url')
 var fs = require('fs')
 var bulkSass = require('gulp-sass-bulk-import');
 
+gulp.setRefresh = function (callback) {
+	gulp.enduroRefresh = callback;
+}
+
+gulp.enduroRefresh = function () {
+	console.log('refresh not defined')
+}
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Enduro Task
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('enduro', function() {
 	watch([process.cwd() + '/pages/**/*.hbs', process.cwd() + '/components/**/*.hbs', process.cwd() + '/cms/*.js'], function() {
-		spawn('enduro', ['render'], {stdio: 'inherit'})
+		gulp.enduroRefresh(() => {})
 	})
 });
 
@@ -61,3 +67,5 @@ gulp.task('sass', function() {
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('default', ['enduro', 'sass', 'browserSync'])
+
+module.exports = gulp

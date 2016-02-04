@@ -1,6 +1,6 @@
 
 // Stores templating engine for possible future replacement
-global.__templating_engine = require('Handlebars')
+global.__templating_engine = require('handlebars')
 
 global.__data = {}
 

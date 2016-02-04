@@ -10,6 +10,9 @@ EnduroServer.prototype.run = function () {
 	// stores current enduroServer instance
 	var es = this;
 
+	// 5000 or server's port
+	app.set('port', (process.env.PORT || 5000))
+
 	// Serve static files from /_src folder
 	app.use(express.static(process.cwd()+'/_src'))
 
@@ -24,8 +27,9 @@ EnduroServer.prototype.run = function () {
 	app.get('/admin_api/*', function (req, res) {
 		admin_api.call(req, res);
 	});
+	
 
-	app.listen(3000, function () {
+	app.listen(app.get('port'), function () {
 	  console.log('Enduro Started')
 	});
 

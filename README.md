@@ -7,9 +7,11 @@ It goes through all files in pages folder, applies context with the same name an
 
 ## Enduro commands
 
+If installed globally, enduro enables these cli commands
+
  * `Enduro create projectname`  - Creates new folder /projectname with neccessary scaffolding
  * `Enduro` - Starts enduro for development
- * `Enduro stsart` - Starts enduro on server - Without build tools such as watching...
+ * `Enduro start` - Starts enduro on server - Without build tools such as watching...
 
 ## Project directory structure
 

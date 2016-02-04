@@ -6,9 +6,9 @@
 // *	Loads .js files from /cms/global folder
 // * ———————————————————————————————————————————————————————— * //
 
+var GlobalData = function () {}
 
 var Promise = require('bluebird')
-var fs = require('fs')
 var async = require("async")
 var kiskaLogger = require('./kiska_logger')
 var enduro_helpers = require('./enduro_helpers')
@@ -17,8 +17,6 @@ var zebra_loader = require('./zebra_loader')
 var extend = require('extend')
 
 var DATA_PATH = process.cwd() + '/cms/global/*.js'
-
-var GlobalData = function () {}
 
 GlobalData.prototype.getGlobalData = function(){
 	return new Promise(function(resolve, reject){
@@ -48,7 +46,7 @@ GlobalData.prototype.getGlobalData = function(){
 				kiskaLogger.twolog('global ' + filename, 'loaded')
 				callback()
 
-			}, function(){
+			}, () => {
 				// After all global files are loaded
 				kiskaLogger.line();
 				resolve()

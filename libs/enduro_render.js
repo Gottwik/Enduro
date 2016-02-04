@@ -4,23 +4,22 @@
 // *	Goes throught all the pages and renders them with handlebars
 // * ———————————————————————————————————————————————————————— * //
 
+var EnduroRender = function () {}
+
 var Promise = require('bluebird')
 var fs = require('fs')
 var async = require("async")
 var glob = require("glob")
-var mkdirp = require('mkdirp')
 var extend = require('extend')
 var enduro_helpers = require('./enduro_helpers')
 var kiskaLogger = require('./kiska_logger')
 var zebra_loader = require('./zebra_loader')
 
-var SevenRender = function () {}
-
 // Current terminal window
 var DATA_PATH = process.cwd();
 
 // Goes through the pages and renders them
-SevenRender.prototype.render = function(){
+EnduroRender.prototype.render = function(){
 	return new Promise(function(resolve, reject){
 		glob(DATA_PATH + '/pages/**/*.hbs', function (err, files) {
 			if (err) { return console.log(err) }
@@ -45,7 +44,7 @@ function renderFile(file, callback){
 
 	// Attempts to read the file
 	fs.readFile(file, 'utf8', function (err,data) {
-		if (err) { return console.log(err) }
+		if (err) { return kiskaLogger.errBlock(err) }
 
 		// Creates a template
 		var template = __templating_engine.compile(data)
@@ -65,31 +64,17 @@ function renderFile(file, callback){
 		var output = template(context)
 
 		// Makes sure the target directory exists
-		ensureDirectoryExistence(DATA_PATH + '/_src/' + filename)
+		enduro_helpers.ensureDirectoryExistence(DATA_PATH + '/_src/' + filename)
 			.then(function(){
-
 				// Attempts to export the file
 				fs.writeFile(DATA_PATH + '/_src/' + filename + '.html', output, function(err) {
-					if (err) { return console.log(err) }
+					if (err) { return kiskaLogger.errBlock(err) }
 
 					kiskaLogger.twolog('page ' + filename, 'created')
 					callback()
 				})		
 			})
-
 	})
 }
 
-// Creates all directories neccessary to create the file in filepath
-function ensureDirectoryExistence(filePath) {
-	filePath = filePath.match(/^(.*)\/.*$/)[1]
-	return new Promise(function(resolve, reject){
-		mkdirp(filePath, function(err) { 
-			if(err){ reject() }
-			resolve();
-
-		})
-	})
-}
-
-module.exports = new SevenRender()
+module.exports = new EnduroRender()

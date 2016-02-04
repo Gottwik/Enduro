@@ -11,53 +11,66 @@ var chalk = require('chalk')
 var CONSOLE_LENGTH = 60
 
 
-// * ———————————————————————————————————————————————————————— * //
-// * 	Kiska box
-// * ———————————————————————————————————————————————————————— * //
+// * 	Info messages
+
+// * ┌——————————————~—ENDURO - CREATING PROJECT—~———————————————┐ * //
 KiskaLogger.prototype.init = function (message) {
 	message = message || 'ENDURO'
 	console.log('\n' + chalk.cyan('┌' + ('~—'+message+'—~').cpad(CONSOLE_LENGTH-2, '—') + '┐'))
 };
 
-
-
+// * │ I have something to tell you                             │ * //
 KiskaLogger.prototype.log = function (message, newline) {
 	console.log(chalk.cyan('│') + (' ' + message).rpad(CONSOLE_LENGTH-2) + chalk.cyan('│'))
 	newline || false ? this.log('') : ''
 };
 
-KiskaLogger.prototype.err = function (message) {
-	console.log(chalk.red(message.rpad(CONSOLE_LENGTH)))
+// * │ Something                                       Happened │ * //
+KiskaLogger.prototype.twolog = function (message, left_message) {
+	console.log(chalk.cyan('│') + (' ' + message).rpad(CONSOLE_LENGTH - 3 - left_message.length) + left_message + chalk.cyan(' │'))
 };
 
+// * ├——————————————————————————————————————————————————————————┤ * //
+KiskaLogger.prototype.line = function (message) {
+	console.log(chalk.cyan('├' + rep(CONSOLE_LENGTH-2, '—') + '┤'))
+};
+
+// * └——————————————————————————————————————————————————————————┘ * //
+KiskaLogger.prototype.end = function() {
+	console.log(chalk.cyan('└' + rep(CONSOLE_LENGTH-2, '—') + '┘'))
+}
+
+
+// * 	Error messages
+
+// * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ * //
+// * directory already exists                                     * //
+// * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
 KiskaLogger.prototype.errBlock = function (message) {
-	console.log('\n')
-	console.log(chalk.red(rep(CONSOLE_LENGTH, '▼')))
+	console.log('\n' + chalk.red(rep(CONSOLE_LENGTH, '▼')))
 	this.err(message)
-	console.log(chalk.red(rep(CONSOLE_LENGTH, '▲')))
+	console.log(chalk.red(rep(CONSOLE_LENGTH, '▲')) + '\n')
 };
 
+// * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ ERROR ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ * //
 KiskaLogger.prototype.errBlockStart = function (message) {
 	console.log('\n')
 	console.log(chalk.red((' ' + message + ' ').cpad(CONSOLE_LENGTH, '▼')))
 };
 
+// * │ Something went wrong                                     │ * //
+KiskaLogger.prototype.err = function (message) {
+	console.log(chalk.red(message.rpad(CONSOLE_LENGTH)))
+};
+
+// * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
 KiskaLogger.prototype.errBlockEnd = function () {
 	console.log(chalk.red(rep(CONSOLE_LENGTH, '▲')))
 	console.log('\n')
 };
 
-KiskaLogger.prototype.twolog = function (message, left_message) {
-	console.log(chalk.cyan('│') + (' ' + message).rpad(CONSOLE_LENGTH - 3 - left_message.length) + left_message + chalk.cyan(' │'))
-};
 
-KiskaLogger.prototype.line = function (message) {
-	console.log(chalk.cyan('├' + rep(CONSOLE_LENGTH-2, '—') + '┤'))
-};
-
-KiskaLogger.prototype.end = function() {
-	console.log(chalk.cyan('└' + rep(CONSOLE_LENGTH-2, '—') + '┘'))
-}
+// * 	Helper functions
 
 // Pads the string with whitespace to the right
 String.prototype.rpad = function(length) {

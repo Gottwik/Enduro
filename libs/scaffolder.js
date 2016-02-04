@@ -8,6 +8,7 @@
 var Promise = require('bluebird');
 var ncp = require('ncp').ncp;
 var kiskaLogger = require('./kiska_logger')
+var enduro_helpers = require('./enduro_helpers')
 
 var Scaffolder = function () {}
 
@@ -16,7 +17,7 @@ Scaffolder.prototype.scaffold = function(args){
 
 		// No project name given
 		if(!args.length){
-			reject()
+
 			return kiskaLogger.err('\nProvide project name as \n\n\t$ enduro create projectname\n')
 		}
 
@@ -27,6 +28,11 @@ Scaffolder.prototype.scaffold = function(args){
 
 		// Destination directory
 		var destination = process.cwd() + '/' + projectName
+
+		// Reject if directory already exists
+		if(enduro_helpers.dirExists(destination)){
+			return kiskaLogger.errBlock('\tdirectory already exists')
+		}
 
 		kiskaLogger.init('ENDURO - CREATING PROJECT')
 		kiskaLogger.log('Creating new project ' + projectName)

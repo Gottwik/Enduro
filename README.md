@@ -38,12 +38,12 @@ It goes through all files in pages folder, applies context with the same name an
 
 ### Using components
 
-```html
+```hbs
 <!-- components/button.hbs -->
 <input type="button" value="button" class="{{button_class}}">
 ```
 
-```html
+```hbs
 <!-- page/index.hbs -->
 <p>press this button to do something</p>
 {{>button button_class='red'}}
@@ -55,5 +55,27 @@ Will generate
 <p>press this button to do something</p>
 <input type="button" value="button" class="red">
 ```
+
+### Using associated content files
+```hbs
+<!-- page/somepage.hbs -->
+<p>{{person}} came and said {{said_what}}</p>
+```
+
+```javascript
+// cms/somepage.js
+module.exports = {
+	person: "Big guy",
+    said_what: "here's your pizza",
+}
+```
+
+Will generate
+```html
+<!-- _src/somepage.html -->
+<p>Big guy came and said here's your pizza</p>
+```
+
+
 ## Helpers
 * * `{{default class 'red'}}` - If no class parameter is provided 'red is being used'

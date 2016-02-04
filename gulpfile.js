@@ -43,7 +43,7 @@ gulp.task('browserSync', ['sass'], function() {
 			},
 		},
 		ui: false,
-		logLevel: 'silent',
+		logLevel: 'info',
 		notify: false,
 		logPrefix: 'Enduro'
 	});
@@ -118,7 +118,7 @@ gulp.task('fonts', function() {
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['enduro', 'sass', 'js', 'img', 'vendor', 'browserSync'])
+gulp.task('default', ['enduro', 'sass', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
 
 
 // Export gulp to enable access for enduro

@@ -14,7 +14,7 @@ EnduroServer.prototype.run = function () {
 	app.set('port', (process.env.PORT || 5000))
 
 	// Serve static files from /_src folder
-	app.use(express.static(process.cwd()+'/_src'))
+	app.use(express.static(process.cwd() + '/_src'))
 
 	// Handle for executing enduro refresh from client
 	app.get('/admin_api_refresh', function (req, res) {

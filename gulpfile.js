@@ -15,16 +15,6 @@ gulp.enduroRefresh = function () {
 	console.log('refresh not defined')
 }
 
-// * ———————————————————————————————————————————————————————— * //
-// * 	Enduro Task
-// *	Watches for changes in pages, components or cms data and run enduro refresh
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('enduro', function() {
-	watch([process.cwd() + '/pages/**/*.hbs', process.cwd() + '/components/**/*.hbs', process.cwd() + '/cms/**/*.js'], function() {
-		gulp.enduroRefresh(() => {})
-	})
-});
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Browsersync Task
@@ -54,6 +44,10 @@ gulp.task('browserSync', ['sass'], function() {
 	gulp.watch(process.cwd() + '/assets/vendor/**/*', ['vendor'])
 	gulp.watch(process.cwd() + '/assets/fonts/**/*', ['fonts'])
 	gulp.watch(process.cwd() + '/_src/**/*.html', browserSync.reload)
+
+	watch([process.cwd() + '/pages/**/*.hbs', process.cwd() + '/components/**/*.hbs', process.cwd() + '/cms/**/*.js'], function() {
+		gulp.enduroRefresh(() => {})
+	})
 });
 
 
@@ -122,9 +116,9 @@ gulp.task('default', ['enduro', 'sass', 'js', 'img', 'vendor', 'fonts', 'browser
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
-// *	No browsersync, no watching for anything
+// *	No browsersync, no watching for anything.
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['enduro', 'sass', 'js', 'img', 'vendor', 'fonts'])
+gulp.task('production', ['sass', 'js', 'img', 'vendor', 'fonts'])
 
 
 // Export gulp to enable access for enduro

@@ -9,6 +9,6 @@
 	"author": "KISKA",
 	"license": "ISC",
 	"dependencies": {
-		"enduro": "^1.0.23"
+		"enduro": "*"
 	}
 }

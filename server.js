@@ -30,6 +30,7 @@ EnduroServer.prototype.run = function () {
 	
 
 	app.listen(app.get('port'), function () {
+		es.enduroRefresh()
 		console.log('Enduro Started')
 	});
 

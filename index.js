@@ -50,10 +50,7 @@ function run(args){
 			return enduroServer.run();
 		} else if(arg == 'create' || arg == 'c'){
 			caught = true
-			scaffolder.scaffold()
-				.then(() => {
-					return start()
-				})
+			scaffolder.scaffold(args)
 		}
 	}
 

@@ -23,7 +23,7 @@ ComponentHandler.prototype.readComponents = function(){
 		
 		// Fetches the files
 		glob( COMPONENTS_PATH , function (err, files) {
-			if (err) { return kiskaLogger.block(err) }
+			if (err) { return kiskaLogger.errBlock(err) }
 
 			// Async goes through the files
 			async.each(files, function(file, callback) {

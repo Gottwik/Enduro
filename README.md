@@ -7,7 +7,7 @@ It goes through all files in pages folder, applies context with the same name an
 
 ## Enduro commands
 
- * `Enduro create`  - Creates folder structure and starts enduro for development
+ * `Enduro create projectname`  - Creates new folder /projectname with neccessary scaffolding
  * `Enduro` - Starts enduro for development
  * `Enduro stsart` - Starts enduro on server - Without build tools such as watching...
 

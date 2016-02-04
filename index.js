@@ -22,9 +22,9 @@ gulp.setRefresh(function(callback){
 // Stores enduroServer and extends it with render
 var enduroServer = require('./server');
 enduroServer.setRefresh(function(callback){
-	render(function(){
-		callback()
-	})
+	
+	// Production task includes enduro render
+	gulp.start('production')
 })
 
 
@@ -36,7 +36,7 @@ function run(args){
 
 	// No arguments at all - User ran $ enduro
 	if(args.length == 0){
-		return start();
+		return developer_start();
 	}
 
 	// Parse arguments
@@ -91,7 +91,7 @@ function render(callback){
 // * 	Start
 // *	Renders content and starts browsersync after that
 // * ———————————————————————————————————————————————————————— * //
-function start(){
+function developer_start(){
 	render(function(){
 		gulp.start('default')
 	})

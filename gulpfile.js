@@ -120,6 +120,12 @@ gulp.task('fonts', function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('default', ['enduro', 'sass', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	Production Task
+// *	No browsersync, no watching for anything
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('production', ['enduro', 'sass', 'js', 'img', 'vendor', 'fonts'])
+
 
 // Export gulp to enable access for enduro
 module.exports = gulp

@@ -31,6 +31,7 @@ EnduroServer.prototype.run = function () {
 
 	app.listen(app.get('port'), function () {
 	  console.log('Enduro Started')
+	  console.log(process.cwd())
 	});
 
 }

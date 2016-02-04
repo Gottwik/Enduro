@@ -48,7 +48,7 @@ gulp.task('browserSync', ['sass'], function() {
 		logPrefix: 'Enduro'
 	});
 
-	gulp.watch(process.cwd() + '/assets/css/main.scss', ['sass'])
+	gulp.watch(process.cwd() + '/assets/css/**/*', ['sass'])
 	gulp.watch(process.cwd() + '/assets/js/**/*', ['js'])
 	gulp.watch(process.cwd() + '/assets/img/**/*', ['img'])
 	gulp.watch(process.cwd() + '/assets/vendor/**/*', ['vendor'])
@@ -84,7 +84,7 @@ gulp.task('sass', function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('js', function() {
 	return gulp.src(process.cwd() + '/assets/js/**/*.js')
-		.pipe(gulp.dest(process.cwd() + '/_src/assets/js'));
+		.pipe(gulp.dest(process.cwd() + '/_src/assets/js'))
 });
 
 
@@ -102,7 +102,7 @@ gulp.task('img', function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('vendor', function() {
 	return gulp.src(process.cwd() + '/assets/vendor/**/*')
-		.pipe(gulp.dest(process.cwd() + '/_src/assets/vendor'));
+		.pipe(gulp.dest(process.cwd() + '/_src/assets/vendor'))
 });
 
 
@@ -111,7 +111,7 @@ gulp.task('vendor', function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('fonts', function() {
 	return gulp.src(process.cwd() + '/assets/fonts/**/*')
-		.pipe(gulp.dest(process.cwd() + '/_src/assets/fonts'));
+		.pipe(gulp.dest(process.cwd() + '/_src/assets/fonts'))
 });
 
 

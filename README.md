@@ -80,4 +80,8 @@ Will generate
 
 
 ## Helpers
-* * `{{default class 'red'}}` - If no class parameter is provided 'red is being used'
+* `{{default class 'red'}}` - If no class parameter is provided 'red is being used'
+
+
+## Heroku
+Enduro is heroku ready. Just make sure that enduro is in the dependencies of your project.

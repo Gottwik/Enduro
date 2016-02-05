@@ -2,6 +2,7 @@ var express = require('express')
 var app = express()
 
 var admin_api = require('./libs/admin_api')
+var website_api = require('./libs/website_api')
 
 var EnduroServer = function () {}
 
@@ -27,11 +28,14 @@ EnduroServer.prototype.run = function () {
 	app.get('/admin_api/*', function (req, res) {
 		admin_api.call(req, res);
 	});
-	
+
+	// Handle for all website api calls
+	app.get('/api/*', function (req, res) {
+		website_api.call(req, res);
+	});
 
 	app.listen(app.get('port'), function () {
-		es.enduroRefresh()
-		console.log('Enduro Started')
+		es.enduroRefresh(() => {})
 	});
 
 }

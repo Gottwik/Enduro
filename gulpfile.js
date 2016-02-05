@@ -112,7 +112,7 @@ gulp.task('fonts', function() {
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['enduro', 'sass', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
+gulp.task('default', ['sass', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task

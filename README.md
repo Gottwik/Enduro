@@ -81,6 +81,7 @@ Will generate
 
 ## Helpers
 * `{{default class 'red'}}` - If no class parameter is provided 'red is being used'
+* `{{#times 10}}` - will repeat anything inside 10 times. Don't forget to close `{{/times}}`
 
 
 ## Heroku

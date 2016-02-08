@@ -17,7 +17,6 @@ Scaffolder.prototype.scaffold = function(args){
 
 		// No project name given
 		if(!args.length){
-
 			return kiskaLogger.err('\nProvide project name as \n\n\t$ enduro create projectname\n')
 		}
 

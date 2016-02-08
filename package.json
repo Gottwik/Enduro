@@ -9,6 +9,7 @@
     "browser-sync": "^2.11.1",
     "chalk": "^1.1.1",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
     "extend": "^3.0.0",
     "grunt-browser-sync": "^2.2.0",
     "grunt-contrib-watch": "^0.6.1",
@@ -22,6 +23,7 @@
     "handlebars": "^4.0.5",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
+    "password-hash": "^1.2.2",
     "scsslint": "0.0.3"
   },
   "scripts": {

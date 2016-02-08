@@ -10,6 +10,7 @@ var globalData = require('./libs/global_data')
 var helperHandler = require('./libs/helper_handler')
 var componentsHandler = require('./libs/components_handler')
 var enduroRender = require('./libs/enduro_render')
+var kiska_guard = require('./libs/kiska_guard')
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
 var gulp = require('./gulpfile')
@@ -50,9 +51,12 @@ function run(args){
 		} else if(arg == 'start'){
 			caught = true
 			return enduroServer.run();
-		} else if(arg == 'create' || arg == 'c'){
+		} else if(arg == 'create'){
 			caught = true
 			scaffolder.scaffold(args)
+		} else if(arg == 'secure'){
+			caught = true
+			kiska_guard.setPassword(args)
 		}
 	}
 

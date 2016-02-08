@@ -80,8 +80,7 @@ gulp.task('scss-lint', function() {
   return gulp.src(process.cwd() + '/assets/css/**/*')
     .pipe(scsslint(
     	{
-    		'config': __dirname + '/scss-lint.yml',
-    		'endless': true
+    		'config': __dirname + '/scss-lint.yml'
     	}
     ));
 });

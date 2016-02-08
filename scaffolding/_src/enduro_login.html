@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Enduro login form</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <meta name="description" content="Demo project">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+		<link href='https://fonts.googleapis.com/css?family=Raleway:400,100,200' rel='stylesheet' type='text/css'>
+		<style type="text/css">
+			body {
+				background: linear-gradient(to right, #f46b45, #eea849) fixed;
+				font-family: 'Raleway', sans-serif;
+			}
+
+			h1 {
+				text-transform: uppercase;
+				margin-top: 0px;
+			}
+
+			.login_form {
+				height: 350px;
+				width: 900px;
+				background-color: rgba(255, 255, 255, 0.3);
+				padding:50px;
+				position: absolute;
+				left:50%;
+				margin-left: -450px;
+				top:50%;
+				margin-top: -175px;
+			}
+
+			.form_padder {
+				position: relative;
+				height: 100%;
+				width: 100%;
+			}
+
+			.passphrase_input {
+				padding: 10px 30px;
+				width: 80%;
+				font-size: 30px;
+				position: absolute;
+				bottom: 0;
+				border: 1px solid #fff;
+				font-weight: 100;
+				height: 93px;
+			}
+
+			.passphrase_button {
+				position: absolute;
+				font-size:30px;
+				font-weight: 100;
+				right: 0;
+				width: 20%;
+				bottom: 0px;
+				border: 0;
+				background-color: #fff;
+				height: 93px;
+				padding: 10px 30px;
+				border-left: 1px solid #bbb;
+			}
+
+			.enduro_brander{
+				position: absolute;
+				left: 10px;
+				top: 10px;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<span class="enduro_brander">Enduro™</span>
+		<form class="login_form" method="GET" action=''>
+
+			<div class="form_padder">
+				<h1>Access restricted</h1>
+				<p>Please enter the passphrase below</p>
+				<input class="passphrase_input" type="password" name="pswrd" placeholder="passphrase">
+				<input class="passphrase_button" type="submit" value="submit">
+			</div>
+		</form>
+	</body>
+	<script type="text/javascript"></script>
+</html>

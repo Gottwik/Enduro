@@ -1,4 +1,5 @@
 /_src/*
 !/_src/admin
+!/_src/enduro_login.html
 /assets/vendor
 /node_modules

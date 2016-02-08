@@ -6,6 +6,7 @@ var url = require('url')
 var fs = require('fs')
 var bulkSass = require('gulp-sass-bulk-import')
 var kiskaLogger = require('./libs/kiska_logger')
+var scsslint = require('gulp-scss-lint')
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -38,7 +39,7 @@ gulp.task('browserSync', ['sass'], function() {
 		logPrefix: 'Enduro'
 	});
 
-	gulp.watch(process.cwd() + '/assets/css/**/*', ['sass'])
+	gulp.watch(process.cwd() + '/assets/css/**/*', ['scss-lint', 'sass'])
 	gulp.watch(process.cwd() + '/assets/js/**/*', ['js'])
 	gulp.watch(process.cwd() + '/assets/img/**/*', ['img'])
 	gulp.watch(process.cwd() + '/assets/vendor/**/*', ['vendor'])
@@ -69,6 +70,20 @@ gulp.task('sass', function() {
 		})
 		.pipe(gulp.dest(process.cwd() + '/_src/assets/css'))
 		.pipe(browserSync.stream())
+});
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Scss lint
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('scss-lint', function() {
+  return gulp.src(process.cwd() + '/assets/css/**/*')
+    .pipe(scsslint(
+    	{
+    		'config': __dirname + '/scss-lint.yml',
+    		'endless': true
+    	}
+    ));
 });
 
 
@@ -112,7 +127,7 @@ gulp.task('fonts', function() {
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['sass', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
+gulp.task('default', ['scss-lint', 'sass', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task

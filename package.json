@@ -17,10 +17,12 @@
     "gulp-load": "^0.1.1",
     "gulp-sass": "^2.1.1",
     "gulp-sass-bulk-import": "^0.3.2",
+    "gulp-scss-lint": "^0.3.9",
     "gulp-watch": "^4.3.5",
     "handlebars": "^4.0.5",
     "mkdirp": "^0.5.1",
-    "ncp": "^2.0.0"
+    "ncp": "^2.0.0",
+    "scsslint": "0.0.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -12,6 +12,7 @@ var website_api = require('./libs/website_api')
 var kiska_guard = require('./libs/kiska_guard')
 var session = require('express-session')
 
+// Initialization of the sessions
 app.set('trust proxy', 1)
 app.use(session({
   secret: 'keyboard cat',

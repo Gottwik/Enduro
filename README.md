@@ -80,9 +80,19 @@ Will generate
 
 
 ## Helpers
-* `{{default class 'red'}}` - If no class parameter is provided 'red is being used'
+* `{{default class 'red'}}` - If no class parameter is provided 'red' is being used
 * `{{#times 10}}` - will repeat anything inside 10 times. Don't forget to close `{{/times}}`
 
 
 ## Heroku
-Enduro is heroku ready. Just make sure that enduro is in the dependencies of your project.
+Enduro is heroku ready. Just make sure that enduro is in the dependencies of your project. To publish on heroku, just use these steps (heroku cli required):
+* `git init` - initializes an empty git repo
+* `heroku create` - creates new heroku application
+* `git push heroku master` - pushes source code to heroku and deploys
+
+## Secure
+Enduro can be secured with a simple passphrase for sharing of projects during the development phase. To enable the passphrase security, just use this cli command:
+
+```$ enduro secure passphrase```
+
+to remove the passphrase, just delete the created .enduro_secure file

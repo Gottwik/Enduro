@@ -39,13 +39,14 @@ gulp.task('browserSync', ['sass'], function() {
 		logPrefix: 'Enduro'
 	});
 
-	gulp.watch(process.cwd() + '/assets/css/**/*', ['scss-lint', 'sass'])
-	gulp.watch(process.cwd() + '/assets/js/**/*', ['js'])
-	gulp.watch(process.cwd() + '/assets/img/**/*', ['img'])
-	gulp.watch(process.cwd() + '/assets/vendor/**/*', ['vendor'])
-	gulp.watch(process.cwd() + '/assets/fonts/**/*', ['fonts'])
-	gulp.watch(process.cwd() + '/_src/**/*.html', browserSync.reload)
+	watch([process.cwd() + '/assets/css/**/*'], () => { gulp.start('scss-lint', 'sass') })	// Watch for scss
+	watch([process.cwd() + '/assets/js/**/*'], () => { gulp.start('js') })					// Watch for js
+	watch([process.cwd() + '/assets/img/**/*'], () => { gulp.start('img') })				// Watch for images
+	watch([process.cwd() + '/assets/vendor/**/*'], () => { gulp.start('vendor') })			// Watch for vendor files
+	watch([process.cwd() + '/assets/fonts/**/*'], () => { gulp.start('fonts') })			// Watch for fonts
+	watch([process.cwd() + '/_src/**/*.html'], () => { browserSync.reload })				// Watch for html files
 
+	// Watch for enduro changes
 	watch([process.cwd() + '/pages/**/*.hbs', process.cwd() + '/components/**/*.hbs', process.cwd() + '/cms/**/*.js'], function() {
 		gulp.enduroRefresh(() => {})
 	})

@@ -2,7 +2,7 @@ var fs = require('fs')
 var glob = require("glob")
 var Promise = require('bluebird')
 
-var zebra_loader = require('../zebra_loader')
+var flatFileHandler = require('../flat_utilities/flat_file_handler');
 
 var api_call = function () {}
 
@@ -34,7 +34,10 @@ api_call.prototype.getCmsTree = function(){
 
 api_call.prototype.getCms = function(file){
 	return new Promise(function(resolve, reject){
-		resolve(zebra_loader.load(process.cwd()+'/cms/' + file + '.js'))
+		flatFileHandler.load(file)
+			.then(() => {
+				resolve(data)
+			})
 	})
 }
 

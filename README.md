@@ -25,6 +25,8 @@ If installed globally, enduro enables these cli commands
 │   │   ├── fonts
 │   │   ├── img
 │   │   ├── js
+│   │   ├── spriteicons
+│   │   ├── vendor
 │   ├── cms
 │   │   ├── global
 │   │   │   ├── global.js // all files in global directory are accessible to all pages
@@ -96,3 +98,26 @@ Enduro can be secured with a simple passphrase for sharing of projects during th
 ```$ enduro secure passphrase```
 
 to remove the passphrase, just delete the created .enduro_secure file
+
+# Assets
+Enduro stores all non-code files in an assets folder. Currently there is support for these subfolder
+
+```
+assets
+├── css
+│   ├── main.scss // sass proccesses this file only
+├── fonts
+├── img
+├── js
+├── spriteicons
+├── vendor
+```
+
+## css
+```main.scss``` file inside this folder gets processed with sass. Only additional thing is globbing, so it's possible to do ```@import 'mixins/*';``` to include whole directory
+
+## spriteicons
+png files in this folder get processes into a single spritesheet. It will be end up in assets/spriteicons/spritesheet.png and respective scss file will be in assets/css/sprites.scss
+
+## vendor
+This is the folder where bower components end up in. Do not change files in this folder as enduro will run bower install on server.

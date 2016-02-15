@@ -33,6 +33,7 @@ EnduroServer.prototype.run = function () {
 
 	// Serve static files from /_src folder
 	app.use('/assets', express.static(process.cwd() + '/_src/assets'))
+	app.use('/admin', express.static(process.cwd() + '/_src/admin'))
 
 	// Handle for executing enduro refresh from client
 	app.get('/admin_api_refresh', function (req, res) {

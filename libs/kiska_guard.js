@@ -3,14 +3,14 @@
 // * 	Kiska guard
 // *	Provides simple security for securing the content
 // *	Uses sessions to store logged in flag
-// *	TODO: more robust ticket based security
+// *	TODO: switch to bcrypt
 // * ———————————————————————————————————————————————————————— * //
 
 var Promise = require('bluebird');
 var fs = require('fs')
 var passwordHash = require('password-hash')
 var kiskaLogger = require('./kiska_logger')
-var enduro_helpers = require('./enduro_helpers')
+var enduro_helpers = require('./flat_utilities/enduro_helpers')
 
 var KiskaGuard = function () {}
 

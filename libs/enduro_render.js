@@ -11,9 +11,9 @@ var fs = require('fs')
 var async = require("async")
 var glob = require("glob")
 var extend = require('extend')
-var enduro_helpers = require('./enduro_helpers')
+var enduro_helpers = require('./flat_utilities/enduro_helpers')
 var kiskaLogger = require('./kiska_logger')
-var zebra_loader = require('./zebra_loader')
+var flatFileHandler = require('./flat_utilities/flat_file_handler');
 
 // Current terminal window
 var DATA_PATH = process.cwd();
@@ -33,7 +33,7 @@ EnduroRender.prototype.render = function(){
 	})
 }
 
-// Renders individual files 
+// Renders individual files
 function renderFile(file, callback){
 
 	// Stores file name and extension
@@ -49,31 +49,32 @@ function renderFile(file, callback){
 		// Creates a template
 		var template = __templating_engine.compile(data)
 
-		// Loads context if cms file with same name exists 
-		var context = {}
-		if(enduro_helpers.fileExists(DATA_PATH + '/cms/'+filename+'.js')){
-			context = zebra_loader.load(DATA_PATH + '/cms/'+filename+'.js')
-		}
+		// Loads context if cms file with same name exists
+		flatFileHandler.load(filename)
+			.then((context) => {
+				// If global data exists extends the context with it
+				if(typeof __data !== 'undefined'){
+					extend(true, context, __data)
+				}
 
-		// If global data exists extends the context with it
-		if(typeof __data !== 'undefined'){
-			extend(true, context, __data)
-		}
+				// Renders the template with the context
+				var output = template(context)
 
-		// Renders the template with the context
-		var output = template(context)
+				// Makes sure the target directory exists
+				enduro_helpers.ensureDirectoryExistence(DATA_PATH + '/_src/' + filename)
+					.then(function(){
+						// Attempts to export the file
+						fs.writeFile(DATA_PATH + '/_src/' + filename + '.html', output, function(err) {
+							if (err) { return kiskaLogger.errBlock(err) }
 
-		// Makes sure the target directory exists
-		enduro_helpers.ensureDirectoryExistence(DATA_PATH + '/_src/' + filename)
-			.then(function(){
-				// Attempts to export the file
-				fs.writeFile(DATA_PATH + '/_src/' + filename + '.html', output, function(err) {
-					if (err) { return kiskaLogger.errBlock(err) }
-
-					kiskaLogger.twolog('page ' + filename, 'created')
-					callback()
-				})		
+							kiskaLogger.twolog('page ' + filename, 'created')
+							callback()
+						})
+					})
+			},() => {
+				console.log('something went wrong...')
 			})
+
 	})
 }
 

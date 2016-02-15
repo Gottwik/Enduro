@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var path = require("path")
-  , fs = require("fs")
-  , args = process.argv.slice(1)
+var fs = require("fs")
+var args = process.argv.slice(1)
 
 var arg, base;
 do arg = args.shift();

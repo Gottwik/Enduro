@@ -7,6 +7,8 @@ var fs = require('fs')
 var bulkSass = require('gulp-sass-bulk-import')
 var kiskaLogger = require('./libs/kiska_logger')
 var scsslint = require('gulp-scss-lint')
+var spritesmith = require('gulp.spritesmith')
+var sourcemaps = require('gulp-sourcemaps')
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -62,6 +64,7 @@ gulp.task('browserSync', ['sass'], function() {
 gulp.task('sass', function() {
 	return gulp.src(process.cwd() + '/assets/css/main.scss')
 		.pipe(bulkSass())
+		.pipe(sourcemaps.init())
 		.pipe(sass())
 		.on('error', function(err){
 			kiskaLogger.errBlockStart('Sass error')
@@ -69,6 +72,7 @@ gulp.task('sass', function() {
 			kiskaLogger.errBlockEnd()
 			this.emit('end');
 		})
+		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(process.cwd() + '/_src/assets/css'))
 		.pipe(browserSync.stream())
 });
@@ -81,7 +85,7 @@ gulp.task('scss-lint', function() {
   return gulp.src(process.cwd() + '/assets/css/**/*')
     .pipe(scsslint(
     	{
-    		'config': __dirname + '/scss-lint.yml'
+    		'config': __dirname + '/support_files/scss-lint.yml'
     	}
     ));
 });
@@ -102,8 +106,8 @@ gulp.task('js', function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('img', function() {
 	return gulp.src(process.cwd() + '/assets/img/**/*')
-		.pipe(gulp.dest(process.cwd() + '/_src/assets/img'));
-});
+		.pipe(gulp.dest(process.cwd() + '/_src/assets/img'))
+})
 
 
 // * ———————————————————————————————————————————————————————— * //
@@ -112,7 +116,7 @@ gulp.task('img', function() {
 gulp.task('vendor', function() {
 	return gulp.src(process.cwd() + '/assets/vendor/**/*')
 		.pipe(gulp.dest(process.cwd() + '/_src/assets/vendor'))
-});
+})
 
 
 // * ———————————————————————————————————————————————————————— * //
@@ -121,19 +125,36 @@ gulp.task('vendor', function() {
 gulp.task('fonts', function() {
 	return gulp.src(process.cwd() + '/assets/fonts/**/*')
 		.pipe(gulp.dest(process.cwd() + '/_src/assets/fonts'))
-});
+})
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	spriteicons
+// *	will get all pngs out of assets/spriteicons folder
+// *	and generate spritesheet out of them
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('png_sprites', function() {
+	var spriteData = gulp.src(process.cwd() + '/assets/spriteicons/*.png')
+		.pipe(spritesmith({
+			imgName: '_src/assets/spriteicons/spritesheet.png',
+			cssName: 'assets/css/sprites/sprites.scss',
+			padding: 3,
+			cssTemplate: __dirname + '/support_files/sprite_generator.handlebars'
+		}));
+	spriteData.pipe(gulp.dest(process.cwd()));
+})
 
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['scss-lint', 'sass', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
+gulp.task('default', ['scss-lint', 'sass', 'js', 'img', 'vendor', 'fonts', 'png_sprites', 'browserSync'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
 // *	No browsersync, no watching for anything.
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['sass', 'js', 'img', 'vendor', 'fonts'])
+gulp.task('production', ['sass', 'js', 'img', 'vendor', 'fonts', 'png_sprites'])
 
 
 // Export gulp to enable access for enduro

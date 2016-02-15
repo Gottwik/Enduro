@@ -10,11 +10,11 @@ var GlobalData = function () {}
 
 var Promise = require('bluebird')
 var async = require("async")
-var kiskaLogger = require('./kiska_logger')
-var enduro_helpers = require('./enduro_helpers')
-var glob = require("glob")
-var zebra_loader = require('./zebra_loader')
 var extend = require('extend')
+var glob = require("glob")
+var kiskaLogger = require('./kiska_logger')
+var enduro_helpers = require('./flat_utilities/enduro_helpers')
+var flatFileHandler = require('./flat_utilities/flat_file_handler');
 
 var DATA_PATH = process.cwd() + '/cms/global/*.js'
 
@@ -33,18 +33,24 @@ GlobalData.prototype.getGlobalData = function(){
 
 				// Stores filename
 				var filename = file.match(/([^\\/]+)\.([^\\/]+)$/)[1]
-				
+
+				// path relative to cms folder
+				var fileInCms = file.match(/cms\/(.*)\.([^\\/]+)$/)[1]
+
 				// Loads the file
 				var data = {}
 				if(enduro_helpers.fileExists(file)){
-					var data = zebra_loader.load(file)
+					flatFileHandler.load(fileInCms)
+						.then((data) => {
+							// Extends global data with currently loaded data
+							extend(true, __data, data)
+
+							kiskaLogger.twolog('global ' + filename, 'loaded')
+							callback()
+						}, () => {
+							callback()
+						})
 				}
-
-				// Extends global data with currently loaded data
-				extend(true, __data, data)
-
-				kiskaLogger.twolog('global ' + filename, 'loaded')
-				callback()
 
 			}, () => {
 				// After all global files are loaded

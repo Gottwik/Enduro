@@ -8,7 +8,7 @@
 var Promise = require('bluebird');
 var ncp = require('ncp').ncp;
 var kiskaLogger = require('./kiska_logger')
-var enduro_helpers = require('./enduro_helpers')
+var enduro_helpers = require('./flat_utilities/enduro_helpers')
 
 var Scaffolder = function () {}
 

@@ -36,7 +36,6 @@ enduroServer.setRefresh(function(callback){
 // *	Entry point from the cli
 // * ———————————————————————————————————————————————————————— * //
 function run(args){
-
 	// No arguments at all - User ran $ enduro
 	if(args.length == 0){
 		return developer_start();
@@ -57,6 +56,9 @@ function run(args){
 		} else if(arg == 'secure'){
 			caught = true
 			kiska_guard.setPassword(args)
+		} else if(arg == 'testgulp'){
+			caught = true
+			gulp.start('png_sprites')
 		}
 	}
 

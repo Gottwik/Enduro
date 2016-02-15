@@ -15,6 +15,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-execute": "^0.2.2",
     "gulp": "^3.9.0",
+    "gulp-check-gems": "0.0.2",
     "gulp-load": "^0.1.1",
     "gulp-sass": "^2.1.1",
     "gulp-sass-bulk-import": "^0.3.2",

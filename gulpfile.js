@@ -9,6 +9,7 @@ var kiskaLogger = require('./libs/kiska_logger')
 var scsslint = require('gulp-scss-lint')
 var spritesmith = require('gulp.spritesmith')
 var sourcemaps = require('gulp-sourcemaps')
+var checkGem = require('gulp-check-gems')
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -82,12 +83,17 @@ gulp.task('sass', function() {
 // * 	Scss lint
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('scss-lint', function() {
-  return gulp.src(process.cwd() + '/assets/css/**/*')
-    .pipe(scsslint(
-    	{
-    		'config': __dirname + '/support_files/scss-lint.yml'
-    	}
-    ));
+	try{
+		return gulp.src(process.cwd() + '/assets/css/**/*')
+			.pipe(checkGem({gemfile: 'scss-lint'}, scsslint(
+				{
+					'config': __dirname + '/support_files/scss-lint.yml'
+				}
+			)));
+	}
+	catch(err){
+		return console.log('No liting. you need to install scss_lint');
+	}
 });
 
 

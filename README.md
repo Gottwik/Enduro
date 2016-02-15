@@ -1,6 +1,7 @@
 # Enduro
 
 ## Basic operation
+
 enduro is static page generator / cms / build tool.
 
 It goes through all files in pages folder, applies context with the same name and outputs .html files in _src folder. On top of this it processses scss files and copies assets to _src/assets.

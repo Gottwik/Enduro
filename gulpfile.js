@@ -42,8 +42,11 @@ gulp.task('browserSync', ['sass'], function() {
 		logPrefix: 'Enduro'
 	});
 
-	watch([process.cwd() + '/assets/spriteicons/*.png'], () => { gulp.start('png_sprites') })	// Watch for png icons
-	watch([process.cwd() + '/assets/css/**/*'], () => { gulp.start('scss-lint', 'sass') })		// Watch for scss
+	watch([process.cwd() + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })	// Watch for png icons
+	watch([
+			process.cwd() + '/assets/css/**/*',
+			'!' + process.cwd() + '/assets/css/sprites/*'
+		], () => { gulp.start('scss-lint', 'sass') })		// Watch for scss
 	watch([process.cwd() + '/assets/js/**/*'], () => { gulp.start('js') })						// Watch for js
 	watch([process.cwd() + '/assets/img/**/*'], () => { gulp.start('img') })					// Watch for images
 	watch([process.cwd() + '/assets/vendor/**/*'], () => { gulp.start('vendor') })				// Watch for vendor files
@@ -155,13 +158,13 @@ gulp.task('png_sprites', function() {
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['png_sprites', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
+gulp.task('default', ['sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
 // *	No browsersync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['png_sprites', 'sass', 'js', 'img', 'vendor', 'fonts'])
+gulp.task('production', ['sass', 'js', 'img', 'vendor', 'fonts'])
 
 
 // Export gulp to enable access for enduro

@@ -42,12 +42,12 @@ gulp.task('browserSync', ['sass'], function() {
 		logPrefix: 'Enduro'
 	});
 
+	watch([process.cwd() + '/assets/spriteicons/*.png'], () => { gulp.start('png_sprites') })	// Watch for png icons
 	watch([process.cwd() + '/assets/css/**/*'], () => { gulp.start('scss-lint', 'sass') })		// Watch for scss
 	watch([process.cwd() + '/assets/js/**/*'], () => { gulp.start('js') })						// Watch for js
 	watch([process.cwd() + '/assets/img/**/*'], () => { gulp.start('img') })					// Watch for images
 	watch([process.cwd() + '/assets/vendor/**/*'], () => { gulp.start('vendor') })				// Watch for vendor files
 	watch([process.cwd() + '/assets/fonts/**/*'], () => { gulp.start('fonts') })				// Watch for fonts
-	watch([process.cwd() + '/assets/spriteicons/*.png'], () => { gulp.start('png_sprites') })	// Watch for png icons
 	watch([process.cwd() + '/_src/**/*.html'], () => { browserSync.reload() })					// Watch for html files
 
 	// Watch for enduro changes
@@ -63,8 +63,7 @@ gulp.task('browserSync', ['sass'], function() {
 // *	All other scss files need to be imported in main.scss to get compiled
 // *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('sass', function() {
-	kiskaLogger.log('Processed sass')
+gulp.task('sass', ['png_sprites'], function() {
 	return gulp.src(process.cwd() + '/assets/css/main.scss')
 		.pipe(bulkSass())
 		.pipe(sourcemaps.init())
@@ -142,25 +141,25 @@ gulp.task('fonts', function() {
 // *	and generate spritesheet out of them
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('png_sprites', function() {
-	var spriteData = gulp.src(process.cwd() + '/assets/spriteicons/*.png')
+	return gulp.src(process.cwd() + '/assets/spriteicons/*.png')
 		.pipe(spritesmith({
 			imgName: '_src/assets/spriteicons/spritesheet.png',
 			cssName: 'assets/css/sprites/sprites.scss',
 			padding: 3,
 			cssTemplate: __dirname + '/support_files/sprite_generator.handlebars'
-		}));
-	spriteData.pipe(gulp.dest(process.cwd()));
+		}))
+		.pipe(gulp.dest(process.cwd()));
 })
 
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['png_sprites', 'scss-lint', 'sass', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
+gulp.task('default', ['png_sprites', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
-// *	No browsersync, no watching for anything.
+// *	No browsersync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('production', ['png_sprites', 'sass', 'js', 'img', 'vendor', 'fonts'])
 

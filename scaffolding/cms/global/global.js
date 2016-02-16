@@ -1,3 +1,3 @@
-module.exports = {
-	company_name: "something"
+{
+	company_name: 'something'
 }

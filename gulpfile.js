@@ -64,7 +64,7 @@ gulp.task('browserSync', ['sass'], function() {
 // *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('sass', function() {
-	kiskaLogger.log('Processing sass')
+	kiskaLogger.log('Processed sass')
 	return gulp.src(process.cwd() + '/assets/css/main.scss')
 		.pipe(bulkSass())
 		.pipe(sourcemaps.init())
@@ -156,13 +156,13 @@ gulp.task('png_sprites', function() {
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['scss-lint', 'sass', 'js', 'img', 'vendor', 'fonts', 'png_sprites', 'browserSync'])
+gulp.task('default', ['png_sprites', 'scss-lint', 'sass', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
 // *	No browsersync, no watching for anything.
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['sass', 'js', 'img', 'vendor', 'fonts', 'png_sprites'])
+gulp.task('production', ['png_sprites', 'sass', 'js', 'img', 'vendor', 'fonts'])
 
 
 // Export gulp to enable access for enduro

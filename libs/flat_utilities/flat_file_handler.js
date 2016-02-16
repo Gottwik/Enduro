@@ -41,7 +41,7 @@ FlatFileHandler.prototype.load = function(filename){
 		filename = decode(filename)
 
 		if(!enduro_helpers.fileExists(process.cwd() + '/cms/' + filename + '.js')){
-			reject()
+			resolve({})
 		}
 
 		fs.readFile( process.cwd() + '/cms/' + filename + '.js' , function(err, data) {

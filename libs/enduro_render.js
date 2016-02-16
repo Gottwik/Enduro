@@ -72,7 +72,7 @@ function renderFile(file, callback){
 						})
 					})
 			},() => {
-				console.log('something went wrong...')
+				console.log('something went wrong attempting to locate file: ' + filename)
 			})
 
 	})

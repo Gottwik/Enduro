@@ -37,17 +37,18 @@ gulp.task('browserSync', ['sass'], function() {
 			},
 		},
 		ui: false,
-		logLevel: 'info',
+		logLevel: 'silent',
 		notify: false,
 		logPrefix: 'Enduro'
 	});
 
-	watch([process.cwd() + '/assets/css/**/*'], () => { gulp.start('scss-lint', 'sass') })	// Watch for scss
-	watch([process.cwd() + '/assets/js/**/*'], () => { gulp.start('js') })					// Watch for js
-	watch([process.cwd() + '/assets/img/**/*'], () => { gulp.start('img') })				// Watch for images
-	watch([process.cwd() + '/assets/vendor/**/*'], () => { gulp.start('vendor') })			// Watch for vendor files
-	watch([process.cwd() + '/assets/fonts/**/*'], () => { gulp.start('fonts') })			// Watch for fonts
-	watch([process.cwd() + '/_src/**/*.html'], () => { browserSync.reload })				// Watch for html files
+	watch([process.cwd() + '/assets/css/**/*'], () => { gulp.start('scss-lint', 'sass') })		// Watch for scss
+	watch([process.cwd() + '/assets/js/**/*'], () => { gulp.start('js') })						// Watch for js
+	watch([process.cwd() + '/assets/img/**/*'], () => { gulp.start('img') })					// Watch for images
+	watch([process.cwd() + '/assets/vendor/**/*'], () => { gulp.start('vendor') })				// Watch for vendor files
+	watch([process.cwd() + '/assets/fonts/**/*'], () => { gulp.start('fonts') })				// Watch for fonts
+	watch([process.cwd() + '/assets/spriteicons/*.png'], () => { gulp.start('png_sprites') })	// Watch for png icons
+	watch([process.cwd() + '/_src/**/*.html'], () => { browserSync.reload() })					// Watch for html files
 
 	// Watch for enduro changes
 	watch([process.cwd() + '/pages/**/*.hbs', process.cwd() + '/components/**/*.hbs', process.cwd() + '/cms/**/*.js'], function() {
@@ -63,6 +64,7 @@ gulp.task('browserSync', ['sass'], function() {
 // *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('sass', function() {
+	kiskaLogger.log('Processing sass')
 	return gulp.src(process.cwd() + '/assets/css/main.scss')
 		.pipe(bulkSass())
 		.pipe(sourcemaps.init())

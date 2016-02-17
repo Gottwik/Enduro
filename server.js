@@ -47,8 +47,10 @@ EnduroServer.prototype.run = function () {
 		if(req.query['pswrd']){
 			kiska_guard.login(req)
 				.then(() => {
+					console.log('AAAAAAAAAAAAAA')
 					res.redirect('/')
 				}, () => {
+					console.log('BBBBBBBBBBBBBB')
 					res.redirect('/enduro_login')
 				})
 		}
@@ -71,9 +73,11 @@ EnduroServer.prototype.run = function () {
 	app.get('/*', function (req, res) {
 		kiska_guard.login(req)
 			.then(() => {
+				console.log('CCCCCCCCCCCCCC')
 				var htmlFile = req.url.length > 1 ? req.url : '/index'
 				res.sendFile(process.cwd() + '/_src' + htmlFile + '.html')
 			}, () => {
+				console.log('DDDDDDDDDDDDDD')
 				res.redirect('/enduro_login')
 			})
 	});

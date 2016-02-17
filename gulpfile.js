@@ -104,7 +104,7 @@ gulp.task('scss-lint', function() {
 // *	Todo: require js optimization should go here
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('js', function() {
-	return gulp.src(process.cwd() + '/assets/js/**/*.js')
+	return gulp.src(process.cwd() + '/assets/js/**/*')
 		.pipe(gulp.dest(process.cwd() + '/_src/assets/js'))
 });
 

@@ -10,6 +10,7 @@ var scsslint = require('gulp-scss-lint')
 var spritesmith = require('gulp.spritesmith')
 var sourcemaps = require('gulp-sourcemaps')
 var checkGem = require('gulp-check-gems')
+var autoprefixer = require('gulp-autoprefixer')
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -75,6 +76,10 @@ gulp.task('sass', ['png_sprites'], function() {
 			kiskaLogger.errBlockEnd()
 			this.emit('end');
 		})
+		.pipe(autoprefixer({
+			browsers: ['last 2 versions'],
+			cascade: false
+		}))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(process.cwd() + '/_src/assets/css'))
 		.pipe(browserSync.stream())

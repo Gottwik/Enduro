@@ -59,6 +59,9 @@ function run(args){
 		} else if(arg == 'testgulp'){
 			caught = true
 			gulp.start('png_sprites')
+		} else if(arg == 'build'){
+			caught = true
+			gulp.start('buildjs')
 		}
 	}
 

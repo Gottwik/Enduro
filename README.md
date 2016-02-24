@@ -12,7 +12,8 @@ If installed globally, enduro enables these cli commands
 
  * `Enduro create projectname`  - Creates new folder /projectname with neccessary scaffolding
  * `Enduro` - Starts enduro for development
- * `Enduro start` - Starts enduro on server - Without build tools such as watching...
+ * `Enduro start` - Starts enduro on server - Without build tools such as watching
+ * `Enduro build` - Runs requirejs optimization on assets/js/main.js
 
 ## Project directory structure
 
@@ -118,7 +119,7 @@ assets
 ```main.scss``` file inside this folder gets processed with sass. Only additional thing is globbing, so it's possible to do ```@import 'mixins/*';``` to include whole directory
 
 ## spriteicons
-png files in this folder get processes into a single spritesheet. It will be end up in assets/spriteicons/spritesheet.png and respective scss file will be in assets/css/sprites.scss
+png files in this folder get processes into a single spritesheet. It will be end up in assets/spriteicons/spritesheet.png and respective scss file will be in assets/css/sprites.scss. For retina support, just include filename@2x.png.
 
 ## vendor
 This is the folder where bower components end up in. Do not change files in this folder as enduro will run bower install on server.

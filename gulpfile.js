@@ -11,6 +11,7 @@ var spritesmith = require('gulp.spritesmith')
 var sourcemaps = require('gulp-sourcemaps')
 var checkGem = require('gulp-check-gems')
 var autoprefixer = require('gulp-autoprefixer')
+var rjs = require('requirejs')
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -44,7 +45,7 @@ gulp.task('browserSync', ['sass'], function() {
 	});
 
 	watch([ process.cwd() + '/assets/css/**/*', '!' + process.cwd() + '/assets/css/sprites/*'],
-				() => { gulp.start('scss-lint', 'sass') })											// Watch for scss
+				() => { gulp.start('scss-lint', 'sass') })										// Watch for scss
 	watch([process.cwd() + '/assets/js/**/*'], () => { gulp.start('js') })						// Watch for js
 	watch([process.cwd() + '/assets/img/**/*'], () => { gulp.start('img') })					// Watch for images
 	watch([process.cwd() + '/assets/vendor/**/*'], () => { gulp.start('vendor') })				// Watch for vendor files
@@ -101,7 +102,7 @@ gulp.task('scss-lint', function() {
 	catch(err){
 		return console.log('No liting. you need to install scss_lint');
 	}
-});
+})
 
 
 // * ———————————————————————————————————————————————————————— * //
@@ -109,9 +110,33 @@ gulp.task('scss-lint', function() {
 // *	Todo: require js optimization should go here
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('js', function() {
+
 	return gulp.src(process.cwd() + '/assets/js/**/*')
 		.pipe(gulp.dest(process.cwd() + '/_src/assets/js'))
-});
+
+})
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Build js
+// *	using requirejs optimizer to optimize
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('buildjs', function() {
+	config = {
+		mainConfigFile: process.cwd() + '/assets/js/main.js',
+		baseUrl: process.cwd() + '/assets/',
+		name: 'js/main',
+		out: process.cwd() + '/_src/assets/js/main_dist.js',
+		include: ["vendor/requirejs/require"]
+	};
+
+	rjs.optimize(config, function(buildResponse){
+		console.log(buildResponse)
+		cb()
+	}, function(err){
+		console.log(err)
+	});
+})
 
 
 // * ———————————————————————————————————————————————————————— * //
@@ -152,7 +177,9 @@ gulp.task('png_sprites', function() {
 			imgName: '_src/assets/spriteicons/spritesheet.png',
 			cssName: 'assets/css/sprites/sprites.scss',
 			padding: 3,
-			cssTemplate: __dirname + '/support_files/sprite_generator.handlebars'
+			cssTemplate: __dirname + '/support_files/sprite_generator.handlebars',
+			retinaSrcFilter: [process.cwd() + '/assets/spriteicons/*@2x.png'],
+			retinaImgName: '_src/assets/spriteicons/spritesheet@2x.png',
 		}))
 		.pipe(gulp.dest(process.cwd()));
 })

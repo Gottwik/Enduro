@@ -17,6 +17,8 @@
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-check-gems": "0.0.2",
+    "gulp-iconfont": "^6.0.0",
+    "gulp-iconfont-css": "^2.0.0",
     "gulp-load": "^0.1.1",
     "gulp-sass": "^2.1.1",
     "gulp-sass-bulk-import": "^0.3.2",

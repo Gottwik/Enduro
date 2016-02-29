@@ -12,6 +12,8 @@ var sourcemaps = require('gulp-sourcemaps')
 var checkGem = require('gulp-check-gems')
 var autoprefixer = require('gulp-autoprefixer')
 var rjs = require('requirejs')
+var iconfont = require('gulp-iconfont')
+var iconfontCss = require('gulp-iconfont-css');
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -44,13 +46,14 @@ gulp.task('browserSync', ['sass'], function() {
 		logPrefix: 'Enduro'
 	});
 
-	watch([ process.cwd() + '/assets/css/**/*', '!' + process.cwd() + '/assets/css/sprites/*'],
+	watch([ process.cwd() + '/assets/css/**/*', process.cwd() + '/assets/fonticons/*', '!' + process.cwd() + '/assets/css/sprites/*'],
 				() => { gulp.start('scss-lint', 'sass') })										// Watch for scss
 	watch([process.cwd() + '/assets/js/**/*'], () => { gulp.start('js') })						// Watch for js
 	watch([process.cwd() + '/assets/img/**/*'], () => { gulp.start('img') })					// Watch for images
 	watch([process.cwd() + '/assets/vendor/**/*'], () => { gulp.start('vendor') })				// Watch for vendor files
 	watch([process.cwd() + '/assets/fonts/**/*'], () => { gulp.start('fonts') })				// Watch for fonts
 	watch([process.cwd() + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })			// Watch for png icons
+	watch([process.cwd() + '/assets/fonticons/*.svg'], () => { gulp.start('iconfont') })		// Watch for font icon
 	watch([process.cwd() + '/_src/**/*.html'], () => { browserSync.reload() })					// Watch for html files
 
 	// Watch for enduro changes
@@ -186,15 +189,41 @@ gulp.task('png_sprites', function() {
 
 
 // * ———————————————————————————————————————————————————————— * //
+// * 	iconfont
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('iconfont', function(){
+	return gulp.src([process.cwd() + '/assets/fonticons/*.svg'])
+		.pipe(iconfontCss({
+			fontName: 'wp_icons',
+			path: 'assets/fonticons/icons_template.scss',
+			targetPath: '../../../assets/fonticons/_icons.scss',
+			fontPath: '/assets/iconfont/'
+		}))
+		.pipe(iconfont({
+			fontName: 'wp_icons',
+			prependUnicode: true,
+			formats: ['ttf', 'eot', 'woff'],
+		}))
+		.on('glyphs', function(glyphs, options) {
+			glyphs = glyphs.map(function(glyph){
+				glyph.unicode = glyph.unicode[0].charCodeAt(0).toString(16);
+				return glyph;
+			})
+			fs.writeFileSync(process.cwd() + '/assets/fonticons/_icons.json', JSON.stringify(glyphs));
+		})
+		.pipe(gulp.dest('_src/assets/iconfont/'));
+});
+
+// * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
+gulp.task('default', ['iconfont', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
 // *	No browsersync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['sass', 'js', 'img', 'vendor', 'fonts'])
+gulp.task('production', ['iconfont', 'sass', 'js', 'img', 'vendor', 'fonts'])
 
 
 // Export gulp to enable access for enduro

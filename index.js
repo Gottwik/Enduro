@@ -58,7 +58,7 @@ function run(args){
 			kiska_guard.setPassword(args)
 		} else if(arg == 'testgulp'){
 			caught = true
-			gulp.start('png_sprites')
+			gulp.start('iconfont')
 		} else if(arg == 'build'){
 			caught = true
 			gulp.start('buildjs')

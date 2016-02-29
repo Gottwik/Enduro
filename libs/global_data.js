@@ -16,7 +16,7 @@ var kiskaLogger = require('./kiska_logger')
 var enduro_helpers = require('./flat_utilities/enduro_helpers')
 var flatFileHandler = require('./flat_utilities/flat_file_handler');
 
-var DATA_PATH = process.cwd() + '/cms/global/*.js'
+var DATA_PATH = cmd_folder + '/cms/global/*.js'
 
 GlobalData.prototype.getGlobalData = function(){
 	return new Promise(function(resolve, reject){

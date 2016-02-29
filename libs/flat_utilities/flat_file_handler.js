@@ -25,7 +25,7 @@ FlatFileHandler.prototype.saveFlatRaw = function(filename, contents){
 		var flatObj = requireFromString('module.exports = ' + contents)
 		var prettyString = stringifyObject(flatObj, {indent: '	', singleQuotes: true})
 
-		fs.writeFile( process.cwd() + '/cms/' + filename + '.js' , prettyString, function(err) {
+		fs.writeFile( cmd_folder + '/cms/' + filename + '.js' , prettyString, function(err) {
 			if (err) { reject() }
 				resolve()
 		})
@@ -40,11 +40,11 @@ FlatFileHandler.prototype.load = function(filename){
 		// url decode filename
 		filename = decode(filename)
 
-		if(!enduro_helpers.fileExists(process.cwd() + '/cms/' + filename + '.js')){
+		if(!enduro_helpers.fileExists(cmd_folder + '/cms/' + filename + '.js')){
 			resolve({})
 		}
 
-		fs.readFile( process.cwd() + '/cms/' + filename + '.js' , function(err, data) {
+		fs.readFile( cmd_folder + '/cms/' + filename + '.js' , function(err, data) {
 			if (err) { reject() }
 			var flatObj = requireFromString('module.exports = ' + data)
 			resolve(flatObj)

@@ -16,7 +16,7 @@ var kiskaLogger = require('./kiska_logger')
 var flatFileHandler = require('./flat_utilities/flat_file_handler');
 
 // Current terminal window
-var DATA_PATH = process.cwd();
+var DATA_PATH = cmd_folder;
 
 // Goes through the pages and renders them
 EnduroRender.prototype.render = function(){

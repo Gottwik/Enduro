@@ -14,13 +14,13 @@ var kiskaLogger = require('./kiska_logger')
 var ComponentHandler = function () {}
 
 // Path to components
-var COMPONENTS_PATH = process.cwd() + '/components/**/*.hbs'
+var COMPONENTS_PATH = cmd_folder + '/components/**/*.hbs'
 
 // Goes through all components in @COMPONENTS_PATH and attempts to load them
 // Returns promise
 ComponentHandler.prototype.readComponents = function(){
 	return new Promise(function(resolve, reject){
-		
+
 		// Fetches the files
 		glob( COMPONENTS_PATH , function (err, files) {
 			if (err) { return kiskaLogger.errBlock(err) }

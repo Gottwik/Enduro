@@ -32,8 +32,8 @@ EnduroServer.prototype.run = function () {
 	app.set('port', (process.env.PORT || 5000))
 
 	// Serve static files from /_src folder
-	app.use('/assets', express.static(process.cwd() + '/_src/assets'))
-	app.use('/admin', express.static(process.cwd() + '/_src/admin'))
+	app.use('/assets', express.static(cmd_folder + '/_src/assets'))
+	app.use('/admin', express.static(cmd_folder + '/_src/admin'))
 
 	// Handle for executing enduro refresh from client
 	app.get('/admin_api_refresh', function (req, res) {
@@ -53,7 +53,7 @@ EnduroServer.prototype.run = function () {
 				})
 		}
 		else{
-			res.sendFile(process.cwd() + '/_src/enduro_login.html')
+			res.sendFile(cmd_folder + '/_src/enduro_login.html')
 		}
 	});
 
@@ -72,7 +72,7 @@ EnduroServer.prototype.run = function () {
 		kiska_guard.login(req)
 			.then(() => {
 				var htmlFile = req.url.length > 1 ? req.url : '/index'
-				res.sendFile(process.cwd() + '/_src' + htmlFile + '.html')
+				res.sendFile(cmd_folder + '/_src' + htmlFile + '.html')
 			}, () => {
 				res.redirect('/enduro_login')
 			})

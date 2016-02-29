@@ -31,7 +31,7 @@ describe('Enduro', function() {
 
 
 		beforeEach(function(done){
-			rimraf(process.cwd() + '/testproject', function(err){
+			rimraf(cmd_folder + '/testproject', function(err){
 				done()
 			})
 		});

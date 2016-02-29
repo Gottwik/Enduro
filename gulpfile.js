@@ -31,7 +31,7 @@ gulp.task('browserSync', ['sass'], function() {
 
 	browserSync.init({
 		server: {
-			baseDir: process.cwd() + '/_src',
+			baseDir: cmd_folder + '/_src',
 			middleware: function(req, res, next) {
 				if(req.url == '/admin/'){ req.url = '/admin/index.html' }
 				else if(!(req.url.indexOf('.')+1) && req.url.length > 3){
@@ -46,18 +46,18 @@ gulp.task('browserSync', ['sass'], function() {
 		logPrefix: 'Enduro'
 	});
 
-	watch([ process.cwd() + '/assets/css/**/*', process.cwd() + '/assets/fonticons/*', '!' + process.cwd() + '/assets/css/sprites/*'],
+	watch([ cmd_folder + '/assets/css/**/*', cmd_folder + '/assets/fonticons/*', '!' + cmd_folder + '/assets/css/sprites/*'],
 				() => { gulp.start('scss-lint', 'sass') })										// Watch for scss
-	watch([process.cwd() + '/assets/js/**/*'], () => { gulp.start('js') })						// Watch for js
-	watch([process.cwd() + '/assets/img/**/*'], () => { gulp.start('img') })					// Watch for images
-	watch([process.cwd() + '/assets/vendor/**/*'], () => { gulp.start('vendor') })				// Watch for vendor files
-	watch([process.cwd() + '/assets/fonts/**/*'], () => { gulp.start('fonts') })				// Watch for fonts
-	watch([process.cwd() + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })			// Watch for png icons
-	watch([process.cwd() + '/assets/fonticons/*.svg'], () => { gulp.start('iconfont') })		// Watch for font icon
-	watch([process.cwd() + '/_src/**/*.html'], () => { browserSync.reload() })					// Watch for html files
+	watch([cmd_folder + '/assets/js/**/*'], () => { gulp.start('js') })						// Watch for js
+	watch([cmd_folder + '/assets/img/**/*'], () => { gulp.start('img') })					// Watch for images
+	watch([cmd_folder + '/assets/vendor/**/*'], () => { gulp.start('vendor') })				// Watch for vendor files
+	watch([cmd_folder + '/assets/fonts/**/*'], () => { gulp.start('fonts') })				// Watch for fonts
+	watch([cmd_folder + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })			// Watch for png icons
+	watch([cmd_folder + '/assets/fonticons/*.svg'], () => { gulp.start('iconfont') })		// Watch for font icon
+	watch([cmd_folder + '/_src/**/*.html'], () => { browserSync.reload() })					// Watch for html files
 
 	// Watch for enduro changes
-	watch([process.cwd() + '/pages/**/*.hbs', process.cwd() + '/components/**/*.hbs', process.cwd() + '/cms/**/*.js'], function() {
+	watch([cmd_folder + '/pages/**/*.hbs', cmd_folder + '/components/**/*.hbs', cmd_folder + '/cms/**/*.js'], function() {
 		gulp.enduroRefresh(() => {})
 	})
 });
@@ -70,7 +70,7 @@ gulp.task('browserSync', ['sass'], function() {
 // *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('sass', ['png_sprites'], function() {
-	return gulp.src(process.cwd() + '/assets/css/main.scss')
+	return gulp.src(cmd_folder + '/assets/css/main.scss')
 		.pipe(bulkSass())
 		.pipe(sourcemaps.init())
 		.pipe(sass())
@@ -85,7 +85,7 @@ gulp.task('sass', ['png_sprites'], function() {
 			cascade: false
 		}))
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest(process.cwd() + '/_src/assets/css'))
+		.pipe(gulp.dest(cmd_folder + '/_src/assets/css'))
 		.pipe(browserSync.stream())
 });
 
@@ -95,7 +95,7 @@ gulp.task('sass', ['png_sprites'], function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('scss-lint', function() {
 	try{
-		return gulp.src(process.cwd() + '/assets/css/**/*')
+		return gulp.src(cmd_folder + '/assets/css/**/*')
 			.pipe(checkGem({gemfile: 'scss-lint'}, scsslint(
 				{
 					'config': __dirname + '/support_files/scss-lint.yml'
@@ -114,8 +114,8 @@ gulp.task('scss-lint', function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('js', function() {
 
-	return gulp.src(process.cwd() + '/assets/js/**/*')
-		.pipe(gulp.dest(process.cwd() + '/_src/assets/js'))
+	return gulp.src(cmd_folder + '/assets/js/**/*')
+		.pipe(gulp.dest(cmd_folder + '/_src/assets/js'))
 
 })
 
@@ -126,10 +126,10 @@ gulp.task('js', function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('buildjs', function() {
 	config = {
-		mainConfigFile: process.cwd() + '/assets/js/main.js',
-		baseUrl: process.cwd() + '/assets/',
+		mainConfigFile: cmd_folder + '/assets/js/main.js',
+		baseUrl: cmd_folder + '/assets/',
 		name: 'js/main',
-		out: process.cwd() + '/_src/assets/js/main_dist.js',
+		out: cmd_folder + '/_src/assets/js/main_dist.js',
 		include: ["vendor/requirejs/require"]
 	};
 
@@ -146,8 +146,8 @@ gulp.task('buildjs', function() {
 // * 	img
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('img', function() {
-	return gulp.src(process.cwd() + '/assets/img/**/*')
-		.pipe(gulp.dest(process.cwd() + '/_src/assets/img'))
+	return gulp.src(cmd_folder + '/assets/img/**/*')
+		.pipe(gulp.dest(cmd_folder + '/_src/assets/img'))
 })
 
 
@@ -155,8 +155,8 @@ gulp.task('img', function() {
 // * 	vendor
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('vendor', function() {
-	return gulp.src(process.cwd() + '/assets/vendor/**/*')
-		.pipe(gulp.dest(process.cwd() + '/_src/assets/vendor'))
+	return gulp.src(cmd_folder + '/assets/vendor/**/*')
+		.pipe(gulp.dest(cmd_folder + '/_src/assets/vendor'))
 })
 
 
@@ -164,8 +164,8 @@ gulp.task('vendor', function() {
 // * 	fonts
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('fonts', function() {
-	return gulp.src(process.cwd() + '/assets/fonts/**/*')
-		.pipe(gulp.dest(process.cwd() + '/_src/assets/fonts'))
+	return gulp.src(cmd_folder + '/assets/fonts/**/*')
+		.pipe(gulp.dest(cmd_folder + '/_src/assets/fonts'))
 })
 
 
@@ -175,16 +175,16 @@ gulp.task('fonts', function() {
 // *	and generate spritesheet out of them
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('png_sprites', function() {
-	return gulp.src(process.cwd() + '/assets/spriteicons/*.png')
+	return gulp.src(cmd_folder + '/assets/spriteicons/*.png')
 		.pipe(spritesmith({
 			imgName: '_src/assets/spriteicons/spritesheet.png',
 			cssName: 'assets/css/sprites/sprites.scss',
 			padding: 3,
 			cssTemplate: __dirname + '/support_files/sprite_generator.handlebars',
-			retinaSrcFilter: [process.cwd() + '/assets/spriteicons/*@2x.png'],
+			retinaSrcFilter: [cmd_folder + '/assets/spriteicons/*@2x.png'],
 			retinaImgName: '_src/assets/spriteicons/spritesheet@2x.png',
 		}))
-		.pipe(gulp.dest(process.cwd()));
+		.pipe(gulp.dest(cmd_folder));
 })
 
 
@@ -192,7 +192,7 @@ gulp.task('png_sprites', function() {
 // * 	iconfont
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('iconfont', function(){
-	return gulp.src([process.cwd() + '/assets/fonticons/*.svg'])
+	return gulp.src([cmd_folder + '/assets/fonticons/*.svg'])
 		.pipe(iconfontCss({
 			fontName: 'wp_icons',
 			path: 'assets/fonticons/icons_template.scss',
@@ -209,7 +209,7 @@ gulp.task('iconfont', function(){
 				glyph.unicode = glyph.unicode[0].charCodeAt(0).toString(16);
 				return glyph;
 			})
-			fs.writeFileSync(process.cwd() + '/assets/fonticons/_icons.json', JSON.stringify(glyphs));
+			fs.writeFileSync(cmd_folder + '/assets/fonticons/_icons.json', JSON.stringify(glyphs));
 		})
 		.pipe(gulp.dest('_src/assets/iconfont/'));
 });

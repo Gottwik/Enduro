@@ -1,6 +1,6 @@
 __templating_engine.registerHelper('json', function(context, options) {
 	var fs = require('fs')
-	var contents = JSON.parse(fs.readFileSync(process.cwd() + context, 'utf8'));
+	var contents = JSON.parse(fs.readFileSync(cmd_folder + context, 'utf8'));
 
 	var accum = '';
 

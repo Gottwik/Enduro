@@ -26,7 +26,7 @@ Scaffolder.prototype.scaffold = function(args){
 		var source = __dirname + '/../scaffolding'
 
 		// Destination directory
-		var destination = process.cwd() + '/' + projectName
+		var destination = cmd_folder + '/' + projectName
 
 		// Reject if directory already exists
 		if(enduro_helpers.dirExists(destination)){

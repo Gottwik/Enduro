@@ -10,34 +10,36 @@ var chalk = require('chalk')
 // Config
 var CONSOLE_LENGTH = 60
 
+var log = console.log;
+
 
 // * 	Info messages
 
 // * ┌——————————————~—ENDURO - CREATING PROJECT—~———————————————┐ * //
 KiskaLogger.prototype.init = function (message) {
 	message = message || 'ENDURO'
-	console.log('\n' + chalk.cyan('┌' + ('~—'+message+'—~').cpad(CONSOLE_LENGTH-2, '—') + '┐'))
+	log('\n' + chalk.cyan('┌' + ('~—'+message+'—~').cpad(CONSOLE_LENGTH-2, '—') + '┐'))
 };
 
 // * │ I have something to tell you                             │ * //
 KiskaLogger.prototype.log = function (message, newline) {
-	console.log(chalk.cyan('│') + (' ' + message).rpad(CONSOLE_LENGTH-2) + chalk.cyan('│'))
+	log(chalk.cyan('│') + (' ' + message).rpad(CONSOLE_LENGTH-2) + chalk.cyan('│'))
 	newline || false ? this.log('') : ''
 };
 
 // * │ Something                                       Happened │ * //
 KiskaLogger.prototype.twolog = function (message, left_message) {
-	console.log(chalk.cyan('│') + (' ' + message).rpad(CONSOLE_LENGTH - 3 - left_message.length) + left_message + chalk.cyan(' │'))
+	log(chalk.cyan('│') + (' ' + message).rpad(CONSOLE_LENGTH - 3 - left_message.length) + left_message + chalk.cyan(' │'))
 };
 
 // * ├——————————————————————————————————————————————————————————┤ * //
 KiskaLogger.prototype.line = function (message) {
-	console.log(chalk.cyan('├' + rep(CONSOLE_LENGTH-2, '—') + '┤'))
+	log(chalk.cyan('├' + rep(CONSOLE_LENGTH-2, '—') + '┤'))
 };
 
 // * └——————————————————————————————————————————————————————————┘ * //
 KiskaLogger.prototype.end = function() {
-	console.log(chalk.cyan('└' + rep(CONSOLE_LENGTH-2, '—') + '┘'))
+	log(chalk.cyan('└' + rep(CONSOLE_LENGTH-2, '—') + '┘'))
 }
 
 
@@ -47,27 +49,32 @@ KiskaLogger.prototype.end = function() {
 // * directory already exists                                     * //
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
 KiskaLogger.prototype.errBlock = function (message) {
-	console.log('\n' + chalk.red(rep(CONSOLE_LENGTH, '▼')))
+	log('\n' + chalk.red(rep(CONSOLE_LENGTH, '▼')))
 	this.err(message)
-	console.log(chalk.red(rep(CONSOLE_LENGTH, '▲')) + '\n')
+	log(chalk.red(rep(CONSOLE_LENGTH, '▲')) + '\n')
 };
 
 // * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ ERROR ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ * //
 KiskaLogger.prototype.errBlockStart = function (message) {
-	console.log('\n')
-	console.log(chalk.red((' ' + message + ' ').cpad(CONSOLE_LENGTH, '▼')))
+	log('\n')
+	log(chalk.red((' ' + message + ' ').cpad(CONSOLE_LENGTH, '▼')))
 };
 
 // * │ Something went wrong                                     │ * //
 KiskaLogger.prototype.err = function (message) {
-	console.log(chalk.red(message.rpad(CONSOLE_LENGTH)))
+	log(chalk.red(message.rpad(CONSOLE_LENGTH)))
 };
 
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
 KiskaLogger.prototype.errBlockEnd = function () {
-	console.log(chalk.red(rep(CONSOLE_LENGTH, '▲')))
-	console.log('\n')
+	log(chalk.red(rep(CONSOLE_LENGTH, '▲')))
+	log('\n')
 };
+
+// Silencer
+KiskaLogger.prototype.silent = function () {
+	log = () => {};
+}
 
 
 // * 	Helper functions

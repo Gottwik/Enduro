@@ -37,7 +37,7 @@
     "urldecode": "^1.0.1"
   },
   "scripts": {
-    "test": "jasmine"
+    "test": "mocha"
   },
   "bin": {
     "enduro": "./cli.js"
@@ -45,6 +45,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jasmine": "^2.4.1"
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "rimraf": "^2.5.2"
   }
 }

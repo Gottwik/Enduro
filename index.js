@@ -3,6 +3,7 @@
 global.__templating_engine = require('handlebars')
 
 global.__data = {}
+global.cmd_folder = process.cwd()
 
 var scaffolder = require('./libs/scaffolder')
 var kiskaLogger = require('./libs/kiska_logger')
@@ -68,7 +69,7 @@ function run(args){
 
 	// Some weird arguments
 	if(!caught){
-		console.log('Arguments not recognized: ', args)
+		kiskaLogger.log('Arguments not recognized')
 		return false
 	}
 	return true;
@@ -113,5 +114,11 @@ function developer_start(){
 	})
 }
 
+// Removes logging
+function silent(){
+	kiskaLogger.silent()
+}
+
 
 exports.run = run
+exports.silent = silent

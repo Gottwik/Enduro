@@ -68,7 +68,7 @@ function run(args){
 
 	// Some weird arguments
 	if(!caught){
-		console.log('Arguments not recognized', args)
+		console.log('Arguments not recognized: ', args)
 		return false
 	}
 	return true;

@@ -34,6 +34,7 @@ enduroServer.setRefresh(function(callback){
 // * ———————————————————————————————————————————————————————— * //
 // * 	Run
 // *	Entry point from the cli
+// *	Returns boolean based on if the arguments were recognized
 // * ———————————————————————————————————————————————————————— * //
 function run(args){
 	// No arguments at all - User ran $ enduro
@@ -57,8 +58,8 @@ function run(args){
 			caught = true
 			kiska_guard.setPassword(args)
 		} else if(arg == 'testgulp'){
-			caught = true
-			gulp.start('iconfont')
+			var fs = require('fs')
+			fs.writeFile('test.txt', 'aaaa');
 		} else if(arg == 'build'){
 			caught = true
 			gulp.start('buildjs')
@@ -66,7 +67,11 @@ function run(args){
 	}
 
 	// Some weird arguments
-	if(!caught){ console.log('Arguments not recognized', args) }
+	if(!caught){
+		console.log('Arguments not recognized', args)
+		return false
+	}
+	return true;
 }
 
 

@@ -1,5 +1,4 @@
 {
-	greeting: "Y'All",
-	place: "this someelse",
-	food: "buritto"
+	greeting: "you!",
+	superlative: "nice",
 }

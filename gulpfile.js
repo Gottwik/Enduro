@@ -220,10 +220,16 @@ gulp.task('iconfont', function(){
 gulp.task('default', ['iconfont', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
 
 // * ———————————————————————————————————————————————————————— * //
+// * 	Preproduction Task
+// *	Tasks that need to be done before doing the enduro render
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('preproduction', ['iconfont'])
+
+// * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
 // *	No browsersync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['iconfont', 'sass', 'js', 'img', 'vendor', 'fonts'])
+gulp.task('production', ['sass', 'js', 'img', 'vendor', 'fonts'])
 
 
 // Export gulp to enable access for enduro

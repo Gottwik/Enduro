@@ -23,12 +23,14 @@ gulp.setRefresh(function(callback){
 
 // Stores enduroServer and extends it with render
 var enduroServer = require('./server');
-enduroServer.setRefresh(function(callback){
-	render(function(){
-		gulp.start('production')
-		callback()
+enduroServer.setRefresh(function(cb){
+	gulp.start('preproduction', () => {
+		render(function(){
+			gulp.start('production', () => {
+				cb()
+			})
+		})
 	})
-	// Production task includes enduro render
 })
 
 
@@ -60,7 +62,6 @@ function run(args){
 			kiska_guard.setPassword(args)
 		} else if(arg == 'testgulp'){
 			var fs = require('fs')
-			fs.writeFile('test.txt', 'aaaa');
 		} else if(arg == 'build'){
 			caught = true
 			gulp.start('buildjs')

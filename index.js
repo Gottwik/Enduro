@@ -65,6 +65,9 @@ function run(args){
 		} else if(arg == 'build'){
 			caught = true
 			gulp.start('buildjs')
+		} else if(arg == 'devbuild'){
+			caught = true
+			gulp.start('devbuildjs')
 		}
 	}
 

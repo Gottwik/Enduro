@@ -14,6 +14,7 @@ If installed globally, enduro enables these cli commands
  * `Enduro` - Starts enduro for development
  * `Enduro start` - Starts enduro on server - Without build tools such as watching
  * `Enduro build` - Runs requirejs optimization on assets/js/main.js
+ * `Enduro devbuild` - like build but produces an unminified file
 
 ## Project directory structure
 

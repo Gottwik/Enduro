@@ -130,7 +130,30 @@ gulp.task('buildjs', function() {
 		baseUrl: cmd_folder + '/assets/',
 		name: 'js/main',
 		out: cmd_folder + '/_src/assets/js/main_dist.js',
-		include: ["vendor/requirejs/require"]
+		include: ["vendor/requirejs/require"],
+	};
+
+	rjs.optimize(config, function(buildResponse){
+		console.log(buildResponse)
+		cb()
+	}, function(err){
+		console.log(err)
+	});
+})
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Build js
+// *	using requirejs optimizer to optimize
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('devbuildjs', function() {
+	config = {
+		mainConfigFile: cmd_folder + '/assets/js/main.js',
+		baseUrl: cmd_folder + '/assets/',
+		name: 'js/main',
+		out: cmd_folder + '/_src/assets/js/main_dist.js',
+		include: ["vendor/requirejs/require"],
+		optimize: "none"
 	};
 
 	rjs.optimize(config, function(buildResponse){

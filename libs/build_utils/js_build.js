@@ -27,7 +27,7 @@ js_build.prototype.build_js = function(config_name) {
 		config = {
 			mainConfigFile: configpath,
 			baseUrl: cmd_folder + '/assets/',
-			name: 'js/main' + config_name,
+			name: 'js/main',
 			out: cmd_folder + '/_src/assets/js/main_dist.js',
 			include: ["vendor/requirejs/require"],
 		};

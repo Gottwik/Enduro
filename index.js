@@ -12,6 +12,7 @@ var helperHandler = require('./libs/helper_handler')
 var componentsHandler = require('./libs/components_handler')
 var enduroRender = require('./libs/enduro_render')
 var kiska_guard = require('./libs/kiska_guard')
+var js_build = require('./libs/build_utils/js_build')
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
 var gulp = require('./gulpfile')
@@ -64,10 +65,7 @@ function run(args){
 			var fs = require('fs')
 		} else if(arg == 'build'){
 			caught = true
-			gulp.start('buildjs')
-		} else if(arg == 'devbuild'){
-			caught = true
-			gulp.start('devbuildjs')
+			js_build.build_js(args.shift());
 		}
 	}
 

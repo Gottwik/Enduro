@@ -13,8 +13,7 @@ If installed globally, enduro enables these cli commands
  * `Enduro create projectname`  - Creates new folder /projectname with neccessary scaffolding
  * `Enduro` - Starts enduro for development
  * `Enduro start` - Starts enduro on server - Without build tools such as watching
- * `Enduro build` - Runs requirejs optimization on assets/js/main.js
- * `Enduro devbuild` - like build but produces an unminified file
+ * `Enduro build` - Runs requirejs optimization on assets/js/main.js. To have more requirejs config files use `enduro build dev` which will search for main_dev.js config file
 
 ## Project directory structure
 

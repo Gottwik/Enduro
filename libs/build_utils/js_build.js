@@ -5,8 +5,10 @@
 
 var js_build = function () {};
 
+var Promise = require('bluebird')
 var rjs = require('requirejs')
 var enduro_helpers = require('../flat_utilities/enduro_helpers')
+var kiskaLogger = require('../kiska_logger')
 
 // Creates all subdirectories neccessary to create the file in filepath
 js_build.prototype.build_js = function(config_name) {
@@ -15,15 +17,15 @@ js_build.prototype.build_js = function(config_name) {
 		? config_name = ''
 		: config_name = '_' + config_name
 
-	if(!enduro_helpers.fileExists(cmd_folder + '/assets/js/main' + config_name + '.js')){
-		console.log('No config file named main' + config_name + '.js');
-		return
-	}
+	var configpath = cmd_folder + '/assets/js/main' + config_name + '.js'
 
+	if(!enduro_helpers.fileExists(configpath)){
+		return kiskaLogger.errBlock('No config file named main' + config_name + '.js')
+	}
 
 	return new Promise(function(resolve, reject){
 		config = {
-			mainConfigFile: cmd_folder + '/assets/js/main' + config_name + '.js',
+			mainConfigFile: configpath,
 			baseUrl: cmd_folder + '/assets/',
 			name: 'js/main',
 			out: cmd_folder + '/_src/assets/js/main_dist.js',
@@ -33,8 +35,10 @@ js_build.prototype.build_js = function(config_name) {
 		rjs.optimize(config, function(buildResponse){
 			console.log(buildResponse)
 			cb()
+			resolve();
 		}, function(err){
 			console.log(err)
+			reject();
 		});
 	})
 }

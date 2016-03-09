@@ -53,16 +53,14 @@ EnduroServer.prototype.run = function () {
 	});
 
 	// Handle for all website api calls
-	// TODO quick fixed, kinda works but doesnt make any sense
+	// kinda works but needs to be properly done
 	app.get('/*', function (req, res) {
-		console.log(req.query['pswrd'])
 		if(req.query['pswrd']){
 			kiska_guard.login(req)
 				.then(() => {
-					var htmlFile = req.url.length > 1 ? req.url : '/index'
-					res.sendFile(cmd_folder + '/_src' + htmlFile + '.html')
+					res.redirect('/')
 				}, () => {
-					res.sendFile(cmd_folder + '/_src/enduro_login.html')
+					res.redirect('/enduro_login')
 				})
 		}
 		else{

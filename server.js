@@ -42,21 +42,6 @@ EnduroServer.prototype.run = function () {
 		})
 	});
 
-	// Enduro Login
-	app.get('/enduro_login', function (req, res) {
-		if(req.query['pswrd']){
-			kiska_guard.login(req)
-				.then(() => {
-					res.redirect('/')
-				}, () => {
-					res.redirect('/enduro_login')
-				})
-		}
-		else{
-			res.sendFile(cmd_folder + '/_src/enduro_login.html')
-		}
-	});
-
 	// Handle for all admin api calls
 	app.get('/admin_api/*', function (req, res) {
 		admin_api.call(req, res);
@@ -68,14 +53,28 @@ EnduroServer.prototype.run = function () {
 	});
 
 	// Handle for all website api calls
+	// TODO quick fixed, kinda works but doesnt make any sense
 	app.get('/*', function (req, res) {
-		kiska_guard.login(req)
-			.then(() => {
-				var htmlFile = req.url.length > 1 ? req.url : '/index'
-				res.sendFile(cmd_folder + '/_src' + htmlFile + '.html')
-			}, () => {
-				res.redirect('/enduro_login')
-			})
+		console.log(req.query['pswrd'])
+		if(req.query['pswrd']){
+			kiska_guard.login(req)
+				.then(() => {
+					var htmlFile = req.url.length > 1 ? req.url : '/index'
+					res.sendFile(cmd_folder + '/_src' + htmlFile + '.html')
+				}, () => {
+					res.sendFile(cmd_folder + '/_src/enduro_login.html')
+				})
+		}
+		else{
+			kiska_guard.login(req)
+				.then(() => {
+					var htmlFile = req.url.length > 1 ? req.url : '/index'
+					res.sendFile(cmd_folder + '/_src' + htmlFile + '.html')
+				}, () => {
+					//res.redirect('/enduro_login')
+					res.sendFile(cmd_folder + '/_src/enduro_login.html')
+				})
+		}
 	});
 
 	app.listen(app.get('port'), function () {

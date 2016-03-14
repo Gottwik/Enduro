@@ -13,6 +13,8 @@ var checkGem = require('gulp-check-gems')
 var autoprefixer = require('gulp-autoprefixer')
 var iconfont = require('gulp-iconfont')
 var iconfontCss = require('gulp-iconfont-css');
+var handlebars = require('gulp-handlebars');
+var defineModule = require('gulp-define-module');
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -47,13 +49,14 @@ gulp.task('browserSync', ['sass'], function() {
 
 	watch([ cmd_folder + '/assets/css/**/*', cmd_folder + '/assets/fonticons/*', '!' + cmd_folder + '/assets/css/sprites/*'],
 				() => { gulp.start('scss-lint', 'sass') })										// Watch for scss
-	watch([cmd_folder + '/assets/js/**/*'], () => { gulp.start('js') })						// Watch for js
-	watch([cmd_folder + '/assets/img/**/*'], () => { gulp.start('img') })					// Watch for images
-	watch([cmd_folder + '/assets/vendor/**/*'], () => { gulp.start('vendor') })				// Watch for vendor files
-	watch([cmd_folder + '/assets/fonts/**/*'], () => { gulp.start('fonts') })				// Watch for fonts
-	watch([cmd_folder + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })			// Watch for png icons
-	watch([cmd_folder + '/assets/fonticons/*.svg'], () => { gulp.start('iconfont') })		// Watch for font icon
-	watch([cmd_folder + '/_src/**/*.html'], () => { browserSync.reload() })					// Watch for html files
+	watch([cmd_folder + '/assets/js/**/*'], () => { gulp.start('js') })							// Watch for js
+	watch([cmd_folder + '/assets/img/**/*'], () => { gulp.start('img') })						// Watch for images
+	watch([cmd_folder + '/assets/vendor/**/*'], () => { gulp.start('vendor') })					// Watch for vendor files
+	watch([cmd_folder + '/assets/fonts/**/*'], () => { gulp.start('fonts') })					// Watch for fonts
+	watch([cmd_folder + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })				// Watch for png icons
+	watch([cmd_folder + '/assets/fonticons/*.svg'], () => { gulp.start('iconfont') })			// Watch for font icon
+	watch([cmd_folder + '/_src/**/*.html'], () => { browserSync.reload() })						// Watch for html files
+	watch([cmd_folder + '/assets/hbs_templates/*.hbs'], () => { gulp.start('hbs_templates') })	// Watch for hbs templates
 
 	// Watch for enduro changes
 	watch([cmd_folder + '/pages/**/*.hbs', cmd_folder + '/components/**/*.hbs', cmd_folder + '/cms/**/*.js'], function() {
@@ -191,10 +194,22 @@ gulp.task('iconfont', function(){
 		.pipe(gulp.dest('_src/assets/iconfont/'));
 });
 
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	JS Handlebars - Not enduro, page-generation related
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('hbs_templates', function(){
+	gulp.src(cmd_folder + '/components/**/*.hbs')
+		.pipe(handlebars())
+		.pipe(defineModule('amd'))
+		.pipe(gulp.dest(cmd_folder + '/_src/assets/hbs_templates'));
+});
+
+
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['iconfont', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
+gulp.task('default', ['iconfont', 'hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Preproduction Task
@@ -206,7 +221,7 @@ gulp.task('preproduction', ['iconfont'])
 // * 	Production Task
 // *	No browsersync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['sass', 'js', 'img', 'vendor', 'fonts'])
+gulp.task('production', ['sass', 'hbs_templates', 'js', 'img', 'vendor', 'fonts'])
 
 
 // Export gulp to enable access for enduro

@@ -62,10 +62,11 @@ function run(args){
 			caught = true
 			kiska_guard.setPassword(args)
 		} else if(arg == 'testgulp'){
-			var fs = require('fs')
+			caught = true
+			gulp.start('hbs_templates')
 		} else if(arg == 'build'){
 			caught = true
-			js_build.build_js(args.shift());
+			js_build.build_js(args.shift())
 		}
 	}
 

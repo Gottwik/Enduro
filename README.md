@@ -1,5 +1,8 @@
 # Enduro
 
+[![npm version](https://badge.fury.io/js/enduro.svg)](https://badge.fury.io/js/enduro)
+[![Build Status](https://travis-ci.org/kiskadigitalmedia/Enduro.svg?branch=master)](https://travis-ci.org/kiskadigitalmedia/Enduro)
+
 ## Basic operation
 
 enduro is static page generator / cms / build tool.
@@ -27,7 +30,9 @@ If installed globally, enduro enables these cli commands
 │   │   ├── fonts
 │   │   ├── img
 │   │   ├── js
-│   │   ├── spriteicons
+│   │   ├── hbs_templates // .hbs files will be precompiled
+│   │   ├── spriteicons // sprite will be produced out of .png images inside this folder
+│   │   ├── fonticons // icon font will be produced out of .svg images inside this folder
 │   │   ├── vendor
 │   ├── cms
 │   │   ├── global
@@ -124,3 +129,6 @@ png files in this folder get processes into a single spritesheet. It will be end
 
 ## vendor
 This is the folder where bower components end up in. Do not change files in this folder as enduro will run bower install on server.
+
+## Javascript accessible Handlebars templates
+Apart from using handlebars as default templating engines, enduro will search for .hbs files in assets/hbs_templates folder, precompile them and export js file into _src/assets/hbs_templates/hbs_templates.js.

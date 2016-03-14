@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/enduro.svg)](https://badge.fury.io/js/enduro)
 [![Build Status](https://travis-ci.org/kiskadigitalmedia/Enduro.svg?branch=master)](https://travis-ci.org/kiskadigitalmedia/Enduro)
+[![Coverage Status](https://coveralls.io/repos/github/kiskadigitalmedia/Enduro/badge.svg?branch=master)](https://coveralls.io/github/kiskadigitalmedia/Enduro?branch=master)
 
 ## Basic operation
 

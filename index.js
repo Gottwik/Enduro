@@ -57,7 +57,10 @@ function run(args){
 			return enduroServer.run();
 		} else if(arg == 'create'){
 			caught = true
-			scaffolder.scaffold(args)
+			if(args.length == 0){
+				return false
+			}
+			return scaffolder.scaffold(args)
 		} else if(arg == 'secure'){
 			caught = true
 			kiska_guard.setPassword(args)

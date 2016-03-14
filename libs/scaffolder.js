@@ -17,6 +17,7 @@ Scaffolder.prototype.scaffold = function(args){
 
 		// No project name given
 		if(!args.length){
+			reject()
 			return kiskaLogger.err('\nProvide project name as \n\n\t$ enduro create projectname\n')
 		}
 
@@ -30,6 +31,7 @@ Scaffolder.prototype.scaffold = function(args){
 
 		// Reject if directory already exists
 		if(enduro_helpers.dirExists(destination)){
+			reject()
 			return kiskaLogger.errBlock('\tdirectory already exists')
 		}
 

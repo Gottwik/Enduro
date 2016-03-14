@@ -15,6 +15,7 @@ var iconfont = require('gulp-iconfont')
 var iconfontCss = require('gulp-iconfont-css');
 var handlebars = require('gulp-handlebars');
 var defineModule = require('gulp-define-module');
+var flatten = require('gulp-flatten');
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -56,7 +57,7 @@ gulp.task('browserSync', ['sass'], function() {
 	watch([cmd_folder + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })				// Watch for png icons
 	watch([cmd_folder + '/assets/fonticons/*.svg'], () => { gulp.start('iconfont') })			// Watch for font icon
 	watch([cmd_folder + '/_src/**/*.html'], () => { browserSync.reload() })						// Watch for html files
-	watch([cmd_folder + '/assets/hbs_templates/*.hbs'], () => { gulp.start('hbs_templates') })	// Watch for hbs templates
+	watch([cmd_folder + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
 
 	// Watch for enduro changes
 	watch([cmd_folder + '/pages/**/*.hbs', cmd_folder + '/components/**/*.hbs', cmd_folder + '/cms/**/*.js'], function() {
@@ -200,8 +201,12 @@ gulp.task('iconfont', function(){
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('hbs_templates', function(){
 	gulp.src(cmd_folder + '/components/**/*.hbs')
-		.pipe(handlebars())
+		.pipe(handlebars({
+      // Pass your local handlebars version
+      handlebars: require('handlebars')
+    }))
 		.pipe(defineModule('amd'))
+		.pipe(flatten())
 		.pipe(gulp.dest(cmd_folder + '/_src/assets/hbs_templates'));
 });
 

@@ -57,13 +57,10 @@ function run(args){
 			return enduroServer.run();
 		} else if(arg == 'create'){
 			caught = true
-			if(args.length == 0){
-				return false
-			}
 			return scaffolder.scaffold(args)
 		} else if(arg == 'secure'){
 			caught = true
-			kiska_guard.setPassword(args)
+			return kiska_guard.setPassword(args)
 		} else if(arg == 'testgulp'){
 			caught = true
 			gulp.start('hbs_templates')

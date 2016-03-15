@@ -129,4 +129,4 @@ png files in this folder get processes into a single spritesheet. It will be end
 This is the folder where bower components end up in. Do not change files in this folder as enduro will run bower install on server.
 
 ## Javascript accessible Handlebars templates
-Enduro will precompile all handlebars templates in components folder, so they can be used with javascript.
+Enduro will precompile all handlebars templates located in /components folder, so they can be used with javascript. The compiled js files are accessible in _src/assets/hbs_templates

@@ -17,7 +17,7 @@ Scaffolder.prototype.scaffold = function(args){
 
 		// No project name given
 		if(!args.length){
-			reject()
+			reject('no project name was specified')
 			return kiskaLogger.err('\nProvide project name as \n\n\t$ enduro create projectname\n')
 		}
 
@@ -31,7 +31,7 @@ Scaffolder.prototype.scaffold = function(args){
 
 		// Reject if directory already exists
 		if(enduro_helpers.dirExists(destination)){
-			reject()
+			reject('requested directory already exists')
 			return kiskaLogger.errBlock('\tdirectory already exists')
 		}
 
@@ -43,7 +43,7 @@ Scaffolder.prototype.scaffold = function(args){
 		ncp(source, destination, {clobber: false}, function (err) {
 			if (err) {
 				// Something went wrong with the copying
-				reject()
+				reject('creating new files failed')
 				return kiskaLogger.errBlock(err);
 			}
 			kiskaLogger.log('Project created successfully.')

@@ -31,6 +31,7 @@ KiskaGuard.prototype.setPassword = function(args){
 
 		// No password given
 		if(!args.length){
+			reject()
 			return kiskaLogger.err('\nProvide an passphrase \n\n\t$ enduro secure catthrewupagain\n')
 		}
 

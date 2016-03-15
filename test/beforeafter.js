@@ -3,6 +3,8 @@ var rimraf = require('rimraf')
 var fs = require('fs')
 var enduro_helpers = require('../libs/flat_utilities/enduro_helpers')
 
+global.DELETE_TEST_PROJECTS = true;
+
 //Create test folder where all the test projects will be created
 before(function(done) {
 	enduro_helpers.ensureDirectoryExistence(process.cwd() + '/testfolder/.')
@@ -14,7 +16,12 @@ before(function(done) {
 
 // delete the test folder
 after(function(done) {
-	rimraf(process.cwd() + '/testfolder', function(err){
+	if(DELETE_TEST_PROJECTS){
+		rimraf(process.cwd() + '/testfolder', function(err){
+			done()
+		})
+	}
+	else {
 		done()
-	})
+	}
 });

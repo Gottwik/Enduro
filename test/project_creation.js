@@ -59,15 +59,4 @@ describe('Enduro project creation', function() {
 		expect(enduro_helpers.fileExists(cmd_folder + '/testproject_creation/package.json')).to.equal(true)
 		expect(enduro_helpers.fileExists(cmd_folder + '/testproject_creation/cms/index.js')).to.equal(true)
 	});
-
-
-	it("Should delete the project", function(done){
-		rimraf(cmd_folder + '/testproject_creation', function(err){
-			done()
-		})
-	});
-
-	it("should make sure the test project folder is deleted", function(){
-		expect(enduro_helpers.dirExists(cmd_folder + '/testproject_creation')).to.equal(false)
-	});
 });

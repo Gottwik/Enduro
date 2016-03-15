@@ -60,13 +60,13 @@ function run(args){
 			return scaffolder.scaffold(args)
 		} else if(arg == 'secure'){
 			caught = true
-			return kiska_guard.setPassword(args)
-		} else if(arg == 'testgulp'){
-			caught = true
-			gulp.start('hbs_templates')
+			return kiska_guard.set_passphrase(args)
 		} else if(arg == 'build'){
 			caught = true
 			js_build.build_js(args.shift())
+		} else if(arg == 'testgulp'){
+			caught = true
+			gulp.start('hbs_templates')
 		}
 	}
 

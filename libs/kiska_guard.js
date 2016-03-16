@@ -3,6 +3,7 @@
 // *	Provides simple security for securing the content
 // *	Uses sessions to store logged in flag
 // *	TODO: switch to bcrypt
+// *	TODO: switch login to async
 // * ———————————————————————————————————————————————————————— * //
 
 var Promise = require('bluebird');
@@ -16,11 +17,12 @@ var KiskaGuard = function () {}
 var SECURE_FILE =  '.enduro_secure'
 
 KiskaGuard.prototype.login = function(req){
+	var me = this;
 	return new Promise(function(resolve, reject){
 
 		typeof req.session.lggin_flag !== 'undefined'
 			? resolve()
-			: verify(req, req.query['pswrd'], resolve, reject)
+			: me.verify(req, req.query['pswrd'], resolve, reject)
 
 	})
 }
@@ -51,7 +53,6 @@ KiskaGuard.prototype.verify_passphrase = function(passphrase){
 		if(!passphrase){
 			reject('no passphrase provided')
 		}
-
 		// Reads the security file
 		fs.readFile(cmd_folder + '/' + SECURE_FILE, function read(err, data) {
 			if(err) { return kiskaLogger.err(err); }
@@ -68,7 +69,13 @@ KiskaGuard.prototype.verify_passphrase = function(passphrase){
 	})
 }
 
-function verify(req, passphrase, resolve, reject){
+KiskaGuard.prototype.verify = function(req, passphrase, resolve, reject){
+
+	// reject if no passphrase is provided
+	if(!passphrase){
+		reject()
+		return
+	}
 
 	// If no .enduro_secure file exists, don't check for security
 	if(!enduro_helpers.fileExists(cmd_folder + '/' + SECURE_FILE)){
@@ -77,7 +84,7 @@ function verify(req, passphrase, resolve, reject){
 		return
 	}
 
-	verifyPassphrase(passphrase)
+	this.verify_passphrase(passphrase)
 		.then(() => {
 			req.session.lggin_flag = true
 			resolve()

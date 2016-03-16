@@ -60,7 +60,7 @@ EnduroServer.prototype.run = function () {
 				.then(() => {
 					res.redirect('/')
 				}, () => {
-					res.redirect('/enduro_login')
+					res.sendFile(cmd_folder + '/_src/enduro_login.html')
 				})
 		}
 		else{

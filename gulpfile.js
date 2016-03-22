@@ -55,7 +55,10 @@ gulp.task('browserSync', ['sass'], function() {
 	watch([cmd_folder + '/assets/vendor/**/*'], () => { gulp.start('vendor') })					// Watch for vendor files
 	watch([cmd_folder + '/assets/fonts/**/*'], () => { gulp.start('fonts') })					// Watch for fonts
 	watch([cmd_folder + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })				// Watch for png icons
-	watch([cmd_folder + '/assets/fonticons/*.svg'], () => { gulp.start('iconfont') })			// Watch for font icon
+	watch([cmd_folder + '/assets/fonticons/*.svg'], () => {
+		gulp.start('iconfont')
+		gulp.enduroRefresh(() => {})
+	})			// Watch for font icon
 	watch([cmd_folder + '/_src/**/*.html'], () => { browserSync.reload() })						// Watch for html files
 	watch([cmd_folder + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
 
@@ -178,11 +181,13 @@ gulp.task('iconfont', function(){
 			fontName: 'wp_icons',
 			path: 'assets/fonticons/icons_template.scss',
 			targetPath: '../../../assets/fonticons/_icons.scss',
-			fontPath: '/assets/iconfont/'
+			fontPath: '/assets/iconfont/',
 		}))
 		.pipe(iconfont({
 			fontName: 'wp_icons',
 			prependUnicode: true,
+			fontHeight: 1024,
+			normalize: true,
 			formats: ['ttf', 'eot', 'woff'],
 		}))
 		.on('glyphs', function(glyphs, options) {

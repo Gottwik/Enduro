@@ -91,6 +91,7 @@ Will generate
 * `{{#times 10}}` - will repeat anything inside 10 times. Don't forget to close `{{/times}}`
 * `{{#json 'path/to/json.json}}` - will fetch a json array and iterate the hbs content with the context from the json `{{/json}}`
 * `{{#list 'a' 'b' 'c'}}` - same as each with arguments as context `{{/list}}`
+* `{{ternary condition 'output if true' 'output if false'}}` - ternary function implemented as hbs helper
 
 
 ## Heroku

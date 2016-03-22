@@ -4,6 +4,8 @@ global.__templating_engine = require('handlebars')
 
 global.__data = {}
 global.cmd_folder = process.cwd()
+global.enduro_folder = __dirname
+global.admin_folder = __dirname + '/admin'
 
 var scaffolder = require('./libs/scaffolder')
 var kiskaLogger = require('./libs/kiska_logger')

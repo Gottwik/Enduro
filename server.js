@@ -33,7 +33,7 @@ EnduroServer.prototype.run = function () {
 
 	// Serve static files from /_src folder
 	app.use('/assets', express.static(cmd_folder + '/_src/assets'))
-	app.use('/admin', express.static(cmd_folder + '/_src/admin'))
+	app.use('/admin', express.static(admin_folder))
 
 	// Handle for executing enduro refresh from client
 	app.get('/admin_api_refresh', function (req, res) {
@@ -60,7 +60,7 @@ EnduroServer.prototype.run = function () {
 				.then(() => {
 					res.redirect('/')
 				}, () => {
-					res.sendFile(cmd_folder + '/_src/enduro_login.html')
+					res.sendFile(admin_folder + '/enduro_login.html')
 				})
 		}
 		else{
@@ -69,7 +69,7 @@ EnduroServer.prototype.run = function () {
 					var htmlFile = req.url.length > 1 ? req.url : '/index'
 					res.sendFile(cmd_folder + '/_src' + htmlFile + '.html')
 				}, () => {
-					res.sendFile(cmd_folder + '/_src/enduro_login.html')
+					res.sendFile(admin_folder + '/enduro_login.html')
 				})
 		}
 	});

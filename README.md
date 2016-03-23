@@ -87,6 +87,7 @@ Will generate
 
 
 ## Helpers
+* `{{partial 'partialname'}}` - renders partial based on string name. This helper is used for displaying helper dynamically
 * `{{default class 'red'}}` - If no class parameter is provided 'red' is being used
 * `{{#times 10}}` - will repeat anything inside 10 times. Don't forget to close `{{/times}}`
 * `{{#json 'path/to/json.json}}` - will fetch a json array and iterate the hbs content with the context from the json `{{/json}}`

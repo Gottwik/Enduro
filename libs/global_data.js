@@ -43,7 +43,7 @@ GlobalData.prototype.getGlobalData = function(){
 					flatFileHandler.load(fileInCms)
 						.then((data) => {
 							// Extends global data with currently loaded data
-							extend(true, __data, data)
+							extend(true, __data.global, data)
 
 							kiskaLogger.twolog('global ' + filename, 'loaded')
 							callback()

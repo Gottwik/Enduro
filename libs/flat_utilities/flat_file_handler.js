@@ -40,12 +40,19 @@ FlatFileHandler.prototype.load = function(filename){
 		// url decode filename
 		filename = decode(filename)
 
+		// check if file exists. return empty object if not
 		if(!enduro_helpers.fileExists(cmd_folder + '/cms/' + filename + '.js')){
 			resolve({})
 		}
 
 		fs.readFile( cmd_folder + '/cms/' + filename + '.js' , function(err, data) {
 			if (err) { reject() }
+
+			// check if file is empty. return empty object if so
+			if(data == ''){
+				return resolve({})
+			}
+
 			var flatObj = requireFromString('module.exports = ' + data)
 			resolve(flatObj)
 		})

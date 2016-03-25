@@ -67,13 +67,13 @@ Will generate
 
 ### Using associated content files
 ```hbs
-<!-- page/somepage.hbs -->
+<!-- pages/somepage.hbs -->
 <p>{{person}} came and said {{said_what}}</p>
 ```
 
 ```javascript
 // cms/somepage.js
-module.exports = {
+{
 	person: "Big guy",
     said_what: "here's your pizza",
 }
@@ -94,7 +94,7 @@ Will generate
 * `{{#list 'a' 'b' 'c'}}` - same as each with arguments as context `{{/list}}`
 * `{{ternary condition 'output if true' 'output if false'}}` - ternary function implemented as hbs helper
 * `{{#within global/products context.productid}}` - Changes context of the block inside for array's descendant with provided key
-
+* `{{first array}}` - same as with but will provide first object in array as context
 
 ## Heroku
 Enduro is heroku ready. Just make sure that enduro is in the dependencies of your project. To publish on heroku, just use these steps (heroku cli required):

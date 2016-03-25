@@ -3,6 +3,7 @@
 global.__templating_engine = require('handlebars')
 
 global.__data = {}
+global.__data.global = {}
 global.cmd_folder = process.cwd()
 global.enduro_folder = __dirname
 global.admin_folder = __dirname + '/admin'
@@ -113,9 +114,15 @@ function render(callback){
 // * 	Developer Start
 // *	Renders content and starts browsersync after that
 // * ———————————————————————————————————————————————————————— * //
+var preproduction_ran = false;
 function developer_start(){
-	render(function(){
-		gulp.start('default')
+	gulp.start('preproduction', () => {
+		if(!preproduction_ran){
+			render(function(){
+				gulp.start('default')
+			})
+			preproduction_ran = true;
+		}
 	})
 }
 

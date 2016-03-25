@@ -45,7 +45,7 @@ gulp.task('browserSync', ['sass'], function() {
 		ui: false,
 		logLevel: 'silent',
 		notify: false,
-		logPrefix: 'Enduro'
+		logPrefix: 'Enduro',
 	});
 
 	watch([ cmd_folder + '/assets/css/**/*', cmd_folder + '/assets/fonticons/*', '!' + cmd_folder + '/assets/css/sprites/*'],
@@ -175,7 +175,7 @@ gulp.task('png_sprites', function() {
 // * ———————————————————————————————————————————————————————— * //
 // * 	iconfont
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('iconfont', function(){
+gulp.task('iconfont', function(cb){
 	return gulp.src([cmd_folder + '/assets/fonticons/*.svg'])
 		.pipe(iconfontCss({
 			fontName: 'wp_icons',
@@ -196,6 +196,7 @@ gulp.task('iconfont', function(){
 				return glyph;
 			})
 			fs.writeFileSync(cmd_folder + '/assets/fonticons/_icons.json', JSON.stringify(glyphs));
+			cb()
 		})
 		.pipe(gulp.dest('_src/assets/iconfont/'));
 });
@@ -219,7 +220,7 @@ gulp.task('hbs_templates', function(){
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['iconfont', 'hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
+gulp.task('default', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Preproduction Task

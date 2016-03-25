@@ -7,7 +7,7 @@ __templating_engine.registerHelper("partial", function (name, options) {
 
 	// build up context
 	context = this
-	context.global = options.data.root
+	context.global = options.data.root.global
 
 	// Compile and call the partial with context
 	return (typeof partial == 'function')

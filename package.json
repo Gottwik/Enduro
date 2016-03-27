@@ -22,7 +22,7 @@
     "gulp-iconfont-css": "^2.0.0",
     "gulp-load": "^0.1.1",
     "gulp-sass": "^2.1.1",
-    "gulp-sass-bulk-import": "^0.3.2",
+    "gulp-sass-bulk-import": "^1.0.1",
     "gulp-scss-lint": "^0.3.9",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-watch": "^4.3.5",

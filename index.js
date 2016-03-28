@@ -114,15 +114,11 @@ function render(callback){
 // * 	Developer Start
 // *	Renders content and starts browsersync after that
 // * ———————————————————————————————————————————————————————— * //
-var preproduction_ran = false;
 function developer_start(){
 	gulp.start('preproduction', () => {
-		if(!preproduction_ran){
-			render(function(){
-				gulp.start('default')
-			})
-			preproduction_ran = true;
-		}
+		render(function(){
+			gulp.start('default', () => {})
+		})
 	})
 }
 

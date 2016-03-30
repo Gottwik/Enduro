@@ -1,42 +1,54 @@
-{
-	// Default options
-	'functions': true,
-	'variableNameTransforms': ['dasherize']
-}
 
 {{#block "sprites-comment"}}
 // scss-lint:disable all
 {{/block}}
-{{#block "sprites"}}
+
 {{#each sprites}}
-${{strings.name_name}}: '{{name}}';
-${{strings.name_x}}: {{px.x}};
-${{strings.name_y}}: {{px.y}};
-${{strings.name_offset_x}}: {{px.offset_x}};
-${{strings.name_offset_y}}: {{px.offset_y}};
-${{strings.name_width}}: {{px.width}};
-${{strings.name_height}}: {{px.height}};
-${{strings.name_total_width}}: {{px.total_width}};
-${{strings.name_total_height}}: {{px.total_height}};
-${{strings.name_image}}: '../spriteicons/spritesheet.png';
-${{strings.name}}: ({{px.x}}, {{px.y}}, {{px.offset_x}}, {{px.offset_y}}, {{px.width}}, {{px.height}}, {{px.total_width}}, {{px.total_height}}, '../spriteicons/spritesheet.png', '{{name}}');
+	${{strings.name_name}}: '{{name}}';
+	${{strings.name_x}}: {{px.x}};
+	${{strings.name_y}}: {{px.y}};
+	${{strings.name_offset_x}}: {{px.offset_x}};
+	${{strings.name_offset_y}}: {{px.offset_y}};
+	${{strings.name_width}}: {{px.width}};
+	${{strings.name_height}}: {{px.height}};
+	${{strings.name_total_width}}: {{px.total_width}};
+	${{strings.name_total_height}}: {{px.total_height}};
+	${{strings.name_image}}: '/assets/spriteicons/spritesheet.png';
+	${{strings.name}}: ({{px.x}}, {{px.y}}, {{px.offset_x}}, {{px.offset_y}}, {{px.width}}, {{px.height}}, {{px.total_width}}, {{px.total_height}}, '/assets/spriteicons/spritesheet.png', '{{name}}', );
 {{/each}}
-{{/block}}
-{{#block "spritesheet"}}
+
+{{#each retina_sprites}}
+	${{strings.name_name}}: '{{name}}';
+	${{strings.name_x}}: {{px.x}};
+	${{strings.name_y}}: {{px.y}};
+	${{strings.name_offset_x}}: {{px.offset_x}};
+	${{strings.name_offset_y}}: {{px.offset_y}};
+	${{strings.name_width}}: {{px.width}};
+	${{strings.name_height}}: {{px.height}};
+	${{strings.name_total_width}}: {{px.total_width}};
+	${{strings.name_total_height}}: {{px.total_height}};
+	${{strings.name_image}}: '/assets/spriteicons/spritesheet@2x.png';
+	${{strings.name}}: ({{px.x}}, {{px.y}}, {{px.offset_x}}, {{px.offset_y}}, {{px.width}}, {{px.height}}, {{px.total_width}}, {{px.total_height}}, '/assets/spriteicons/spritesheet@2x.png', '{{name}}', );
+{{/each}}
+
 ${{spritesheet_info.strings.name_width}}: {{spritesheet.px.width}};
 ${{spritesheet_info.strings.name_height}}: {{spritesheet.px.height}};
-${{spritesheet_info.strings.name_image}}: '../spriteicons/spritesheet.png';
-${{spritesheet_info.strings.name_sprites}}: ({{#each sprites}}${{strings.name}}{{/each}});
-${{spritesheet_info.strings.name}}: ({{spritesheet.px.width}}, {{spritesheet.px.height}}, '../spriteicons/spritesheet.png', ${{spritesheet_info.strings.name_sprites}});
-{{/block}}
+${{spritesheet_info.strings.name_image}}: '/assets/spriteicons/spritesheet.png';
+${{spritesheet_info.strings.name_sprites}}: ({{#each sprites}}${{strings.name}}, {{/each}});
+${{spritesheet_info.strings.name}}: ({{spritesheet.px.width}}, {{spritesheet.px.height}}, '/assets/spriteicons/spritesheet.png', ${{spritesheet_info.strings.name_sprites}});
 
-{{#block "sprite-functions-comment"}}
-{{#if options.functions}}
 
-{{/if}}
-{{/block}}
-{{#block "sprite-functions"}}
-{{#if options.functions}}
+${{retina_spritesheet_info.strings.name_width}}: {{retina_spritesheet.px.width}};
+${{retina_spritesheet_info.strings.name_height}}: {{retina_spritesheet.px.height}};
+${{retina_spritesheet_info.strings.name_image}}: '/assets/spriteicons/spritesheet@2x.png';
+${{retina_spritesheet_info.strings.name_sprites}}: ({{#each retina_sprites}}${{strings.name}}, {{/each}});
+${{retina_spritesheet_info.strings.name}}: ({{retina_spritesheet.px.width}}, {{retina_spritesheet.px.height}}, '/assets/spriteicons/spritesheet@2x.png', ${{retina_spritesheet_info.strings.name_sprites}}, );
+{{#each retina_groups}}
+	${{strings.name_group_name}}: '{{name}}';
+	${{strings.name_group}}: ('{{name}}', ${{normal.strings.name}}, ${{retina.strings.name}}, );
+{{/each}}
+${{retina_groups_info.strings.name}}: ({{#each retina_groups}}${{strings.name_group}}, {{/each}});
+
 @mixin sprite-width($sprite) {
 	width: nth($sprite, 5);
 }
@@ -62,28 +74,34 @@ ${{spritesheet_info.strings.name}}: ({{spritesheet.px.width}}, {{spritesheet.px.
 	@include sprite-width($sprite);
 	@include sprite-height($sprite);
 }
-{{/if}}
-{{/block}}
 
-{{#block "spritesheet-functions-comment"}}
-{{#if options.functions}}
+@mixin sprite-background-size($sprite) {
+	$sprite-total-width: nth($sprite, 7);
+	$sprite-total-height: nth($sprite, 8);
+	background-size: $sprite-total-width $sprite-total-height;
+}
 
-{{/if}}
-{{/block}}
-{{#block "spritesheet-functions"}}
-{{#if options.functions}}
-@mixin sprites($sprites) {
-	@each $sprite in $sprites {
-		$sprite-name: nth($sprite, 10);
-		.sprite-#{$sprite-name} {
-			@include sprite($sprite);
-			display:inline-block;
+@mixin retina-sprite($retina-group) {
+	$normal-sprite: nth($retina-group, 2);
+	$retina-sprite: nth($retina-group, 3);
+	@include sprite($normal-sprite);
+
+	@media (-webkit-min-device-pixel-ratio: 2),
+	(min-resolution: 192dpi) {
+		@include sprite-image($retina-sprite);
+		@include sprite-background-size($normal-sprite);
+	}
+}
+
+@mixin retina-sprites($retina-groups) {
+	@each $retina-group in $retina-groups {
+		$sprite-name: nth($retina-group, 1);
+		.#{$sprite-name} {
+			@include retina-sprite($retina-group);
 		}
 	}
 }
-{{/if}}
-{{/block}}
 
-@include sprites($spritesheet-sprites);
+@include retina-sprites($retina-groups);
 
 // scss-lint:enable all

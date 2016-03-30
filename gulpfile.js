@@ -208,9 +208,9 @@ gulp.task('iconfont', function(cb){
 gulp.task('hbs_templates', function(){
 	gulp.src(cmd_folder + '/components/**/*.hbs')
 		.pipe(handlebars({
-      // Pass your local handlebars version
-      handlebars: require('handlebars')
-    }))
+			// Pass your local handlebars version
+			handlebars: require('handlebars')
+		}))
 		.pipe(defineModule('amd'))
 		.pipe(flatten())
 		.pipe(gulp.dest(cmd_folder + '/_src/assets/hbs_templates'));

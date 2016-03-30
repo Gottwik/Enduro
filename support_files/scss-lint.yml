@@ -97,7 +97,7 @@ linters:
     allow_single_line_padding: false
 
   SpaceBetweenParens:
-    enabled: true
+    enabled: false
     spaces: 0
 
   StringQuotes:

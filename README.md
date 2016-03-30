@@ -95,6 +95,7 @@ Will generate
 * `{{ternary condition 'output if true' 'output if false'}}` - ternary function implemented as hbs helper
 * `{{#within global/products context.productid}}` - Changes context of the block inside for array's descendant with provided key
 * `{{first array}}` - same as with but will provide first object in array as context
+* `{{lorem 20}}` - will generate dummy text with a lenght of 20 words
 
 ## Heroku
 Enduro is heroku ready. Just make sure that enduro is in the dependencies of your project. To publish on heroku, just use these steps (heroku cli required):

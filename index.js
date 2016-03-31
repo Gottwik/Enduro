@@ -115,12 +115,17 @@ function render(callback){
 // *	Renders content and starts browsersync after that
 // * ———————————————————————————————————————————————————————— * //
 var first = true
+var firstrender = true;
 function developer_start(){
 	gulp.start('preproduction', () => {
-		first &&
+		if(first){
 			render(() => {
-				gulp.start('default', () => {})
+				if(firstrender){
+					gulp.start('default', () => {})
+				}
+				firstrender = false
 			})
+		}
 		first = false
 	})
 }

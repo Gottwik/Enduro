@@ -69,7 +69,7 @@ function run(args){
 			js_build.build_js(args.shift())
 		} else if(arg == 'testgulp'){
 			caught = true
-			gulp.start('png_sprites')
+			gulp.start('html_prettify')
 		}
 	}
 

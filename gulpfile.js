@@ -12,10 +12,14 @@ var sourcemaps = require('gulp-sourcemaps')
 var checkGem = require('gulp-check-gems')
 var autoprefixer = require('gulp-autoprefixer')
 var iconfont = require('gulp-iconfont')
-var iconfontCss = require('gulp-iconfont-css');
-var handlebars = require('gulp-handlebars');
-var defineModule = require('gulp-define-module');
-var flatten = require('gulp-flatten');
+var iconfontCss = require('gulp-iconfont-css')
+var handlebars = require('gulp-handlebars')
+var defineModule = require('gulp-define-module')
+var flatten = require('gulp-flatten')
+var prettify = require('gulp-prettify')
+var concat = require('gulp-concat')
+var filterBy = require('gulp-filter-by')
+var wrap = require("gulp-wrap");
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -54,6 +58,7 @@ gulp.task('browserSync', ['sass'], function() {
 	watch([cmd_folder + '/assets/img/**/*'], () => { gulp.start('img') })						// Watch for images
 	watch([cmd_folder + '/assets/vendor/**/*'], () => { gulp.start('vendor') })					// Watch for vendor files
 	watch([cmd_folder + '/assets/fonts/**/*'], () => { gulp.start('fonts') })					// Watch for fonts
+	watch([cmd_folder + '/assets/hbs_helpers/**/*'], () => { gulp.start('hbs_helpers') })		// Watch for local handlebars helpers
 	watch([cmd_folder + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })				// Watch for png icons
 	watch([cmd_folder + '/assets/fonticons/*.svg'], () => {
 		gulp.start('iconfont')
@@ -208,8 +213,8 @@ gulp.task('iconfont', function(cb){
 gulp.task('hbs_templates', function(){
 	gulp.src(cmd_folder + '/components/**/*.hbs')
 		.pipe(handlebars({
-			// Pass your local handlebars version
-			handlebars: require('handlebars')
+			// Pass local handlebars
+			handlebars: __templating_engine
 		}))
 		.pipe(defineModule('amd'))
 		.pipe(flatten())
@@ -218,9 +223,39 @@ gulp.task('hbs_templates', function(){
 
 
 // * ———————————————————————————————————————————————————————— * //
+// * 	Handlebars helpers
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('hbs_helpers', function() {
+	return gulp.src([cmd_folder + '/assets/hbs_helpers/**/*.js', enduro_folder + '/hbs_helpers/**/*.js'])
+		.pipe(filterBy(function(file) {
+			return file.contents.toString().indexOf('enduro_nojs') == -1;
+		}))
+		.pipe(concat('hbs_helpers.js'))
+		.pipe(wrap('define([],function(){ return function(__templating_engine){ \n\n<%= contents %>\n\n }})'))
+		.pipe(gulp.dest(cmd_folder + '/_src/assets/hbs_helpers/'));
+})
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	html prettify
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('html_prettify', function(){
+	gulp.src('_src/**/*.html')
+		.pipe(prettify({
+			indent_with_tabs: true,
+			'max_preserve_newlines': 0,
+			"eol": "\n",
+			"end_with_newline": true
+		}))
+		.pipe(gulp.dest('_src'))
+});
+
+
+// * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'browserSync'])
+gulp.task('default', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browserSync'])
+
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Preproduction Task
@@ -228,11 +263,12 @@ gulp.task('default', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('preproduction', ['iconfont'])
 
+
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
 // *	No browsersync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['sass', 'hbs_templates', 'js', 'img', 'vendor', 'fonts'])
+gulp.task('production', ['sass', 'hbs_templates', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers'])
 
 
 // Export gulp to enable access for enduro

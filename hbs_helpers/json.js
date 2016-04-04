@@ -1,3 +1,5 @@
+// enduro_nojs
+
 __templating_engine.registerHelper('json', function(context, options) {
 	var fs = require('fs')
 	var contents = JSON.parse(fs.readFileSync(cmd_folder + context, 'utf8'));

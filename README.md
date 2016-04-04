@@ -31,6 +31,7 @@ If installed globally, enduro enables these cli commands
 │   │   ├── js
 │   │   ├── spriteicons // sprite will be produced out of .png images inside this folder
 │   │   ├── fonticons // icon font will be produced out of .svg images inside this folder
+│   │   ├── hbs_helpers // custom handlebars helpers. Ready to use both in backend and frontend
 │   │   ├── vendor
 │   ├── cms
 │   │   ├── global
@@ -135,3 +136,14 @@ This is the folder where bower components end up in. Do not change files in this
 
 ## Javascript accessible Handlebars templates
 Enduro will precompile all handlebars templates located in /components folder, so they can be used with javascript. The compiled js files are accessible in _src/assets/hbs_templates
+
+## Custom handlebars templates
+Enduro will search `assets/hbs_helpers/` folder for custom helpers. These templates can be used out of the box in enduro compoments and pages. Additionally the helpers are concated and wrapped as amd module to be used by javascript on client. See below for syntax of how custom helpers should be written:
+
+```javascript
+__templating_engine.registerHelper('helpername', function(helperparameters) {
+	return 'helperoutput'
+});
+```
+
+To use handlebars helpers on client, you have to extend handlebars with these helpers. To do so, use assets/js/handlebars.js file. You will also have to specify path to handlebars as 'handlebars_core'.

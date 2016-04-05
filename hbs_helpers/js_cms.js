@@ -9,8 +9,7 @@ __templating_engine.registerHelper('js_cms', function(cmsfile) {
 
 	if(files.length > 0){
 		var fileInCms = files[0].match(/cms\/(.*)\.([^\\/]+)$/)[1]
-		data = flatFileHandler.loadsync(fileInCms)
-		return 'var global = ' + data;
+		return flatFileHandler.loadsync(fileInCms)
 	}
 	return '';
 });

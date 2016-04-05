@@ -10,6 +10,7 @@ var enduro_helpers = require('./enduro_helpers')
 var decode = require('urldecode')
 var stringifyObject = require('stringify-object')
 
+
 var FlatFileHandler = function () {}
 
 
@@ -57,6 +58,18 @@ FlatFileHandler.prototype.load = function(filename){
 			resolve(flatObj)
 		})
 	})
+}
+
+// loads file synchronously
+FlatFileHandler.prototype.loadsync = function(filename){
+	filename = decode(filename)
+
+	if(!enduro_helpers.fileExists(cmd_folder + '/cms/' + filename + '.js')){
+		return {};
+	}
+
+	data = fs.readFileSync( cmd_folder + '/cms/' + filename + '.js', 'utf-8')
+	return data;
 }
 
 

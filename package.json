@@ -11,6 +11,7 @@
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "extend": "^3.0.0",
+    "glob": "^7.0.3",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-check-gems": "0.0.2",

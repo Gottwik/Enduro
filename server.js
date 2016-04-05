@@ -58,7 +58,7 @@ EnduroServer.prototype.run = function () {
 		if(req.query['pswrd']){
 			kiska_guard.login(req)
 				.then(() => {
-					var htmlFile = req.url.length > 1 ? '/' + req.url : '/'
+					var htmlFile = req.url.length > 1 ? req.url.substring(0, req.url.indexOf('?')) : '/'
 					res.redirect(htmlFile)
 				}, () => {
 					res.sendFile(admin_folder + '/enduro_login.html')

@@ -4,18 +4,20 @@ global.__templating_engine = require('handlebars')
 
 global.__data = {}
 global.__data.global = {}
-global.cmd_folder = process.cwd()
-global.enduro_folder = __dirname
-global.admin_folder = __dirname + '/admin'
+global.CMD_FOLDER = process.cwd()
+global.ENDURO_FOLDER = __dirname
+global.ADMIN_FOLDER = __dirname + '/admin'
 
-var scaffolder = require('./libs/scaffolder')
-var kiskaLogger = require('./libs/kiska_logger')
-var globalData = require('./libs/global_data')
-var helperHandler = require('./libs/helper_handler')
-var componentsHandler = require('./libs/components_handler')
-var enduroRender = require('./libs/enduro_render')
-var kiska_guard = require('./libs/kiska_guard')
-var js_build = require('./libs/build_utils/js_build')
+global.BABEL_FILE = CMD_FOLDER + '/cms/config/babel.js'
+
+var scaffolder = require(ENDURO_FOLDER + '/libs/scaffolder')
+var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var global_data = require(ENDURO_FOLDER + '/libs/global_data')
+var helper_handler = require(ENDURO_FOLDER + '/libs/helper_handler')
+var components_handler = require(ENDURO_FOLDER + '/libs/components_handler')
+var enduro_render = require(ENDURO_FOLDER + '/libs/enduro_render')
+var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
+var js_build = require(ENDURO_FOLDER + '/libs/build_utils/js_build')
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
 var gulp = require('./gulpfile')
@@ -75,7 +77,7 @@ function run(args){
 
 	// Some weird arguments
 	if(!caught){
-		kiskaLogger.log('Arguments not recognized')
+		kiska_logger.log('Arguments not recognized')
 		return false
 	}
 	return true;
@@ -90,19 +92,19 @@ function run(args){
 // *	- Renders files in ../pages
 // * ———————————————————————————————————————————————————————— * //
 function render(callback){
-	kiskaLogger.init()
-	globalData.getGlobalData()
+	kiska_logger.init()
+	global_data.getGlobalData()
 		.then(() => {
-			return componentsHandler.readComponents()
+			return components_handler.readComponents()
 		})
 		.then(() => {
-			return helperHandler.readHelpers()
+			return helper_handler.readHelpers()
 		})
 		.then(() => {
-			return enduroRender.render()
+			return enduro_render.render()
 		})
 		.then(() => {
-			kiskaLogger.end()
+			kiska_logger.end()
 			if(callback){
 				callback()
 			}
@@ -132,7 +134,7 @@ function developer_start(){
 
 // Removes logging
 function silent(){
-	kiskaLogger.silent()
+	kiska_logger.silent()
 }
 
 

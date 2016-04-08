@@ -44,19 +44,19 @@ describe('Enduro project creation', function() {
 
 
 	it("the folder should exists", function(){
-		expect(enduro_helpers.dirExists(cmd_folder + '/testproject_creation')).to.equal(true)
+		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation')).to.equal(true)
 	});
 
 	it("the project folder should have all the subfolders", function(){
-		expect(enduro_helpers.dirExists(cmd_folder + '/testproject_creation/pages')).to.equal(true)
-		expect(enduro_helpers.dirExists(cmd_folder + '/testproject_creation/api')).to.equal(true)
-		expect(enduro_helpers.dirExists(cmd_folder + '/testproject_creation/assets')).to.equal(true)
-		expect(enduro_helpers.dirExists(cmd_folder + '/testproject_creation/cms')).to.equal(true)
-		expect(enduro_helpers.dirExists(cmd_folder + '/testproject_creation/components')).to.equal(true)
+		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/pages')).to.equal(true)
+		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/api')).to.equal(true)
+		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/assets')).to.equal(true)
+		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/cms')).to.equal(true)
+		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/components')).to.equal(true)
 	});
 
 	it("the project folder should contain files", function(){
-		expect(enduro_helpers.fileExists(cmd_folder + '/testproject_creation/package.json')).to.equal(true)
-		expect(enduro_helpers.fileExists(cmd_folder + '/testproject_creation/cms/index.js')).to.equal(true)
+		expect(enduro_helpers.fileExists(CMD_FOLDER + '/testproject_creation/package.json')).to.equal(true)
+		expect(enduro_helpers.fileExists(CMD_FOLDER + '/testproject_creation/cms/index.js')).to.equal(true)
 	});
 });

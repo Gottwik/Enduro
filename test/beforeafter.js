@@ -9,7 +9,7 @@ global.DELETE_TEST_PROJECTS = true;
 before(function(done) {
 	enduro_helpers.ensureDirectoryExistence(process.cwd() + '/testfolder/.')
 		.then(() => {
-			global.cmd_folder = process.cwd() + '/testfolder'
+			global.CMD_FOLDER = process.cwd() + '/testfolder'
 			done()
 		})
 });

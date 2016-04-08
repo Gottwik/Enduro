@@ -39,7 +39,7 @@ KiskaGuard.prototype.set_passphrase = function(args){
 		// Stores the passphrase
 		var passphrase = passwordHash.generate(args[0])
 
-		fs.writeFile(cmd_folder + '/' + SECURE_FILE, passphrase, function(err) {
+		fs.writeFile(CMD_FOLDER + '/' + SECURE_FILE, passphrase, function(err) {
 			if(err) { return kiskaLogger.err(err); }
 			kiskaLogger.log('Enduro project is secure now') // TODO nice logging
 			resolve();
@@ -54,7 +54,7 @@ KiskaGuard.prototype.verify_passphrase = function(passphrase){
 			reject('no passphrase provided')
 		}
 		// Reads the security file
-		fs.readFile(cmd_folder + '/' + SECURE_FILE, function read(err, data) {
+		fs.readFile(CMD_FOLDER + '/' + SECURE_FILE, function read(err, data) {
 			if(err) { return kiskaLogger.err(err); }
 
 			// Compares the hashed passphrase, sets session flag and resolves if successful
@@ -78,7 +78,7 @@ KiskaGuard.prototype.verify = function(req, passphrase, resolve, reject){
 	}
 
 	// If no .enduro_secure file exists, don't check for security
-	if(!enduro_helpers.fileExists(cmd_folder + '/' + SECURE_FILE)){
+	if(!enduro_helpers.fileExists(CMD_FOLDER + '/' + SECURE_FILE)){
 		req.session.lggin_flag = true
 		resolve()
 		return

@@ -5,7 +5,7 @@ var glob = require("multi-glob").glob;
 var kiskaLogger = require('./kiska_logger')
 
 var ENDURO_HELPERS_PATH = __dirname + '/../hbs_helpers/**/*.js'
-var PROJECT_HELPERS_PATH = cmd_folder + '/assets/hbs_helpers/**/*.js'
+var PROJECT_HELPERS_PATH = CMD_FOLDER + '/assets/hbs_helpers/**/*.js'
 
 var HelperHandler = function () {}
 

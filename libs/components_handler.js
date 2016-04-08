@@ -14,7 +14,7 @@ var kiskaLogger = require('./kiska_logger')
 var ComponentHandler = function () {}
 
 // Path to components
-var COMPONENTS_PATH = cmd_folder + '/components/**/*.hbs'
+var COMPONENTS_PATH = CMD_FOLDER + '/components/**/*.hbs'
 
 // Goes through all components in @COMPONENTS_PATH and attempts to load them
 // Returns promise

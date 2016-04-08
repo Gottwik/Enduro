@@ -5,11 +5,11 @@
 
 var Promise = require('bluebird');
 var fs = require('fs')
-var requireFromString = require('require-from-string');
-var enduro_helpers = require('./enduro_helpers')
+var require_from_string = require('require-from-string')
 var decode = require('urldecode')
-var stringifyObject = require('stringify-object')
+var stringify_object = require('stringify-object')
 
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
 var FlatFileHandler = function () {}
 
@@ -23,10 +23,10 @@ FlatFileHandler.prototype.saveFlatRaw = function(filename, contents){
 		// url decode filename
 		filename = decode(filename)
 
-		var flatObj = requireFromString('module.exports = ' + contents)
-		var prettyString = stringifyObject(flatObj, {indent: '	', singleQuotes: true})
+		var flatObj = require_from_string('module.exports = ' + contents)
+		var prettyString = stringify_object(flatObj, {indent: '	', singleQuotes: true})
 
-		fs.writeFile( cmd_folder + '/cms/' + filename + '.js' , prettyString, function(err) {
+		fs.writeFile( CMD_FOLDER + '/cms/' + filename + '.js' , prettyString, function(err) {
 			if (err) { reject() }
 				resolve()
 		})
@@ -42,11 +42,11 @@ FlatFileHandler.prototype.load = function(filename){
 		filename = decode(filename)
 
 		// check if file exists. return empty object if not
-		if(!enduro_helpers.fileExists(cmd_folder + '/cms/' + filename + '.js')){
+		if(!enduro_helpers.fileExists(CMD_FOLDER + '/cms/' + filename + '.js')){
 			resolve({})
 		}
 
-		fs.readFile( cmd_folder + '/cms/' + filename + '.js' , function(err, data) {
+		fs.readFile( CMD_FOLDER + '/cms/' + filename + '.js' , function(err, data) {
 			if (err) { reject() }
 
 			// check if file is empty. return empty object if so
@@ -54,7 +54,7 @@ FlatFileHandler.prototype.load = function(filename){
 				return resolve({})
 			}
 
-			var flatObj = requireFromString('module.exports = ' + data)
+			var flatObj = require_from_string('module.exports = ' + data)
 			resolve(flatObj)
 		})
 	})
@@ -64,11 +64,11 @@ FlatFileHandler.prototype.load = function(filename){
 FlatFileHandler.prototype.loadsync = function(filename){
 	filename = decode(filename)
 
-	if(!enduro_helpers.fileExists(cmd_folder + '/cms/' + filename + '.js')){
+	if(!enduro_helpers.fileExists(CMD_FOLDER + '/cms/' + filename + '.js')){
 		return {};
 	}
 
-	data = fs.readFileSync( cmd_folder + '/cms/' + filename + '.js', 'utf-8')
+	data = fs.readFileSync( CMD_FOLDER + '/cms/' + filename + '.js', 'utf-8')
 	return data;
 }
 

@@ -17,7 +17,7 @@ js_build.prototype.build_js = function(config_name) {
 		? config_name = ''
 		: config_name = '_' + config_name
 
-	var configpath = cmd_folder + '/assets/js/main' + config_name + '.js'
+	var configpath = CMD_FOLDER + '/assets/js/main' + config_name + '.js'
 
 	if(!enduro_helpers.fileExists(configpath)){
 		return kiskaLogger.errBlock('No config file named main' + config_name + '.js')
@@ -26,9 +26,9 @@ js_build.prototype.build_js = function(config_name) {
 	return new Promise(function(resolve, reject){
 		config = {
 			mainConfigFile: configpath,
-			baseUrl: cmd_folder + '/assets/',
+			baseUrl: CMD_FOLDER + '/assets/',
 			name: 'js/main',
-			out: cmd_folder + '/_src/assets/js/main_dist.js',
+			out: CMD_FOLDER + '/_src/assets/js/main_dist.js',
 			include: ["vendor/requirejs/require"],
 		};
 

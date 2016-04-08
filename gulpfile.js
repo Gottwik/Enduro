@@ -37,7 +37,7 @@ gulp.task('browserSync', ['sass'], function() {
 
 	browserSync.init({
 		server: {
-			baseDir: cmd_folder + '/_src',
+			baseDir: CMD_FOLDER + '/_src',
 			middleware: function(req, res, next) {
 				if(req.url == '/admin/'){ req.url = '/admin/index.html' }
 				else if(!(req.url.indexOf('.')+1) && req.url.length > 3){
@@ -52,23 +52,23 @@ gulp.task('browserSync', ['sass'], function() {
 		logPrefix: 'Enduro',
 	});
 
-	watch([ cmd_folder + '/assets/css/**/*', cmd_folder + '/assets/fonticons/*', '!' + cmd_folder + '/assets/css/sprites/*'],
+	watch([ CMD_FOLDER + '/assets/css/**/*', CMD_FOLDER + '/assets/fonticons/*', '!' + CMD_FOLDER + '/assets/css/sprites/*'],
 				() => { gulp.start('scss-lint', 'sass') })										// Watch for scss
-	watch([cmd_folder + '/assets/js/**/*'], () => { gulp.start('js') })							// Watch for js
-	watch([cmd_folder + '/assets/img/**/*'], () => { gulp.start('img') })						// Watch for images
-	watch([cmd_folder + '/assets/vendor/**/*'], () => { gulp.start('vendor') })					// Watch for vendor files
-	watch([cmd_folder + '/assets/fonts/**/*'], () => { gulp.start('fonts') })					// Watch for fonts
-	watch([cmd_folder + '/assets/hbs_helpers/**/*'], () => { gulp.start('hbs_helpers') })		// Watch for local handlebars helpers
-	watch([cmd_folder + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })				// Watch for png icons
-	watch([cmd_folder + '/assets/fonticons/*.svg'], () => {
+	watch([CMD_FOLDER + '/assets/js/**/*'], () => { gulp.start('js') })							// Watch for js
+	watch([CMD_FOLDER + '/assets/img/**/*'], () => { gulp.start('img') })						// Watch for images
+	watch([CMD_FOLDER + '/assets/vendor/**/*'], () => { gulp.start('vendor') })					// Watch for vendor files
+	watch([CMD_FOLDER + '/assets/fonts/**/*'], () => { gulp.start('fonts') })					// Watch for fonts
+	watch([CMD_FOLDER + '/assets/hbs_helpers/**/*'], () => { gulp.start('hbs_helpers') })		// Watch for local handlebars helpers
+	watch([CMD_FOLDER + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })				// Watch for png icons
+	watch([CMD_FOLDER + '/assets/fonticons/*.svg'], () => {
 		gulp.start('iconfont')
 		gulp.enduroRefresh(() => {})
 	})			// Watch for font icon
-	watch([cmd_folder + '/_src/**/*.html'], () => { browserSync.reload() })						// Watch for html files
-	watch([cmd_folder + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
+	watch([CMD_FOLDER + '/_src/**/*.html'], () => { browserSync.reload() })						// Watch for html files
+	watch([CMD_FOLDER + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
 
 	// Watch for enduro changes
-	watch([cmd_folder + '/pages/**/*.hbs', cmd_folder + '/components/**/*.hbs', cmd_folder + '/cms/**/*.js'], function() {
+	watch([CMD_FOLDER + '/pages/**/*.hbs', CMD_FOLDER + '/components/**/*.hbs', CMD_FOLDER + '/cms/**/*.js'], function() {
 		gulp.enduroRefresh(() => {})
 	})
 });
@@ -81,7 +81,7 @@ gulp.task('browserSync', ['sass'], function() {
 // *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('sass', ['png_sprites'], function() {
-	return gulp.src(cmd_folder + '/assets/css/main.scss')
+	return gulp.src(CMD_FOLDER + '/assets/css/main.scss')
 		.pipe(bulkSass())
 		.pipe(sourcemaps.init())
 		.pipe(sass())
@@ -96,7 +96,7 @@ gulp.task('sass', ['png_sprites'], function() {
 			cascade: false
 		}))
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest(cmd_folder + '/_src/assets/css'))
+		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/css'))
 		.pipe(browserSync.stream())
 });
 
@@ -106,7 +106,7 @@ gulp.task('sass', ['png_sprites'], function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('scss-lint', function() {
 	try{
-		return gulp.src(cmd_folder + '/assets/css/**/*')
+		return gulp.src(CMD_FOLDER + '/assets/css/**/*')
 			.pipe(checkGem({gemfile: 'scss-lint'}, scsslint(
 				{
 					'config': __dirname + '/support_files/scss-lint.yml'
@@ -125,8 +125,8 @@ gulp.task('scss-lint', function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('js', function() {
 
-	return gulp.src(cmd_folder + '/assets/js/**/*')
-		.pipe(gulp.dest(cmd_folder + '/_src/assets/js'))
+	return gulp.src(CMD_FOLDER + '/assets/js/**/*')
+		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/js'))
 
 })
 
@@ -135,8 +135,8 @@ gulp.task('js', function() {
 // * 	img
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('img', function() {
-	return gulp.src(cmd_folder + '/assets/img/**/*')
-		.pipe(gulp.dest(cmd_folder + '/_src/assets/img'))
+	return gulp.src(CMD_FOLDER + '/assets/img/**/*')
+		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/img'))
 })
 
 
@@ -144,8 +144,8 @@ gulp.task('img', function() {
 // * 	vendor
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('vendor', function() {
-	return gulp.src(cmd_folder + '/assets/vendor/**/*')
-		.pipe(gulp.dest(cmd_folder + '/_src/assets/vendor'))
+	return gulp.src(CMD_FOLDER + '/assets/vendor/**/*')
+		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/vendor'))
 })
 
 
@@ -153,8 +153,8 @@ gulp.task('vendor', function() {
 // * 	fonts
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('fonts', function() {
-	return gulp.src(cmd_folder + '/assets/fonts/**/*')
-		.pipe(gulp.dest(cmd_folder + '/_src/assets/fonts'))
+	return gulp.src(CMD_FOLDER + '/assets/fonts/**/*')
+		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/fonts'))
 })
 
 
@@ -164,16 +164,16 @@ gulp.task('fonts', function() {
 // *	and generate spritesheet out of them
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('png_sprites', function() {
-	return gulp.src(cmd_folder + '/assets/spriteicons/*.png')
+	return gulp.src(CMD_FOLDER + '/assets/spriteicons/*.png')
 		.pipe(spritesmith({
 			imgName: '_src/assets/spriteicons/spritesheet.png',
 			cssName: 'assets/css/sprites/sprites.scss',
 			padding: 3,
 			cssTemplate: __dirname + '/support_files/sprite_generator.handlebars',
-			retinaSrcFilter: [cmd_folder + '/assets/spriteicons/*@2x.png'],
+			retinaSrcFilter: [CMD_FOLDER + '/assets/spriteicons/*@2x.png'],
 			retinaImgName: '_src/assets/spriteicons/spritesheet@2x.png',
 		}))
-		.pipe(gulp.dest(cmd_folder));
+		.pipe(gulp.dest(CMD_FOLDER));
 })
 
 
@@ -181,7 +181,7 @@ gulp.task('png_sprites', function() {
 // * 	iconfont
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('iconfont', function(cb){
-	return gulp.src([cmd_folder + '/assets/fonticons/*.svg'])
+	return gulp.src([CMD_FOLDER + '/assets/fonticons/*.svg'])
 		.pipe(iconfontCss({
 			fontName: 'wp_icons',
 			path: 'assets/fonticons/icons_template.scss',
@@ -200,7 +200,7 @@ gulp.task('iconfont', function(cb){
 				glyph.unicode = glyph.unicode[0].charCodeAt(0).toString(16);
 				return glyph;
 			})
-			fs.writeFileSync(cmd_folder + '/assets/fonticons/_icons.json', JSON.stringify(glyphs));
+			fs.writeFileSync(CMD_FOLDER + '/assets/fonticons/_icons.json', JSON.stringify(glyphs));
 			cb()
 		})
 		.pipe(gulp.dest('_src/assets/iconfont/'));
@@ -211,14 +211,14 @@ gulp.task('iconfont', function(cb){
 // * 	JS Handlebars - Not enduro, page-generation related
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('hbs_templates', function(){
-	gulp.src(cmd_folder + '/components/**/*.hbs')
+	gulp.src(CMD_FOLDER + '/components/**/*.hbs')
 		.pipe(handlebars({
 			// Pass local handlebars
 			handlebars: __templating_engine
 		}))
 		.pipe(defineModule('amd'))
 		.pipe(flatten())
-		.pipe(gulp.dest(cmd_folder + '/_src/assets/hbs_templates'));
+		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/hbs_templates'));
 });
 
 
@@ -226,13 +226,13 @@ gulp.task('hbs_templates', function(){
 // * 	Handlebars helpers
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('hbs_helpers', function() {
-	return gulp.src([cmd_folder + '/assets/hbs_helpers/**/*.js', enduro_folder + '/hbs_helpers/**/*.js'])
+	return gulp.src([CMD_FOLDER + '/assets/hbs_helpers/**/*.js', ENDURO_FOLDER + '/hbs_helpers/**/*.js'])
 		.pipe(filterBy(function(file) {
 			return file.contents.toString().indexOf('enduro_nojs') == -1;
 		}))
 		.pipe(concat('hbs_helpers.js'))
 		.pipe(wrap('define([],function(){ return function(__templating_engine){ \n\n<%= contents %>\n\n }})'))
-		.pipe(gulp.dest(cmd_folder + '/_src/assets/hbs_helpers/'));
+		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/hbs_helpers/'));
 })
 
 

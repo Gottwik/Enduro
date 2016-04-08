@@ -23,7 +23,7 @@ api_call.prototype.call = function(req, res, query){
 
 api_call.prototype.getCmsTree = function(){
 	return new Promise(function(resolve, reject){
-		glob( cmd_folder + '/cms/**/*.js' , function (err, files) {
+		glob( CMD_FOLDER + '/cms/**/*.js' , function (err, files) {
 			if (err) { reject(err) }
 			resolve(files.map(function(cms_file){
 				return cms_file.match(/cms\/(.*)\.js$/)[1]

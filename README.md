@@ -34,6 +34,7 @@ If installed globally, enduro enables these cli commands
 │   │   ├── hbs_helpers // custom handlebars helpers. Ready to use both in backend and frontend
 │   │   ├── vendor
 │   ├── cms
+│   │   ├── config // stores enduro configuration files
 │   │   ├── global
 │   │   │   ├── global.js // all files in global directory are accessible to all pages
 │   │   ├── index.js // data file is included in index.hbs file
@@ -147,3 +148,32 @@ __templating_engine.registerHelper('helpername', function(helperparameters) {
 ```
 
 To use handlebars helpers on client, you have to extend handlebars with these helpers. To do so, use assets/js/handlebars.js file. You will also have to specify path to handlebars as 'handlebars_core'.
+
+## Babel
+Enduro comes with multilingual support. Enabling this feature is super easy two-step process.
+
+### 1. Define cultures
+First create babel.js file in cms/config folder with simple js array containing culture names as strings.
+
+cms/config/babel.js
+```javascript
+[
+	'en',
+	'de'
+]
+```
+
+This will create all pages in respective subdirectories. For example, your index.hbs file will convert into en/index.html and de/index.html
+
+### 2. Use the translations
+you can use plain enduro feature and if you need a difference in context between the two cultures, you just split the value like this:
+
+cms/index.js
+```javascript
+{
+	greeting: {
+		$en: "you!",
+		$de: "du!"
+	}
+}
+```

@@ -50,7 +50,6 @@ function culturize(context, culture){
 
 // Culturalize context
 babel_splitter.prototype.culturalize = function (context, culture) {
-	console.log(culturize(context, culture))
 	return culturize(context, culture)
 }
 

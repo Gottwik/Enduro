@@ -39,7 +39,9 @@ gulp.task('browserSync', ['sass'], function() {
 		server: {
 			baseDir: CMD_FOLDER + '/_src',
 			middleware: function(req, res, next) {
+				// server admin/index file on /admin url
 				if(req.url == '/admin/'){ req.url = '/admin/index.html' }
+				// serve files without html
 				else if(!(req.url.indexOf('.')+1) && req.url.length > 3){
 					req.url += '.html'
 				}
@@ -50,6 +52,7 @@ gulp.task('browserSync', ['sass'], function() {
 		logLevel: 'silent',
 		notify: false,
 		logPrefix: 'Enduro',
+		startPath: START_PATH
 	});
 
 	watch([ CMD_FOLDER + '/assets/css/**/*', CMD_FOLDER + '/assets/fonticons/*', '!' + CMD_FOLDER + '/assets/css/sprites/*'],

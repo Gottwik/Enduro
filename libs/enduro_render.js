@@ -53,6 +53,11 @@ function renderFile(file, culture, callback){
 	// where will the generated page end
 	var endpath = culture + '/' + filename
 
+	// special case for the landing page to work
+	if(filename == 'index' && culture != ''){
+		endpath = culture
+	}
+
 	// Attempts to read the file
 	fs.readFile(file, 'utf8', function (err,data) {
 		if (err) { return kiska_logger.errBlock(err) }

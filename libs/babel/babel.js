@@ -17,6 +17,7 @@ babel_splitter.prototype.getcultures = function (filePath) {
 		// check if file exists. return empty object if not
 		if(!enduro_helpers.fileExists(BABEL_FILE)){
 			resolve([''])
+			return
 		}
 		fs.readFile( BABEL_FILE , function(err, data) {
 			if (err) { reject() }
@@ -26,6 +27,9 @@ babel_splitter.prototype.getcultures = function (filePath) {
 				return resolve([''])
 			}
 			var cultures = require_from_string('module.exports = ' + data)
+
+			// set first culture as starting path
+			START_PATH = cultures[0] + '/'
 
 			resolve(cultures)
 		})

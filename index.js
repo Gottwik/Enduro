@@ -7,8 +7,9 @@ global.__data.global = {}
 global.CMD_FOLDER = process.cwd()
 global.ENDURO_FOLDER = __dirname
 global.ADMIN_FOLDER = __dirname + '/admin'
-
 global.BABEL_FILE = CMD_FOLDER + '/cms/config/babel.js'
+global.START_PATH = ''
+
 
 var scaffolder = require(ENDURO_FOLDER + '/libs/scaffolder')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')

@@ -29,7 +29,7 @@ gulp.setRefresh(function(callback){
 })
 
 // Stores enduroServer and extends it with render
-var enduroServer = require('./server');
+var enduroServer = require('./server')
 enduroServer.setRefresh(function(cb){
 	gulp.start('preproduction', () => {
 		render(function(){

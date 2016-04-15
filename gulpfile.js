@@ -221,7 +221,7 @@ gulp.task('hbs_templates', function(){
 		}))
 		.pipe(defineModule('amd'))
 		.pipe(flatten())
-		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/hbs_templates'));
+		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/hbs_templates'))
 });
 
 
@@ -235,7 +235,7 @@ gulp.task('hbs_helpers', function() {
 		}))
 		.pipe(concat('hbs_helpers.js'))
 		.pipe(wrap('define([],function(){ return function(__templating_engine){ \n\n<%= contents %>\n\n }})'))
-		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/hbs_helpers/'));
+		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/hbs_helpers/'))
 })
 
 

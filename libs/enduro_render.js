@@ -74,8 +74,13 @@ function renderFile(file, culture, callback){
 				}
 
 				// Renders the template with the culturalized context
-				var output = template(babel.culturalize(context, culture))
-
+				var output = "Error processing page";
+				try{
+					output = template(babel.culturalize(context, culture))
+				}
+				catch(e){
+					kiska_logger.errBlock('Page: ' + filename + '\n' + e.message)
+				}
 				// Makes sure the target directory exists
 				enduro_helpers.ensureDirectoryExistence(DATA_PATH + '/_src/' + endpath)
 					.then(function(){

@@ -32,7 +32,6 @@ js_build.prototype.build_js = function(config_name) {
 				name: 'js/main',
 				out: CMD_FOLDER + '/_src/assets/js/main_dist.js',
 				include: ["vendor/requirejs/require"],
-				optimize: "none",
 				findNestedDependencies: true
 			};
 

@@ -170,7 +170,7 @@ gulp.task('png_sprites', function() {
 	return gulp.src(CMD_FOLDER + '/assets/spriteicons/*.png')
 		.pipe(spritesmith({
 			imgName: '_src/assets/spriteicons/spritesheet.png',
-			cssName: 'assets/css/sprites/sprites.scss',
+			cssName: '_src/_prebuilt/sprites.scss',
 			padding: 3,
 			cssTemplate: __dirname + '/support_files/sprite_generator.handlebars',
 			retinaSrcFilter: [CMD_FOLDER + '/assets/spriteicons/*@2x.png'],
@@ -188,7 +188,7 @@ gulp.task('iconfont', function(cb){
 		.pipe(iconfontCss({
 			fontName: 'wp_icons',
 			path: 'assets/fonticons/icons_template.scss',
-			targetPath: '../../../assets/fonticons/_icons.scss',
+			targetPath: '../../../_src/_prebuilt/icons.scss',
 			fontPath: '/assets/iconfont/',
 		}))
 		.pipe(iconfont({

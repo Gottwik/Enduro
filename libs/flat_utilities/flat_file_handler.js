@@ -22,40 +22,52 @@ FlatFileHandler.prototype.saveFlatRaw = function(filename, contents){
 		// url decode filename
 		filename = decode(filename)
 
+		var fullpath_to_cms_file = get_full_path_to_cms(filename)
+
 		var flatObj = require_from_string('module.exports = ' + contents)
 		var prettyString = stringify_object(flatObj, {indent: '	', singleQuotes: true})
-
-		fs.writeFile( CMD_FOLDER + '/cms/' + filename + '.js' , prettyString, function(err) {
-			if (err) { reject() }
-				resolve()
-		})
+		enduro_helpers.ensureDirectoryExistence(fullpath_to_cms_file)
+			.then(() => {
+				fs.writeFile( fullpath_to_cms_file , prettyString, function(err) {
+					if (err) { reject() }
+						resolve()
+				})
+			})
 	})
 }
 
 // Provides object from filename
 FlatFileHandler.prototype.load = function(filename){
+
+	var self = this
+
 	return new Promise(function(resolve, reject){
 		// TODO backup file be
 
 		// url decode filename
 		filename = decode(filename)
 
+		var fullpath_to_cms_file = get_full_path_to_cms(filename)
+
 		// check if file exists. return empty object if not
-		if(!enduro_helpers.fileExists(CMD_FOLDER + '/cms/' + filename + '.js')){
-			resolve({})
+		if(!enduro_helpers.fileExists(fullpath_to_cms_file)){
+			self.saveFlatRaw(filename, '{}')
+				.then(() => {
+					resolve({})
+				})
+		} else {
+			fs.readFile( fullpath_to_cms_file , function(err, data) {
+				if (err) { reject() }
+
+				// check if file is empty. return empty object if so
+				if(data == ''){
+					return resolve({})
+				}
+
+				var flatObj = require_from_string('module.exports = ' + data)
+				resolve(flatObj)
+			})
 		}
-
-		fs.readFile( CMD_FOLDER + '/cms/' + filename + '.js' , function(err, data) {
-			if (err) { reject() }
-
-			// check if file is empty. return empty object if so
-			if(data == ''){
-				return resolve({})
-			}
-
-			var flatObj = require_from_string('module.exports = ' + data)
-			resolve(flatObj)
-		})
 	})
 }
 
@@ -69,6 +81,10 @@ FlatFileHandler.prototype.loadsync = function(filename){
 
 	data = fs.readFileSync( CMD_FOLDER + '/cms/' + filename + '.js', 'utf-8')
 	return data;
+}
+
+function get_full_path_to_cms(filename) {
+	return CMD_FOLDER + '/cms/' + filename + '.js'
 }
 
 

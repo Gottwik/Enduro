@@ -45,6 +45,9 @@ function renderFile(file, culture, callback) {
 	var filename = fileReg[1]
 	var fileext = fileReg[2]
 
+	// gets pagename
+	var pagename = file.match(/([^\/]*)\.[^\.]*$/)[1]
+
 	// where will the generated page end
 	var endpath = culture + '/' + filename
 
@@ -67,6 +70,9 @@ function renderFile(file, culture, callback) {
 				if(typeof __data !== 'undefined') {
 					extend(true, context, __data)
 				}
+
+				// Add pagename to the context
+				extend(true, context, {_meta: {pagename: pagename}})
 
 				// Renders the template with the culturalized context
 				var output = "Error processing page";

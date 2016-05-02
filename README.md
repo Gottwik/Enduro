@@ -99,6 +99,7 @@ Will generate
 * `{{first array}}` - same as with but will provide first object in array as context
 * `{{lorem 20}}` - will generate dummy text with a lenght of 20 words
 * `{{compare var1 var2 'true' 'false'}}` - will compare two variables and pick 'true' or 'false' in a ternary-like fashion
+* `{{grouped_each 3 list}}` - Same as each, but will provide three items as context in each iteration
 
 ## Heroku
 Enduro is heroku ready. Just make sure that enduro is in the dependencies of your project. To publish on heroku, just use these steps (heroku cli required):

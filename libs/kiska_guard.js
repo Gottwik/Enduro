@@ -17,12 +17,12 @@ var KiskaGuard = function () {}
 var SECURE_FILE =  '.enduro_secure'
 
 KiskaGuard.prototype.login = function(req){
-	var me = this;
+	var self = this;
 	return new Promise(function(resolve, reject){
 
 		typeof req.session.lggin_flag !== 'undefined'
 			? resolve()
-			: me.verify(req, req.query['pswrd'], resolve, reject)
+			: self.verify(req, req.query['pswrd'], resolve, reject)
 
 	})
 }

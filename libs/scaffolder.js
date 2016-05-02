@@ -1,4 +1,3 @@
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Scaffolder
 // *	Handles new project creation
@@ -6,7 +5,10 @@
 // * ———————————————————————————————————————————————————————— * //
 
 var Promise = require('bluebird');
+
+// Handles copying files
 var ncp = require('ncp').ncp;
+
 var kiskaLogger = require('./kiska_logger')
 var enduro_helpers = require('./flat_utilities/enduro_helpers')
 
@@ -46,6 +48,8 @@ Scaffolder.prototype.scaffold = function(args){
 				reject('creating new files failed')
 				return kiskaLogger.errBlock(err);
 			}
+
+			// Let the user know the project was created successfully
 			kiskaLogger.log('Project created successfully.')
 			kiskaLogger.line()
 			kiskaLogger.log('Dont forget to cd into project with', true)

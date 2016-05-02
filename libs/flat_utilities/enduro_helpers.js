@@ -1,4 +1,3 @@
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Enduro Helpers
 // *	Random set of helper functions used all around

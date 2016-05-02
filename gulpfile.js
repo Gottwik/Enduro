@@ -21,6 +21,9 @@ var concat = require('gulp-concat')
 var filterBy = require('gulp-filter-by')
 var wrap = require("gulp-wrap");
 
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator').init(gulp)
+
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
 }
@@ -83,7 +86,7 @@ gulp.task('browserSync', ['sass'], function() {
 // *	All other scss files need to be imported in main.scss to get compiled
 // *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('sass', ['png_sprites'], function() {
+gulp.task('sass', function() {
 	return gulp.src(CMD_FOLDER + '/assets/css/main.scss')
 		.pipe(bulkSass())
 		.pipe(sourcemaps.init())
@@ -200,11 +203,15 @@ gulp.task('iconfont', function(cb){
 		}))
 		.on('glyphs', function(glyphs, options) {
 			glyphs = glyphs.map(function(glyph){
-				glyph.unicode = glyph.unicode[0].charCodeAt(0).toString(16);
-				return glyph;
+				glyph.unicode = glyph.unicode[0].charCodeAt(0).toString(16)
+				return glyph
 			})
-			fs.writeFileSync(CMD_FOLDER + '/assets/fonticons/_icons.json', JSON.stringify(glyphs));
-			cb()
+			var icon_json_file_path = CMD_FOLDER + '/_src/_prebuilt/icons.json'
+			enduro_helpers.ensureDirectoryExistence(icon_json_file_path)
+				.then(() => {
+					fs.writeFileSync(icon_json_file_path, JSON.stringify(glyphs))
+					cb()
+				})
 		})
 		.pipe(gulp.dest('_src/assets/iconfont/'));
 });
@@ -264,7 +271,7 @@ gulp.task('default', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor
 // * 	Preproduction Task
 // *	Tasks that need to be done before doing the enduro render
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('preproduction', ['iconfont'])
+gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 
 
 // * ———————————————————————————————————————————————————————— * //

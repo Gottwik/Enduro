@@ -18,8 +18,8 @@ var flatFileHandler = require('./flat_utilities/flat_file_handler');
 
 var DATA_PATH = CMD_FOLDER + '/cms/global/**/*.js'
 
-GlobalData.prototype.getGlobalData = function(){
-	return new Promise(function(resolve, reject){
+GlobalData.prototype.getGlobalData = function() {
+	return new Promise(function(resolve, reject) {
 
 		// Fetches the files
 		glob( DATA_PATH , function (err, files) {
@@ -39,7 +39,7 @@ GlobalData.prototype.getGlobalData = function(){
 
 				// Loads the file
 				var data = {}
-				if(enduro_helpers.fileExists(file)){
+				if(enduro_helpers.fileExists(file)) {
 					flatFileHandler.load(fileInCms)
 						.then((data) => {
 							// Extends global data with currently loaded data
@@ -59,6 +59,12 @@ GlobalData.prototype.getGlobalData = function(){
 			})
 		})
 	})
+}
+
+// clears the global data
+GlobalData.prototype.clear = function() {
+	__data = {}
+	__data.global = {}
 }
 
 module.exports = new GlobalData()

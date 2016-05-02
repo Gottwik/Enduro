@@ -1,3 +1,11 @@
+// * ———————————————————————————————————————————————————————— * //
+// *
+// *    ___  ____  ____/ /_  ___________
+// *   / _ \/ __ \/ __  / / / / ___/ __ \
+// *  /  __/ / / / /_/ / /_/ / /  / /_/ /
+// *  \___/_/ /_/\__,_/\__,_/_/   \____/
+// *
+// * ———————————————————————————————————————————————————————— * //
 
 // Stores templating engine for possible future replacement
 global.__templating_engine = require('handlebars')
@@ -72,7 +80,7 @@ function run(args){
 			js_build.build_js(args.shift())
 		} else if(arg == 'testgulp'){
 			caught = true
-			gulp.start('html_prettify')
+			gulp.start('pagelist_generator')
 		}
 	}
 
@@ -118,8 +126,12 @@ function render(callback){
 // *	Renders content and starts browsersync after that
 // * ———————————————————————————————————————————————————————— * //
 var first = true
-var firstrender = true;
+var firstrender = true
 function developer_start(){
+	// clears the global data
+	global_data.clear()
+
+	// Does the refresh procedure
 	gulp.start('preproduction', () => {
 		if(first){
 			render(() => {
@@ -137,7 +149,6 @@ function developer_start(){
 function silent(){
 	kiska_logger.silent()
 }
-
 
 exports.run = run
 exports.silent = silent

@@ -1,4 +1,3 @@
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Enduro Render
 // *	Goes throught all the pages and renders them with handlebars
@@ -17,14 +16,10 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 
-
-// Current terminal window
-var DATA_PATH = CMD_FOLDER;
-
 // Goes through the pages and renders them
-EnduroRender.prototype.render = function(){
+EnduroRender.prototype.render = function() {
 	return new Promise(function(resolve, reject){
-		glob(DATA_PATH + '/pages/**/*.hbs', function (err, files) {
+		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
 			if (err) { return console.log(err) }
 
 			babel.getcultures()
@@ -42,7 +37,7 @@ EnduroRender.prototype.render = function(){
 }
 
 // Renders individual files
-function renderFile(file, culture, callback){
+function renderFile(file, culture, callback) {
 
 	// Stores file name and extension
 	// Note that subdirecotries are included in the name
@@ -54,7 +49,7 @@ function renderFile(file, culture, callback){
 	var endpath = culture + '/' + filename
 
 	// special case for the landing page to work
-	if(filename == 'index' && culture != ''){
+	if(filename == 'index' && culture != '') {
 		endpath = culture
 	}
 
@@ -69,23 +64,23 @@ function renderFile(file, culture, callback){
 		flat_file_handler.load(filename)
 			.then((context) => {
 				// If global data exists extends the context with it
-				if(typeof __data !== 'undefined'){
+				if(typeof __data !== 'undefined') {
 					extend(true, context, __data)
 				}
 
 				// Renders the template with the culturalized context
 				var output = "Error processing page";
-				try{
+				try {
 					output = template(babel.culturalize(context, culture))
 				}
-				catch(e){
+				catch(e) {
 					kiska_logger.errBlock('Page: ' + filename + '\n' + e.message)
 				}
 				// Makes sure the target directory exists
-				enduro_helpers.ensureDirectoryExistence(DATA_PATH + '/_src/' + endpath)
-					.then(function(){
+				enduro_helpers.ensureDirectoryExistence(CMD_FOLDER + '/_src/' + endpath)
+					.then(function() {
 						// Attempts to export the file
-						fs.writeFile(DATA_PATH + '/_src/' + endpath + '.html', output, function(err) {
+						fs.writeFile(CMD_FOLDER + '/_src/' + endpath + '.html', output, function(err) {
 							if (err) { return kiska_logger.errBlock(err) }
 
 							kiska_logger.twolog('page ' + endpath, 'created')

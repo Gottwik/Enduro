@@ -1,5 +1,5 @@
 // * ———————————————————————————————————————————————————————— * //
-// *    Grouped each
+// *    Grouped each helper
 // *    Will split array into chunks of specified size
 // *    taken from https://funkjedi.com/technology/412-every-nth-item-in-handlebars/
 // * ———————————————————————————————————————————————————————— * //

@@ -1,3 +1,11 @@
+// * ———————————————————————————————————————————————————————— * //
+// *    Partial helper
+// *	Loads a partial dynamically by name. This allows to define the structure of a page in a cms file.
+// *	Usage:
+// *
+// *	{{partial 'partial name'}}
+// *
+// * ———————————————————————————————————————————————————————— * //
 __templating_engine.registerHelper("partial", function (name, options) {
 
 	// Get the partial with the given name. This is a string.

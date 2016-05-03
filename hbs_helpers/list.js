@@ -1,3 +1,13 @@
+// * ———————————————————————————————————————————————————————— * //
+// *    List helper
+// *	Provides #each functionality with a inline list
+// *	Usage:
+// *
+// *	{{#list 'small' 'medium' 'large'}}
+// *		<p class="{{this}}">test text</p>
+// *	{{/list}}
+// *
+// * ———————————————————————————————————————————————————————— * //
 __templating_engine.registerHelper('list', function() {
 
 	// block is the last argument

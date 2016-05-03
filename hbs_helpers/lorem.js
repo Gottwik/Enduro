@@ -1,3 +1,12 @@
+// * ———————————————————————————————————————————————————————— * //
+// *    Lorem helper
+// *	Generates dummy text with a specified length in words
+// *	Usage:
+// *
+// *	{{lorem 20}}
+// *
+// * ———————————————————————————————————————————————————————— * //
+
 __templating_engine.registerHelper("lorem", function (length) {
 
 	length = length || 10

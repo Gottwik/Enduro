@@ -1,5 +1,17 @@
 // enduro_nojs
-// This partial makes cms data accesible to client
+// * ———————————————————————————————————————————————————————— * //
+// *	Js_cms helper
+// *	Not being compiled for use on client. Only enduro use.
+// *	Converts part of cms context into stirng with js object/array notation
+// *	Usable when passing cms static data to client.
+// *	Usage:
+// *
+// *	<script>
+// *		var global = {{{js_cms 'people'}}}
+// *		// global.mike.age is now
+// *	</script>
+// *
+// * ———————————————————————————————————————————————————————— * //
 
 __templating_engine.registerHelper('js_cms', function(cmsfile) {
 	var glob = require("glob");

@@ -14,12 +14,12 @@ __templating_engine.registerHelper('grouped_each', function(every, context, opti
 			for (var key in context) {
 				if (i > 0 && i % every === 0) {
 					out += options.fn(subcontext)
-					subcontext = [];
+					subcontext = []
 				}
 				subcontext.push(context[key])
 				i++
 			}
-			out += options.fn(subcontext);
+			out += options.fn(subcontext)
 		} else { // Context is array
 			for (i = 0; i < context.length; i++) {
 				if (i > 0 && i % every === 0) {
@@ -34,4 +34,4 @@ __templating_engine.registerHelper('grouped_each', function(every, context, opti
 
 	// Outputs processed html
 	return out
-});
+})

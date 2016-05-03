@@ -12,13 +12,13 @@
 
 __templating_engine.registerHelper('json', function(filename, options) {
 	var fs = require('fs')
-	var contents = JSON.parse(fs.readFileSync(CMD_FOLDER + filename, 'utf8'));
+	var contents = JSON.parse(fs.readFileSync(CMD_FOLDER + filename, 'utf8'))
 
-	var accum = '';
+	var accum = ''
 
 	for (var index in contents) {
 		accum += options.fn(contents[index])
 	}
 
-	return accum;
-});
+	return accum
+})

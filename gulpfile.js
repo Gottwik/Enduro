@@ -16,13 +16,16 @@ var iconfontCss = require('gulp-iconfont-css')
 var handlebars = require('gulp-handlebars')
 var defineModule = require('gulp-define-module')
 var flatten = require('gulp-flatten')
-var prettify = require('gulp-prettify')
 var concat = require('gulp-concat')
 var filterBy = require('gulp-filter-by')
 var wrap = require("gulp-wrap");
 
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+
+// Gulp tasks
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator').init(gulp)
+var prettyfier = require(ENDURO_FOLDER + '/libs/build_tools/prettyfier').init(gulp)
+
 
 gulp.setRefresh = function (callback) {
 	gulp.enduroRefresh = callback;
@@ -247,21 +250,6 @@ gulp.task('hbs_helpers', function() {
 
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	html prettify
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('html_prettify', function(){
-	gulp.src('_src/**/*.html')
-		.pipe(prettify({
-			indent_with_tabs: true,
-			'max_preserve_newlines': 0,
-			"eol": "\n",
-			"end_with_newline": true
-		}))
-		.pipe(gulp.dest('_src'))
-});
-
-
-// * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('default', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browserSync'])
@@ -278,7 +266,7 @@ gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 // * 	Production Task
 // *	No browsersync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['sass', 'hbs_templates', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers'])
+gulp.task('production', ['sass', 'hbs_templates', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', prettyfier])
 
 
 // Export gulp to enable access for enduro

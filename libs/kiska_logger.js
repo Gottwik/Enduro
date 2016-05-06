@@ -63,6 +63,11 @@ KiskaLogger.prototype.err = function (message) {
 	log(chalk.red(message.rpad(FRAME_WIDTH)))
 };
 
+// * │ Something                                       Happened │ * //
+KiskaLogger.prototype.twoerr = function (message, left_message) {
+	log(chalk.red('│') + chalk.red((' ' + message).rpad(FRAME_WIDTH - 3 - left_message.length) + left_message) + chalk.red(' │'))
+};
+
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
 KiskaLogger.prototype.errBlockEnd = function () {
 	log(chalk.red(rep(FRAME_WIDTH, '▲')))

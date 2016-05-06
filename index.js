@@ -83,9 +83,9 @@ function run(args){
 				} else if(arg == 'build'){
 					caught = true
 					js_build.build_js(args.shift())
-				} else if(arg == 'testgulp'){
+				} else if(arg == 'check'){
 					caught = true
-					gulp.start('prettyfier')
+					gulp.start('check')
 				}
 			}
 
@@ -141,10 +141,16 @@ function developer_start(){
 
 	// Does the refresh procedure
 	gulp.start('preproduction', () => {
+		console.log('enduro preproduction done')
 		if(first){
 			render(() => {
+				console.log('enduro render done')
+
 				if(firstrender){
-					gulp.start('default', () => {})
+					gulp.start('default', () => {
+						console.log('enduro develop done')
+						// After everything is done
+					})
 				}
 				firstrender = false
 			})

@@ -25,6 +25,7 @@ var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helper
 // Gulp tasks
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator').init(gulp)
 var prettyfier = require(ENDURO_FOLDER + '/libs/build_tools/prettyfier').init(gulp)
+var htmlvalidator = require(ENDURO_FOLDER + '/libs/build_tools/html_validator').init(gulp)
 
 
 gulp.setRefresh = function (callback) {
@@ -261,13 +262,16 @@ gulp.task('default', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
 // *	No browsersync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('production', ['sass', 'hbs_templates', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', prettyfier])
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	check task
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('check', [htmlvalidator, prettyfier])
 
 // Export gulp to enable access for enduro
 module.exports = gulp

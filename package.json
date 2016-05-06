@@ -32,6 +32,7 @@
     "gulp-wrap": "^0.11.0",
     "gulp.spritesmith": "^6.2.0",
     "handlebars": "^4.0.5",
+    "html-validator": "^1.0.0",
     "mkdirp": "^0.5.1",
     "multi-glob": "^1.0.1",
     "ncp": "^2.0.0",

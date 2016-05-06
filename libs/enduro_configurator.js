@@ -22,14 +22,20 @@ enduro_configurator.prototype.read_config = function() {
 
 		// check if file exists
 		if(!enduro_helpers.fileExists(CONFIG_PATH)) {
+
+			// uses default config if no configuration is specified
+			config = default_config
 			resolve()
 		}
 
+		// Reads the configuration file
 		fs.readFile(CONFIG_PATH, function read(err, data) {
 			if(err) { return kiskaLogger.err(err); }
 
+			// Parses json file
 			local_config = JSON.parse(data)
 
+			// Extend loaded file with default configuration
 			config = extend(true, default_config, local_config)
 
 			resolve()

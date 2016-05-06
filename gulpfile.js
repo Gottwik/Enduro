@@ -192,13 +192,13 @@ gulp.task('png_sprites', function() {
 gulp.task('iconfont', function(cb){
 	return gulp.src([CMD_FOLDER + '/assets/fonticons/*.svg'])
 		.pipe(iconfontCss({
-			fontName: 'wp_icons',
+			fontName: config.project_slug + '_icons',
 			path: 'assets/fonticons/icons_template.scss',
 			targetPath: '../../../_src/_prebuilt/icons.scss',
 			fontPath: '/assets/iconfont/',
 		}))
 		.pipe(iconfont({
-			fontName: 'wp_icons',
+			fontName: config.project_slug + '_icons',
 			prependUnicode: true,
 			fontHeight: 1024,
 			normalize: true,

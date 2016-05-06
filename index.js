@@ -12,6 +12,7 @@ global.__templating_engine = require('handlebars')
 
 global.__data = {}
 global.__data.global = {}
+global.config = {}
 global.CMD_FOLDER = process.cwd()
 global.ENDURO_FOLDER = __dirname
 global.ADMIN_FOLDER = __dirname + '/admin'
@@ -19,6 +20,7 @@ global.BABEL_FILE = CMD_FOLDER + '/cms/config/babel.js'
 global.START_PATH = ''
 
 
+var enduro_configurator = require(ENDURO_FOLDER + '/libs/enduro_configurator')
 var scaffolder = require(ENDURO_FOLDER + '/libs/scaffolder')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var global_data = require(ENDURO_FOLDER + '/libs/global_data')
@@ -95,6 +97,7 @@ function run(args){
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Render
+// *	- Reads configuration file
 // *	- Loads global settings
 // *	- Loads copomentns
 // *	- Loads helpers
@@ -102,7 +105,11 @@ function run(args){
 // * ———————————————————————————————————————————————————————— * //
 function render(callback){
 	kiska_logger.init()
-	global_data.getGlobalData()
+
+	enduro_configurator.read_config()
+		.then(() => {
+			return global_data.getGlobalData()
+		})
 		.then(() => {
 			return components_handler.readComponents()
 		})

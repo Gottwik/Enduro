@@ -1,4 +1,3 @@
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Global Data
 // *	Loads global data - data to be used on all templates

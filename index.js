@@ -57,41 +57,45 @@ enduroServer.setRefresh(function(cb){
 // *	Returns boolean based on if the arguments were recognized
 // * ———————————————————————————————————————————————————————— * //
 function run(args){
-	// No arguments at all - User ran $ enduro
-	if(args.length == 0){
-		return developer_start();
-	}
 
-	// Parse arguments
-	var caught = false;
-	while (arg = args.shift()) {
-		if(arg == 'render' || arg == 'r'){
-			caught = true
-			return render()
-		} else if(arg == 'start'){
-			caught = true
-			return enduroServer.run();
-		} else if(arg == 'create'){
-			caught = true
-			return scaffolder.scaffold(args)
-		} else if(arg == 'secure'){
-			caught = true
-			return kiska_guard.set_passphrase(args)
-		} else if(arg == 'build'){
-			caught = true
-			js_build.build_js(args.shift())
-		} else if(arg == 'testgulp'){
-			caught = true
-			gulp.start('prettyfier')
-		}
-	}
+	enduro_configurator.read_config()
+		.then(() => {
+			// No arguments at all - User ran $ enduro
+			if(args.length == 0){
+				return developer_start();
+			}
 
-	// Some weird arguments
-	if(!caught){
-		kiska_logger.log('Arguments not recognized')
-		return false
-	}
-	return true;
+			// Parse arguments
+			var caught = false;
+			while (arg = args.shift()) {
+				if(arg == 'render' || arg == 'r'){
+					caught = true
+					return render()
+				} else if(arg == 'start'){
+					caught = true
+					return enduroServer.run();
+				} else if(arg == 'create'){
+					caught = true
+					return scaffolder.scaffold(args)
+				} else if(arg == 'secure'){
+					caught = true
+					return kiska_guard.set_passphrase(args)
+				} else if(arg == 'build'){
+					caught = true
+					js_build.build_js(args.shift())
+				} else if(arg == 'testgulp'){
+					caught = true
+					gulp.start('prettyfier')
+				}
+			}
+
+			// Some weird arguments
+			if(!caught){
+				kiska_logger.log('Arguments not recognized')
+				return false
+			}
+			return true;
+	})
 }
 
 
@@ -106,10 +110,7 @@ function run(args){
 function render(callback){
 	kiska_logger.init()
 
-	enduro_configurator.read_config()
-		.then(() => {
-			return global_data.getGlobalData()
-		})
+	global_data.getGlobalData()
 		.then(() => {
 			return components_handler.readComponents()
 		})

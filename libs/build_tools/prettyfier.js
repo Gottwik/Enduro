@@ -9,8 +9,8 @@ var prettify = require('gulp-prettify')
 
 // Creates all subdirectories neccessary to create the file in filepath
 prettyfier.prototype.init = function(gulp) {
-	gulp.task('prettyfier', function(cb) {
-		gulp.src('_src/**/*.html')
+	gulp.task('prettyfier', function() {
+		return gulp.src('_src/**/*.html')
 		.pipe(prettify({
 			indent_with_tabs: true,
 			'max_preserve_newlines': 0,

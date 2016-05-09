@@ -1,4 +1,4 @@
-// * ———————————————————————————————————————————————————————— * //
+7// * ———————————————————————————————————————————————————————— * //
 // * 	Project configurator
 // *	reads the configuration file and sets the variables
 // * ———————————————————————————————————————————————————————— * //
@@ -26,21 +26,21 @@ enduro_configurator.prototype.read_config = function() {
 			// uses default config if no configuration is specified
 			config = default_config
 			resolve()
+		} else {
+
+			// Reads the configuration file
+			fs.readFile(CONFIG_PATH, function read(err, data) {
+				if(err) { return kiskaLogger.err(err); }
+
+				// Parses json file
+				local_config = JSON.parse(data)
+
+				// Extend loaded file with default configuration
+				config = extend(true, default_config, local_config)
+
+				resolve()
+			});
 		}
-
-		// Reads the configuration file
-		fs.readFile(CONFIG_PATH, function read(err, data) {
-			if(err) { return kiskaLogger.err(err); }
-
-			// Parses json file
-			local_config = JSON.parse(data)
-
-			// Extend loaded file with default configuration
-			config = extend(true, default_config, local_config)
-
-			resolve()
-		});
-
 	})
 }
 

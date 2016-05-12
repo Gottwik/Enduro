@@ -8,16 +8,33 @@
 // *	{{/times}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper('times', function(n, block) {
+__templating_engine.registerHelper('times', function(iterations, upperrange, block) {
+
+	// will store the final accumulated html
 	var accum = ''
 
-	for(var i = 0; i < n; ++i){
+	// if upperrange is not provided
+	if(typeof upperrange !== 'number') {
+		block = upperrange;
+	} else {
+		// if upperrange is provided, picks randomly from range
+		iterations = Math.round(Math.random() * (upperrange - iterations) + iterations)
+	}
+
+	for(var i = 0; i < iterations; ++i){
+
+		// Sets is_first variable to context
 		i == 0
 			? this.is_first = true
 			: this.is_first = false;
 
+		// Sets index to context
+		this.times_index = i;
+
+		// Renders block context and adds it to the accumulated context
 		accum += block.fn(this)
 	}
 
+	// return accumulated html
 	return accum
 })

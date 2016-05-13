@@ -5,7 +5,7 @@
 // *	Loads .js files from /cms/global folder
 // * ———————————————————————————————————————————————————————— * //
 
-var GlobalData = function () {}
+var global_data = function () {}
 
 var Promise = require('bluebird')
 var async = require("async")
@@ -17,7 +17,7 @@ var flatFileHandler = require('./flat_utilities/flat_file_handler');
 
 var DATA_PATH = CMD_FOLDER + '/cms/global/**/*.js'
 
-GlobalData.prototype.getGlobalData = function() {
+global_data.prototype.get_global_data = function() {
 	return new Promise(function(resolve, reject) {
 
 		// Fetches the files
@@ -61,9 +61,9 @@ GlobalData.prototype.getGlobalData = function() {
 }
 
 // clears the global data
-GlobalData.prototype.clear = function() {
+global_data.prototype.clear = function() {
 	__data = {}
 	__data.global = {}
 }
 
-module.exports = new GlobalData()
+module.exports = new global_data()

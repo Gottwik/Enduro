@@ -40,6 +40,7 @@
     "require-from-string": "^1.1.0",
     "requirejs": "^2.1.22",
     "scsslint": "0.0.3",
+    "sha256": "^0.2.0",
     "stringify-object": "^2.3.1",
     "urldecode": "^1.0.1"
   },

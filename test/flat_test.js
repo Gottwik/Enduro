@@ -1,9 +1,13 @@
 var expect = require("chai").expect
 var fs = require('fs')
-var enduro_helpers = require('../libs/flat_utilities/enduro_helpers')
 var rimraf = require('rimraf')
 
-describe('Enduro flat file utilities', function() {
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_file_handler = require(ENDURO_FOLDER+'/libs/flat_utilities/flat_file_handler')
+var enduro = require(ENDURO_FOLDER + '/index')
+
+
+describe('Enduro helpers utilities', function() {
 
 	it('should detect an existing file', function () {
 		expect(enduro_helpers.fileExists(process.cwd() + '/index.js')).to.equal(true)
@@ -48,4 +52,29 @@ describe('Enduro flat file utilities', function() {
 		})
 	})
 
+})
+
+describe('Enduro flat utilities', function() {
+
+	var prev_test_folder
+
+	before(function(done) {
+		prev_test_folder = CMD_FOLDER
+		enduro.run(['create', 'testfolder_flat_test'])
+			.then(() => {
+				CMD_FOLDER += '/testfolder_flat_test'
+				done()
+			}, (err) => {
+				done(new Error(err))
+			})
+	});
+
+	it('should detect an existing flat file', function () {
+		expect(enduro_helpers.fileExists(CMD_FOLDER + '/cms/index.js')).to.equal(true)
+	})
+
+	after((done) => {
+		CMD_FOLDER = prev_test_folder
+		done()
+	})
 })

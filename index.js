@@ -58,11 +58,12 @@ enduroServer.setRefresh(function(cb){
 // * ———————————————————————————————————————————————————————— * //
 function run(args){
 
-	enduro_configurator.read_config()
+	return enduro_configurator.read_config()
 		.then(() => {
+
 			// No arguments at all - User ran $ enduro
 			if(args.length == 0){
-				return developer_start();
+				developer_start();
 			}
 
 			// Parse arguments
@@ -82,19 +83,20 @@ function run(args){
 					return kiska_guard.set_passphrase(args)
 				} else if(arg == 'build'){
 					caught = true
-					js_build.build_js(args.shift())
+					return js_build.build_js(args.shift())
 				} else if(arg == 'check'){
 					caught = true
-					gulp.start('check')
+					return gulp.start('check')
 				}
 			}
 
 			// Some weird arguments
 			if(!caught){
 				kiska_logger.log('Arguments not recognized')
-				return false
+				return new Promise(function(resolve, reject){ reject('not recognized') })
 			}
-			return true;
+
+			return new Promise(function(resolve, reject){ resolve({}) })
 	})
 }
 
@@ -110,12 +112,12 @@ function run(args){
 function render(callback){
 	kiska_logger.init()
 
-	global_data.getGlobalData()
+	global_data.get_global_data()
 		.then(() => {
 			return components_handler.readComponents()
 		})
 		.then(() => {
-			return helper_handler.readHelpers()
+			return helper_handler.read_helpers()
 		})
 		.then(() => {
 			return enduro_render.render()
@@ -133,29 +135,18 @@ function render(callback){
 // * 	Developer Start
 // *	Renders content and starts browsersync after that
 // * ———————————————————————————————————————————————————————— * //
-var first = true
-var firstrender = true
 function developer_start(){
 	// clears the global data
 	global_data.clear()
 
 	// Does the refresh procedure
 	gulp.start('preproduction', () => {
-		console.log('enduro preproduction done')
-		if(first){
 			render(() => {
-				console.log('enduro render done')
-
-				if(firstrender){
-					gulp.start('default', () => {
-						console.log('enduro develop done')
-						// After everything is done
-					})
-				}
-				firstrender = false
+				gulp.start('default', () => {
+					enduroServer.run();
+					// After everything is done
+				})
 			})
-		}
-		first = false
 	})
 }
 

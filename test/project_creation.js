@@ -1,18 +1,22 @@
 var expect = require("chai").expect
-var enduro = require('../index')
 var rimraf = require('rimraf')
 var fs = require('fs')
-var enduro_helpers = require('../libs/flat_utilities/enduro_helpers')
+
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var enduro = require(ENDURO_FOLDER + '/index')
 
 // Remove logging
 enduro.silent()
 
 describe('Enduro project creation', function() {
 
-	this.timeout(4000);
-
-	it('should do nothing if malformed arguments are provided', function () {
-		expect(enduro.run(['someweirdargument'])).equals(false)
+	it('should do nothing if malformed arguments are provided', function (done) {
+		enduro.run(['someweirdargument'])
+			.then(() => {
+				done(new Error("Failes to detect malformed argument"))
+			}, () => {
+				done()
+			})
 	});
 
 	it("should not create new project if no project name is provided", function(done){

@@ -15,7 +15,7 @@ var FlatFileHandler = function () {}
 
 
 // Saves file from raw
-FlatFileHandler.prototype.saveFlatRaw = function(filename, contents){
+FlatFileHandler.prototype.save = function(filename, contents){
 	return new Promise(function(resolve, reject){
 		// TODO backup file be
 
@@ -51,7 +51,7 @@ FlatFileHandler.prototype.load = function(filename){
 
 		// check if file exists. return empty object if not
 		if(!enduro_helpers.fileExists(fullpath_to_cms_file)){
-			self.saveFlatRaw(filename, '{}')
+			self.save(filename, '{}')
 				.then(() => {
 					resolve({})
 				})
@@ -83,8 +83,20 @@ FlatFileHandler.prototype.loadsync = function(filename){
 	return data;
 }
 
+FlatFileHandler.prototype.get_full_path_to_cms = get_full_path_to_cms;
+
 function get_full_path_to_cms(filename) {
 	return CMD_FOLDER + '/cms/' + filename + '.js'
+}
+
+FlatFileHandler.prototype.file_exists = function(filename){
+	console.log(filename, get_full_path_to_cms(filename), enduro_helpers.fileExists(get_full_path_to_cms(filename)))
+	return enduro_helpers.fileExists(get_full_path_to_cms(filename))
+}
+
+FlatFileHandler.prototype.create_if_doesnt_exist = function(filename, context){
+	context = context || {};
+
 }
 
 

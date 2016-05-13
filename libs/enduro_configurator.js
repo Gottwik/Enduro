@@ -1,4 +1,4 @@
-7// * ———————————————————————————————————————————————————————— * //
+// * ———————————————————————————————————————————————————————— * //
 // * 	Project configurator
 // *	reads the configuration file and sets the variables
 // * ———————————————————————————————————————————————————————— * //
@@ -30,7 +30,7 @@ enduro_configurator.prototype.read_config = function() {
 
 			// Reads the configuration file
 			fs.readFile(CONFIG_PATH, function read(err, data) {
-				if(err) { return kiskaLogger.err(err); }
+				if(err) { reject(kiskaLogger.err(err)) }
 
 				// Parses json file
 				local_config = JSON.parse(data)

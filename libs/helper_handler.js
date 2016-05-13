@@ -9,7 +9,7 @@ var PROJECT_HELPERS_PATH = CMD_FOLDER + '/assets/hbs_helpers/**/*.js'
 
 var HelperHandler = function () {}
 
-HelperHandler.prototype.readHelpers = function(){
+HelperHandler.prototype.read_helpers = function(){
 	return new Promise(function(resolve, reject){
 		glob( [ENDURO_HELPERS_PATH, PROJECT_HELPERS_PATH] , function (err, files) {
 			if (err) { return console.log(err) }

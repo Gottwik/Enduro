@@ -7,22 +7,19 @@ var api_call = function () {}
 
 api_call.prototype.call = function(req, res, query){
 
-	var username = req.query.username
-	var password = req.query.password
+	var sid = req.query.sid
 
-	admin_security.login_by_password(username, password)
+	if(!sid) {
+		res.send({success: false, message: 'no sessionid provided'})
+	}
+
+	admin_sessions.get_user_by_session(sid)
 		.then((user) => {
-			return admin_sessions.create_session(req, user)
-		}, (err) => {
-			console.log(err)
-			res.send({
-				success: false,
-			})
+			res.send({success: true, user: user})
+		}, () => {
+			res.send({success: false, message: 'session not valid'})
+		})
 
-		})
-		.then((session) => {
-			res.send(session)
-		})
 }
 
 module.exports = new api_call()

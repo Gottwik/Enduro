@@ -90,7 +90,7 @@ function run(args){
 					return gulp.start('check')
 				} else if(arg == 'addadmin'){
 					caught = true
-					return admin_security.add_admin(args)
+					return admin_security.add_admin(args.shift(), args.shift())
 				}
 			}
 

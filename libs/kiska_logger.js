@@ -8,6 +8,7 @@ var chalk = require('chalk')
 
 // Config
 var FRAME_WIDTH = 60
+var TAB_WIDTH = 4
 
 var log = console.log;
 
@@ -23,6 +24,11 @@ kiska_logger.prototype.init = function (message) {
 kiska_logger.prototype.log = function (message, newline) {
 	log(chalk.cyan('│') + (' ' + message).rpad(FRAME_WIDTH-2) + chalk.cyan('│'))
 	newline || false ? this.log('') : ''
+};
+
+// * │     same as log but with a tab                           │ * //
+kiska_logger.prototype.tablog = function (message, newline) {
+	this.log(rep(TAB_WIDTH) + message,newline)
 };
 
 // * │ Something                                       Happened │ * //
@@ -95,6 +101,7 @@ String.prototype.cpad = function(length, char) {
 
 // Returns string of length @len consisting of characters @char
 function rep(len, char){
+	char = char || ' '
 	return Array(len+1).join(char)
 }
 

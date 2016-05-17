@@ -53,7 +53,7 @@ FlatFileHandler.prototype.load = function(filename) {
 
 		// check if file exists. return empty object if not
 		if(!enduro_helpers.fileExists(fullpath_to_cms_file)) {
-			self.save(filename, '{}')
+			self.save(filename, {})
 				.then(() => {
 					resolve({})
 				})
@@ -103,7 +103,11 @@ FlatFileHandler.prototype.add = function(filename, context_to_add, key) {
 
 	return self.load(filename)
 		.then((context) => {
-			context[key] = context_to_add
+			if(!(key in context)) {
+				context[key] = []
+			}
+
+			context[key].push(context_to_add)
 			return self.save(filename, context)
 		})
 }

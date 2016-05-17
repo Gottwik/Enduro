@@ -53,9 +53,9 @@ Scaffolder.prototype.scaffold = function(args){
 			kiska_logger.log('Project created successfully.')
 			kiska_logger.line()
 			kiska_logger.log('Dont forget to cd into project with', true)
-			kiska_logger.log('     $ cd ' + projectName, true)
+			kiska_logger.tablog('$ cd ' + projectName, true)
 			kiska_logger.log('Then run', true)
-			kiska_logger.log('     $ enduro', true)
+			kiska_logger.tablog('$ enduro', true)
 			kiska_logger.end()
 			resolve()
 		});

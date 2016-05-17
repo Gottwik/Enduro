@@ -29,6 +29,7 @@ var components_handler = require(ENDURO_FOLDER + '/libs/components_handler')
 var enduro_render = require(ENDURO_FOLDER + '/libs/enduro_render')
 var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
 var js_build = require(ENDURO_FOLDER + '/libs/build_utils/js_build')
+var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
 var gulp = require('./gulpfile')
@@ -63,7 +64,7 @@ function run(args){
 
 			// No arguments at all - User ran $ enduro
 			if(args.length == 0){
-				developer_start();
+				return developer_start();
 			}
 
 			// Parse arguments
@@ -87,6 +88,9 @@ function run(args){
 				} else if(arg == 'check'){
 					caught = true
 					return gulp.start('check')
+				} else if(arg == 'addadmin'){
+					caught = true
+					return admin_security.add_admin(args)
 				}
 			}
 
@@ -141,12 +145,12 @@ function developer_start(){
 
 	// Does the refresh procedure
 	gulp.start('preproduction', () => {
-			render(() => {
-				gulp.start('default', () => {
-					enduroServer.run();
-					// After everything is done
-				})
+		render(() => {
+			gulp.start('default', () => {
+				enduroServer.run();
+				// After everything is done
 			})
+		})
 	})
 }
 

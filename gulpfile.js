@@ -5,7 +5,7 @@ var sass = require('gulp-sass')
 var url = require('url')
 var fs = require('fs')
 var bulkSass = require('gulp-sass-bulk-import')
-var kiskaLogger = require('./libs/kiska_logger')
+var kiska_logger = require('./libs/kiska_logger')
 var scsslint = require('gulp-scss-lint')
 var spritesmith = require('gulp.spritesmith')
 var sourcemaps = require('gulp-sourcemaps')
@@ -96,9 +96,9 @@ gulp.task('sass', function() {
 		.pipe(sourcemaps.init())
 		.pipe(sass())
 		.on('error', function(err){
-			kiskaLogger.errBlockStart('Sass error')
+			kiska_logger.errBlockStart('Sass error')
 			console.log(err.message)
-			kiskaLogger.errBlockEnd()
+			kiska_logger.errBlockEnd()
 			this.emit('end');
 		})
 		.pipe(autoprefixer({

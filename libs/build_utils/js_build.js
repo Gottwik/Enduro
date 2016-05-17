@@ -9,7 +9,7 @@ var Promise = require('bluebird')
 var rjs = require('requirejs')
 
 var enduro_helpers = require('../flat_utilities/enduro_helpers')
-var kiskaLogger = require('../kiska_logger')
+var kiska_logger = require('../kiska_logger')
 var gulp = require('../../gulpfile')
 
 // Creates all subdirectories neccessary to create the file in filepath
@@ -22,7 +22,7 @@ js_build.prototype.build_js = function(config_name) {
 		var configpath = CMD_FOLDER + '/_src/assets/js/main' + config_name + '.js'
 
 		if(!enduro_helpers.fileExists(configpath)){
-			return kiskaLogger.errBlock('No config file named main' + config_name + '.js')
+			return kiska_logger.errBlock('No config file named main' + config_name + '.js')
 		}
 
 		return new Promise(function(resolve, reject){

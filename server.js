@@ -7,10 +7,12 @@
 
 var express = require('express')
 var app = express()
+var session = require('express-session')
+var cors = require('cors')
+
 var admin_api = require('./libs/admin_api')
 var website_api = require('./libs/website_api')
 var kiska_guard = require('./libs/kiska_guard')
-var session = require('express-session')
 
 // Initialization of the sessions
 app.set('trust proxy', 1)
@@ -20,6 +22,8 @@ app.use(session({
   saveUninitialized: true,
   cookie: {}
 }))
+
+app.use(cors());
 
 var EnduroServer = function () {}
 

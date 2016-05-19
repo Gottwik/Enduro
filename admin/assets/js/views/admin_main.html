@@ -1,0 +1,20 @@
+<div class="main-top-bar">
+	<div class="enduro-branding">Enduro Admin</div>
+	<div class="enduro-userbox"><a href="#/logout">logout</a></div>
+</div>
+
+<div class="main-viewport" ng-controller="main_ctrl">
+	<nav class="side-main-menu">
+		<a class="side-main-menu-item" href="#/">Dashboard</a>
+
+		<div class="side-main-menu-group-label">Pages</div>
+		<ul class="side-main-menu-group">
+			<div ng-repeat="page in pagelist">
+				<li><a href="#pages/{{page.path}}">{{page.name}}</a></li>
+			</div>
+		</ul>
+
+	</nav>
+	<div class="page-viewport" ng-include="inner_page">
+	</div>
+</div>

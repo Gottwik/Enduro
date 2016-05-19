@@ -9,7 +9,7 @@ var Promise = require('bluebird');
 var fs = require('fs')
 var async = require("async")
 var glob = require("glob")
-var kiskaLogger = require('./kiska_logger')
+var kiska_logger = require('./kiska_logger')
 
 var ComponentHandler = function () {}
 
@@ -23,7 +23,7 @@ ComponentHandler.prototype.readComponents = function(){
 
 		// Fetches the files
 		glob( COMPONENTS_PATH , function (err, files) {
-			if (err) { return kiskaLogger.errBlock(err) }
+			if (err) { return kiska_logger.errBlock(err) }
 
 			// Async goes through the files
 			async.each(files, function(file, callback) {
@@ -39,13 +39,13 @@ ComponentHandler.prototype.readComponents = function(){
 
 					// Register the component
 					__templating_engine.registerPartial(filename.toLowerCase(), data)
-					kiskaLogger.twolog('component ' + filename, 'registered')
+					kiska_logger.twolog('component ' + filename, 'registered')
 					callback()
 				})
 			}, function(){
 
 				// After all components are loaded
-				kiskaLogger.line();
+				kiska_logger.line();
 				resolve()
 			})
 		})

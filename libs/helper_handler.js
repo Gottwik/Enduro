@@ -2,7 +2,7 @@ var Promise = require('bluebird');
 var fs = require('fs')
 var async = require("async")
 var glob = require("multi-glob").glob;
-var kiskaLogger = require('./kiska_logger')
+var kiska_logger = require('./kiska_logger')
 
 var ENDURO_HELPERS_PATH = __dirname + '/../hbs_helpers/**/*.js'
 var PROJECT_HELPERS_PATH = CMD_FOLDER + '/assets/hbs_helpers/**/*.js'
@@ -18,10 +18,10 @@ HelperHandler.prototype.read_helpers = function(){
 				var filename = fileReg[1]
 				var fileext = fileReg[2]
 				require(file)
-				kiskaLogger.twolog('helper ' + filename, 'registered')
+				kiska_logger.twolog('helper ' + filename, 'registered')
 				callback()
 			}, function(){
-				kiskaLogger.line();
+				kiska_logger.line();
 				resolve()
 			})
 		})

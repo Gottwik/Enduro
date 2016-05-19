@@ -9,7 +9,7 @@ var Promise = require('bluebird');
 // Handles copying files
 var ncp = require('ncp').ncp;
 
-var kiskaLogger = require('./kiska_logger')
+var kiska_logger = require('./kiska_logger')
 var enduro_helpers = require('./flat_utilities/enduro_helpers')
 
 var Scaffolder = function () {}
@@ -20,7 +20,7 @@ Scaffolder.prototype.scaffold = function(args){
 		// No project name given
 		if(!args.length){
 			reject('no project name was specified')
-			return kiskaLogger.err('\nProvide project name as \n\n\t$ enduro create projectname\n')
+			return kiska_logger.err('\nProvide project name as \n\n\t$ enduro create projectname\n')
 		}
 
 		// Stores project name
@@ -34,29 +34,29 @@ Scaffolder.prototype.scaffold = function(args){
 		// Reject if directory already exists
 		if(enduro_helpers.dirExists(destination)){
 			reject('requested directory already exists')
-			return kiskaLogger.errBlock('\tdirectory already exists')
+			return kiska_logger.errBlock('\tdirectory already exists')
 		}
 
-		kiskaLogger.init('ENDURO - CREATING PROJECT')
-		kiskaLogger.log('Creating new project ' + projectName)
-		kiskaLogger.line()
+		kiska_logger.init('ENDURO - CREATING PROJECT')
+		kiska_logger.log('Creating new project ' + projectName)
+		kiska_logger.line()
 
 		// Copy files - Without overwriting existing files
 		ncp(source, destination, {clobber: false}, function (err) {
 			if (err) {
 				// Something went wrong with the copying
 				reject('creating new files failed')
-				return kiskaLogger.errBlock(err);
+				return kiska_logger.errBlock(err);
 			}
 
 			// Let the user know the project was created successfully
-			kiskaLogger.log('Project created successfully.')
-			kiskaLogger.line()
-			kiskaLogger.log('Dont forget to cd into project with', true)
-			kiskaLogger.log('     $ cd ' + projectName, true)
-			kiskaLogger.log('Then run', true)
-			kiskaLogger.log('     $ enduro', true)
-			kiskaLogger.end()
+			kiska_logger.log('Project created successfully.')
+			kiska_logger.line()
+			kiska_logger.log('Dont forget to cd into project with', true)
+			kiska_logger.tablog('$ cd ' + projectName, true)
+			kiska_logger.log('Then run', true)
+			kiska_logger.tablog('$ enduro', true)
+			kiska_logger.end()
 			resolve()
 		});
 	})

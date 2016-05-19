@@ -15,8 +15,10 @@ api_call.prototype.call = function(req, res, query){
 
 	admin_sessions.get_user_by_session(sid)
 		.then((user) => {
+			console.log('session login successfull')
 			res.send({success: true, user: user})
 		}, () => {
+			console.log('session login failed')
 			res.send({success: false, message: 'session not valid'})
 		})
 

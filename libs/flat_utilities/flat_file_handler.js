@@ -10,11 +10,11 @@ var stringify_object = require('stringify-object')
 
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
-var FlatFileHandler = function () {}
+var flat_file_handler = function () {}
 
 
 // Saves file from raw
-FlatFileHandler.prototype.save = function(filename, contents){
+flat_file_handler.prototype.save = function(filename, contents){
 	return new Promise(function(resolve, reject){
 		// TODO backup file be
 
@@ -40,8 +40,10 @@ FlatFileHandler.prototype.save = function(filename, contents){
 }
 
 // Provides object from filename
-FlatFileHandler.prototype.load = function(filename) {
+flat_file_handler.prototype.load = function(filename) {
 	var self = this
+
+	console.log('filename: ', filename)
 
 	return new Promise(function(resolve, reject) {
 		// TODO backup file be
@@ -50,6 +52,7 @@ FlatFileHandler.prototype.load = function(filename) {
 		filename = decode(filename)
 
 		var fullpath_to_cms_file = get_full_path_to_cms(filename)
+		console.log(fullpath_to_cms_file)
 
 		// check if file exists. return empty object if not
 		if(!enduro_helpers.fileExists(fullpath_to_cms_file)) {
@@ -74,7 +77,7 @@ FlatFileHandler.prototype.load = function(filename) {
 }
 
 // loads file synchronously
-FlatFileHandler.prototype.loadsync = function(filename) {
+flat_file_handler.prototype.loadsync = function(filename) {
 	filename = decode(filename)
 
 	if(!enduro_helpers.fileExists(CMD_FOLDER + '/cms/' + filename + '.js')) {
@@ -85,17 +88,17 @@ FlatFileHandler.prototype.loadsync = function(filename) {
 	return data;
 }
 
-FlatFileHandler.prototype.get_full_path_to_cms = get_full_path_to_cms;
+flat_file_handler.prototype.get_full_path_to_cms = get_full_path_to_cms;
 
 function get_full_path_to_cms(filename) {
 	return CMD_FOLDER + '/cms/' + filename + '.js'
 }
 
-FlatFileHandler.prototype.file_exists = function(filename) {
+flat_file_handler.prototype.file_exists = function(filename) {
 	return enduro_helpers.fileExists(get_full_path_to_cms(filename))
 }
 
-FlatFileHandler.prototype.add = function(filename, context_to_add, key) {
+flat_file_handler.prototype.add = function(filename, context_to_add, key) {
 	var self = this
 
 	context_to_add = context_to_add || {}
@@ -113,4 +116,4 @@ FlatFileHandler.prototype.add = function(filename, context_to_add, key) {
 }
 
 
-module.exports = new FlatFileHandler()
+module.exports = new flat_file_handler()

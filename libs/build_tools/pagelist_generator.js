@@ -18,7 +18,30 @@ var PAGELIS_DESTINATION = CMD_FOLDER + '/_src/_prebuilt/pagelist.json'
 
 // Creates all subdirectories neccessary to create the file in filepath
 pagelist_generator.prototype.init = function(gulp) {
+	var self = this
+
 	gulp.task('pagelist_generator', function(cb) {
+		self.get_pagelist()
+			.then((pagelist) => {
+
+				// Extends global data with currently loaded data
+				extend(true, __data.global, {pagelist: pagelist})
+
+				// Saves the pagelist into a specified file
+				enduro_helpers.ensureDirectoryExistence(PAGELIS_DESTINATION)
+					.then(() => {
+						fs.writeFile( PAGELIS_DESTINATION , JSON.stringify(pagelist), function(err) {
+							cb()
+						})
+					})
+			})
+	})
+
+	return 'pagelist_generator'
+}
+
+pagelist_generator.prototype.get_pagelist = function() {
+	return new Promise(function(resolve, reject){
 		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
 
 			var pagelist = {}
@@ -26,7 +49,13 @@ pagelist_generator.prototype.init = function(gulp) {
 			// helper function to build the pagelist
 			function build(pagepath, partial_pages, fullpath) {
 				if(pagepath.length == 1){
-					partial_pages[pagepath[0]] = {type: 'page', fullpath: '/' + fullpath.join('/')}
+
+					var page = {}
+					page.type = 'page'
+					page.fullpath = '/' + fullpath.join('/')
+					page.name = pagepath[0]
+
+					partial_pages[pagepath[0]] = page
 				} else {
 					if(!(pagepath[0] in partial_pages)){
 						partial_pages[pagepath[0]] = {}
@@ -42,20 +71,28 @@ pagelist_generator.prototype.init = function(gulp) {
 				build(pagepath, pagelist, pagepath)
 			})
 
-			// Extends global data with currently loaded data
-			extend(true, __data.global, {pagelist: pagelist})
-
-			// Saves the pagelist into a specified file
-			enduro_helpers.ensureDirectoryExistence(PAGELIS_DESTINATION)
-				.then(() => {
-					fs.writeFile( PAGELIS_DESTINATION , JSON.stringify(pagelist), function(err) {
-						cb()
-					})
-				})
+			resolve(pagelist)
 		})
 	})
+}
 
-	return 'pagelist_generator'
+pagelist_generator.prototype.get_flat_pagelist = function() {
+	return new Promise(function(resolve, reject){
+		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
+			var pagelist = {}
+			files.forEach((file) => {
+				var page = {}
+				page.type = 'page'
+				page.fullpath = file
+				page.path = file.match('/pages/(.*)\.hbs')[1]
+				page.name = page.path.split('/').slice(-1)[0]
+
+				pagelist[page.name] = page
+			})
+
+			resolve(pagelist)
+		})
+	})
 }
 
 module.exports = new pagelist_generator()

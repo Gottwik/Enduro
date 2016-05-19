@@ -1,0 +1,176 @@
+// * ———————————————————————————————————————————————————————— * //
+// * 	Wedge
+// *	wedges are 10px horizontal stripes that helps form
+// *	vertical layout. Goes from -80px to 80px
+//
+// *	.wedge = 		10px
+// *	.wedge-2x = 	20px
+//
+// *	subwedge = 		-10px
+// * 	subwedge-2x = 	-20px
+//
+// * ———————————————————————————————————————————————————————— * //
+// *	Responsiveness
+// *	wedge adopt bootstrap 4 style classes
+//
+// *	.wedge is non-responsive
+// *	.wedge-sm-down will be visible in sm and lower
+// *	.wedge-sm-up wil lbe visible in sm and up
+//
+// *	Just add -2x to double wedge
+//
+// *	Uses bootstrap 4 media queries
+// * ———————————————————————————————————————————————————————— * //
+
+
+// Check if grid breakpoints is defined(might be by bootstrap)
+// if not, define it again
+$grid-breakpoints: (
+	xs: 0,
+	sm: 544px,
+	md: 768px,
+	lg: 992px,
+	xl: 1280px
+) !default;
+
+// helper list for up and down classes
+$updown: ('up', 'down');
+
+// helper list for up and down classes
+$sublist: ('', 'sub');
+
+// mediaqueries from bootstrap 4
+@function wedge-breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {$n: index($breakpoint-names, $name);@return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);}
+@function wedge-breakpoint-min($name, $breakpoints: $grid-breakpoints) {$min: map-get($breakpoints, $name);@return if($min != 0, $min, null);}
+@function wedge-breakpoint-max($name, $breakpoints: $grid-breakpoints) {$next: wedge-breakpoint-next($name, $breakpoints);@return if($next, wedge-breakpoint-min($next, $breakpoints) - 1px, null);}
+@mixin wedge-media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {$min: wedge-breakpoint-min($name, $breakpoints);@if $min {@media (min-width: $min) {@content;}} @else {@content;}}
+@mixin wedge-media-breakpoint-down($name, $breakpoints: $grid-breakpoints) { $max: wedge-breakpoint-max($name, $breakpoints); @if $max {@media (max-width: $max) {@content;}} @else {@content;}}
+
+// Helper mixin to split up and down media queries
+@mixin wedge-breakpoint($direction, $name){
+	@if $direction == 'up' {
+		@include wedge-media-breakpoint-up($name) {
+			@content;
+		}
+	} @else {
+		@include wedge-media-breakpoint-down($name) {
+			@content;
+		}
+	}
+}
+
+
+// Base for all wedges
+%wedgecore {
+	clear: both;
+	display: block;
+	width: 100%;
+}
+
+// Produces one wedge
+@mixin get-wedge($multiplier: 1) {
+	@if $multiplier > 0 {
+		height: $multiplier * 10px;
+	} @else {
+		margin-bottom: $multiplier * 10px;
+	}
+}
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Wedge
+// * ———————————————————————————————————————————————————————— * //
+.wedge {
+	@include get-wedge();
+	@extend %wedgecore;
+}
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Subwedge
+// * ———————————————————————————————————————————————————————— * //
+.subwedge {
+	@include get-wedge(-1);
+	@extend %wedgecore;
+}
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Multi wedges
+// * ———————————————————————————————————————————————————————— * //
+@for $i from 2 through 8 {
+	.wedge-#{$i}x {
+		@include get-wedge($i);
+		@extend %wedgecore;
+	}
+
+	.subwedge-#{$i}x {
+		@include get-wedge(-1 * $i);
+		@extend %wedgecore;
+	}
+}
+
+%nodisplay {
+	display: none;
+}
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Responsive wedges
+// * ———————————————————————————————————————————————————————— * //
+@each $breakpoint, $size in $grid-breakpoints {
+
+	@each $direction in $updown{
+		// hide responsive classes
+		@each $sub in $sublist {
+			.#{$sub}wedge-#{$breakpoint}-#{$direction} {
+				@extend %nodisplay;
+			}
+
+			@for $i from 2 through 8 {
+				.#{$sub}wedge-#{$breakpoint}-#{$direction}-#{$i}x {
+					@extend %nodisplay;
+				}
+			}
+		}
+
+		@include wedge-breakpoint($direction, $breakpoint) {
+
+			// placeholder selector for this media query
+			%wedgecore-#{$breakpoint}-#{$direction} {
+				clear: both;
+				display: block;
+				width: 100%;
+			}
+
+			.wedge-#{$breakpoint}-#{$direction} {
+				@include get-wedge();
+				@extend %wedgecore-#{$breakpoint}-#{$direction};
+			}
+
+			.subwedge-#{$breakpoint}-#{$direction} {
+				@include get-wedge(-1);
+				@extend %wedgecore-#{$breakpoint}-#{$direction};
+			}
+
+			@for $i from 2 through 8 {
+				.wedge-#{$breakpoint}-#{$direction}-#{$i}x {
+					@include get-wedge($i);
+					@extend %wedgecore-#{$breakpoint}-#{$direction};
+				}
+
+				.subwedge-#{$breakpoint}-#{$direction}-#{$i}x {
+					@include get-wedge(-1 * $i);
+					@extend %wedgecore-#{$breakpoint}-#{$direction};
+				}
+			}
+		}
+	}
+}
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Half wedge
+// * ———————————————————————————————————————————————————————— * //
+.half-wedge {
+	@include get-wedge(.5);
+	@extend %wedgecore;
+}

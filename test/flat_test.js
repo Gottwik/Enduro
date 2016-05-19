@@ -70,7 +70,11 @@ describe('Enduro flat utilities', function() {
 	});
 
 	it('should detect an existing flat file', function () {
-		expect(enduro_helpers.fileExists(CMD_FOLDER + '/cms/index.js')).to.equal(true)
+		expect(flat_file_handler.file_exists('index')).to.equal(true)
+	})
+
+	it('should not detect an nonexisting flat file', function () {
+		expect(flat_file_handler.file_exists('aegwa')).to.equal(false)
 	})
 
 	after((done) => {

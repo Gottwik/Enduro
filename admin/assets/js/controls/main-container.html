@@ -1,0 +1,22 @@
+<div>
+	<div ng-controller="cms_main_ctrl">
+		<div class="wedge-4x"></div>
+		<div ng-if="isObject(context)">
+			<div ng-repeat="(key, value) in context track by $index">
+
+				<div ng-if="isString(value) || isNumber(value)">
+					<div ng-include="'/admin/assets/js/controls/text-control.html'"></div>
+				</div>
+
+				<div ng-if="isObject(value)">
+					<div ng-include="'/admin/assets/js/controls/main-container.html'"></div>
+				</div>
+
+				<div ng-if="isArray(value)">
+					<div ng-include="'/admin/assets/js/controls/array-container.html'"></div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

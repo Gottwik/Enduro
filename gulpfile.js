@@ -5,7 +5,7 @@ var sass = require('gulp-sass')
 var url = require('url')
 var fs = require('fs')
 var bulkSass = require('gulp-sass-bulk-import')
-var kiskaLogger = require('./libs/kiska_logger')
+var kiska_logger = require('./libs/kiska_logger')
 var scsslint = require('gulp-scss-lint')
 var spritesmith = require('gulp.spritesmith')
 var sourcemaps = require('gulp-sourcemaps')
@@ -46,12 +46,20 @@ gulp.task('browserSync', ['sass'], function() {
 		server: {
 			baseDir: CMD_FOLDER + '/_src',
 			middleware: function(req, res, next) {
-				// server admin/index file on /admin url
-				if(req.url == '/admin/'){ req.url = '/admin/index.html' }
 				// serve files without html
-				else if(!(req.url.indexOf('.')+1) && req.url.length > 3){
+				if(!(req.url.indexOf('.') + 1) && req.url.length > 3){
 					req.url += '.html'
 				}
+
+				// patch to enable development of admin ui in enduro
+				static_path_pattern = new RegExp(config.static_path_prefix + '\/(.*)')
+				if(static_path_pattern.test(req.url)){
+					req.url = '/' + req.url.match(static_path_pattern)[1]
+				}
+
+				// server admin/index file on /admin url
+				if(req.url == '/admin/'){ req.url = '/admin/index.html' }
+
 				return next()
 			},
 		},
@@ -96,9 +104,9 @@ gulp.task('sass', function() {
 		.pipe(sourcemaps.init())
 		.pipe(sass())
 		.on('error', function(err){
-			kiskaLogger.errBlockStart('Sass error')
+			kiska_logger.errBlockStart('Sass error')
 			console.log(err.message)
-			kiskaLogger.errBlockEnd()
+			kiska_logger.errBlockEnd()
 			this.emit('end');
 		})
 		.pipe(autoprefixer({

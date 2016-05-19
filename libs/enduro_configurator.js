@@ -14,7 +14,8 @@ var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helper
 
 var default_config = {
 	project_name: 'Enduro project',
-	project_slug: 'en'
+	project_slug: 'en',
+	render_templates: true
 }
 
 enduro_configurator.prototype.read_config = function() {
@@ -30,7 +31,7 @@ enduro_configurator.prototype.read_config = function() {
 
 			// Reads the configuration file
 			fs.readFile(CONFIG_PATH, function read(err, data) {
-				if(err) { reject(kiskaLogger.err(err)) }
+				if(err) { reject(kiska_logger.err(err)) }
 
 				// Parses json file
 				local_config = JSON.parse(data)

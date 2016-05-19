@@ -9,7 +9,7 @@
 var Promise = require('bluebird');
 var fs = require('fs')
 var passwordHash = require('password-hash')
-var kiskaLogger = require('./kiska_logger')
+var kiska_logger = require('./kiska_logger')
 var enduro_helpers = require('./flat_utilities/enduro_helpers')
 
 var KiskaGuard = function () {}
@@ -33,15 +33,15 @@ KiskaGuard.prototype.set_passphrase = function(args){
 		// No passphrase given
 		if(!args.length){
 			reject('No passphrase provided')
-			return kiskaLogger.err('\nProvide an passphrase \n\n\t$ enduro secure catthrewupagain\n')
+			return kiska_logger.err('\nProvide an passphrase \n\n\t$ enduro secure catthrewupagain\n')
 		}
 
 		// Stores the passphrase
 		var passphrase = passwordHash.generate(args[0])
 
 		fs.writeFile(CMD_FOLDER + '/' + SECURE_FILE, passphrase, function(err) {
-			if(err) { return kiskaLogger.err(err); }
-			kiskaLogger.log('Enduro project is secure now') // TODO nice logging
+			if(err) { return kiska_logger.err(err); }
+			kiska_logger.log('Enduro project is secure now') // TODO nice logging
 			resolve();
 		});
 	})
@@ -55,7 +55,7 @@ KiskaGuard.prototype.verify_passphrase = function(passphrase){
 		}
 		// Reads the security file
 		fs.readFile(CMD_FOLDER + '/' + SECURE_FILE, function read(err, data) {
-			if(err) { return kiskaLogger.err(err); }
+			if(err) { return kiska_logger.err(err); }
 
 			// Compares the hashed passphrase, sets session flag and resolves if successful
 			if(passwordHash.verify(passphrase, data.toString())){

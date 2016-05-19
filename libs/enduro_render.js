@@ -82,6 +82,12 @@ function renderFile(file, culture, callback) {
 				catch(e) {
 					kiska_logger.errBlock('Page: ' + filename + '\n' + e.message)
 				}
+
+				// Output raw templates if render_templates setting is set to false
+				if(!config.render_templates) {
+					output = data
+				}
+
 				// Makes sure the target directory exists
 				enduro_helpers.ensureDirectoryExistence(CMD_FOLDER + '/_src/' + endpath)
 					.then(function() {

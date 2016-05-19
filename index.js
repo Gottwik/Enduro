@@ -153,8 +153,30 @@ function developer_start(){
 		})
 	})
 }
+// var first = true
+// var firstrender = true
+// function developer_start(){
+// 	// clears the global data
+// 	global_data.clear()
 
-// Removes logging
+// 	// Does the refresh procedure
+// 	gulp.start('preproduction', () => {
+// 		if(first){
+// 			render(() => {
+// 				if(firstrender){
+// 					gulp.start('default', () => {
+// 						enduroServer.run();
+// 						// After everything is done
+// 					})
+// 				}
+// 				firstrender = false
+// 			})
+// 		}
+// 		first = false
+// 	})
+// }
+
+// Removes all logging
 function silent(){
 	kiska_logger.silent()
 }

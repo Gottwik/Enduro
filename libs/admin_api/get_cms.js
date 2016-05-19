@@ -7,7 +7,7 @@ var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessio
 
 var api_call = function () {}
 
-api_call.prototype.call = function(req, res, query){
+api_call.prototype.call = function(req, res, enduro_server){
 	admin_sessions.get_user_by_session(req.query.sid)
 		.then((user) => {
 			return flat_file_handler.load(req.query.filename)

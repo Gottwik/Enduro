@@ -5,8 +5,7 @@ var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessio
 
 var api_call = function () {}
 
-api_call.prototype.call = function(req, res, query){
-
+api_call.prototype.call = function(req, res, enduro_server){
 	var username = req.query.username
 	var password = req.query.password
 

@@ -64,7 +64,6 @@ admin_security.prototype.admin_exists = function(username) {
 admin_security.prototype.login_by_password = function(username, password) {
 	var self = this
 	return new Promise(function(resolve, reject){
-
 		if(!username || !password) {
 			reject({success: false, message: 'username or password not provided'})
 		}

@@ -1,9 +1,9 @@
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Server
 // *	Runs production server with password protection and
 // *	admin ui and better routing
 // * ———————————————————————————————————————————————————————— * //
+var enduro_server = function () {}
 
 // Vendor dependencies
 var express = require('express')
@@ -15,6 +15,10 @@ var cors = require('cors')
 var admin_api = require(ENDURO_FOLDER + '/libs/admin_api')
 var website_api = require(ENDURO_FOLDER + '/libs/website_api')
 var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
+var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+
+// Constants
+PRODUCTION_SERVER_PORT = 5000
 
 // Initialization of the sessions
 app.set('trust proxy', 1)
@@ -25,17 +29,22 @@ app.use(session({
   cookie: {}
 }))
 
-app.use(cors());
+app.use(cors())
 
-var enduro_server = function () {}
-
-enduro_server.prototype.run = function () {
+// * ———————————————————————————————————————————————————————— * //
+// * 	Server run
+// *
+// * 	Starts the production server
+// *	@param {boolean} development_mode - if true, prevents enduro render on start to prevent double rendering
+// *	@return {}
+// * ———————————————————————————————————————————————————————— * //
+enduro_server.prototype.run = function(development_mode) {
 
 	// stores current enduro_server instance
-	var self = this;
+	var self = this
 
 	// 5000 or server's port
-	app.set('port', (process.env.PORT || 5000))
+	app.set('port', (process.env.PORT || PRODUCTION_SERVER_PORT))
 
 	// Serve static files from /_src folder
 	app.use('/admin', express.static(ADMIN_FOLDER))
@@ -46,17 +55,17 @@ enduro_server.prototype.run = function () {
 		self.enduroRefresh(function(){
 			res.send({success: true, message: 'enduro refreshed successfully'})
 		})
-	});
+	})
 
 	// Handle for all admin api calls
 	app.get('/admin_api/*', function (req, res) {
-		admin_api.call(req, res, self);
-	});
+		admin_api.call(req, res, self)
+	})
 
 	// Handle for all website api calls
 	app.get('/api/*', function (req, res) {
-		website_api.call(req, res);
-	});
+		website_api.call(req, res)
+	})
 
 	// Handle for all website api calls
 	// kinda works but needs to be properly done
@@ -83,17 +92,20 @@ enduro_server.prototype.run = function () {
 		} else {
 			console.log('requested page', req.url)
 		}
-	});
+	})
 
 	app.listen(app.get('port'), function () {
-		self.enduroRefresh(() => {})
-	});
+		if(!development_mode) {
+			self.enduroRefresh(() => {})
+		}
+		kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 3)
+	})
 
 }
 
 // Sets enduroRefresh function from parent
 enduro_server.prototype.setRefresh = function (callback) {
-	this.enduroRefresh = callback;
+	this.enduroRefresh = callback
 }
 
 // Placehodler refresh function - This function is being replaced by parent

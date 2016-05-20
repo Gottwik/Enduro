@@ -11,7 +11,7 @@ var Promise = require('bluebird')
 var async = require("async")
 var extend = require('extend')
 var glob = require("glob")
-var kiska_logger = require('./kiska_logger')
+var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var enduro_helpers = require('./flat_utilities/enduro_helpers')
 var flatFileHandler = require('./flat_utilities/flat_file_handler');
 
@@ -23,7 +23,7 @@ global_data.prototype.get_global_data = function() {
 		// Fetches the files
 		glob( DATA_PATH , function (err, files) {
 			if (err) {
-				kiska_logger.block(err)
+				kiska_logger.block(err, 4)
 				reject()
 			}
 
@@ -44,7 +44,7 @@ global_data.prototype.get_global_data = function() {
 							// Extends global data with currently loaded data
 							extend(true, __data.global, data)
 
-							kiska_logger.twolog('global ' + filename, 'loaded')
+							kiska_logger.twolog('global ' + filename, 'loaded', 4)
 							callback()
 						}, () => {
 							callback()
@@ -53,7 +53,7 @@ global_data.prototype.get_global_data = function() {
 
 			}, () => {
 				// After all global files are loaded
-				kiska_logger.line();
+				kiska_logger.line(4);
 				resolve()
 			})
 		})

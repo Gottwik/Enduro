@@ -10,6 +10,7 @@
 // Stores templating engine for possible future replacement
 global.__templating_engine = require('handlebars')
 
+// Global variables
 global.__data = {}
 global.__data.global = {}
 global.config = {}
@@ -19,7 +20,7 @@ global.ADMIN_FOLDER = __dirname + '/admin'
 global.BABEL_FILE = CMD_FOLDER + '/cms/config/babel.js'
 global.START_PATH = ''
 
-
+// Local dependencies
 var enduro_configurator = require(ENDURO_FOLDER + '/libs/enduro_configurator')
 var scaffolder = require(ENDURO_FOLDER + '/libs/scaffolder')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
@@ -30,9 +31,9 @@ var enduro_render = require(ENDURO_FOLDER + '/libs/enduro_render')
 var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
 var js_build = require(ENDURO_FOLDER + '/libs/build_utils/js_build')
 var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
+var gulp = require(ENDURO_FOLDER + '/gulpfile')
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
-var gulp = require('./gulpfile')
 gulp.setRefresh(function(callback){
 	render(function(){
 		callback()
@@ -139,42 +140,49 @@ function render(callback){
 // * 	Developer Start
 // *	Renders content and starts browsersync after that
 // * ———————————————————————————————————————————————————————— * //
-function developer_start(){
-	// clears the global data
-	global_data.clear()
-
-	// Does the refresh procedure
-	gulp.start('preproduction', () => {
-		render(() => {
-			gulp.start('default', () => {
-				enduroServer.run();
-				// After everything is done
-			})
-		})
-	})
-}
-// var first = true
-// var firstrender = true
 // function developer_start(){
 // 	// clears the global data
 // 	global_data.clear()
 
 // 	// Does the refresh procedure
 // 	gulp.start('preproduction', () => {
-// 		if(first){
-// 			render(() => {
-// 				if(firstrender){
-// 					gulp.start('default', () => {
-// 						enduroServer.run();
-// 						// After everything is done
-// 					})
-// 				}
-// 				firstrender = false
+// 		render(() => {
+// 			gulp.start('default', () => {
+// 				enduroServer.run();
+// 				// After everything is done
 // 			})
-// 		}
-// 		first = false
+// 		})
 // 	})
 // }
+var first = true
+var firstrender = true
+var firstserverstart = true
+function developer_start(){
+	// clears the global data
+	global_data.clear()
+	kiska_logger.timestamp('Developer start', 3)
+	// Does the refresh procedure
+	gulp.start('preproduction', () => {
+		if(first){
+			render(() => {
+				if(firstrender){
+					gulp.start('default', () => {
+						if(firstserverstart){
+							kiska_logger.timestamp('Production server starting', 3)
+
+							// start production server in development mode
+							enduroServer.run(true);
+						}
+						firstserverstart = false
+						// After everything is done
+					})
+				}
+				firstrender = false
+			})
+		}
+		first = false
+	})
+}
 
 // Removes all logging
 function silent(){

@@ -17,6 +17,7 @@ var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessio
 // routed call
 api_call.prototype.call = function(req, res, enduro_server){
 
+	console.log('checking session')
 	// gets session id from query parameters
 	var sid = req.query.sid
 

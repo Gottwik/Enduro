@@ -41,7 +41,7 @@ gulp.enduroRefresh = function () {
 // * 	Browsersync Task
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('browserSync', ['sass'], function() {
-
+	kiska_logger.timestamp('Browsersync started', 3)
 	browserSync.init({
 		server: {
 			baseDir: CMD_FOLDER + '/_src',
@@ -99,6 +99,8 @@ gulp.task('browserSync', ['sass'], function() {
 // *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('sass', function() {
+	kiska_logger.timestamp('Sass compiling started', 3)
+
 	return gulp.src(CMD_FOLDER + '/assets/css/main.scss')
 		.pipe(bulkSass())
 		.pipe(sourcemaps.init())
@@ -116,6 +118,9 @@ gulp.task('sass', function() {
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/css'))
 		.pipe(browserSync.stream())
+		.on('end', () => {
+			kiska_logger.timestamp('Sass compiling finished', 3)
+		})
 });
 
 
@@ -124,12 +129,16 @@ gulp.task('sass', function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('scss-lint', function() {
 	try{
+		kiska_logger.timestamp('Sass lint started', 3)
 		return gulp.src(CMD_FOLDER + '/assets/css/**/*')
 			.pipe(checkGem({gemfile: 'scss-lint'}, scsslint(
 				{
 					'config': __dirname + '/support_files/scss-lint.yml'
 				}
-			)));
+			).on('end', () => {
+				kiska_logger.timestamp('Sass lint finished', 3)
+			})))
+
 	}
 	catch(err){
 		return console.log('No liting. you need to install scss_lint');
@@ -212,6 +221,7 @@ gulp.task('iconfont', function(cb){
 			fontHeight: 1024,
 			normalize: true,
 			formats: ['ttf', 'eot', 'woff'],
+			log: () => {}
 		}))
 		.on('glyphs', function(glyphs, options) {
 			glyphs = glyphs.map(function(glyph){

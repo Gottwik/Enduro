@@ -2,7 +2,6 @@
 // * 	Enduro Render
 // *	Goes throught all the pages and renders them with handlebars
 // * ———————————————————————————————————————————————————————— * //
-
 var EnduroRender = function () {}
 
 var Promise = require('bluebird')
@@ -18,6 +17,7 @@ var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 
 // Goes through the pages and renders them
 EnduroRender.prototype.render = function() {
+	kiska_logger.timestamp('Render started', 3)
 	return new Promise(function(resolve, reject){
 		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
 			if (err) { return console.log(err) }
@@ -29,6 +29,7 @@ EnduroRender.prototype.render = function() {
 							renderFile(file, culture, cb)
 						}, callback)
 					}, function(){
+						kiska_logger.timestamp('Render completed', 3)
 						resolve()
 					})
 				})

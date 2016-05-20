@@ -1,9 +1,11 @@
+var api_call = function () {}
+
+// Vendor dependencies
 var Promise = require('bluebird')
 
+// Local dependencies
 var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
-
-var api_call = function () {}
 
 api_call.prototype.call = function(req, res, enduro_server){
 	var username = req.query.username

@@ -71,16 +71,16 @@ KiskaGuard.prototype.verify_passphrase = function(passphrase){
 
 KiskaGuard.prototype.verify = function(req, passphrase, resolve, reject){
 
-	// reject if no passphrase is provided
-	if(!passphrase){
-		reject()
+	// don't check for security if no .enduro_secure file exists
+	if(!(enduro_helpers.fileExists(CMD_FOLDER + '/' + SECURE_FILE))){
+		req.session.lggin_flag = true
+		resolve()
 		return
 	}
 
-	// If no .enduro_secure file exists, don't check for security
-	if(!enduro_helpers.fileExists(CMD_FOLDER + '/' + SECURE_FILE)){
-		req.session.lggin_flag = true
-		resolve()
+	// reject if no passphrase is provided
+	if(!passphrase){
+		reject()
 		return
 	}
 

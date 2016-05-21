@@ -41,7 +41,7 @@ api_call.prototype.call = function(req, res, enduro_server){
 		})
 
 	// Re-renders enduro - essential to publishing the change
-	enduro_server.enduroRefresh(() => {})
+	enduro_server.enduro_refresh(() => {})
 }
 
 module.exports = new api_call()

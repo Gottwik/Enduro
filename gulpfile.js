@@ -28,11 +28,11 @@ var prettyfier = require(ENDURO_FOLDER + '/libs/build_tools/prettyfier').init(gu
 var htmlvalidator = require(ENDURO_FOLDER + '/libs/build_tools/html_validator').init(gulp)
 
 
-gulp.setRefresh = function (callback) {
-	gulp.enduroRefresh = callback;
+gulp.set_refresh = function (callback) {
+	gulp.enduro_refresh = callback;
 }
 
-gulp.enduroRefresh = function () {
+gulp.enduro_refresh = function () {
 	console.log('refresh not defined')
 }
 
@@ -80,14 +80,14 @@ gulp.task('browserSync', ['sass'], function() {
 	watch([CMD_FOLDER + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })				// Watch for png icons
 	watch([CMD_FOLDER + '/assets/fonticons/*.svg'], () => {
 		gulp.start('iconfont')
-		gulp.enduroRefresh(() => {})
+		gulp.enduro_refresh(() => {})
 	})			// Watch for font icon
 	watch([CMD_FOLDER + '/_src/**/*.html'], () => { browserSync.reload() })						// Watch for html files
 	watch([CMD_FOLDER + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
 
 	// Watch for enduro changes
 	watch([CMD_FOLDER + '/pages/**/*.hbs', CMD_FOLDER + '/components/**/*.hbs', CMD_FOLDER + '/cms/**/*.js'], function() {
-		gulp.enduroRefresh(() => {})
+		gulp.enduro_refresh(() => {})
 	})
 });
 

@@ -1,15 +1,28 @@
+// * ———————————————————————————————————————————————————————— * //
+// * 	helper handler
+// *	reads and registers helpers
+// * ———————————————————————————————————————————————————————— * //
+var helper_handler = function () {}
+
+// vendor dependencies
 var Promise = require('bluebird');
 var fs = require('fs')
 var async = require("async")
 var glob = require("multi-glob").glob;
-var kiska_logger = require('./kiska_logger')
 
+// local dependencies
+var kiska_logger = require(ENDURO_FOLDER +'/libs/kiska_logger')
+
+// constants
 var ENDURO_HELPERS_PATH = __dirname + '/../hbs_helpers/**/*.js'
 var PROJECT_HELPERS_PATH = CMD_FOLDER + '/assets/hbs_helpers/**/*.js'
 
-var HelperHandler = function () {}
-
-HelperHandler.prototype.read_helpers = function(){
+// * ———————————————————————————————————————————————————————— * //
+// * 	read helpers
+// *	loads the helpers from enduro and from local enduro app
+// *	@return {Promise} - Promise with no content. Resolve if all helpers are registered
+// * ———————————————————————————————————————————————————————— * //
+helper_handler.prototype.read_helpers = function(){
 	return new Promise(function(resolve, reject){
 		glob( [ENDURO_HELPERS_PATH, PROJECT_HELPERS_PATH] , function (err, files) {
 			if (err) { return console.log(err) }
@@ -28,4 +41,4 @@ HelperHandler.prototype.read_helpers = function(){
 	})
 }
 
-module.exports = new HelperHandler()
+module.exports = new helper_handler()

@@ -1,23 +1,35 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	Kiska guard
-// *	Provides simple security for securing the content
-// *	Uses sessions to store logged in flag
-// *	TODO: switch to bcrypt
-// *	TODO: switch login to async
+// * 	kiska guard
+// *
+// *	provides simple security to protect the site against se crawling
+// *	uses sessions to store logged in flag
+// *	hashed passpphrase is stored in .enduro_secure file in local enduro app's root folder
+// *
+// *	note that this is not secure, and should be used as fast and simple
+// * 	security during development
 // * ———————————————————————————————————————————————————————— * //
+var kiska_guard = function () {}
 
-var Promise = require('bluebird');
+// vendor rependencies
+var Promise = require('bluebird')
 var fs = require('fs')
 var passwordHash = require('password-hash')
-var kiska_logger = require('./kiska_logger')
-var enduro_helpers = require('./flat_utilities/enduro_helpers')
 
-var KiskaGuard = function () {}
+// local dependencies
+var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
+// constants
 var SECURE_FILE =  '.enduro_secure'
 
-KiskaGuard.prototype.login = function(req){
-	var self = this;
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	login endpoint
+// *	@param {http request} req - request used to check if login flag is in the session
+// *	@return {Promise} - Promise with no content. Resolve if login was successfull
+// * ———————————————————————————————————————————————————————— * //
+kiska_guard.prototype.login = function(req){
+	var self = this
 	return new Promise(function(resolve, reject){
 
 		typeof req.session.lggin_flag !== 'undefined'
@@ -27,7 +39,13 @@ KiskaGuard.prototype.login = function(req){
 	})
 }
 
-KiskaGuard.prototype.set_passphrase = function(args){
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	set passphrase
+// *	@param {array} args - args[0] stores the desired passphrase
+// *	@return {Promise} - Promise with no content. Resolve if password setup was successfull
+// * ———————————————————————————————————————————————————————— * //
+kiska_guard.prototype.set_passphrase = function(args){
 	return new Promise(function(resolve, reject){
 
 		// No passphrase given
@@ -40,14 +58,23 @@ KiskaGuard.prototype.set_passphrase = function(args){
 		var passphrase = passwordHash.generate(args[0])
 
 		fs.writeFile(CMD_FOLDER + '/' + SECURE_FILE, passphrase, function(err) {
-			if(err) { return kiska_logger.err(err); }
-			kiska_logger.log('Enduro project is secure now') // TODO nice logging
-			resolve();
-		});
+			if(err) {
+				return kiska_logger.err(err)
+			}
+
+			kiska_logger.log('Enduro project is secure now')
+			resolve()
+		})
 	})
 }
 
-KiskaGuard.prototype.verify_passphrase = function(passphrase){
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	verify passphrase
+// *	@param {string} passphrase - passphrase to be checked against the stored one
+// *	@return {Promise} - Promise with no content. Resolve if password verification was successfull
+// * ———————————————————————————————————————————————————————— * //
+kiska_guard.prototype.verify_passphrase = function(passphrase){
 	return new Promise(function(resolve, reject){
 
 		if(!passphrase){
@@ -55,33 +82,38 @@ KiskaGuard.prototype.verify_passphrase = function(passphrase){
 		}
 		// Reads the security file
 		fs.readFile(CMD_FOLDER + '/' + SECURE_FILE, function read(err, data) {
-			if(err) { return kiska_logger.err(err); }
+			if(err) { return kiska_logger.err(err) }
 
 			// Compares the hashed passphrase, sets session flag and resolves if successful
 			if(passwordHash.verify(passphrase, data.toString())){
 				resolve()
-			}
-			else
-			{
+			} else {
 				reject('incorrect passphrase provided')
 			}
-		});
+		})
 	})
 }
 
-KiskaGuard.prototype.verify = function(req, passphrase, resolve, reject){
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	main verification endpoint
+// *	@param {http request} req - http request to check session
+// *	@param {string} passphrase - http request to check session
+// *	@param {function} resolve - success callback
+// *	@param {function reject} req - failure callback
+// *	@return {null} - calls resolve or reject callback based on if the login was successfull
+// * ———————————————————————————————————————————————————————— * //
+kiska_guard.prototype.verify = function(req, passphrase, resolve, reject){
 
 	// don't check for security if no .enduro_secure file exists
 	if(!(enduro_helpers.fileExists(CMD_FOLDER + '/' + SECURE_FILE))){
 		req.session.lggin_flag = true
-		resolve()
-		return
+		return resolve()
 	}
 
 	// reject if no passphrase is provided
 	if(!passphrase){
-		reject()
-		return
+		return reject()
 	}
 
 	this.verify_passphrase(passphrase)
@@ -93,4 +125,4 @@ KiskaGuard.prototype.verify = function(req, passphrase, resolve, reject){
 		})
 }
 
-module.exports = new KiskaGuard()
+module.exports = new kiska_guard()

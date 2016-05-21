@@ -1,26 +1,29 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	Server
-// *	Runs production server with password protection and
+// * 	enduro's production server
+// *
+// *	runs production server with password protection and
 // *	admin ui and better routing
+// *
+// *	uses express mvc
 // * ———————————————————————————————————————————————————————— * //
 var enduro_server = function () {}
 
-// Vendor dependencies
+// vendor dependencies
 var express = require('express')
 var app = express()
 var session = require('express-session')
 var cors = require('cors')
 
-// Local dependencies
+// local dependencies
 var admin_api = require(ENDURO_FOLDER + '/libs/admin_api')
 var website_app = require(ENDURO_FOLDER + '/libs/website_app')
 var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
-// Constants
+// constants
 var PRODUCTION_SERVER_PORT = 5000
 
-// Initialization of the sessions
+// initialization of the sessions
 app.set('trust proxy', 1)
 app.use(session({
   secret: 'keyboard cat',
@@ -32,9 +35,9 @@ app.use(session({
 app.use(cors())
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	Server run
+// * 	server run
 // *
-// * 	Starts the production server
+// * 	starts the production server
 // *	@param {boolean} development_mode - if true, prevents enduro render on start to prevent double rendering
 // *	@return {}
 // * ———————————————————————————————————————————————————————— * //
@@ -46,27 +49,27 @@ enduro_server.prototype.run = function(development_mode) {
 	// 5000 or server's port
 	app.set('port', (process.env.PORT || PRODUCTION_SERVER_PORT))
 
-	// Forward the app to running enduro application
+	// forward the app to running enduro application
 	website_app.forward(app)
 
-	// Serve static files from /_src folder
+	// serve static files from /_src folder
 	app.use('/admin', express.static(ADMIN_FOLDER))
 	app.use('/assets', express.static(CMD_FOLDER + '/_src/assets'))
 
-	// Handle for executing enduro refresh from client
+	// handle for executing enduro refresh from client
 	app.get('/admin_api_refresh', function (req, res) {
-		self.enduroRefresh(function(){
+		self.enduro_refresh(function(){
 			res.send({success: true, message: 'enduro refreshed successfully'})
 		})
 	})
 
-	// Handle for all admin api calls
+	// handle for all admin api calls
 	app.get('/admin_api/*', function (req, res) {
 		admin_api.call(req, res, self)
 	})
 
 
-	// Handle for all website api calls
+	// handle for all website api calls
 	// kinda works but needs to be properly done
 	app.get('/*', function (req, res) {
 		if(!/admin\/(.*)/.test(req.url)) {
@@ -95,20 +98,20 @@ enduro_server.prototype.run = function(development_mode) {
 
 	app.listen(app.get('port'), function () {
 		if(!development_mode) {
-			self.enduroRefresh(() => {})
+			self.enduro_refresh(() => {})
 		}
 		kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
 	})
 
 }
 
-// Sets enduroRefresh function from parent
-enduro_server.prototype.setRefresh = function (callback) {
-	this.enduroRefresh = callback
+// sets enduro_refresh function from parent
+enduro_server.prototype.set_refresh = function (callback) {
+	this.enduro_refresh = callback
 }
 
-// Placehodler refresh function - This function is being replaced by parent
-enduro_server.prototype.enduroRefresh = function () {
+// placehodler refresh function - this function is being replaced by parent
+enduro_server.prototype.enduro_refresh = function () {
 	console.log('refresh not defined')
 }
 

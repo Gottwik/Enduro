@@ -1,7 +1,10 @@
+
+// vendor dependencies
 var expect = require("chai").expect
 var rimraf = require('rimraf')
 var fs = require('fs')
 
+// local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var enduro = require(ENDURO_FOLDER + '/index')
 
@@ -46,14 +49,13 @@ describe('Enduro project creation', function() {
 			})
 	});
 
-
 	it("the folder should exists", function(){
 		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation')).to.equal(true)
 	});
 
 	it("the project folder should have all the subfolders", function(){
 		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/pages')).to.equal(true)
-		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/api')).to.equal(true)
+		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/app')).to.equal(true)
 		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/assets')).to.equal(true)
 		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/cms')).to.equal(true)
 		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/components')).to.equal(true)

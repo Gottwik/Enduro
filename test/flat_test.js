@@ -1,11 +1,15 @@
+
+// vendor dependencies
 var expect = require("chai").expect
 var fs = require('fs')
 var rimraf = require('rimraf')
 
+// local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var flat_file_handler = require(ENDURO_FOLDER+'/libs/flat_utilities/flat_file_handler')
 var enduro = require(ENDURO_FOLDER + '/index')
 
+enduro.silent()
 
 describe('Enduro helpers utilities', function() {
 
@@ -30,7 +34,7 @@ describe('Enduro helpers utilities', function() {
 	})
 
 	it('should detect an existing nested folder', function () {
-		expect(enduro_helpers.dirExists(process.cwd() + '/scaffolding/api')).to.equal(true)
+		expect(enduro_helpers.dirExists(process.cwd() + '/scaffolding/assets')).to.equal(true)
 	})
 
 	it('should not detect an nonexisting folder', function () {
@@ -56,10 +60,8 @@ describe('Enduro helpers utilities', function() {
 
 describe('Enduro flat utilities', function() {
 
-	var prev_test_folder
 
 	before(function(done) {
-		prev_test_folder = CMD_FOLDER
 		enduro.run(['create', 'testfolder_flat_test'])
 			.then(() => {
 				CMD_FOLDER += '/testfolder_flat_test'
@@ -77,8 +79,8 @@ describe('Enduro flat utilities', function() {
 		expect(flat_file_handler.file_exists('aegwa')).to.equal(false)
 	})
 
-	after((done) => {
-		CMD_FOLDER = prev_test_folder
-		done()
+	// navigate back to testfolder
+	after(function(){
+		global.CMD_FOLDER = process.cwd() + '/testfolder'
 	})
 })

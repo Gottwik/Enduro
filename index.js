@@ -34,15 +34,15 @@ var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_securi
 var gulp = require(ENDURO_FOLDER + '/gulpfile')
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
-gulp.setRefresh(function(callback){
+gulp.set_refresh(function(callback){
 	render(function(){
 		callback()
 	})
 })
 
-// Stores enduroServer and extends it with render
-var enduroServer = require('./server')
-enduroServer.setRefresh(function(cb){
+// Stores enduro_server and extends it with render
+var enduro_server = require('./server')
+enduro_server.set_refresh(function(cb){
 	gulp.start('preproduction', () => {
 		render(function(){
 			gulp.start('production', () => {
@@ -54,21 +54,21 @@ enduroServer.setRefresh(function(cb){
 
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	Run
-// *	Entry point from the cli
-// *	Returns boolean based on if the arguments were recognized
+// * 	run
+// *	entry point from the cli
+// *	returns boolean based on if the arguments were recognized
 // * ———————————————————————————————————————————————————————— * //
 function run(args){
 
 	return enduro_configurator.read_config()
 		.then(() => {
 
-			// No arguments at all - User ran $ enduro
+			// no arguments at all - User ran $ enduro
 			if(args.length == 0){
 				return developer_start();
 			}
 
-			// Parse arguments
+			// parse arguments
 			var caught = false;
 			while (arg = args.shift()) {
 				if(arg == 'render' || arg == 'r'){
@@ -76,7 +76,7 @@ function run(args){
 					return render()
 				} else if(arg == 'start'){
 					caught = true
-					return enduroServer.run();
+					return enduro_server.run();
 				} else if(arg == 'create'){
 					caught = true
 					return scaffolder.scaffold(args)
@@ -95,7 +95,7 @@ function run(args){
 				}
 			}
 
-			// Some weird arguments
+			// some weird arguments
 			if(!caught){
 				kiska_logger.log('Arguments not recognized')
 				return new Promise(function(resolve, reject){ reject('not recognized') })
@@ -107,12 +107,12 @@ function run(args){
 
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	Render
-// *	- Reads configuration file
-// *	- Loads global settings
-// *	- Loads copomentns
-// *	- Loads helpers
-// *	- Renders files in ../pages
+// * 	render
+// *	- reads configuration file
+// *	- loads global settings
+// *	- loads copomentns
+// *	- loads helpers
+// *	- renders files in ../pages
 // * ———————————————————————————————————————————————————————— * //
 function render(callback){
 	kiska_logger.init('Enduro', 'enduro_render_events')
@@ -148,7 +148,7 @@ function render(callback){
 // 	gulp.start('preproduction', () => {
 // 		render(() => {
 // 			gulp.start('default', () => {
-// 				enduroServer.run();
+// 				enduro_server.run();
 // 				// After everything is done
 // 			})
 // 		})
@@ -181,7 +181,7 @@ function developer_start(){
 							kiska_logger.timestamp('production server starting', 'enduro_events')
 
 							// start production server in development mode
-							enduroServer.run(true);
+							enduro_server.run(true);
 						}
 						firstserverstart = false
 						// After everything is done

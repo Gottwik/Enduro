@@ -2,21 +2,23 @@
 // * 	Kiska Logger
 // *	Enables nicer console logging for enduro
 // * ———————————————————————————————————————————————————————— * //
-
 var kiska_logger = function () {}
+
+// vendor dependencies
 var chalk = require('chalk')
 
-// Config
+// constants
 var FRAME_WIDTH = 60
 var TAB_WIDTH = 4
 var TIME_REFRESH_LIMIT = 60
 
+// log abstraction. can be silenced
 var log = console.log;
 
-var loglevel = 3
-
+// stores starting time of enduro app
 var t = new Date().getTime();
 
+// default loggin selection
 var logtags_config = {
 	nice_dev_init: true,
 	enduro_events: true,
@@ -25,7 +27,9 @@ var logtags_config = {
 	admin_login: false,
 }
 
+// * ———————————————————————————————————————————————————————— * //
 // * 	Info messages
+// * ———————————————————————————————————————————————————————— * //
 
 // * ┌——————————————~—ENDURO - CREATING PROJECT—~———————————————┐ * //
 kiska_logger.prototype.init = function (message, logtag) {
@@ -76,7 +80,9 @@ kiska_logger.prototype.timestamp = function (message, logtag) {
 };
 
 
+// * ———————————————————————————————————————————————————————— * //
 // * 	Error messages
+// * ———————————————————————————————————————————————————————— * //
 
 // * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ * //
 // * directory already exists                                     * //
@@ -119,7 +125,10 @@ kiska_logger.prototype.silent = function (logtag) {
 	log = () => {};
 }
 
-// private functions
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	private functions
+// * ———————————————————————————————————————————————————————— * //
 function pass_tagcheck(logtag) {
 	if(typeof logtag === 'undefined') {
 		return true
@@ -138,18 +147,20 @@ function get_timestamp() {
 }
 
 
-// * 	Helper functions
+// * ———————————————————————————————————————————————————————— * //
+// * 	helper functions
+// * ———————————————————————————————————————————————————————— * //
 
 // pads from left
 String.prototype.lpad= function(len, c){
-    var s = this
-    var c = c || '0'
+	var s = this
+	var c = c || '0'
 
-    while( s.length < len) {
-    	s = c + s
-    }
+	while( s.length < len) {
+		s = c + s
+	}
 
-    return s;
+	return s;
 }
 
 // Pads the string with whitespace to the right

@@ -1,10 +1,12 @@
+// vendor dependencies
 var expect = require("chai").expect
 var enduro = require('../index')
 var rimraf = require('rimraf')
 var fs = require('fs')
-var enduro_helpers = require('../libs/flat_utilities/enduro_helpers')
-var kiska_guard = require('../libs/kiska_guard')
 
+// local dependencies
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
 
 describe('Enduro security', function() {
 
@@ -20,7 +22,7 @@ describe('Enduro security', function() {
 			})
 	});
 
-	// navigage back to testfolder
+	// navigate back to testfolder
 	after(function(){
 		global.CMD_FOLDER = process.cwd() + '/testfolder'
 	})

@@ -101,6 +101,7 @@ Will generate
 * `{{compare var1 var2 'true' 'false'}}` - will compare two variables and pick 'true' or 'false' in a ternary-like fashion
 * `{{grouped_each 3 list}}` - Same as each, but will provide three items as context in each iteration
 * `{{uriencode url}}` - Self explanatory. Encodes given string to uri
+* `{{files 'assets/js'}}` - Globs the files and iterates thgough them with {{this}} as the pagename
 
 ## Heroku
 Enduro is heroku ready. Just make sure that enduro is in the dependencies of your project. To publish on heroku, just use these steps (heroku cli required):

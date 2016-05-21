@@ -16,7 +16,6 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // routed call
 api_call.prototype.call = function(req, res, enduro_server){
-	console.log(req.query)
 	var username = req.query.username
 	var password = req.query.password
 

@@ -1,12 +1,6 @@
-<div class="main-top-bar">
-	<div class="enduro-branding">Enduro Admin</div>
-	<div class="enduro-userbox" ng-controller="logout_ctrl">
-		<a href="#/logout" ng-click="logout()">logout</a>
-	</div>
-</div>
-
-<div class="main-viewport" ng-controller="main_ctrl">
+<div class="main-viewport" ng-controller="page-split-controller">
 	<nav class="side-main-menu">
+		<div class="enduro-branding">Enduro Admin</div>
 		<a class="side-main-menu-item" href="#/">Dashboard</a>
 
 		<div class="side-main-menu-group-label">Pages</div>
@@ -16,7 +10,15 @@
 			</div>
 		</ul>
 
+		<img class="menu-branding" src="/admin/assets/img/menu-logo.png">
+
 	</nav>
-	<div class="page-viewport" ng-include="inner_page">
+	<div class="page-viewport">
+		<div class="header-bar">
+			<div class="enduro-userbox" ng-controller="logout_controller">
+				<a href="#/logout" ng-click="logout()">logout</a>
+			</div>
+		</div>
+		<div class="inner-page-viewport" ng-include="inner_page"></div>
 	</div>
 </div>

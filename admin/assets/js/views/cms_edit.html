@@ -1,12 +1,10 @@
 <div class="panel">
 	<div class="panel-body">
-		<h1>Cms edit</h1>
-		<div ng-controller="cms-edit-ctrl">
-			<div>
-				{{context}}
-			</div>
+		<div ng-controller="cms-editor-controller">
 			<div class="wedge"></div>
-			<div ng-include="'/admin/assets/js/controls/main-container.html'"></div>
+			<h2>{{page_name}}</h2>
+			<div class="wedge"></div>
+			<div ng-include="'/admin/assets/js/controls/object_control.html'" ng-init="no_frame=true"></div>
 			<div class="wedge-3x"></div>
 			<div class="btn btn-success" ng-click="publish()">Publish</div>
 		</div>

@@ -14,7 +14,7 @@
 // * ———————————————————————————————————————————————————————— * //
 
 __templating_engine.registerHelper('js_cms', function(cmsfile) {
-	var glob = require("glob")
+	var glob = require('glob')
 	var flat_file_handler = require('../libs/flat_utilities/flat_file_handler')
 
 	files = glob.sync(CMD_FOLDER + '/cms/**/' + cmsfile + '.js')

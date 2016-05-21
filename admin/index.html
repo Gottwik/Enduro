@@ -2,20 +2,33 @@
 <html ng-app="enduro_admin">
 	<head>
 		<title>EnduroCMS</title>
+
 		<link rel="stylesheet" href="/admin/assets/css/main.css">
 
-		<link href='https://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,300,100' rel='stylesheet' type='text/css'>
 
 		<script src="/admin/assets/vendor/angular/angular.js"></script>
 		<script src="/admin/assets/vendor/angular-route/angular-route.js"></script>
 		<script src="/admin/assets/vendor/angular-cookies/angular-cookies.js"></script>
 
 		<script src="/admin/assets/js/app.js"></script>
-		<script src="/admin/assets/js/services/services.js"></script>
-		<script src="/admin/assets/js/controllers/controllers.js"></script>
+
+			<script src="/admin/assets/js/services/services.js"></script>
+
+			<script src="/admin/assets/js/controllers/cms-editor-controller.js"></script>
+			<script src="/admin/assets/js/controllers/control-controllers/array_controller.js"></script>
+			<script src="/admin/assets/js/controllers/control-controllers/object_controller.js"></script>
+			<script src="/admin/assets/js/controllers/login-controller.js"></script>
+			<script src="/admin/assets/js/controllers/logout-controller.js"></script>
+			<script src="/admin/assets/js/controllers/page-split-controller.js"></script>
+			<script src="/admin/assets/js/controllers/terminator-controller.js"></script>
+
+			<script src="/admin/assets/js/directives/directives.js"></script>
+
+
 	</head>
 	<body>
-		<div style="height: 100%;" ng-view ng-cloak>
-		</div>
+		<div style="min-height: 100%;" ng-view ng-cloak></div>
 	</body>
 </html>

@@ -1,5 +1,6 @@
-var enduro_admin_app = angular.module('enduro_admin',['ngRoute', 'ngCookies']);
+//var $jq = jQuery.noConflict();
 
+var enduro_admin_app = angular.module('enduro_admin',['ngRoute', 'ngCookies']);
 
 enduro_admin_app
 	.constant('url_config', {
@@ -15,19 +16,19 @@ enduro_admin_app
 
 
 enduro_admin_app.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider
-    	.when('/login', {
-	    	templateUrl: '/admin/assets/js/views/login.html'
-	    })
-	    .when('/', {
-	    	templateUrl: '/admin/assets/js/views/admin_main.html',
-	    })
-	    .when('/pages/:page_path*', {
-	    	templateUrl: '/admin/assets/js/views/admin_main.html',
-	    })
-	    .otherwise({ redirectTo: '/' })
-  }]);
+	function($routeProvider) {
+	$routeProvider
+		.when('/login', {
+			templateUrl: '/admin/assets/js/views/login.html'
+		})
+		.when('/', {
+			templateUrl: '/admin/assets/js/views/admin_main.html',
+		})
+		.when('/pages/:page_path*', {
+			templateUrl: '/admin/assets/js/views/admin_main.html',
+		})
+		.otherwise({ redirectTo: '/' })
+	}]);
 
 
 enduro_admin_app.run(['$rootScope', '$location', 'user_service', function($rootScope, $location, user_service) {

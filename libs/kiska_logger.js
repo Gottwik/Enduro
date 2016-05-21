@@ -17,53 +17,61 @@ var loglevel = 3
 
 var t = new Date().getTime();
 
+var logtags_config = {
+	nice_dev_init: true,
+	enduro_events: true,
+	enduro_render_events: false,
+	admin_api_calls: false,
+	admin_login: false
+}
+
 // * 	Info messages
 
 // * ┌——————————————~—ENDURO - CREATING PROJECT—~———————————————┐ * //
-kiska_logger.prototype.init = function (message, message_loglevel) {
-	if(checkloglevel(message_loglevel)){ return }
+kiska_logger.prototype.init = function (message, logtag) {
+	if(!pass_tagcheck(logtag)){ return }
 	message = message || 'ENDURO'
 	log('\n' + chalk.cyan('┌' + ('~—'+message+'—~').cpad(FRAME_WIDTH-2, '—') + '┐'))
 };
 
 // * │ I have something to tell you                             │ * //
-kiska_logger.prototype.log = function (message, newline, message_loglevel) {
+kiska_logger.prototype.log = function (message, newline, logtag) {
 	if(typeof newline === 'number') {
-		message_loglevel = newline
+		logtag = newline
 		newline = false
 	}
-	if(checkloglevel(message_loglevel)){ return }
+	if(!pass_tagcheck(logtag)){ return }
 	log(chalk.cyan('│') + (' ' + message).rpad(FRAME_WIDTH-2) + chalk.cyan('│'))
 	newline || false ? this.log('') : ''
 };
 
 // * │     same as log but with a tab                           │ * //
-kiska_logger.prototype.tablog = function (message, newline, message_loglevel) {
-	if(checkloglevel(message_loglevel)){ return }
+kiska_logger.prototype.tablog = function (message, newline, logtag) {
+	if(!pass_tagcheck(logtag)){ return }
 	this.log(rep(TAB_WIDTH) + message,newline)
 };
 
 // * │ Something                                       Happened │ * //
-kiska_logger.prototype.twolog = function (message, left_message, message_loglevel) {
-	if(checkloglevel(message_loglevel)){ return }
+kiska_logger.prototype.twolog = function (message, left_message, logtag) {
+	if(!pass_tagcheck(logtag)){ return }
 	log(chalk.cyan('│') + (' ' + message).rpad(FRAME_WIDTH - 3 - left_message.length) + left_message + chalk.cyan(' │'))
 };
 
 // * ├——————————————————————————————————————————————————————————┤ * //
-kiska_logger.prototype.line = function (message, message_loglevel) {
-	if(checkloglevel(message_loglevel)){ return }
+kiska_logger.prototype.line = function (logtag) {
+	if(!pass_tagcheck(logtag)){ return }
 	log(chalk.cyan('├' + rep(FRAME_WIDTH-2, '—') + '┤'))
 };
 
 // * └——————————————————————————————————————————————————————————┘ * //
-kiska_logger.prototype.end = function(message_loglevel) {
-	if(checkloglevel(message_loglevel)){ return }
+kiska_logger.prototype.end = function(logtag) {
+	if(!pass_tagcheck(logtag)){ return }
 	log(chalk.cyan('└' + rep(FRAME_WIDTH-2, '—') + '┘'))
 }
 
 // * [10:25:30] same as log but with a tab                           * //
-kiska_logger.prototype.timestamp = function (message, message_loglevel) {
-	if(checkloglevel(message_loglevel)){ return }
+kiska_logger.prototype.timestamp = function (message, logtag) {
+	if(!pass_tagcheck(logtag)){ return }
 	log('[' + chalk.cyan(get_timestamp()) + '] ' + message)
 };
 
@@ -73,56 +81,50 @@ kiska_logger.prototype.timestamp = function (message, message_loglevel) {
 // * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ * //
 // * directory already exists                                     * //
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
-kiska_logger.prototype.errBlock = function (message, message_loglevel) {
-	if(checkloglevel(message_loglevel)){ return }
+kiska_logger.prototype.errBlock = function (message, logtag) {
+	if(!pass_tagcheck(logtag)){ return }
 	log('\n' + chalk.red(rep(FRAME_WIDTH, '▼')))
 	this.err(message)
 	log(chalk.red(rep(FRAME_WIDTH, '▲')) + '\n')
 };
 
 // * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ ERROR ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ * //
-kiska_logger.prototype.errBlockStart = function (message, message_loglevel) {
-	if(checkloglevel(message_loglevel)){ return }
+kiska_logger.prototype.errBlockStart = function (message, logtag) {
+	if(!pass_tagcheck(logtag)){ return }
 	log('\n')
 	log(chalk.red((' ' + message + ' ').cpad(FRAME_WIDTH, '▼')))
 };
 
 // * │ Something went wrong                                     │ * //
-kiska_logger.prototype.err = function (message, message_loglevel) {
-	if(checkloglevel(message_loglevel)){ return }
+kiska_logger.prototype.err = function (message, logtag) {
+	if(!pass_tagcheck(logtag)){ return }
 	log(chalk.red(message.rpad(FRAME_WIDTH)))
 };
 
 // * │ Something                                       Happened │ * //
-kiska_logger.prototype.twoerr = function (message, left_message, message_loglevel) {
-	if(checkloglevel(message_loglevel)){ return }
+kiska_logger.prototype.twoerr = function (message, left_message, logtag) {
+	if(!pass_tagcheck(logtag)){ return }
 	log(chalk.red('│') + chalk.red((' ' + message).rpad(FRAME_WIDTH - 3 - left_message.length) + left_message) + chalk.red(' │'))
 };
 
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
-kiska_logger.prototype.errBlockEnd = function (message_loglevel) {
-	if(checkloglevel(message_loglevel)){ return }
+kiska_logger.prototype.errBlockEnd = function (logtag) {
+	if(!pass_tagcheck(logtag)){ return }
 	log(chalk.red(rep(FRAME_WIDTH, '▲')))
 	log('\n')
 };
 
 // Silencer
-kiska_logger.prototype.silent = function (message_loglevel) {
+kiska_logger.prototype.silent = function (logtag) {
 	log = () => {};
 }
 
-// Sets loglevel
-kiska_logger.prototype.setloglevel = (loglevel) => {
-	loglevel = loglevel
-}
-
 // private functions
-function checkloglevel(message_loglevel) {
-	if(typeof message_loglevel === 'undefined') {
+function pass_tagcheck(logtag) {
+	if(typeof logtag === 'undefined') {
 		return true
 	}
-
-	return message_loglevel != loglevel
+	return logtag in logtags_config && logtags_config[logtag]
 }
 
 function get_timestamp() {
@@ -138,15 +140,21 @@ function get_timestamp() {
 
 // * 	Helper functions
 
+// pads from left
 String.prototype.lpad= function(len, c){
-    var s= this, c= c || '0';
-    while(s.length< len) s= c+ s;
+    var s = this
+    var c = c || '0'
+
+    while( s.length < len) {
+    	s = c + s
+    }
+
     return s;
 }
 
 // Pads the string with whitespace to the right
 String.prototype.rpad = function(length) {
-	return this + rep(length-this.length, ' ')
+	return this + rep(length - this.length, ' ')
 }
 
 // Pads and aligns the string with specified character to center

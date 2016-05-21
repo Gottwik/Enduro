@@ -41,7 +41,7 @@ gulp.enduroRefresh = function () {
 // * 	Browsersync Task
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('browserSync', ['sass'], function() {
-	kiska_logger.timestamp('Browsersync started', 3)
+	kiska_logger.timestamp('Browsersync started', 'enduro_events')
 	browserSync.init({
 		server: {
 			baseDir: CMD_FOLDER + '/_src',
@@ -99,7 +99,7 @@ gulp.task('browserSync', ['sass'], function() {
 // *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('sass', function() {
-	kiska_logger.timestamp('Sass compiling started', 3)
+	kiska_logger.timestamp('Sass compiling started', 'enduro_events')
 
 	return gulp.src(CMD_FOLDER + '/assets/css/main.scss')
 		.pipe(bulkSass())
@@ -119,7 +119,7 @@ gulp.task('sass', function() {
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/css'))
 		.pipe(browserSync.stream())
 		.on('end', () => {
-			kiska_logger.timestamp('Sass compiling finished', 3)
+			kiska_logger.timestamp('Sass compiling finished', 'enduro_events')
 		})
 });
 
@@ -129,14 +129,14 @@ gulp.task('sass', function() {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('scss-lint', function() {
 	try{
-		kiska_logger.timestamp('Sass lint started', 3)
+		kiska_logger.timestamp('Sass lint started', 'enduro_events')
 		return gulp.src(CMD_FOLDER + '/assets/css/**/*')
 			.pipe(checkGem({gemfile: 'scss-lint'}, scsslint(
 				{
 					'config': __dirname + '/support_files/scss-lint.yml'
 				}
 			).on('end', () => {
-				kiska_logger.timestamp('Sass lint finished', 3)
+				kiska_logger.timestamp('Sass lint finished', 'enduro_events')
 			})))
 
 	}

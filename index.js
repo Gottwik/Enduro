@@ -115,11 +115,11 @@ function run(args){
 // *	- Renders files in ../pages
 // * ———————————————————————————————————————————————————————— * //
 function render(callback){
-	kiska_logger.init()
+	kiska_logger.init('Enduro', 'enduro_render_events')
 
 	global_data.get_global_data()
 		.then(() => {
-			return components_handler.readComponents()
+			return components_handler.read_components()
 		})
 		.then(() => {
 			return helper_handler.read_helpers()
@@ -128,7 +128,7 @@ function render(callback){
 			return enduro_render.render()
 		})
 		.then(() => {
-			kiska_logger.end()
+			kiska_logger.end('enduro_render_events')
 			if(callback){
 				callback()
 			}
@@ -160,7 +160,17 @@ var firstserverstart = true
 function developer_start(){
 	// clears the global data
 	global_data.clear()
-	kiska_logger.timestamp('Developer start', 3)
+
+	kiska_logger.init('Enduro started', 'nice_dev_init')
+	kiska_logger.log('Development server started at:', 'nice_dev_init')
+	kiska_logger.tablog('localhost:3000', 'nice_dev_init')
+	kiska_logger.log('Admin ui available at:', 'nice_dev_init')
+	kiska_logger.tablog('localhost:5000/admin', false, 'nice_dev_init')
+	kiska_logger.line('nice_dev_init');
+	kiska_logger.log('Admin has no live-reload!', false, 'nice_dev_init')
+	kiska_logger.end('nice_dev_init')
+
+	kiska_logger.timestamp('developer start', 'enduro_events')
 	// Does the refresh procedure
 	gulp.start('preproduction', () => {
 		if(first){
@@ -168,7 +178,7 @@ function developer_start(){
 				if(firstrender){
 					gulp.start('default', () => {
 						if(firstserverstart){
-							kiska_logger.timestamp('Production server starting', 3)
+							kiska_logger.timestamp('production server starting', 'enduro_events')
 
 							// start production server in development mode
 							enduroServer.run(true);

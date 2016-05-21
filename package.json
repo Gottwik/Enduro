@@ -35,6 +35,7 @@
     "handlebars": "^4.0.5",
     "html-validator": "^1.0.0",
     "mkdirp": "^0.5.1",
+    "moment": "^2.13.0",
     "multi-glob": "^1.0.1",
     "ncp": "^2.0.0",
     "password-hash": "^1.2.2",

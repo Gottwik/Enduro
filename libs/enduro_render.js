@@ -2,22 +2,24 @@
 // * 	Enduro Render
 // *	Goes throught all the pages and renders them with handlebars
 // * ———————————————————————————————————————————————————————— * //
-var EnduroRender = function () {}
+var enduro_render = function () {}
 
+// vendor dependencies
 var Promise = require('bluebird')
 var fs = require('fs')
 var async = require("async")
 var glob = require("glob")
 var extend = require('extend')
 
+// local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 
 // Goes through the pages and renders them
-EnduroRender.prototype.render = function() {
-	kiska_logger.timestamp('Render started', 3)
+enduro_render.prototype.render = function() {
+	kiska_logger.timestamp('Render started', 'enduro_events')
 	return new Promise(function(resolve, reject){
 		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
 			if (err) { return console.log(err) }
@@ -26,10 +28,10 @@ EnduroRender.prototype.render = function() {
 				.then(function(cultures){
 					async.each(files, function(file, callback) {
 						async.each(cultures, function(culture, cb){
-							renderFile(file, culture, cb)
+							render_file(file, culture, cb)
 						}, callback)
 					}, function(){
-						kiska_logger.timestamp('Render completed', 3)
+						kiska_logger.timestamp('Render completed', 'enduro_events')
 						resolve()
 					})
 				})
@@ -38,13 +40,13 @@ EnduroRender.prototype.render = function() {
 }
 
 // Renders individual files
-function renderFile(file, culture, callback) {
+function render_file(file, culture, callback) {
 
 	// Stores file name and extension
 	// Note that subdirecotries are included in the name
-	var fileReg = file.match(/pages\/(.*)\.([^\\/]+)$/)
-	var filename = fileReg[1]
-	var fileext = fileReg[2]
+	var file_regex_match = file.match(/pages\/(.*)\.([^\\/]+)$/)
+	var filename = file_regex_match[1]
+	var fileext = file_regex_match[2]
 
 	// gets pagename
 	var pagename = file.match(/([^\/]*)\.[^\.]*$/)[1]
@@ -76,7 +78,7 @@ function renderFile(file, culture, callback) {
 				extend(true, context, {_meta: {pagename: pagename}})
 
 				// Renders the template with the culturalized context
-				var output = "Error processing page";
+				var output = "Error processing page"
 				try {
 					output = template(babel.culturalize(context, culture))
 				}
@@ -96,15 +98,15 @@ function renderFile(file, culture, callback) {
 						fs.writeFile(CMD_FOLDER + '/_src/' + endpath + '.html', output, function(err) {
 							if (err) { return kiska_logger.errBlock(err) }
 
-							kiska_logger.twolog('page ' + endpath, 'created')
+							kiska_logger.twolog('page ' + endpath, 'created', 'enduro_render_events')
 							callback()
 						})
 					})
 			},() => {
-				console.log('something went wrong attempting to locate file: ' + filename)
+				kiska_logger.err('something went wrong attempting to locate file: ' + filename)
 			})
 
 	})
 }
 
-module.exports = new EnduroRender()
+module.exports = new enduro_render()

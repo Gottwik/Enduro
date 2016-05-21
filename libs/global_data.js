@@ -4,17 +4,20 @@
 // *	Good for shared resources - news, products...
 // *	Loads .js files from /cms/global folder
 // * ———————————————————————————————————————————————————————— * //
-
 var global_data = function () {}
 
+// Vendor dependencies
 var Promise = require('bluebird')
 var async = require("async")
 var extend = require('extend')
 var glob = require("glob")
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
-var enduro_helpers = require('./flat_utilities/enduro_helpers')
-var flatFileHandler = require('./flat_utilities/flat_file_handler');
 
+// Local dependencies
+var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flatFileHandler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+
+// Constants
 var DATA_PATH = CMD_FOLDER + '/cms/global/**/*.js'
 
 global_data.prototype.get_global_data = function() {
@@ -23,7 +26,7 @@ global_data.prototype.get_global_data = function() {
 		// Fetches the files
 		glob( DATA_PATH , function (err, files) {
 			if (err) {
-				kiska_logger.block(err, 4)
+				kiska_logger.block(err, 'enduro_render_events')
 				reject()
 			}
 
@@ -44,7 +47,7 @@ global_data.prototype.get_global_data = function() {
 							// Extends global data with currently loaded data
 							extend(true, __data.global, data)
 
-							kiska_logger.twolog('global ' + filename, 'loaded', 4)
+							kiska_logger.twolog('global ' + filename, 'loaded', 'enduro_render_events')
 							callback()
 						}, () => {
 							callback()
@@ -53,7 +56,7 @@ global_data.prototype.get_global_data = function() {
 
 			}, () => {
 				// After all global files are loaded
-				kiska_logger.line(4);
+				kiska_logger.line('', 'enduro_render_events')
 				resolve()
 			})
 		})

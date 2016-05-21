@@ -20,6 +20,15 @@ enduro_admin_app.factory('user_service', ['$http', 'url_config', '$cookies', '$q
 		return $http.get(url_config.get_base_url() + 'check_session', {params: {sid: $cookies.get('sid')}})
 	}
 
+	service.logout = function() {
+		// refuse login if no cookie is set
+		if(!$cookies.get('sid')) {
+			return $q.reject(false);
+		}
+
+		return $http.get(url_config.get_base_url() + 'logout', {params: {sid: $cookies.get('sid')}})
+	}
+
 	return service;
 }]);
 

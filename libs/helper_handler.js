@@ -18,10 +18,10 @@ HelperHandler.prototype.read_helpers = function(){
 				var filename = fileReg[1]
 				var fileext = fileReg[2]
 				require(file)
-				kiska_logger.twolog('helper ' + filename, 'registered')
+				kiska_logger.twolog('helper ' + filename, 'registered', 'enduro_render_events')
 				callback()
 			}, function(){
-				kiska_logger.line();
+				kiska_logger.line('enduro_render_events');
 				resolve()
 			})
 		})

@@ -1,6 +1,8 @@
 <div class="main-top-bar">
 	<div class="enduro-branding">Enduro Admin</div>
-	<div class="enduro-userbox"><a href="#/logout">logout</a></div>
+	<div class="enduro-userbox" ng-controller="logout_ctrl">
+		<a href="#/logout" ng-click="logout()">logout</a>
+	</div>
 </div>
 
 <div class="main-viewport" ng-controller="main_ctrl">

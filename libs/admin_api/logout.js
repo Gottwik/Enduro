@@ -1,7 +1,7 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	Check session
+// * 	Logout
 // *
-// * 	Admin api endpoint admin_api/check_session
+// * 	Admin api endpoint admin_api/logout
 // *	@param {string} sid - Session id stored in cookie on client
 // *	@return {response} - Success boolean and user info
 // * ———————————————————————————————————————————————————————— * //
@@ -11,12 +11,10 @@ var api_call = function () {}
 var Promise = require('bluebird')
 
 // local dependencies
-var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 
 // routed call
 api_call.prototype.call = function(req, res, enduro_server){
-
 
 	// gets session id from query parameters
 	var sid = req.query.sid
@@ -24,17 +22,13 @@ api_call.prototype.call = function(req, res, enduro_server){
 	// if no session provided
 	if(!sid) {
 		res.send({success: false, message: 'no sessionid provided'})
-		return kiska_logger.err('login with no session id')
+		return
 	}
 
 	// check for session
-	admin_sessions.get_user_by_session(sid)
-		.then((user) => {
-			res.send({success: true, user: user})
-		}, (message) => {
-			res.send({success: false, message: message})
-		})
+	admin_sessions.logout_by_session(sid)
 
+	res.send({success: true})
 }
 
 module.exports = new api_call()

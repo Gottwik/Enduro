@@ -13,12 +13,12 @@ var cors = require('cors')
 
 // Local dependencies
 var admin_api = require(ENDURO_FOLDER + '/libs/admin_api')
-var website_api = require(ENDURO_FOLDER + '/libs/website_api')
+var website_app = require(ENDURO_FOLDER + '/libs/website_app')
 var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // Constants
-PRODUCTION_SERVER_PORT = 5000
+var PRODUCTION_SERVER_PORT = 5000
 
 // Initialization of the sessions
 app.set('trust proxy', 1)
@@ -46,6 +46,9 @@ enduro_server.prototype.run = function(development_mode) {
 	// 5000 or server's port
 	app.set('port', (process.env.PORT || PRODUCTION_SERVER_PORT))
 
+	// Forward the app to running enduro application
+	website_app.forward(app)
+
 	// Serve static files from /_src folder
 	app.use('/admin', express.static(ADMIN_FOLDER))
 	app.use('/assets', express.static(CMD_FOLDER + '/_src/assets'))
@@ -62,10 +65,6 @@ enduro_server.prototype.run = function(development_mode) {
 		admin_api.call(req, res, self)
 	})
 
-	// Handle for all website api calls
-	app.get('/api/*', function (req, res) {
-		website_api.call(req, res)
-	})
 
 	// Handle for all website api calls
 	// kinda works but needs to be properly done
@@ -98,7 +97,7 @@ enduro_server.prototype.run = function(development_mode) {
 		if(!development_mode) {
 			self.enduroRefresh(() => {})
 		}
-		kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 3)
+		kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
 	})
 
 }

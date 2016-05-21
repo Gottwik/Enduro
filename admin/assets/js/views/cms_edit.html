@@ -1,10 +1,14 @@
-<h1>Cms edit</h1>
-<div ng-controller="cms-edit-ctrl">
-	<div>
-		{{context}}
+<div class="panel">
+	<div class="panel-body">
+		<h1>Cms edit</h1>
+		<div ng-controller="cms-edit-ctrl">
+			<div>
+				{{context}}
+			</div>
+			<div class="wedge"></div>
+			<div ng-include="'/admin/assets/js/controls/main-container.html'"></div>
+			<div class="wedge-3x"></div>
+			<div class="btn btn-success" ng-click="publish()">Publish</div>
+		</div>
 	</div>
-	<div class="wedge"></div>
-	<div ng-include="'/admin/assets/js/controls/main-container.html'"></div>
-	<div class="wedge"></div>
-	<div class="btn btn-success" ng-click="publish()">Publish</div>
 </div>

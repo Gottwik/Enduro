@@ -1,6 +1,6 @@
 enduro_admin_app.controller('login_controller', ['$scope', '$rootScope', '$http', 'user_service', '$location', function($scope, $rootScope, $http, user_service, $location) {
 	$scope.submit = function() {
-		user_service.login_by_password($scope.username, $scope.password)
+		user_service.login_by_password($scope.enduro_username, $scope.enduro_password)
 			.then(function(data){
 				if(data.success) {
 					$location.path('/dashboard')
@@ -54,7 +54,19 @@ enduro_admin_app.controller('cms-edit-ctrl', ['$scope', '$routeParams', 'content
 }])
 
 enduro_admin_app.controller('cms_main_ctrl', ['$scope', function($scope) {
+	$scope.object_name = $scope.key
+
 	if($scope.value) {
 		$scope.context = $scope.value
+	}
+}])
+
+
+enduro_admin_app.controller('logout_ctrl', ['$scope', 'user_service', function($scope, user_service) {
+	$scope.logout = () => {
+		user_service.logout()
+			.then(() => {
+				$location.path('/login')
+			})
 	}
 }])

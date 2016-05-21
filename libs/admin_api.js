@@ -12,11 +12,11 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 admin_api.prototype.call = function(req, res, enduro_server){
 
 	// Extracts api call name
-	var api_name = req.url.match(/\/admin_api\/([^?]*)?.*/)[1];
+	var api_name = req.url.match(/\/admin_api\/([^?]*)?.*/)[1]
 	kiska_logger.timestamp('making api call: ' + api_name, 'admin_api_calls')
 
 	// Executes call function from specified api name
-	var api_call = require('./admin_api/' + api_name).call(req, res, enduro_server);
+	var api_call = require('./admin_api/' + api_name).call(req, res, enduro_server)
 }
 
 module.exports = new admin_api()

@@ -14,11 +14,11 @@ var ADMIN_SECURE_FILE = '.users'
 
 admin_security.prototype.get_user_by_username = function(username) {
 	return new Promise(function(resolve, reject){
-		flat_file_handler.load(ADMIN_SECURE_FILE)
+		return flat_file_handler.load(ADMIN_SECURE_FILE)
 			.then((raw_userlist) => {
 
 				if(!raw_userlist.users) {
-					reject('no users found')
+					return reject('no users found')
 				}
 
 				var selected_user = raw_userlist.users.filter((user) => {
@@ -26,6 +26,7 @@ admin_security.prototype.get_user_by_username = function(username) {
 						return user
 					}
 				})
+
 				selected_user.length
 					? resolve(selected_user[0])
 					: reject('user not found')
@@ -82,7 +83,7 @@ admin_security.prototype.login_by_password = function(username, password) {
 				} else {
 					reject({success: false, message: 'wrong username'})
 				}
-			})
+			}, () => {})
 	})
 }
 

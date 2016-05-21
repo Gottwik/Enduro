@@ -35,7 +35,13 @@ api_call.prototype.call = function(req, res, enduro_server) {
 			return flat_file_handler.load(filename)
 		})
 		.then((data) => {
-			res.send(data)
+
+			var context = {}
+			context.success = true
+			context.page_name = data.$page_name || filename
+			context.context = data
+
+			res.send(context)
 		})
 }
 

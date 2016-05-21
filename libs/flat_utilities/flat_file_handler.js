@@ -1,6 +1,15 @@
 // * ———————————————————————————————————————————————————————— * //
 // * 	Flat file handler
 // * 	Handles flat file storage
+// *
+// *	save
+// *	save_by_string
+// *	load
+// *	loadsync
+// *	get_full_path_to_cms
+// *	file_exists
+// *	add
+// *
 // * ———————————————————————————————————————————————————————— * //
 var flat_file_handler = function () {}
 

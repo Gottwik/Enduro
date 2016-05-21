@@ -22,7 +22,7 @@ var logtags_config = {
 	enduro_events: true,
 	enduro_render_events: false,
 	admin_api_calls: false,
-	admin_login: false
+	admin_login: false,
 }
 
 // * 	Info messages

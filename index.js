@@ -17,7 +17,7 @@ global.config = {}
 global.CMD_FOLDER = process.cwd()
 global.ENDURO_FOLDER = __dirname
 global.ADMIN_FOLDER = __dirname + '/admin'
-global.BABEL_FILE = CMD_FOLDER + '/cms/config/babel.js'
+global.BABEL_FILE = 'config/babel'
 global.START_PATH = ''
 
 // Local dependencies
@@ -32,6 +32,7 @@ var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
 var js_build = require(ENDURO_FOLDER + '/libs/build_utils/js_build')
 var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
 var gulp = require(ENDURO_FOLDER + '/gulpfile')
+var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
 gulp.set_refresh(function(callback){
@@ -63,45 +64,75 @@ function run(args){
 	return enduro_configurator.read_config()
 		.then(() => {
 
-			// no arguments at all - User ran $ enduro
+			// * ———————————————————————————————————————————————————————— * //
+			// * 	$ enduro
+			// * ———————————————————————————————————————————————————————— * //
 			if(args.length == 0){
-				return developer_start();
+				return developer_start()
 			}
 
 			// parse arguments
-			var caught = false;
 			while (arg = args.shift()) {
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro render
+				// * ———————————————————————————————————————————————————————— * //
 				if(arg == 'render' || arg == 'r'){
-					caught = true
 					return render()
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro nr
+				// * ———————————————————————————————————————————————————————— * //
+				} else if(arg == 'nr'){
+					return developer_start(true);
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro start
+				// * ———————————————————————————————————————————————————————— * //
 				} else if(arg == 'start'){
-					caught = true
-					return enduro_server.run();
+					return enduro_server.run()
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro create projectname
+				// * ———————————————————————————————————————————————————————— * //
 				} else if(arg == 'create'){
-					caught = true
 					return scaffolder.scaffold(args)
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro secure passphrasehere
+				// * ———————————————————————————————————————————————————————— * //
 				} else if(arg == 'secure'){
-					caught = true
 					return kiska_guard.set_passphrase(args)
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro build [dev]
+				// * ———————————————————————————————————————————————————————— * //
 				} else if(arg == 'build'){
-					caught = true
 					return js_build.build_js(args.shift())
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro check
+				// * ———————————————————————————————————————————————————————— * //
 				} else if(arg == 'check'){
-					caught = true
 					return gulp.start('check')
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro addadmin (username) (password)
+				// * ———————————————————————————————————————————————————————— * //
 				} else if(arg == 'addadmin'){
-					caught = true
 					return admin_security.add_admin(args.shift(), args.shift())
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro addculture (culture1) [culture2] ...
+				// * ———————————————————————————————————————————————————————— * //
+				} else if(arg == 'addculture'){
+					return babel.add_culture(args)
 				}
 			}
 
 			// some weird arguments
-			if(!caught){
-				kiska_logger.log('Arguments not recognized')
-				return new Promise(function(resolve, reject){ reject('not recognized') })
-			}
+			kiska_logger.log('Arguments not recognized')
+			return new Promise(function(resolve, reject){ reject('not recognized') })
 
-			return new Promise(function(resolve, reject){ resolve({}) })
 	})
 }
 
@@ -157,7 +188,7 @@ function render(callback){
 var first = true
 var firstrender = true
 var firstserverstart = true
-function developer_start(){
+function developer_start(norefresh){
 	// clears the global data
 	global_data.clear()
 
@@ -176,7 +207,7 @@ function developer_start(){
 		if(first){
 			render(() => {
 				if(firstrender){
-					gulp.start('default', () => {
+					gulp.start(norefresh ? 'default_norefresh' : 'default', () => {
 						if(firstserverstart){
 							kiska_logger.timestamp('production server starting', 'enduro_events')
 

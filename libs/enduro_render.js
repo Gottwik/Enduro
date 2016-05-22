@@ -16,6 +16,7 @@ var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helper
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
+var globalizer = require(ENDURO_FOLDER + '/libs/globalizer/globalizer')
 
 // Goes through the pages and renders them
 enduro_render.prototype.render = function() {
@@ -24,8 +25,12 @@ enduro_render.prototype.render = function() {
 		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
 			if (err) { return console.log(err) }
 
-			babel.getcultures()
+			babel.get_cultures()
 				.then(function(cultures){
+
+					// save current cultures
+					config.cultures = cultures
+
 					async.each(files, function(file, callback) {
 						async.each(cultures, function(culture, cb){
 							render_file(file, culture, cb)
@@ -55,9 +60,9 @@ function render_file(file, culture, callback) {
 	var endpath = culture + '/' + filename
 
 	// special case for the landing page to work
-	if(filename == 'index' && culture != '') {
-		endpath = culture
-	}
+	// if(filename == 'index' && culture != '') {
+	// 	endpath = culture
+	// }
 
 	// Attempts to read the file
 	fs.readFile(file, 'utf8', function (err,data) {
@@ -76,6 +81,9 @@ function render_file(file, culture, callback) {
 
 				// Add pagename to the context
 				extend(true, context, {_meta: {pagename: pagename}})
+
+				// adds in-cms networking
+				globalizer.globalize(context)
 
 				// Renders the template with the culturalized context
 				var output = "Error processing page"

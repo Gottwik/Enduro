@@ -85,8 +85,13 @@ enduro_server.prototype.run = function(development_mode) {
 			else{
 				kiska_guard.login(req)
 					.then(() => {
-						var htmlFile = req.url.length > 1 ? req.url : '/index'
-						res.sendFile(CMD_FOLDER + '/_src' + htmlFile + '.html')
+
+						if(req.url.length <= 1 || (req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1 && req.url.split('/').length <= 2)) {
+							res.sendFile(CMD_FOLDER + '/_src' + req.url + '/index.html')
+						} else {
+							res.sendFile(CMD_FOLDER + '/_src' + req.url + '.html')
+						}
+
 					}, () => {
 						res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
 					})

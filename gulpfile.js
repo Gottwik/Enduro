@@ -1,6 +1,6 @@
 var gulp = require('gulp')
 var watch = require('gulp-watch')
-var browserSync = require('browser-sync').create()
+var browser_sync = require('browser-sync').create()
 var sass = require('gulp-sass')
 var url = require('url')
 var fs = require('fs')
@@ -27,7 +27,6 @@ var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_gen
 var prettyfier = require(ENDURO_FOLDER + '/libs/build_tools/prettyfier').init(gulp)
 var htmlvalidator = require(ENDURO_FOLDER + '/libs/build_tools/html_validator').init(gulp)
 
-
 gulp.set_refresh = function (callback) {
 	gulp.enduro_refresh = callback;
 }
@@ -36,16 +35,29 @@ gulp.enduro_refresh = function () {
 	console.log('refresh not defined')
 }
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	browser sync task
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('browser_sync', ['sass'], function() {
+	browsersync_start(false)
+});
 
-// * ———————————————————————————————————————————————————————— * //
-// * 	Browsersync Task
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('browserSync', ['sass'], function() {
-	kiska_logger.timestamp('Browsersync started', 'enduro_events')
-	browserSync.init({
+gulp.task('browser_sync_norefresh', ['sass'], function() {
+	console.log('Here')
+	browsersync_start(true)
+});
+
+function browsersync_start(norefresh) {
+	kiska_logger.timestamp('browsersync started', 'enduro_events')
+	browser_sync.init({
 		server: {
 			baseDir: CMD_FOLDER + '/_src',
 			middleware: function(req, res, next) {
+
+				if(req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1){
+					return next()
+				}
+
 				// serve files without html
 				if(!(req.url.indexOf('.') + 1) && req.url.length > 3){
 					req.url += '.html'
@@ -67,7 +79,8 @@ gulp.task('browserSync', ['sass'], function() {
 		logLevel: 'silent',
 		notify: false,
 		logPrefix: 'Enduro',
-		startPath: START_PATH
+		startPath: START_PATH,
+		open: !norefresh
 	});
 
 	watch([ CMD_FOLDER + '/assets/css/**/*', CMD_FOLDER + '/assets/fonticons/*', '!' + CMD_FOLDER + '/assets/css/sprites/*'],
@@ -82,14 +95,14 @@ gulp.task('browserSync', ['sass'], function() {
 		gulp.start('iconfont')
 		gulp.enduro_refresh(() => {})
 	})			// Watch for font icon
-	watch([CMD_FOLDER + '/_src/**/*.html'], () => { browserSync.reload() })						// Watch for html files
+	watch([CMD_FOLDER + '/_src/**/*.html'], () => { browser_sync.reload() })						// Watch for html files
 	watch([CMD_FOLDER + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
 
 	// Watch for enduro changes
 	watch([CMD_FOLDER + '/pages/**/*.hbs', CMD_FOLDER + '/components/**/*.hbs', CMD_FOLDER + '/cms/**/*.js'], function() {
 		gulp.enduro_refresh(() => {})
 	})
-});
+}
 
 
 // * ———————————————————————————————————————————————————————— * //
@@ -117,7 +130,7 @@ gulp.task('sass', function() {
 		}))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/css'))
-		.pipe(browserSync.stream())
+		.pipe(browser_sync.stream())
 		.on('end', () => {
 			kiska_logger.timestamp('Sass compiling finished', 'enduro_events')
 		})
@@ -271,7 +284,8 @@ gulp.task('hbs_helpers', function() {
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browserSync'])
+gulp.task('default', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync'])
+gulp.task('default_norefresh', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync_norefresh'])
 
 
 // * ———————————————————————————————————————————————————————— * //
@@ -282,7 +296,7 @@ gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
-// *	No browsersync, no watching for anything
+// *	No browser_sync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('production', ['sass', 'hbs_templates', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', prettyfier])
 

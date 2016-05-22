@@ -64,7 +64,7 @@ describe('Enduro flat utilities', function() {
 	before(function(done) {
 		enduro.run(['create', 'testfolder_flat_test'])
 			.then(() => {
-				CMD_FOLDER += '/testfolder_flat_test'
+				CMD_FOLDER = process.cwd() + '/testfolder/testfolder_flat_test'
 				done()
 			}, (err) => {
 				done(new Error(err))
@@ -73,6 +73,16 @@ describe('Enduro flat utilities', function() {
 
 	it('should detect an existing flat file', function () {
 		expect(flat_file_handler.file_exists('index')).to.equal(true)
+	})
+
+	var full_index_file
+	it('should convert relative path into full path', function () {
+		full_index_file = flat_file_handler.get_full_path_to_cms('index')
+		expect(enduro_helpers.fileExists(full_index_file)).to.equal(true)
+	})
+
+	it('should convert absolute path into relative', function () {
+		expect(flat_file_handler.get_cms_filename_from_fullpath(full_index_file)).to.equal('index')
 	})
 
 	it('should not detect an nonexisting flat file', function () {

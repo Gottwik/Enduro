@@ -19,6 +19,7 @@ var fs = require('fs')
 var require_from_string = require('require-from-string')
 var decode = require('urldecode')
 var stringify_object = require('stringify-object')
+var extend = require('extend')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -127,16 +128,24 @@ flat_file_handler.prototype.loadsync = function(filename) {
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Get full path of a cms file
-// *	@param {String} filename - Path to file without extension, relative to /cms folder
-// *	@return {String} - Returns full server path to specified file
+// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	@return {string} - peturns full server path to specified file
 // * ———————————————————————————————————————————————————————— * //
 flat_file_handler.prototype.get_full_path_to_cms = get_full_path_to_cms
 
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	Checks if specified file exists
-// *	@param {String} filename - Path to file without extension, relative to /cms folder
-// *	@return {Boolean} - Returns true if specified file exists
+// * 	get cms filename from a full path
+// *	@param {string} full_path - absolute, server-root-related path to the file
+// *	@return {string} - returns file name relative to /cms folder
+// * ———————————————————————————————————————————————————————— * //
+flat_file_handler.prototype.get_cms_filename_from_fullpath = get_cms_filename_from_fullpath
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	checks if specified file exists
+// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	@return {boolean} - returns true if specified file exists
 // * ———————————————————————————————————————————————————————— * //
 flat_file_handler.prototype.file_exists = function(filename) {
 	return enduro_helpers.fileExists(get_full_path_to_cms(filename))
@@ -144,11 +153,11 @@ flat_file_handler.prototype.file_exists = function(filename) {
 
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	Adds content to a file.
-// *	@param {String} filename - Path to file without extension, relative to /cms folder
-// *	@param {Object} context_to_add - Content to be added
-// *	@param {String} key - key in the root of the file where the specified content should be added. defaults to 'items'
-// *	@return {Promise} - Returns promise from save function
+// * 	adds content to a file.
+// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	@param {object} context_to_add - content to be added
+// *	@param {string} key - key in the root of the file where the specified content should be added. defaults to 'items'
+// *	@return {promise} - returns promise from save function
 // * ———————————————————————————————————————————————————————— * //
 flat_file_handler.prototype.add = function(filename, context_to_add, key) {
 	var self = this
@@ -168,9 +177,43 @@ flat_file_handler.prototype.add = function(filename, context_to_add, key) {
 }
 
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	adds array to a file.
+// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	@param {object} context_to_add - content to be added
+// *	@param {string} key - key in the root of the file where the specified content should be added. defaults to 'items'
+// *	@return {promise} - returns promise from save function
+// * ———————————————————————————————————————————————————————— * //
+flat_file_handler.prototype.add_array = function(filename, context_to_add, key) {
+	var self = this
+
+	context_to_add = context_to_add || []
+	key = key || 'items'
+
+	return self.load(filename)
+		.then((context) => {
+			if(!(key in context)) {
+				context[key] = []
+			}
+
+			// Extend loaded file with default configuration
+			context[key] = context[key].concat(context_to_add.filter((new_culture) => {
+				if(context[key].indexOf(new_culture) == -1) {
+					return new_culture
+				}
+			}))
+			return self.save(filename, context)
+		})
+}
+
+
 // Private functions
 function get_full_path_to_cms(filename) {
 	return CMD_FOLDER + '/cms/' + filename + '.js'
+}
+
+function get_cms_filename_from_fullpath(full_path) {
+	return full_path.match(/\/cms\/(.*)\..*/)[1]
 }
 
 module.exports = new flat_file_handler()

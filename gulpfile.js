@@ -18,7 +18,7 @@ var defineModule = require('gulp-define-module')
 var flatten = require('gulp-flatten')
 var concat = require('gulp-concat')
 var filterBy = require('gulp-filter-by')
-var wrap = require("gulp-wrap");
+var wrap = require("gulp-wrap")
 
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
@@ -28,7 +28,7 @@ var prettyfier = require(ENDURO_FOLDER + '/libs/build_tools/prettyfier').init(gu
 var htmlvalidator = require(ENDURO_FOLDER + '/libs/build_tools/html_validator').init(gulp)
 
 gulp.set_refresh = function (callback) {
-	gulp.enduro_refresh = callback;
+	gulp.enduro_refresh = callback
 }
 
 gulp.enduro_refresh = function () {
@@ -40,12 +40,11 @@ gulp.enduro_refresh = function () {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('browser_sync', ['sass'], function() {
 	browsersync_start(false)
-});
+})
 
 gulp.task('browser_sync_norefresh', ['sass'], function() {
-	console.log('Here')
 	browsersync_start(true)
-});
+})
 
 function browsersync_start(norefresh) {
 	kiska_logger.timestamp('browsersync started', 'enduro_events')
@@ -81,7 +80,7 @@ function browsersync_start(norefresh) {
 		logPrefix: 'Enduro',
 		startPath: START_PATH,
 		open: !norefresh
-	});
+	})
 
 	watch([ CMD_FOLDER + '/assets/css/**/*', CMD_FOLDER + '/assets/fonticons/*', '!' + CMD_FOLDER + '/assets/css/sprites/*'],
 				() => { gulp.start('scss-lint', 'sass') })										// Watch for scss
@@ -119,10 +118,10 @@ gulp.task('sass', function() {
 		.pipe(sourcemaps.init())
 		.pipe(sass())
 		.on('error', function(err){
-			kiska_logger.errBlockStart('Sass error')
+			kiska_logger.err_blockStart('Sass error')
 			console.log(err.message)
-			kiska_logger.errBlockEnd()
-			this.emit('end');
+			kiska_logger.err_blockEnd()
+			this.emit('end')
 		})
 		.pipe(autoprefixer({
 			browsers: ['last 2 versions'],
@@ -134,7 +133,7 @@ gulp.task('sass', function() {
 		.on('end', () => {
 			kiska_logger.timestamp('Sass compiling finished', 'enduro_events')
 		})
-});
+})
 
 
 // * ———————————————————————————————————————————————————————— * //
@@ -154,7 +153,7 @@ gulp.task('scss-lint', function() {
 
 	}
 	catch(err){
-		return console.log('No liting. you need to install scss_lint');
+		return console.log('No liting. you need to install scss_lint')
 	}
 })
 
@@ -213,7 +212,7 @@ gulp.task('png_sprites', function() {
 			retinaSrcFilter: [CMD_FOLDER + '/assets/spriteicons/*@2x.png'],
 			retinaImgName: '_src/assets/spriteicons/spritesheet@2x.png',
 		}))
-		.pipe(gulp.dest(CMD_FOLDER));
+		.pipe(gulp.dest(CMD_FOLDER))
 })
 
 
@@ -248,8 +247,8 @@ gulp.task('iconfont', function(cb){
 					cb()
 				})
 		})
-		.pipe(gulp.dest('_src/assets/iconfont/'));
-});
+		.pipe(gulp.dest('_src/assets/iconfont/'))
+})
 
 
 // * ———————————————————————————————————————————————————————— * //
@@ -264,7 +263,7 @@ gulp.task('hbs_templates', function(){
 		.pipe(defineModule('amd'))
 		.pipe(flatten())
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/hbs_templates'))
-});
+})
 
 
 // * ———————————————————————————————————————————————————————— * //
@@ -273,7 +272,7 @@ gulp.task('hbs_templates', function(){
 gulp.task('hbs_helpers', function() {
 	return gulp.src([CMD_FOLDER + '/assets/hbs_helpers/**/*.js', ENDURO_FOLDER + '/hbs_helpers/**/*.js'])
 		.pipe(filterBy(function(file) {
-			return file.contents.toString().indexOf('enduro_nojs') == -1;
+			return file.contents.toString().indexOf('enduro_nojs') == -1
 		}))
 		.pipe(concat('hbs_helpers.js'))
 		.pipe(wrap('define([],function(){ return function(__templating_engine){ \n\n<%= contents %>\n\n }})'))

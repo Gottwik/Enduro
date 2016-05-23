@@ -127,7 +127,7 @@ admin_security.prototype.add_admin = function(username, password) {
 
 					})
 			}, () => {
-				kiska_logger.errBlock('User \'' + username + '\' already exists')
+				kiska_logger.err_block('User \'' + username + '\' already exists')
 			})
 	})
 }

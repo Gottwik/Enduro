@@ -66,7 +66,7 @@ function render_file(file, culture, callback) {
 
 	// Attempts to read the file
 	fs.readFile(file, 'utf8', function (err,data) {
-		if (err) { return kiska_logger.errBlock(err) }
+		if (err) { return kiska_logger.err_block(err) }
 
 		// Creates a template
 		var template = __templating_engine.compile(data)
@@ -91,7 +91,7 @@ function render_file(file, culture, callback) {
 					output = template(babel.culturalize(context, culture))
 				}
 				catch(e) {
-					kiska_logger.errBlock('Page: ' + filename + '\n' + e.message)
+					kiska_logger.err_block('Page: ' + filename + '\n' + e.message)
 				}
 
 				// Output raw templates if render_templates setting is set to false
@@ -104,7 +104,7 @@ function render_file(file, culture, callback) {
 					.then(function() {
 						// Attempts to export the file
 						fs.writeFile(CMD_FOLDER + '/_src/' + endpath + '.html', output, function(err) {
-							if (err) { return kiska_logger.errBlock(err) }
+							if (err) { return kiska_logger.err_block(err) }
 
 							kiska_logger.twolog('page ' + endpath, 'created', 'enduro_render_events')
 							callback()

@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 enduro_admin_app.factory('terminator_service', function user_service() {
 	var terminator_service = {}
 

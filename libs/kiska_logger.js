@@ -87,7 +87,7 @@ kiska_logger.prototype.timestamp = function (message, logtag) {
 // * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ * //
 // * directory already exists                                     * //
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
-kiska_logger.prototype.errBlock = function (message, logtag) {
+kiska_logger.prototype.err_block = function (message, logtag) {
 	if(!pass_tagcheck(logtag)){ return }
 	log('\n' + chalk.red(rep(FRAME_WIDTH, '▼')))
 	this.err(message)
@@ -95,7 +95,7 @@ kiska_logger.prototype.errBlock = function (message, logtag) {
 };
 
 // * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ ERROR ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ * //
-kiska_logger.prototype.errBlockStart = function (message, logtag) {
+kiska_logger.prototype.err_blockStart = function (message, logtag) {
 	if(!pass_tagcheck(logtag)){ return }
 	log('\n')
 	log(chalk.red((' ' + message + ' ').cpad(FRAME_WIDTH, '▼')))
@@ -114,7 +114,7 @@ kiska_logger.prototype.twoerr = function (message, left_message, logtag) {
 };
 
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
-kiska_logger.prototype.errBlockEnd = function (logtag) {
+kiska_logger.prototype.err_blockEnd = function (logtag) {
 	if(!pass_tagcheck(logtag)){ return }
 	log(chalk.red(rep(FRAME_WIDTH, '▲')))
 	log('\n')

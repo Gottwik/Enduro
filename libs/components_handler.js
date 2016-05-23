@@ -30,7 +30,7 @@ components_handler.prototype.read_components = function(){
 		// fetches the files
 		glob( COMPONENTS_PATH , function (err, files) {
 			if (err) {
-				kiska_logger.errBlock(err)
+				kiska_logger.err_block(err)
 				return reject()
 			}
 
@@ -45,7 +45,7 @@ components_handler.prototype.read_components = function(){
 				// reads the file. @data stores the component's raw contents
 				fs.readFile(file, 'utf8', function (err, data) {
 					if (err) {
-						kiska_logger.errBlock(err)
+						kiska_logger.err_block(err)
 						return reject(err)
 					}
 

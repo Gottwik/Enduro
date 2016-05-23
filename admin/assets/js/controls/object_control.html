@@ -4,18 +4,25 @@
 	</div>
 	<div class="object-container" ng-class="{'no-frame': no_frame}">
 		<div ng-if="isObject(context)">
-			<div ng-repeat="(key, value) in context track by $index">
+			<div ng-repeat="(key, value) in context track by $index" ng-controller="terminator_controller">
 
-				<div ng-if="isString(value) || isNumber(value)">
-					<div ng-include="'/admin/assets/js/controls/text_control.html'"></div>
+				<div ng-if="terminated_context.type == 'img'">
+					<div ng-include="'/admin/assets/js/controls/image_control.html'"></div>
 				</div>
 
-				<div ng-if="isObject(value)">
-					<div ng-include="'/admin/assets/js/controls/object_control.html'"></div>
-				</div>
+				<!-- default, non-defined controls -->
+				<div ng-if="!terminated_context.type">
+					<div ng-if="isString(value) || isNumber(value)">
+						<div ng-include="'/admin/assets/js/controls/text_control.html'"></div>
+					</div>
 
-				<div ng-if="isArray(value)">
-					<div ng-include="'/admin/assets/js/controls/array_control.html'"></div>
+					<div ng-if="isObject(value)">
+						<div ng-include="'/admin/assets/js/controls/object_control.html'"></div>
+					</div>
+
+					<div ng-if="isArray(value)">
+						<div ng-include="'/admin/assets/js/controls/array_control.html'"></div>
+					</div>
 				</div>
 
 			</div>

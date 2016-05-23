@@ -83,7 +83,7 @@ function run(args){
 				// * 	$ enduro nr
 				// * ———————————————————————————————————————————————————————— * //
 				} else if(arg == 'nr'){
-					return developer_start(true);
+					return developer_start(true)
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro start
@@ -179,7 +179,7 @@ function render(callback){
 // 	gulp.start('preproduction', () => {
 // 		render(() => {
 // 			gulp.start('default', () => {
-// 				enduro_server.run();
+// 				enduro_server.run()
 // 				// After everything is done
 // 			})
 // 		})
@@ -197,7 +197,7 @@ function developer_start(norefresh){
 	kiska_logger.tablog('localhost:3000', 'nice_dev_init')
 	kiska_logger.log('Admin ui available at:', 'nice_dev_init')
 	kiska_logger.tablog('localhost:5000/admin', false, 'nice_dev_init')
-	kiska_logger.line('nice_dev_init');
+	kiska_logger.line('nice_dev_init')
 	kiska_logger.log('Admin has no live-reload!', false, 'nice_dev_init')
 	kiska_logger.end('nice_dev_init')
 
@@ -212,7 +212,7 @@ function developer_start(norefresh){
 							kiska_logger.timestamp('production server starting', 'enduro_events')
 
 							// start production server in development mode
-							enduro_server.run(true);
+							enduro_server.run(true)
 						}
 						firstserverstart = false
 						// After everything is done

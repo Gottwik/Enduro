@@ -1,0 +1,9 @@
+<div class="img-controller" ng-controller="image_controller">
+	<span>{{formated_key}}</span>
+	<div class="img-wrapper" ngf-drop="uploadFiles($files)" ng-model="context[terminatedkey]" ngf-drag-over-class="'dragover'">
+		<img ng-bind="current_culture" ngf-thumbnail="context[terminatedkey]">
+		<div class="img-file-upload-button" ngf-select="upload($file)" ng-model="context[terminatedkey]" >
+			<i class="fa fa-plus"></i>
+		</div>
+	</div>
+</div>

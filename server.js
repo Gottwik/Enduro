@@ -13,6 +13,7 @@ var express = require('express')
 var app = express()
 var session = require('express-session')
 var cors = require('cors')
+var multiparty_middleware = require('connect-multiparty')()
 
 // local dependencies
 var admin_api = require(ENDURO_FOLDER + '/libs/admin_api')
@@ -64,7 +65,7 @@ enduro_server.prototype.run = function(development_mode) {
 	})
 
 	// handle for all admin api calls
-	app.get('/admin_api/*', function (req, res) {
+	app.all('/admin_api/*', multiparty_middleware, function (req, res) {
 		admin_api.call(req, res, self)
 	})
 

@@ -41,7 +41,7 @@ scaffolder.prototype.scaffold = function(args){
 		// Reject if directory already exists
 		if(enduro_helpers.dirExists(scaffolding_destination)){
 			reject('requested directory already exists')
-			return kiska_logger.errBlock('\tdirectory already existss')
+			return kiska_logger.err_block('\tdirectory already existss')
 		}
 
 		kiska_logger.init('ENDURO - CREATING PROJECT')
@@ -53,7 +53,7 @@ scaffolder.prototype.scaffold = function(args){
 			if (err) {
 				// Something went wrong with the copying
 				reject('creating new files failed')
-				return kiska_logger.errBlock(err)
+				return kiska_logger.err_block(err)
 			}
 
 			// Let the user know the project was created successfully

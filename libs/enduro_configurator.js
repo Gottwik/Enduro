@@ -41,7 +41,7 @@ enduro_configurator.prototype.read_config = function() {
 			// Reads the configuration file
 			fs.readFile(CONFIG_PATH, function read(err, data) {
 				if(err) {
-					kiska_logger.errBlock(err)
+					kiska_logger.err_block(err)
 					return reject()
 				}
 

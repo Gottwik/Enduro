@@ -5,11 +5,20 @@ enduro_admin_app.factory('format_service', function user_service() {
 		if(!input || !input[0]) {
 			return input
 		}
-		input = input[0].toUpperCase() + input.substring(1)
+		input = capitalize(input)
 
-		input = input.replace('\_', ' ')
+		// replaces underscore with whitespace
+		input = input.replace(/\_/g, ' ')
 
 		return input
+	}
+
+	format_service.deglobalize = function(input) {
+		return this.deslug(input.split('.').slice(-1)[0])
+	}
+
+	function capitalize(input) {
+		return input[0].toUpperCase() + input.substring(1)
 	}
 
 	return format_service

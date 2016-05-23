@@ -2,16 +2,20 @@
 	<div ng-if="!no_label" class="container-title">
 		<h3>{{object_name}}</h3>
 	</div>
-	<div class="object-container" ng-class="{'no-frame': no_frame}">
+	<div class="object-container" ng-class="{'no-frame': parent_no_frame}">
 		<div ng-if="isObject(context)">
 			<div ng-repeat="(key, value) in context track by $index" ng-controller="terminator_controller">
 
-				<div ng-if="terminated_context.type == 'img'">
-					<div ng-include="'/admin/assets/js/controls/image_control.html'"></div>
+				<div ng-if="globalizer">
+					<div ng-include="'/admin/assets/js/controls/globalizer_control.html'"></div>
+				</div>
+
+				<div ng-if="!globalizer && terminated_context.type">
+					<div ng-include="'/admin/assets/js/controls/' + terminated_context.type + '_control.html'"></div>
 				</div>
 
 				<!-- default, non-defined controls -->
-				<div ng-if="!terminated_context.type">
+				<div ng-if="!globalizer && !terminated_context.type">
 					<div ng-if="isString(value) || isNumber(value)">
 						<div ng-include="'/admin/assets/js/controls/text_control.html'"></div>
 					</div>

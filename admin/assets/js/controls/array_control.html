@@ -1,16 +1,15 @@
 <div ng-controller="array_controller">
-	<div class="wedge-4x"></div>
 	<div class="container-title">
 		<h3>{{object_name}}</h3>
 	</div>
-	<div matchheight class="row">
-		<div ng-repeat="(key, value) in context track by $index" class="js-array-item col-md-3">
-			<div class="wedge"></div>
+	<div class="row">
+		<div ng-repeat="(key, value) in context track by $index" class="js-array-item col-md-4">
 			<div class="card">
 				<div ng-include="'/admin/assets/js/controls/object_control.html'" ng-init="no_label=true"></div>
 			</div>
+			<div class="half-wedge"></div>
 		</div>
-		<div class="js-array-item col-md-3">
+		<div class="js-array-item col-md-4">
 			<div class="wedge"></div>
 			<button ng-click="additem()">Add</button>
 		</div>

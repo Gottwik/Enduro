@@ -76,7 +76,7 @@ pagelist_generator.prototype.get_pagelist = function() {
 	})
 }
 
-pagelist_generator.prototype.get_flat_pagelist = function() {
+pagelist_generator.prototype.get_flat_pagelist = () => {
 	return new Promise(function(resolve, reject){
 		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
 			var pagelist = {}
@@ -86,6 +86,7 @@ pagelist_generator.prototype.get_flat_pagelist = function() {
 				page.fullpath = file
 				page.path = file.match('/pages/(.*)\.hbs')[1]
 				page.name = page.path.split('/').slice(-1)[0]
+				page.label = capitalize(page.path.split('/').slice(-1)[0])
 
 				pagelist[page.name] = page
 			})
@@ -93,6 +94,30 @@ pagelist_generator.prototype.get_flat_pagelist = function() {
 			resolve(pagelist)
 		})
 	})
+}
+
+pagelist_generator.prototype.get_flat_datalist = () => {
+	return new Promise(function(resolve, reject){
+		glob(CMD_FOLDER + '/cms/global/**/*.js', function (err, files) {
+			var dataset_list = {}
+			files.forEach((file) => {
+				var dataset = {}
+				dataset.type = 'dataset'
+				dataset.fullpath = file
+				dataset.path = file.match('/cms/global/(.*)\.js')[1]
+				dataset.name = dataset.path.split('/').slice(-1)[0]
+				dataset.label = capitalize(dataset.path.split('/').slice(-1)[0])
+
+				dataset_list[dataset.name] = dataset
+			})
+
+			resolve(dataset_list)
+		})
+	})
+}
+
+function capitalize(input) {
+	return input[0].toUpperCase() + input.substring(1)
 }
 
 module.exports = new pagelist_generator()

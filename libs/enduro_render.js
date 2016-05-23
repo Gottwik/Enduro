@@ -80,7 +80,7 @@ function render_file(file, culture, callback) {
 				}
 
 				// Add pagename to the context
-				extend(true, context, {_meta: {pagename: pagename}})
+				extend(true, context, {_meta: {pagename: pagename, culture: culture}})
 
 				// adds in-cms networking
 				globalizer.globalize(context)

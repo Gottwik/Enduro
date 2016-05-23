@@ -6,6 +6,6 @@ enduro_admin_app.controller('array_controller', ['$scope', 'format_service', fun
 	}
 
 	$scope.additem = function() {
-		$scope.context.push($scope.context[0])
+		$scope.context.push(angular.copy($scope.context[0]))
 	}
 }])

@@ -14,6 +14,19 @@ enduro_admin_app.factory('content_service', ['$http', 'url_config', '$cookies', 
 			});
 	}
 
+	content_service.get_datasetlist = function(username, password) {
+		return $http.get(url_config.get_base_url() + 'get_dataset_list', {params: {sid: $cookies.get('sid')}})
+			.then(function(res) {
+				if(res.data && res.data.success) {
+					return res.data.data
+				} else {
+					console.log('error getting dataset list')
+				}
+			}, function() {
+				console.log('error getting dataset list')
+			});
+	}
+
 	content_service.get_content = function(page_path) {
 		return $http.get(url_config.get_base_url() + 'get_cms', {params: {sid: $cookies.get('sid'), filename: page_path}})
 			.then(function(res) {
@@ -23,6 +36,13 @@ enduro_admin_app.factory('content_service', ['$http', 'url_config', '$cookies', 
 
 	content_service.save_content = function(page_path, content) {
 		return $http.get(url_config.get_base_url() + 'save_cms', {params: {sid: $cookies.get('sid'), content: content, filename: page_path}})
+			.then(function(res) {
+				return res.data
+			})
+	}
+
+	content_service.get_globalized_options = function(globalizer_string) {
+		return $http.get(url_config.get_base_url() + 'get_globalizer_options', {params: {sid: $cookies.get('sid'), globalizer_string: globalizer_string}})
 			.then(function(res) {
 				return res.data
 			})

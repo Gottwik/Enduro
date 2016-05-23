@@ -1,4 +1,4 @@
-enduro_admin_app.controller('page-split-controller', ['$scope', '$routeParams', 'content_service', function($scope, $routeParams, content_service) {
+enduro_admin_app.controller('page-split-controller', ['$scope', '$routeParams', 'content_service', 'format_service', function($scope, $routeParams, content_service, format_service) {
 
 	if($routeParams.page_path) {
 		$scope.inner_page = '/admin/assets/js/views/cms_edit.html'
@@ -10,4 +10,10 @@ enduro_admin_app.controller('page-split-controller', ['$scope', '$routeParams', 
 		.then(function(data) {
 			$scope.pagelist = data
 		})
+
+	content_service.get_datasetlist()
+		.then(function(data) {
+			$scope.datasetlist = data
+		})
+
 }])

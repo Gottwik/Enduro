@@ -24,7 +24,7 @@ function globalize(context, root_context) {
 
 			var routed_context = context[key].substring(2).split('.').reduce((prev, next) => {
 				return prev[next]
-			}, root_context.global)
+			}, root_context)
 
 			context[key] = routed_context
 		}

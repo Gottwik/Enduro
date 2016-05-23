@@ -18,7 +18,6 @@ admin_file_upload_handler.prototype.upload = function(file) {
 
 		var destination_path = CMD_FOLDER + UPLOADS_FOLDER + '/' + file.name
 		var destination_url = UPLOADS_FOLDER + '/' + file.name
-		console.log(destination_path)
 
 		enduro_helpers.ensureDirectoryExistence(destination_path)
 			.then(() => {

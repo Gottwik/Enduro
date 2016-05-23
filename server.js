@@ -77,6 +77,7 @@ enduro_server.prototype.run = function(development_mode) {
 			if(req.query['pswrd']){
 				kiska_guard.login(req)
 					.then(() => {
+						console.log('1')
 						var htmlFile = req.url.length > 1 ? req.url.substring(0, req.url.indexOf('?')) : '/'
 						res.redirect(htmlFile)
 					}, () => {
@@ -86,7 +87,9 @@ enduro_server.prototype.run = function(development_mode) {
 			else{
 				kiska_guard.login(req)
 					.then(() => {
-
+						if(req.url.length <= 1 && config.cultures[0].length > 0) {
+							return res.redirect('/' + config.cultures[0])
+						}
 						if(req.url.length <= 1 || (req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1 && req.url.split('/').length <= 2)) {
 							res.sendFile(CMD_FOLDER + '/_src' + req.url + '/index.html')
 						} else {

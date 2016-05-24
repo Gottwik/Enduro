@@ -25,6 +25,7 @@ var logtags_config = {
 	enduro_render_events: false,
 	admin_api_calls: false,
 	admin_login: false,
+	file_uploading: true,
 }
 
 // * ———————————————————————————————————————————————————————— * //

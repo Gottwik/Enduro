@@ -18,14 +18,18 @@ admin_file_upload_handler.prototype.upload = function(file) {
 	return new Promise(function(resolve, reject){
 
 		var destination_path = CMD_FOLDER + UPLOADS_FOLDER + '/' + file.name
+		var destination_src_path = CMD_FOLDER + UPLOADS_FOLDER + '/_src/' + file.name
 		var destination_url = UPLOADS_FOLDER + '/' + file.name
 
 		enduro_helpers.ensureDirectoryExistence(destination_path)
 			.then(() => {
 				//fs.rename(file.path, destination_path, function(err) {
 				console.log('copyying file', file.path, destination_path)
-				fs.createReadStream(file.path)
-					.pipe(fs.createWriteStream(destination_path))
+
+				var read_stream = fs.createReadStream(file.path)
+
+				read_stream.pipe(fs.createWriteStream(destination_path))
+				read_stream.pipe(fs.createWriteStream(destination_src_path))
 					.on("close", function(err) {
 						if(err) {
 							console.log(err)

@@ -107,7 +107,7 @@ enduro_server.prototype.run = function(development_mode) {
 
 	app.listen(app.get('port'), function () {
 		if(!development_mode) {
-			self.enduro_refresh(() => {})
+			self.enduro_init(() => {})
 		}
 		kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
 	})
@@ -121,6 +121,16 @@ enduro_server.prototype.set_refresh = function (callback) {
 
 // placehodler refresh function - this function is being replaced by parent
 enduro_server.prototype.enduro_refresh = function () {
+	console.log('refresh not defined')
+}
+
+// sets enduro_refresh function from parent
+enduro_server.prototype.set_init = function (callback) {
+	this.enduro_init = callback
+}
+
+// placehodler refresh function - this function is being replaced by parent
+enduro_server.prototype.enduro_init = function () {
 	console.log('refresh not defined')
 }
 

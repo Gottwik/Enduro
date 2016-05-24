@@ -36,6 +36,7 @@ var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
 gulp.set_refresh(function(callback){
+	kiska_logger.log('Refresh', true, 'enduro_render_events')
 	render(function(){
 		callback()
 	})
@@ -43,13 +44,21 @@ gulp.set_refresh(function(callback){
 
 // Stores enduro_server and extends it with render
 var enduro_server = require('./server')
-enduro_server.set_refresh(function(cb){
+enduro_server.set_init(function(cb){
+	kiska_logger.log('initializing production server', true, 'enduro_render_events')
 	gulp.start('preproduction', () => {
 		render(function(){
 			gulp.start('production', () => {
 				cb()
 			})
 		})
+	})
+})
+
+enduro_server.set_refresh(function(cb){
+	kiska_logger.log('refreshing production server', true, 'enduro_render_events')
+	render(function(){
+		cb()
 	})
 })
 

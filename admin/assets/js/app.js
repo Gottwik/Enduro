@@ -22,10 +22,10 @@ enduro_admin_app.config(['$routeProvider',
 			templateUrl: '/admin/assets/js/views/login.html'
 		})
 		.when('/', {
-			templateUrl: '/admin/assets/js/views/admin_main.html',
+			templateUrl: '/admin/assets/js/views/main_layout.html',
 		})
 		.when('/cms/:page_path*', {
-			templateUrl: '/admin/assets/js/views/admin_main.html',
+			templateUrl: '/admin/assets/js/views/main_layout.html',
 		})
 		.otherwise({ redirectTo: '/' })
 	}]);

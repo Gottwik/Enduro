@@ -1,0 +1,38 @@
+<div class="blur-background light"></div>
+<div class="main-viewport" ng-controller="page-split-controller">
+
+	<nav class="side-main-menu">
+		<img class="menu-branding" src="/admin/assets/img/menu-logo.png">
+
+		<div class="side-menu-items">
+			<a class="side-main-menu-item" href="#/">Dashboard</a>
+
+			<div class="side-main-menu-group-label">Pages</div>
+			<ul class="side-main-menu-group">
+				<div ng-repeat="page in pagelist">
+					<li><a href="#cms/{{page.path}}">{{page.name}}</a></li>
+				</div>
+			</ul>
+
+			<div class="side-main-menu-group-label">Datasets</div>
+			<ul class="side-main-menu-group">
+				<div ng-repeat="dataset in datasetlist">
+					<li><a href="#cms/global/{{dataset.path}}">{{dataset.name}}</a></li>
+				</div>
+			</ul>
+		</div>
+
+		<div class="userbox" ng-controller="logout_controller">
+			<div class="userbox-bar">
+				<a href="#/logout" ng-click="logout()"><i class="fa fa-user"></i></a>
+				<a href="#/logout" ng-click="logout()"><i class="fa fa-comments"></i></a>
+				<a href="#/logout" ng-click="logout()"><i class="fa fa-cog"></i></a>
+				<a href="#/logout" ng-click="logout()"><i class="fa fa-power-off"></i></a>
+			</div>
+		</div>
+
+	</nav>
+
+	<!-- Inner page -->
+	<div class="inner-page-viewport" ng-include="inner_page"></div>
+</div>

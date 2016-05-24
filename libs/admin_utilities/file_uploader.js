@@ -9,6 +9,7 @@ var fs = require('fs')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // constants
 var UPLOADS_FOLDER = '/assets/img/uploaded'

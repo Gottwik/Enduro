@@ -2,7 +2,8 @@ enduro_admin_app.controller('image_controller', ['$scope', 'Upload', 'url_config
 
 	// upload on file select or drop
 	$scope.upload = function (file) {
-
+		console.log('file')
+		console.log(file)
 		Upload.upload({
 			url: url_config.get_base_url() + 'img_upload',
 			data: {
@@ -23,7 +24,7 @@ enduro_admin_app.controller('image_controller', ['$scope', 'Upload', 'url_config
 		}, function (evt) {
 			var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
 
-			//console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+			console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
 		});
 	};
 	// // for multiple files:

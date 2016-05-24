@@ -1,3 +1,4 @@
 /node_modules
 /coverage
 npm-debug.log
+/admin/assets/img/uploaded/

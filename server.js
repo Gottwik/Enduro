@@ -73,7 +73,7 @@ enduro_server.prototype.run = function(development_mode) {
 	// handle for all website api calls
 	// kinda works but needs to be properly done
 	app.get('/*', function (req, res) {
-		if(!/admin\/(.*)/.test(req.url)) {
+		if(!/admin\/(.*)/.test(req.url) && !/assets\/(.*)/.test(req.url)) {
 			if(req.query['pswrd']){
 				kiska_guard.login(req)
 					.then(() => {
@@ -100,8 +100,6 @@ enduro_server.prototype.run = function(development_mode) {
 						res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
 					})
 			}
-		} else {
-			console.log('requested page', req.url)
 		}
 	})
 

@@ -1,6 +1,6 @@
 {
   "name": "enduro",
-  "version": "1.0.114",
+  "version": "1.0.115",
   "description": "",
   "main": "gruntfile.js",
   "dependencies": {

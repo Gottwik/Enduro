@@ -23,14 +23,16 @@ admin_file_upload_handler.prototype.upload = function(file) {
 			.then(() => {
 				//fs.rename(file.path, destination_path, function(err) {
 				console.log('copyying file', file.path, destination_path)
-				fs.createReadStream(file.path).pipe(fs.createWriteStream(destination_path), function(err) {
-				    if(err) {
-				    	console.log(err)
-				        return reject(err);
-				    }
-				    kiska_logger.timestamp('file was uploaded','file_uploading')
-					resolve(destination_url)
-				});
+				fs.createReadStream(file.path)
+					.pipe(fs.createWriteStream(destination_path))
+					.on("close", function(err) {
+						if(err) {
+							console.log(err)
+							return reject(err);
+						}
+						kiska_logger.timestamp('file was uploaded','file_uploading')
+						resolve(destination_url)
+					});
 			})
 
 	})

@@ -1,0 +1,6 @@
+{
+	"s3": {
+		"bucket": "enduro.static",
+		"region": "eu-west-1",
+	}
+}

@@ -14,6 +14,7 @@ global.__templating_engine = require('handlebars')
 global.__data = {}
 global.__data.global = {}
 global.config = {}
+global.config.secret = {}
 global.CMD_FOLDER = process.cwd()
 global.ENDURO_FOLDER = __dirname
 global.ADMIN_FOLDER = __dirname + '/admin'

@@ -43,6 +43,7 @@
     "require-from-string": "^1.1.0",
     "requirejs": "^2.1.22",
     "rewire": "^2.5.1",
+    "s3": "^4.4.0",
     "scsslint": "0.0.3",
     "sha256": "^0.2.0",
     "stringify-object": "^2.3.1",

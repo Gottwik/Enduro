@@ -16,11 +16,10 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // routed call
 api_call.prototype.call = function(req, res, enduro_server){
-	kiska_logger.timestamp('Trying to uplad a file','file_uploading')
+	kiska_logger.timestamp('Trying to upload a file','file_uploading')
 	admin_sessions.get_user_by_session(req.body.sid)
 		.then((user) => {
-			kiska_logger.timestamp('uploading file: ' ,'file_uploading')
-			console.log(req.files.file)
+			kiska_logger.timestamp('uploading file: ' + req.files.file.name ,'file_uploading')
 			return file_uploader.upload(req.files.file)
 		}, (user) => {
 			throw new Error('abort promise chain');

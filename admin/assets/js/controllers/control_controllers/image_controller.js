@@ -10,8 +10,10 @@ enduro_admin_app.controller('image_controller', ['$scope', 'Upload', 'url_config
 				file: file
 			}
 		}).then(function (res) {
+			console.log(res)
+			console.log()
+			console.log($scope.context)
 			if(res.data.success) {
-				console.log(res.data)
 				$scope.context[$scope.terminatedkey] = res.data.image_url
 			} else {
 				console.log('upload not successfull')

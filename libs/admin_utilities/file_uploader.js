@@ -21,7 +21,8 @@ admin_file_upload_handler.prototype.upload = function(file) {
 
 		enduro_helpers.ensureDirectoryExistence(destination_path)
 			.then(() => {
-				fs.rename(file.path, destination_path, function(err) {
+				//fs.rename(file.path, destination_path, function(err) {
+				fs.createReadStream(file.path).pipe(fs.createWriteStream(destination_path), function(err) {
 				    if(err) {
 				    	console.log(err)
 				        return reject(err);

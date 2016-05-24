@@ -27,6 +27,10 @@
 					<div ng-if="isArray(value)">
 						<div ng-include="'/admin/assets/js/controls/array_control.html'"></div>
 					</div>
+
+					<div ng-if="isBoolean(value)">
+						<div ng-include="'/admin/assets/js/controls/boolean_control.html'"></div>
+					</div>
 				</div>
 
 			</div>

@@ -24,9 +24,10 @@ enduro_admin_app.controller('cms-editor-controller', ['$scope', '$rootScope', '$
 	}
 
 	// Helper functions
-	$scope.isString = function(item) { return angular.isString(item); }
-	$scope.isNumber = function(item) { return angular.isNumber(item); }
-	$scope.isArray = function(item) { return angular.isArray(item); }
+	$scope.isString = function(item) { return angular.isString(item) }
+	$scope.isNumber = function(item) { return angular.isNumber(item) }
+	$scope.isArray = function(item) { return angular.isArray(item) }
+	$scope.isBoolean = function(item) { return typeof(item) === "boolean" }
 	$scope.isObject = function(item) {
 		if(typeof item === 'object') {
 			if(angular.isArray(item)) {

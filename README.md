@@ -169,15 +169,15 @@ cms/config/babel.js
 
 This will create all pages in respective subdirectories. For example, your index.hbs file will convert into en/index.html and de/index.html
 
-### 2. Use the translations
-you can use plain enduro feature and if you need a difference in context between the two cultures, you just split the value like this:
+### 2. Define translations
+Insert the translated values like this:
 
 cms/index.js
 ```javascript
 {
-	greeting: {
-		$en: "you!",
-		$de: "du!"
-	}
+	greeting: 'hello'
+	$greeting_de: 'halo'
 }
 ```
+
+Non-terminated value will be used if no translation is given.

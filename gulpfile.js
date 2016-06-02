@@ -58,7 +58,7 @@ function browsersync_start(norefresh) {
 				}
 
 				// serve files without html
-				if(!(req.url.indexOf('.') + 1) && req.url.length > 3){
+				if(!(req.url.indexOf('.') + 1) && req.url.length > 3) {
 					req.url += '.html'
 				}
 
@@ -99,7 +99,9 @@ function browsersync_start(norefresh) {
 
 	// Watch for enduro changes
 	watch([CMD_FOLDER + '/pages/**/*.hbs', CMD_FOLDER + '/components/**/*.hbs', CMD_FOLDER + '/cms/**/*.js'], function() {
-		gulp.enduro_refresh(() => {})
+		gulp.enduro_refresh(() => {
+			browser_sync.reload()
+		})
 	})
 }
 
@@ -293,11 +295,13 @@ gulp.task('default_norefresh', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 
+
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
 // *	No browser_sync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('production', ['sass', 'hbs_templates', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', prettyfier])
+
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	check task

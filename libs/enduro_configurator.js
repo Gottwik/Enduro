@@ -55,7 +55,7 @@ function read_config_file(config_file, default_config) {
 					kiska_logger.err_block(err)
 					return reject()
 				}
-
+				console.log(data.toString())
 				// Parses json file
 				local_config = JSON.parse(data)
 				// Extend loaded file with default configuration

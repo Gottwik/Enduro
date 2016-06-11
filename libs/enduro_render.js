@@ -21,13 +21,16 @@ var page_queue_generator = require(ENDURO_FOLDER + '/libs/page_rendering/page_qu
 enduro_render.prototype.render = function() {
 	kiska_logger.timestamp('Render started', 'enduro_events')
 
+	// gets list of pages to be generated
 	return page_queue_generator.generate_pagelist()
 		.then((pages_to_render) => {
 
+			// converts the list of pages into list of promises
 			var pages_to_render_promises = pages_to_render.map((page_to_render) => {
-				return page_renderer.render_file(page_to_render.file, page_to_render.context_file, page_to_render.culture)
+				return page_renderer.render_file(page_to_render.file, page_to_render.context_file, page_to_render.culture, page_to_render.destination_path)
 			})
 
+			// executes the promises and return resolved promise when all are finished
 			return Promise.all(pages_to_render_promises);
 		})
 

@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/kiskadigitalmedia/Enduro/badge.svg?branch=master)](https://coveralls.io/github/kiskadigitalmedia/Enduro?branch=master)
 [![Code Climate](https://codeclimate.com/github/kiskadigitalmedia/Enduro/badges/gpa.svg)](https://codeclimate.com/github/kiskadigitalmedia/Enduro)
 
-Enduro is minimalistic , lean & mean, static page generator / cms / build tool.
+Enduro is minimalistic, lean & mean, static page generator / cms / build tool all built into one simple-to-use package.
 
 ## Enduro commands
 

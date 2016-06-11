@@ -7,6 +7,7 @@ var page_renderer = function () {}
 // vendor dependencies
 var fs = require('fs')
 var extend = require('extend')
+var path = require("path")
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -16,9 +17,8 @@ var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 var globalizer = require(ENDURO_FOLDER + '/libs/globalizer/globalizer')
 
 // Renders individual files
-page_renderer.prototype.render_file = function(file, context, culture) {
+page_renderer.prototype.render_file = function(file, context_filename, culture, dest_path) {
 	return new Promise(function(resolve, reject){
-		console.log(context)
 
 		// Stores file name and extension
 		// Note that subdirecotries are included in the name
@@ -29,12 +29,7 @@ page_renderer.prototype.render_file = function(file, context, culture) {
 		var pagename = file.match(/([^\/]*)\.[^\.]*$/)[1]
 
 		// where will the generated page end
-		var destination_path = culture + '/' + filename
-
-		// special case for the landing page to work
-		// if(filename == 'index' && culture != '') {
-		// 	destination_path = culture
-		// }
+		var destination_path = path.join(culture, dest_path)
 
 		// Attempts to read the file
 		fs.readFile(file, 'utf8', function (err,data) {
@@ -44,7 +39,7 @@ page_renderer.prototype.render_file = function(file, context, culture) {
 			var template = __templating_engine.compile(data)
 
 			// Loads context if cms file with same name exists
-			flat_file_handler.load(filename)
+			flat_file_handler.load(context_filename)
 				.then((context) => {
 					// If global data exists extends the context with it
 					if(typeof __data !== 'undefined') {

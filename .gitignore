@@ -2,3 +2,4 @@
 /coverage
 npm-debug.log
 /admin/assets/img/uploaded/
+/_src/*

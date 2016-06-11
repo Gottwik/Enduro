@@ -20,7 +20,7 @@ __templating_engine.registerHelper('switch', function() {
 	arguments_list = arguments_list.slice(0, -1)
 
 	// check even argumens and return respective odd argument
-	for(var i = 0; i < Math.floor(arguments_list.length / 2); i++) {
+	for(i = 0; i < Math.floor(arguments_list.length / 2); i++) {
 		if(arguments_list[i * 2]) {
 			return arguments_list[i * 2 + 1]
 		}

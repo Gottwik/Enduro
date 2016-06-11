@@ -5,18 +5,38 @@
 [![Coverage Status](https://coveralls.io/repos/github/kiskadigitalmedia/Enduro/badge.svg?branch=master)](https://coveralls.io/github/kiskadigitalmedia/Enduro?branch=master)
 [![Code Climate](https://codeclimate.com/github/kiskadigitalmedia/Enduro/badges/gpa.svg)](https://codeclimate.com/github/kiskadigitalmedia/Enduro)
 
-Enduro is minimalistic, lean & mean, static page generator / cms / build tool all built into one simple-to-use package.
+Enduro is minimalistic, lean & mean, node.js cms. See more at [enduro.js website](https://kiskadigitalmedia.github.io/Enduro/)
 
-## Enduro commands
+## Getting started
 
-If installed globally, enduro enables these cli commands
+1. Make sure you have node.js installed. Grab it here if you don't: [nodejs installer](https://nodejs.org/en/download/).
+1. Run `npm install enduro -g` in your terminal. This will install enduro.
+1. Run `enduro create myproject`. This will create new folder /myproject with the enduro project
+1. Go in the newly created folder by running `cd myproject`.
+1. Start enduro in development mode by running simply `enduro`. Browser window should open with the website running.
+1. Folder `/pages` stores all the page templates
+1. Folder `/cms` stores all the content data
+1. Folder `/components` stores all the components, templates, or partial views - building blocks which you can use to build the website.
+1. Folder `/assets` stores scss, js, icons, images and all the static assets for your website
+2. Admin interface is accessible at `localhost:5000`. Add admin user by running `enduro addadmin username password`.
 
- * `Enduro create projectname`  - Creates new folder /projectname with neccessary scaffolding
- * `Enduro` - Starts enduro for development
- * `Enduro start` - Starts enduro on server - Without build tools such as watching
- * `Enduro build` - Runs requirejs optimization on assets/js/main.js. To have more requirejs config files use `enduro build dev` which will search for main_dev.js config file
+## Enduro cli
+
+To access cli tools, you need to install enduro globally: `npm install enduro -g`
+
+ * `enduro create projectname`  - Creates new folder /projectname with neccessary scaffolding
+ * `enduro` - Starts enduro for development
+ * `enduro start` - Starts enduro on server - Without build tools such as watching
+ * `enduro build` - Runs requirejs optimization on assets/js/main.js. To have more requirejs config files use `enduro build dev` which will search for main_dev.js config file
+ * `enduro secure passphrase` - Adds simple, one-passphrase security to your website. Useful in development phase to protect the website against web crawlers.
+ * `enduro check` - Runs the built html sites agains w3 validator and performs several other checks such as scss lint.
+ * `enduro addadmin username password` - Adds credentials that work with admin interface. There are no default credentials.
+ * `enduro addculture en de` - Adds cultures/languages. This will generate two files out of every page. These pages are accessible at `/en/pagename` and `/de/pagename`
+
 
 ## Project directory structure
+
+Enduro will generate this scaffolding automatically by running `enduro create projectname`
 
 ```
 
@@ -46,6 +66,8 @@ If installed globally, enduro enables these cli commands
 
 ## Usage
 
+Enduro uses handlebars.
+
 ### Using components
 
 ```hbs
@@ -66,7 +88,7 @@ Will generate
 <input type="button" value="button" class="red">
 ```
 
-### Using associated content files
+### Using associated context files
 ```hbs
 <!-- pages/somepage.hbs -->
 <p>{{person}} came and said {{said_what}}</p>
@@ -96,11 +118,15 @@ Will generate
 * `{{ternary condition 'output if true' 'output if false'}}` - ternary function implemented as hbs helper
 * `{{#within global/products context.productid}}` - Changes context of the block inside for array's descendant with provided key
 * `{{first array}}` - same as with but will provide first object in array as context
-* `{{lorem 20}}` - will generate dummy text with a lenght of 20 words
+* `{{lorem 20}}` - will generate dummy text with a lenght of 20 words. If two arguments are supplied, it will generate a string with random length based on the range made out of the two arguments.
 * `{{compare var1 var2 'true' 'false'}}` - will compare two variables and pick 'true' or 'false' in a ternary-like fashion
 * `{{grouped_each 3 list}}` - Same as each, but will provide three items as context in each iteration
-* `{{uriencode url}}` - Self explanatory. Encodes given string to uri
+* `{{htmlescape 'www.example.com?p=escape spaces here'}}` - Self explanatory. Encodes given string to uri
 * `{{files 'assets/js'}}` - Globs the files and iterates thgough them with {{this}} as the pagename
+* `{{add @index 2}}` - Adds two numbers
+* `{{Compare age 20 'this dude is exactly 20 years old' 'he's not 20 years old}}` - Compares values and returns string based on outcome of the comparison
+* `{{{js_cms 'people'}}}` - Fetch cms file and outputs it as javascript object as string.
+* `{{switch small '5px' medium '10px' large '20px'}}` - will output text based on which variable is truthful.
 
 ## Heroku
 Enduro is heroku ready. Just make sure that enduro is in the dependencies of your project. To publish on heroku, just use these steps (heroku cli required):

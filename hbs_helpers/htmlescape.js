@@ -1,5 +1,5 @@
 // * ———————————————————————————————————————————————————————— * //
-// *    Uriencode helper
+// *    htmlescape helper
 // *	Usage:
 // *
 // *	{{htmlescape 'www.example.com?p=escape spaces here'}}

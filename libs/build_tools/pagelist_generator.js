@@ -92,6 +92,8 @@ pagelist_generator.prototype.get_flat_datalist = () => {
 function get_resource_list(resource_location) {
 	return new Promise(function(resolve, reject){
 		glob(path.join(CMD_FOLDER + resource_location), function (err, files) {
+			if(err) { console.log(err) }
+
 			var resource_list = {}
 			files.forEach((file) => {
 				var resource = {}

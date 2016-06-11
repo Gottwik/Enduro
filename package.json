@@ -1,7 +1,7 @@
 {
   "name": "enduro",
   "version": "1.0.122",
-  "description": "",
+  "description": "Minimalistic, lean & mean, node.js cms",
   "main": "gruntfile.js",
   "dependencies": {
     "async": "^2.0.0-rc.2",
@@ -56,7 +56,13 @@
   "bin": {
     "enduro": "./cli.js"
   },
-  "author": "",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/kiskadigitalmedia/Enduro"
+  },
+  "author": "Gottwik@gmail.com",
+  "keywords": ["cms", "page generator", "handlebars", "static page generator"],
+  "homepage": "https://kiskadigitalmedia.github.io/Enduro/",
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",

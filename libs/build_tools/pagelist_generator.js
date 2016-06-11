@@ -2,18 +2,21 @@
 // * 	Pagelist Generator
 // *	Goes through all the pages and generates a json from them
 // * ———————————————————————————————————————————————————————— * //
-
 var pagelist_generator = function () {};
 
+// vendor dependencies
 var Promise = require('bluebird')
 var fs = require('fs')
 var glob = require("glob")
 var stringify_object = require('stringify-object')
 var extend = require('extend')
+var path = require("path")
 
+// local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
+// constants
 var PAGELIS_DESTINATION = CMD_FOLDER + '/_src/_prebuilt/pagelist.json'
 
 // Creates all subdirectories neccessary to create the file in filepath
@@ -31,6 +34,7 @@ pagelist_generator.prototype.init = function(gulp) {
 				enduro_helpers.ensureDirectoryExistence(PAGELIS_DESTINATION)
 					.then(() => {
 						fs.writeFile( PAGELIS_DESTINATION , JSON.stringify(pagelist), function(err) {
+							if(err) { console.log(err) }
 							cb()
 						})
 					})
@@ -43,6 +47,7 @@ pagelist_generator.prototype.init = function(gulp) {
 pagelist_generator.prototype.get_pagelist = function() {
 	return new Promise(function(resolve, reject){
 		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
+			if(err) { console.log(err) }
 
 			var pagelist = {}
 
@@ -77,41 +82,29 @@ pagelist_generator.prototype.get_pagelist = function() {
 }
 
 pagelist_generator.prototype.get_flat_pagelist = () => {
-	return new Promise(function(resolve, reject){
-		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
-			var pagelist = {}
-			files.forEach((file) => {
-				var page = {}
-				page.type = 'page'
-				page.fullpath = file
-				page.path = file.match('/pages/(.*)\.hbs')[1]
-				page.name = page.path.split('/').slice(-1)[0]
-				page.label = capitalize(page.path.split('/').slice(-1)[0])
-
-				pagelist[page.name] = page
-			})
-
-			resolve(pagelist)
-		})
-	})
+	return get_resource_list('pages/**/*.hbs')
 }
 
 pagelist_generator.prototype.get_flat_datalist = () => {
-	return new Promise(function(resolve, reject){
-		glob(CMD_FOLDER + '/cms/global/**/*.js', function (err, files) {
-			var dataset_list = {}
-			files.forEach((file) => {
-				var dataset = {}
-				dataset.type = 'dataset'
-				dataset.fullpath = file
-				dataset.path = file.match('/cms/global/(.*)\.js')[1]
-				dataset.name = dataset.path.split('/').slice(-1)[0]
-				dataset.label = capitalize(dataset.path.split('/').slice(-1)[0])
+	return get_resource_list('cms/global/**/*.js')
+}
 
-				dataset_list[dataset.name] = dataset
+function get_resource_list(resource_location) {
+	return new Promise(function(resolve, reject){
+		glob(path.join(CMD_FOLDER + resource_location), function (err, files) {
+			var resource_list = {}
+			files.forEach((file) => {
+				var resource = {}
+				resource.type = 'resource'
+				resource.fullpath = file
+				resource.path = file.match('/cms/global/(.*)\.js')[1]
+				resource.name = resource.path.split('/').slice(-1)[0]
+				resource.label = capitalize(resource.path.split('/').slice(-1)[0])
+
+				resource_list[resource.name] = resource
 			})
 
-			resolve(dataset_list)
+			resolve(resource_list)
 		})
 	})
 }

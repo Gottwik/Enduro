@@ -88,10 +88,16 @@ flat_file_handler.prototype.load = function(filename) {
 
 		// check if file exists. return empty object if not
 		if(!enduro_helpers.fileExists(fullpath_to_cms_file)) {
-			self.save(filename, {})
-				.then(() => {
-					resolve({})
-				})
+
+			// saves the file if it doesn't exist
+			if(!self.is_generator(filename)) {
+				self.save(filename, {})
+					.then(() => {
+						resolve({})
+					})
+			} else {
+				resolve({})
+			}
 		} else {
 			fs.readFile( fullpath_to_cms_file , function(err, data) {
 				if (err) { reject() }
@@ -204,6 +210,15 @@ flat_file_handler.prototype.add_array = function(filename, context_to_add, key) 
 			}))
 			return self.save(filename, context)
 		})
+}
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	checks filename and returns if it defines a generator file or not
+// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	@return {bool} - returns true if filename belongs to a generator
+// * ———————————————————————————————————————————————————————— * //
+flat_file_handler.prototype.is_generator = function(filename) {
+	return filename.split('/')[0] == 'generators'
 }
 
 

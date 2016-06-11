@@ -20,6 +20,7 @@ global.ENDURO_FOLDER = __dirname
 global.ADMIN_FOLDER = __dirname + '/admin'
 global.BABEL_FILE = 'config/babel'
 global.START_PATH = ''
+global.flags = {}
 
 // Local dependencies
 var enduro_configurator = require(ENDURO_FOLDER + '/libs/enduro_configurator')
@@ -34,6 +35,7 @@ var js_build = require(ENDURO_FOLDER + '/libs/build_utils/js_build')
 var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
 var gulp = require(ENDURO_FOLDER + '/gulpfile')
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
+var flag_handler = require(ENDURO_FOLDER + '/libs/cli_tools/flag_handler')
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
 gulp.set_refresh(function(callback){
@@ -69,8 +71,9 @@ enduro_server.set_refresh(function(cb){
 // *	entry point from the cli
 // *	returns boolean based on if the arguments were recognized
 // * ———————————————————————————————————————————————————————— * //
-function run(args){
+function run(args, flags){
 
+	global.flags = flag_handler.get_flag_object(flags)
 	return enduro_configurator.read_config()
 		.then(() => {
 

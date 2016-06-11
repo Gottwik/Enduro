@@ -39,7 +39,7 @@ scaffolder.prototype.scaffold = function(args){
 		var scaffolding_destination = CMD_FOLDER + '/' + project_name
 
 		// Reject if directory already exists
-		if(enduro_helpers.dirExists(scaffolding_destination)){
+		if(enduro_helpers.dirExists(scaffolding_destination) && !flags.force){
 			reject('requested directory already exists')
 			return kiska_logger.err_block('\tdirectory already existss')
 		}

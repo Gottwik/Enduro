@@ -26,6 +26,7 @@ var logtags_config = {
 	admin_api_calls: false,
 	admin_login: false,
 	file_uploading: true,
+	render_debug: true,
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -41,7 +42,7 @@ kiska_logger.prototype.init = function (message, logtag) {
 
 // * │ I have something to tell you                             │ * //
 kiska_logger.prototype.log = function (message, newline, logtag) {
-	if(typeof newline === 'number') {
+	if(typeof newline === 'string') {
 		logtag = newline
 		newline = false
 	}
@@ -177,8 +178,9 @@ String.prototype.cpad = function(length, char) {
 
 // Returns string of length @len consisting of characters @char
 function rep(len, char){
-	char = char || ' '
-	return Array(len + 1).join(char)
+	return len > 0
+		? Array(len + 1).join(char || ' ')
+		: ''
 }
 
 module.exports = new kiska_logger()

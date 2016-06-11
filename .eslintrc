@@ -50,8 +50,8 @@ rules:
   default-case: 0
   dot-location: 0
   dot-notation: 0
-  eqeqeq: 2
-  guard-for-in: 2
+  eqeqeq: 0
+  guard-for-in: 0
   no-alert: 2
   no-caller: 2
   no-case-declarations: 2
@@ -88,7 +88,7 @@ rules:
   no-self-compare: 2
   no-sequences: 0
   no-throw-literal: 0
-  no-unused-expressions: 2
+  no-unused-expressions: 0
   no-useless-call: 2
   no-useless-concat: 2
   no-void: 2

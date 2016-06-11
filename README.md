@@ -3,10 +3,9 @@
 [![npm version](https://badge.fury.io/js/enduro.svg)](https://badge.fury.io/js/enduro)
 [![Build Status](https://travis-ci.org/kiskadigitalmedia/Enduro.svg?branch=master)](https://travis-ci.org/kiskadigitalmedia/Enduro)
 [![Coverage Status](https://coveralls.io/repos/github/kiskadigitalmedia/Enduro/badge.svg?branch=master)](https://coveralls.io/github/kiskadigitalmedia/Enduro?branch=master)
+[![Code Climate](https://codeclimate.com/github/kiskadigitalmedia/Enduro/badges/gpa.svg)](https://codeclimate.com/github/kiskadigitalmedia/Enduro)
 
-enduro is static page generator / cms / build tool.
-
-It goes through all files in pages folder, applies context with the same name and outputs .html files in _src folder. On top of this it processses scss files and copies assets to _src/assets.
+Enduro is minimalistic , lean & mean, static page generator / cms / build tool.
 
 ## Enduro commands
 
@@ -88,7 +87,7 @@ Will generate
 ```
 
 
-## Helpers
+## Built in helpers
 * `{{partial 'partialname'}}` - renders partial based on string name. This helper is used for displaying helper dynamically
 * `{{default class 'red'}}` - If no class parameter is provided 'red' is being used
 * `{{#times 10}}` - will repeat anything inside 10 times. Don't forget to close `{{/times}}`

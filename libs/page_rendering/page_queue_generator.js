@@ -47,18 +47,7 @@ page_queue_generator.prototype.generate_pagelist = function() {
 
 							// push to pages to render list
 							pages_to_render.push(page_to_render)
-						} else {
-							// generator pages
-
-							// absolute path to page template file
-							var file = files[f]
-
-
-							// culture string
-							var culture = config.cultures[c]
-
 						}
-
 					}
 				}
 

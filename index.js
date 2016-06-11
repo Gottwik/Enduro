@@ -10,6 +10,9 @@
 // Stores templating engine for possible future replacement
 global.__templating_engine = require('handlebars')
 
+// vendor dependencies
+var path = require("path")
+
 // Global variables
 global.__data = {}
 global.__data.global = {}
@@ -17,7 +20,7 @@ global.config = {}
 global.config.secret = {}
 global.CMD_FOLDER = process.cwd()
 global.ENDURO_FOLDER = __dirname
-global.ADMIN_FOLDER = __dirname + '/admin'
+global.ADMIN_FOLDER = path.join(__dirname, 'admin')
 global.BABEL_FILE = 'config/babel'
 global.START_PATH = ''
 global.flags = {}
@@ -36,6 +39,7 @@ var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_securi
 var gulp = require(ENDURO_FOLDER + '/gulpfile')
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 var flag_handler = require(ENDURO_FOLDER + '/libs/cli_tools/flag_handler')
+
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
 gulp.set_refresh(function(callback){
@@ -86,6 +90,7 @@ function run(args, flags){
 
 			// parse arguments
 			while (arg = args.shift()) {
+
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro render
 				// * ———————————————————————————————————————————————————————— * //

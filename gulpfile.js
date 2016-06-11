@@ -19,6 +19,7 @@ var flatten = require('gulp-flatten')
 var concat = require('gulp-concat')
 var filterBy = require('gulp-filter-by')
 var wrap = require("gulp-wrap")
+var path = require("path")
 
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
@@ -210,8 +211,8 @@ gulp.task('png_sprites', function() {
 			imgName: '_src/assets/spriteicons/spritesheet.png',
 			cssName: '_src/_prebuilt/sprites.scss',
 			padding: 3,
-			cssTemplate: __dirname + '/support_files/sprite_generator.handlebars',
-			retinaSrcFilter: [CMD_FOLDER + '/assets/spriteicons/*@2x.png'],
+			cssTemplate: path.join(__dirname, 'support_files', 'sprite_generator.handlebars'),
+			retinaSrcFilter: [path.join(CMD_FOLDER, 'assets/spriteicons/*@2x.png')],
 			retinaImgName: '_src/assets/spriteicons/spritesheet@2x.png',
 		}))
 		.pipe(gulp.dest(CMD_FOLDER))

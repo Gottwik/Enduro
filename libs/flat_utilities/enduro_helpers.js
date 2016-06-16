@@ -30,15 +30,23 @@ enduro_helpers.prototype.dirExists = function (file_path) {
 }
 
 // Creates all subdirectories neccessary to create the file in file_path
-enduro_helpers.prototype.ensureDirectoryExistence = function(file_path) {
-	file_path = file_path.match(/^(.*)\/.*$/)[1]
+enduro_helpers.prototype.ensureDirectoryExistence = function() {
+
+	if(!arguments.length) {
+		return Promise.resolve()
+	}
+	file_paths = Array.prototype.slice.call(arguments).map((file_path) => { return file_path.match(/^(.*)\/.*$/)[1] })
+	return Promise.all(file_paths.map((file_path) => { return ensureDirectoryExistence(file_path) }))
+}
+
+function ensureDirectoryExistence(file_path) {
 	return new Promise(function(resolve, reject){
 		mkdirp(file_path, function(err) {
 			if(err){
 				kiska_logger.err_block(err)
 				return reject()
 			}
-			resolve();
+			resolve()
 
 		})
 	})

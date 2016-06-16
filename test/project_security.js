@@ -22,11 +22,6 @@ describe('Enduro security', function() {
 			})
 	});
 
-	// navigate back to testfolder
-	after(function(){
-		global.CMD_FOLDER = process.cwd() + '/testfolder'
-	})
-
 	it("won't do nothing if no passphrase is provided", function(done){
 		enduro.run(['secure'])
 			.then(() => {
@@ -76,4 +71,8 @@ describe('Enduro security', function() {
 			})
 	})
 
+	// navigate back to testfolder
+	after(function(){
+		global.CMD_FOLDER = process.cwd() + '/testfolder'
+	})
 })

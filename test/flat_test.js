@@ -50,6 +50,16 @@ describe('Enduro helpers utilities', function() {
 			})
 	})
 
+	it('should create all neccessary subdirectories if given multiple paths', function () {
+		enduro_helpers.ensureDirectoryExistence(process.cwd() + '/test_folder/subfolder1/test.js', process.cwd() + '/test_folder/subfolder2/test.js')
+			.then(function(){
+				expect(enduro_helpers.dirExists(process.cwd() + '/test_folder/subfolder1')).to.equal(true)
+				expect(enduro_helpers.dirExists(process.cwd() + '/test_folder/subfolder2')).to.equal(true)
+			}, function(err){
+				expect(true).to.equal(false)
+			})
+	})
+
 	it('should delete all test folders', function () {
 		rimraf(process.cwd() + '/test_folder', function(err){
 			expect(enduro_helpers.dirExists(process.cwd() + '/test_folder')).to.not.equal(true)

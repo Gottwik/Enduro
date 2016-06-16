@@ -20,6 +20,14 @@
 					<li><a href="#cms/global/{{dataset.path}}">{{dataset.name}}</a></li>
 				</div>
 			</ul>
+
+			<div class="side-main-menu-group-label">Generators</div>
+			<ul class="side-main-menu-group">
+				<div ng-repeat="generator in generatorlist">
+					<li><a href="#cms/generator/{{generator.path}}">{{generator.name}}</a></li>
+				</div>
+			</ul>
+
 		</div>
 
 		<div class="userbox" ng-controller="logout_controller">

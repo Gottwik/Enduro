@@ -1,0 +1,13 @@
+<div class="form-control" ng-controller="templatitator_controller">
+
+	<div ng-include="'/admin/assets/js/controls/array_control.html'"></div>
+
+	<div class="wedge-3x"></div>
+
+	<div class="row">
+		<div class="col-md-3" ng-repeat="template in template_list">
+			<div class="templatitator_btn" ng-click="templatitator_change(template.value)"><i class="fa fa-plus"></i>{{template.label}}</div>
+		</div>
+	</div>
+
+</div>

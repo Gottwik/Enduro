@@ -8,8 +8,15 @@ define([],function(){ return function(__templating_engine){
 // *	{{add @index 2}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper("add", function (variable, addvalue) {
-	return variable + addvalue
+__templating_engine.registerHelper("add", function () {
+
+	if(arguments.length <= 1) {
+		return ''
+	}
+
+	return Array.prototype.slice.call(arguments).slice(0, -1).reduce(function(prev, next) {
+		return prev + next
+	})
 });
 // * ———————————————————————————————————————————————————————— * //
 // *    Compare helper
@@ -79,38 +86,42 @@ __templating_engine.registerHelper('first', function(array, options) {
 // * ———————————————————————————————————————————————————————— * //
 
 __templating_engine.registerHelper('grouped_each', function(every, context, options) {
-	var out = ""
+
+	if(!context || !(Object.keys(context).length || context.length)) {
+		return ''
+	}
+
+	var out = ''
 	var subcontext = []
 	var i = 0
 
-	if(context && (Object.keys(context).length || context.length)) {
-		if(typeof context === 'object'){ // Context is an object
-			for (var key in context) {
-				if (i > 0 && i % every === 0) {
-					out += options.fn(subcontext)
-					subcontext = []
-				}
-				subcontext.push(context[key])
-				i++
+	if(typeof context === 'object') { // Context is an object
+		for (var key in context) {
+			if (i > 0 && i % every === 0) {
+				out += options.fn(subcontext)
+				subcontext = []
 			}
-			out += options.fn(subcontext)
-		} else { // Context is array
-			for (i = 0; i < context.length; i++) {
-				if (i > 0 && i % every === 0) {
-					out += options.fn(subcontext)
-					subcontext = []
-				}
-				subcontext.push(context[i])
-			}
-			out += options.fn(subcontext)
+			subcontext.push(context[key])
+			i++
 		}
+		out += options.fn(subcontext)
+	} else { // Context is array
+		for (i = 0; i < context.length; i++) {
+			if (i > 0 && i % every === 0) {
+				out += options.fn(subcontext)
+				subcontext = []
+			}
+			subcontext.push(context[i])
+		}
+		out += options.fn(subcontext)
 	}
+
 
 	// Outputs processed html
 	return out
 })
 // * ———————————————————————————————————————————————————————— * //
-// *    Uriencode helper
+// *    htmlescape helper
 // *	Usage:
 // *
 // *	{{htmlescape 'www.example.com?p=escape spaces here'}}
@@ -120,13 +131,6 @@ __templating_engine.registerHelper('grouped_each', function(every, context, opti
 __templating_engine.registerHelper("uriencode", function (url) {
 	return encodeURI(url);
 });
-// * ———————————————————————————————————————————————————————— * //
-// *    If compare helper
-// *
-// * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper("if_compare", function (variable1, variable2, block) {
-	return block.fn(this)
-})
 // * ———————————————————————————————————————————————————————— * //
 // *    List helper
 // *	Provides #each functionality with a inline list
@@ -143,7 +147,7 @@ __templating_engine.registerHelper('list', function() {
 	var block = arguments[arguments.length - 1]
 
 	var accum = ''
-	for (var i = 0; i < arguments.length - 1; i++){
+	for (var i = 0; i < arguments.length - 1; i++) {
 		accum += block.fn(arguments[i])
 	}
 	return accum
@@ -195,7 +199,12 @@ __templating_engine.registerHelper("lorem", function (length, upperrange) {
 // *	{{partial 'partial name'}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper("partial", function (name, options) {
+__templating_engine.registerHelper("partial", function (name, context, options) {
+
+	if(!options) {
+		options = context
+		context = this
+	}
 
 	// Get the partial with the given name. This is a string.
 	var partial = __templating_engine.partials[name]
@@ -204,7 +213,7 @@ __templating_engine.registerHelper("partial", function (name, options) {
 	if (!partial) return ''
 
 	// build up context
-	context = this
+	context = context
 	context.global = options.data.root.global
 
 	// Compile and call the partial with context
@@ -212,6 +221,37 @@ __templating_engine.registerHelper("partial", function (name, options) {
 		? new __templating_engine.SafeString(partial(context))
 		: new __templating_engine.SafeString(__templating_engine.compile(partial)(context))
 
+});
+// * ———————————————————————————————————————————————————————— * //
+// *    switch helper
+// *	provides switch functionality with inline arguments
+// *	usage:
+// *
+// *	{{switch small '5px' medium '10px' large '20px'}}
+// *
+// *	returns last value as default
+// *
+// * ———————————————————————————————————————————————————————— * //
+__templating_engine.registerHelper('switch', function() {
+
+	// create a list out of arguments
+	var arguments_list = []
+	for(var i in arguments) {
+		arguments_list.push(arguments[i])
+	}
+
+	// remove last element - which is the whole context
+	arguments_list = arguments_list.slice(0, -1)
+
+	// check even argumens and return respective odd argument
+	for(i = 0; i < Math.floor(arguments_list.length / 2); i++) {
+		if(arguments_list[i * 2]) {
+			return arguments_list[i * 2 + 1]
+		}
+	}
+
+	// return last provided argument as a default value
+	return arguments_list.slice(-1)[0]
 });
 // * ———————————————————————————————————————————————————————— * //
 // *    Ternary helper

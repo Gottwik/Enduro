@@ -21,6 +21,9 @@ var flatFileHandler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_ha
 var DATA_PATH = CMD_FOLDER + '/cms/global/**/*.js'
 
 global_data.prototype.get_global_data = function() {
+
+	this.clear()
+
 	return new Promise(function(resolve, reject) {
 
 		// Fetches the files

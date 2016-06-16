@@ -1,4 +1,3 @@
-
 // vendor dependencies
 var expect = require("chai").expect
 var rimraf = require('rimraf')

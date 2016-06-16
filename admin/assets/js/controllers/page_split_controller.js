@@ -16,4 +16,9 @@ enduro_admin_app.controller('page-split-controller', ['$scope', '$routeParams', 
 			$scope.datasetlist = data
 		})
 
+	content_service.get_generatorlist()
+		.then(function(data) {
+			$scope.datasetlist = data
+		})
+
 }])

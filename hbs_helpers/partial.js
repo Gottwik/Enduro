@@ -6,7 +6,12 @@
 // *	{{partial 'partial name'}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper("partial", function (name, options) {
+__templating_engine.registerHelper("partial", function (name, context, options) {
+
+	if(!options) {
+		options = context
+		context = this
+	}
 
 	// Get the partial with the given name. This is a string.
 	var partial = __templating_engine.partials[name]
@@ -15,7 +20,7 @@ __templating_engine.registerHelper("partial", function (name, options) {
 	if (!partial) return ''
 
 	// build up context
-	context = this
+	context = context
 	context.global = options.data.root.global
 
 	// Compile and call the partial with context

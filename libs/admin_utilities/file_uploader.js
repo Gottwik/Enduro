@@ -8,6 +8,7 @@ var Promise = require('bluebird')
 var fs = require('fs')
 var s3 = require('s3')
 var moment = require('moment')
+var path = require('path')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -31,10 +32,10 @@ function uploadfile_local(file) {
 	kiska_logger.timestamp('Uploading file to local storage','file_uploading')
 	return new Promise(function(resolve, reject){
 		var destination_path = CMD_FOLDER + UPLOADS_FOLDER + '/' + file.name
-		var destination_src_path = CMD_FOLDER + '/_src/' +UPLOADS_FOLDER + file.name
+		var destination_src_path = path.join(CMD_FOLDER, '_src', UPLOADS_FOLDER, file.name)
 		var destination_url = UPLOADS_FOLDER + '/' + file.name
 
-		enduro_helpers.ensureDirectoryExistence(destination_src_path)
+		enduro_helpers.ensureDirectoryExistence(destination_path, destination_src_path)
 			.then(() => {
 				var read_stream = fs.createReadStream(file.path)
 

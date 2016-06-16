@@ -1,17 +1,24 @@
 <div ng-controller="array_controller">
 	<div class="container-title">
-		<h3>{{object_name}}</h3>
+		<h3 ng-if="!terminated_context.hidetitle">{{object_name}}</h3>
 	</div>
 	<div class="row">
-		<div ng-repeat="(key, value) in context track by $index" class="js-array-item col-md-4">
+		<div ng-repeat="(key, value) in context track by $index" class="js-array-item col-md-{{terminated_context.size || 4}}">
 			<div class="card">
+				<div class="array-item-controls">
+					<i class="fa fa-trash array-delete-control" ng-click="deleteitem(key)"></i>
+					<i class="fa fa-arrows array-move-control"></i>
+					<i class="fa fa-files-o array-duplicate-control"></i>
+				</div>
 				<div ng-include="'/admin/assets/js/controls/object_control.html'" ng-init="no_label=true"></div>
 			</div>
 			<div class="half-wedge"></div>
 		</div>
-		<div class="js-array-item col-md-4">
-			<div class="wedge"></div>
-			<button ng-click="additem()" class="small"><i class="fa fa-plus"></i>Add</button>
+		<div ng-if="!templatitator">
+			<div class="js-array-item col-md-4">
+				<div class="wedge"></div>
+				<button ng-click="additem()" class="small"><i class="fa fa-plus"></i>Add</button>
+			</div>
 		</div>
 	</div>
 </div>

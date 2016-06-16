@@ -1,7 +1,6 @@
 enduro_admin_app.controller('terminator_controller', ['$scope', 'format_service', 'terminator_service', function($scope, format_service, terminator_service) {
 
 	$scope.$watch('current_culture', function() {
-
 		// get all the terminator attributes for given key
 		$scope.terminated_context = {}
 		for(key in $scope.context) {
@@ -29,6 +28,12 @@ enduro_admin_app.controller('terminator_controller', ['$scope', 'format_service'
 		// globalizer detection
 		if(typeof $scope.value === 'string' && $scope.value.substring(0, 2) == '@@') {
 			$scope.globalizer = $scope.value.substring(2)
+		}
+		// templatitator detection
+		if('templatitator' in $scope.terminated_context) {
+			$scope.templatitator = $scope.terminated_context['templatitator']
+		} else {
+			$scope.templatitator = false
 		}
 
     });

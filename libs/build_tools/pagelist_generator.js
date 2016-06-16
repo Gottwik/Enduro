@@ -89,23 +89,32 @@ pagelist_generator.prototype.get_flat_datalist = () => {
 	return get_resource_list('cms/global/**/*.js')
 }
 
+pagelist_generator.prototype.get_flat_generatorlist = () => {
+	return get_resource_list('cms/generators/**/*.js')
+}
+
+
 function get_resource_list(resource_location) {
 	return new Promise(function(resolve, reject){
-		glob(path.join(CMD_FOLDER + resource_location), function (err, files) {
+		glob(path.join(CMD_FOLDER, resource_location), function (err, files) {
 			if(err) { console.log(err) }
 
 			var resource_list = {}
 			files.forEach((file) => {
+
+				var resource_base = resource_location.split('**')[0]
+
 				var resource = {}
 				resource.type = 'resource'
 				resource.fullpath = file
-				resource.path = file.match('/cms/global/(.*)\.js')[1]
+
+				resource.path = file.match(new RegExp('\/' + resource_base + '(.*)\\..*'))[1]
 				resource.name = resource.path.split('/').slice(-1)[0]
 				resource.label = capitalize(resource.path.split('/').slice(-1)[0])
 
 				resource_list[resource.name] = resource
 			})
-
+			console.log(resource_list)
 			resolve(resource_list)
 		})
 	})

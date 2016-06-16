@@ -38,11 +38,11 @@ api_call.prototype.call = function(req, res, enduro_server) {
 				return prev[next]
 			}, __data)
 
-			terminated_output = Object.keys(parent).map((option) => {
+			globalizer_options = Object.keys(parent).map((option) => {
 				return '@@' + globalizer_string.split('.').slice(0, -1).join('.') + '.' + option
 			})
 
-			res.send(terminated_output)
+			res.send(globalizer_options)
 		})
 }
 

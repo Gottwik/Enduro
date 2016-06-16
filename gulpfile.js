@@ -18,8 +18,8 @@ var defineModule = require('gulp-define-module')
 var flatten = require('gulp-flatten')
 var concat = require('gulp-concat')
 var filterBy = require('gulp-filter-by')
-var wrap = require("gulp-wrap")
-var path = require("path")
+var wrap = require('gulp-wrap')
+var path = require('path')
 
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
@@ -85,7 +85,7 @@ function browsersync_start(norefresh) {
 
 	watch([ CMD_FOLDER + '/assets/css/**/*', CMD_FOLDER + '/assets/fonticons/*', '!' + CMD_FOLDER + '/assets/css/sprites/*'],
 				() => { gulp.start('scss-lint', 'sass') })										// Watch for scss
-	watch([CMD_FOLDER + '/assets/js/**/*'], () => { gulp.start('js') })							// Watch for js
+	watch([CMD_FOLDER + '/assets/js/**/*'], () => { gulp.start('js'); browser_sync.reload() })							// Watch for js
 	watch([CMD_FOLDER + '/assets/img/**/*'], () => { gulp.start('img') })						// Watch for images
 	watch([CMD_FOLDER + '/assets/vendor/**/*'], () => { gulp.start('vendor') })					// Watch for vendor files
 	watch([CMD_FOLDER + '/assets/fonts/**/*'], () => { gulp.start('fonts') })					// Watch for fonts

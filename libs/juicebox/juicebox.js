@@ -22,7 +22,6 @@ var EXTENSION = '.tar.gz'
 
 // packs up the juicebox together with new juice.json
 juicebox.prototype.pack = function (user) {
-
 	return new Promise(function(resolve, reject){
 
 		user = user || 'developer'
@@ -60,7 +59,7 @@ juicebox.prototype.pack = function (user) {
 						kiska_logger.init('Juice')
 						kiska_logger.log('Juice packed successfully')
 						kiska_logger.end()
-						return Promise.resolve()
+						resolve()
 					})
 			})
 	})
@@ -72,7 +71,6 @@ juicebox.prototype.pull = function (nojuice) {
 		return Promise.resolve()
 	}
 
-	console.log('pulling')
 	return get_latest_juice()
 		.then((juice) => {
 			return get_juicebox_by_name(juice.latest.hash + EXTENSION)

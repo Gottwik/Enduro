@@ -77,7 +77,6 @@ enduro_server.prototype.run = function(development_mode) {
 			if(req.query['pswrd']){
 				kiska_guard.login(req)
 					.then(() => {
-						console.log('1')
 						var htmlFile = req.url.length > 1 ? req.url.substring(0, req.url.indexOf('?')) : '/'
 						res.redirect(htmlFile)
 					}, () => {

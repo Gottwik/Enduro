@@ -40,6 +40,8 @@ var gulp = require(ENDURO_FOLDER + '/gulpfile')
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 var flag_handler = require(ENDURO_FOLDER + '/libs/cli_tools/flag_handler')
 
+// temp dependencies
+var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
 gulp.set_refresh(function(callback){
@@ -144,6 +146,15 @@ function run(args, flags){
 				// * ———————————————————————————————————————————————————————— * //
 				} else if(arg == 'addculture'){
 					return babel.add_culture(args)
+
+
+				} else if(arg == 'juice'){
+					arg = args.shift()
+					if(arg == 'pack') {
+						return juicebox.pack()
+					} else if(arg == 'pull') {
+						return juicebox.pull()
+					}
 				}
 			}
 

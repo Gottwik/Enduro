@@ -1,14 +1,16 @@
 // * ———————————————————————————————————————————————————————— * //
 // * 	Enduro Admin Security
 // * ———————————————————————————————————————————————————————— * //
+var admin_security = function () {}
 
+// vendor dependencies
 var Promise = require('bluebird')
 var crypto = require("crypto");
 
+// local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 
-var admin_security = function () {}
 
 var ADMIN_SECURE_FILE = '.users'
 

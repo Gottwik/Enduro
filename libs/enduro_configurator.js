@@ -35,6 +35,11 @@ enduro_configurator.prototype.read_config = function() {
 		read_config_file(CONFIG_PATH, public_default_config),
 		read_config_file(SECRET_CONFIG_PATH, secret_default_config)
 	])
+	.then(() => {
+		global.config.variables = {}
+		global.config.variables.S3_KEY = (global.config.secret && global.config.secret.s3 && global.config.secret.s3.S3_KEY) || process.env.S3_KEY
+		global.config.variables.S3_SECRET = (global.config.secret && global.config.secret.s3 && global.config.secret.s3.S3_SECRET) || process.env.S3_SECRET
+	})
 }
 
 

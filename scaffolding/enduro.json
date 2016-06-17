@@ -1,4 +1,6 @@
 {
+	"project_name": "set name here",
+	"project_slug": "sn",
 	"s3": {
 		"bucket": "enduro.static",
 		"region": "eu-west-1"

@@ -1,5 +1,5 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	get concated global dataset list
+// * 	get structured global dataset list
 // *
 // * 	admin api endpoint admin_api/get_datasetlist
 // *	@return {response} - success boolean and flattened dataset list in an array
@@ -18,7 +18,7 @@ api_call.prototype.call = function(req, res, enduro_server){
 
 	admin_sessions.get_user_by_session(req.query.sid)
 		.then((user) => {
-			return pagelist_generator.get_flat_datalist()
+			return pagelist_generator.get_cms_list()
 		}, (user) => {
 			throw new Error('abort promise chain');
 		})

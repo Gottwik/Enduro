@@ -7,8 +7,8 @@ enduro_admin_app.factory('format_service', function user_service() {
 		}
 		input = capitalize(input)
 
-		// replaces underscore with whitespace
-		input = input.replace(/\_/g, ' ')
+		// replaces underscore and dash with whitespace
+		input = input.replace(/\_/g, ' ').replace(/-/g, ' ')
 
 		return input
 	}

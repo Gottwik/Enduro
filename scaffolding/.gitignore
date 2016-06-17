@@ -1,5 +1,6 @@
 /_src/*
-!/_src/enduro_login.html
 /assets/vendor
 /node_modules
 /assets/css/sprites
+**/_*
+/enduro_secret

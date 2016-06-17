@@ -15,6 +15,7 @@ var path = require("path")
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 
 // constants
 var PAGELIS_DESTINATION = CMD_FOLDER + '/_src/_prebuilt/pagelist.json'
@@ -58,7 +59,7 @@ pagelist_generator.prototype.get_pagelist = function() {
 					var page = {}
 					page.type = 'page'
 					page.fullpath = '/' + fullpath.join('/')
-					page.name = pagepath[0]
+					page.name = format_service.prettify_string(pagepath[0])
 
 					partial_pages[pagepath[0]] = page
 				} else {
@@ -81,44 +82,47 @@ pagelist_generator.prototype.get_pagelist = function() {
 	})
 }
 
-pagelist_generator.prototype.get_flat_pagelist = () => {
-	return get_resource_list('pages/**/*.hbs')
-}
-
-pagelist_generator.prototype.get_flat_datalist = () => {
-	return get_resource_list('cms/global/**/*.js')
-}
-
-pagelist_generator.prototype.get_flat_generatorlist = () => {
-	return get_resource_list('cms/generators/**/*.js')
-}
-
-
-function get_resource_list(resource_location) {
+pagelist_generator.prototype.get_cms_list = function() {
 	return new Promise(function(resolve, reject){
-		glob(path.join(CMD_FOLDER, resource_location), function (err, files) {
+		glob(CMD_FOLDER + '/cms/**/*.js', function (err, files) {
 			if(err) { console.log(err) }
 
-			var resource_list = {}
-			files.forEach((file) => {
+			var pagelist = {}
 
-				var resource_base = resource_location.split('**')[0]
+			// helper function to build the pagelist
+			function build(pagepath, partial_pages, fullpath) {
+				if(pagepath.length == 1){
 
-				var resource = {}
-				resource.type = 'resource'
-				resource.fullpath = file
+					var page = {}
+					page.page = true
+					page.fullpath = '/' + fullpath.join('/')
+					page.name = format_service.prettify_string(pagepath[0])
 
-				resource.path = file.match(new RegExp('\/' + resource_base + '(.*)\\..*'))[1]
-				resource.name = resource.path.split('/').slice(-1)[0]
-				resource.label = capitalize(resource.path.split('/').slice(-1)[0])
+					partial_pages[pagepath[0]] = page
+				} else {
+					var folder = {}
+					folder.folder = true
+					folder.fullpath = '/' + fullpath.join('/')
+					folder.name = format_service.prettify_string(pagepath[0])
+					if(!(pagepath[0] in partial_pages)){
+						partial_pages[pagepath[0]] = folder
+					}
+					build(pagepath.slice(1), partial_pages[pagepath[0]], fullpath)
+				}
+			}
 
-				resource_list[resource.name] = resource
+			// goes throught the glob, crops the filename and builds a pagelist
+			files.map((file) => {
+				return file.match('/cms/(.*)\.js')[1].split('/')
+			}).forEach((pagepath) => {
+				build(pagepath, pagelist, pagepath)
 			})
-			console.log(resource_list)
-			resolve(resource_list)
+
+			resolve(pagelist)
 		})
 	})
 }
+
 
 function capitalize(input) {
 	return input[0].toUpperCase() + input.substring(1)

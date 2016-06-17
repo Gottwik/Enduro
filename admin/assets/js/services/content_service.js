@@ -1,42 +1,17 @@
 enduro_admin_app.factory('content_service', ['$http', 'url_config', '$cookies', function user_service($http, url_config, $cookies) {
 	var content_service = {};
 
-	content_service.get_pagelist = function(username, password) {
-		return $http.get(url_config.get_base_url() + 'get_page_list', {params: {sid: $cookies.get('sid')}})
+	content_service.get_cms_list = function(username, password) {
+		return $http.get(url_config.get_base_url() + 'get_cms_list', {params: {sid: $cookies.get('sid')}})
 			.then(function(res) {
 				if(res.data && res.data.success) {
+					console.log(res.data.data)
 					return res.data.data
 				} else {
 					console.log('error getting page list')
 				}
 			}, function() {
 				console.log('error getting page list')
-			});
-	}
-
-	content_service.get_datasetlist = function(username, password) {
-		return $http.get(url_config.get_base_url() + 'get_dataset_list', {params: {sid: $cookies.get('sid')}})
-			.then(function(res) {
-				if(res.data && res.data.success) {
-					return res.data.data
-				} else {
-					console.log('error getting dataset list')
-				}
-			}, function() {
-				console.log('error getting dataset list')
-			});
-	}
-
-	content_service.get_generatorlist = function(username, password) {
-		return $http.get(url_config.get_base_url() + 'get_generator_list', {params: {sid: $cookies.get('sid')}})
-			.then(function(res) {
-				if(res.data && res.data.success) {
-					return res.data.data
-				} else {
-					console.log('error getting dataset list')
-				}
-			}, function() {
-				console.log('error getting dataset list')
 			});
 	}
 

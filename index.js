@@ -39,28 +39,36 @@ var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_securi
 var gulp = require(ENDURO_FOLDER + '/gulpfile')
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 var flag_handler = require(ENDURO_FOLDER + '/libs/cli_tools/flag_handler')
-
-// temp dependencies
 var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
+var enduro_server = require(ENDURO_FOLDER + '/server')
+
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
 gulp.set_refresh(function(callback){
 	kiska_logger.log('Refresh', true, 'enduro_render_events')
 	render(function(){
 		callback()
-	})
+	}, true)
 })
 
 // Stores enduro_server and extends it with render
-var enduro_server = require('./server')
+
+var first = true
+var first_production = true
 enduro_server.set_init(function(cb){
 	kiska_logger.log('initializing production server', true, 'enduro_render_events')
 	gulp.start('preproduction', () => {
-		render(function(){
-			gulp.start('production', () => {
-				cb()
+		if(first) {
+			render(function(){
+				if(first_production) {
+					gulp.start('production', () => {
+						cb()
+					})
+					first_production = false
+				}
 			})
-		})
+			first = false
+		}
 	})
 })
 
@@ -82,7 +90,6 @@ function run(args, flags){
 	global.flags = flag_handler.get_flag_object(flags)
 	return enduro_configurator.read_config()
 		.then(() => {
-
 			// * ———————————————————————————————————————————————————————— * //
 			// * 	$ enduro
 			// * ———————————————————————————————————————————————————————— * //
@@ -174,10 +181,12 @@ function run(args, flags){
 // *	- loads helpers
 // *	- renders files in ../pages
 // * ———————————————————————————————————————————————————————— * //
-function render(callback){
+function render(callback, nojuice){
 	kiska_logger.init('Enduro', 'enduro_render_events')
-
-	global_data.get_global_data()
+	juicebox.pull(nojuice)
+		.then(() => {
+			return global_data.get_global_data()
+		})
 		.then(() => {
 			return components_handler.read_components()
 		})

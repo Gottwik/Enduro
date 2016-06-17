@@ -1,0 +1,8 @@
+<div ng-repeat="page in cmslist">
+	<div ng-if="page.page">
+		<li><a href="#cms/{{page.path}}"><i class="fa fa-file"></i>{{page.name}}</a></li>
+	</div>
+	<div ng-if="page.folder">
+		<li><a href="#cms/{{page.path}}"><i class="fa fa-folder"></i>{{page.name}}</a></li>
+	</div>
+</div>

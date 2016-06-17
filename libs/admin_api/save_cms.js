@@ -17,6 +17,7 @@ var Promise = require('bluebird')
 // local dependencies
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
+var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
 
 // routed call
 api_call.prototype.call = function(req, res, enduro_server){
@@ -32,16 +33,22 @@ api_call.prototype.call = function(req, res, enduro_server){
 		return kiska_logger.err('parameters not provided')
 	}
 
+	var requesting_user
+
 	admin_sessions.get_user_by_session(sid)
 		.then((user) => {
+			requesting_user = user
 			return flat_file_handler.save_by_string(filename, content)
 		})
+		.then(() => {
+			return juicebox.pack(requesting_user.username)
+		})
 		.then((data) => {
+			// Re-renders enduro - essential to publishing the change
+			enduro_server.enduro_refresh(() => {})
 			res.send(data)
 		})
 
-	// Re-renders enduro - essential to publishing the change
-	enduro_server.enduro_refresh(() => {})
 }
 
 module.exports = new api_call()

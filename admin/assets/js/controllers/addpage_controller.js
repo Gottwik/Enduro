@@ -1,7 +1,5 @@
 enduro_admin_app.controller('addpage_controller', ['$scope', 'menu_cache', '$rootScope', 'content_service', function($scope, menu_cache, $rootScope, content_service) {
 
-	console.log()
-
 	$scope.addpage = function() {
 
 		// closes the modal

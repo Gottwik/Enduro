@@ -55,11 +55,7 @@ enduro_admin_app.factory('content_service', ['$http', 'url_config', '$cookies', 
 	}
 
 	content_service.add_page = function(new_pagename, generator) {
-		console.log(new_pagename, generator)
 		return $http.get(url_config.get_base_url() + 'add_page', {params: {sid: $cookies.get('sid'), new_pagename: new_pagename, generator: generator}})
-			.then(function(res) {
-				return res.data
-			})
 	}
 
 	return content_service

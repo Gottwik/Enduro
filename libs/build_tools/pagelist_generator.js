@@ -106,15 +106,15 @@ pagelist_generator.prototype.get_cms_list = function() {
 						return
 					}
 
-					// remove generator templates
-					if(pagepath[0] == 'generators' && pagepath[1] == pagepath[2]) {
-						return
-					}
-
 					var folder = {}
 					folder.folder = true
 					folder.fullpath = '/' + fullpath.join('/')
 					folder.name = format_service.prettify_string(pagepath[0])
+
+					// mark generator template as hidden
+					if(pagepath[0] == 'generators' && pagepath[1] == pagepath[2]) {
+						folder.hidden = true
+					}
 
 					if(fullpath[0] == 'generators' && pagepath.length != fullpath.length) {
 						folder.generator = true

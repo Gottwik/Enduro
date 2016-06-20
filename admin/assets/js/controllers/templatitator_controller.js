@@ -15,7 +15,7 @@ enduro_admin_app.controller('templatitator_controller', ['$scope', 'content_serv
 	$scope.formated_globalizer = format_service.deglobalize($scope.terminated_context.templatitator)
 
 	$scope.templatitator_change = function(context) {
-		terminator_service.get_first_clean($scope.context).push(context)
+		terminator_service.get_first_clean($scope.context).push(angular.copy(context))
 	}
 
 }])

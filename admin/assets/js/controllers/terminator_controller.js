@@ -5,7 +5,7 @@ enduro_admin_app.controller('terminator_controller', ['$scope', 'format_service'
 		$scope.terminated_context = {}
 		for(key in $scope.context) {
 
-			var terminator_matches = key.match(new RegExp('\\$' + $scope.key + '.*_(.*)'))
+			var terminator_matches = key.match(new RegExp('\\$' + $scope.key + '_(.*)'))
 			if(terminator_matches && terminator_matches.length) {
 				termianted_attribute = terminator_matches[1]
 				$scope.terminated_context[termianted_attribute] = $scope.context[key]

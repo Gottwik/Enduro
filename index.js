@@ -174,7 +174,7 @@ function run(args, flags){
 
 					return pagelist_generator.get_cms_list()
 						.then((pagelist) => {
-							console.log(pagelist)
+							//console.log(pagelist)
 						})
 				}
 			}

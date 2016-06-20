@@ -206,3 +206,8 @@ cms/index.js
 ```
 
 Non-terminated value will be used if no translation is given.
+
+## Flags
+* -f - will ignore warnings and force action
+* enduro -nojswatch will not trigger browsersync refresh on js file changes
+* enduro -nocmswatch will not trigger browsersync refresh on cms file changes

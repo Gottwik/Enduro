@@ -35,8 +35,6 @@ api_call.prototype.call = function(req, res, enduro_server) {
 	admin_sessions.get_user_by_session(sid)
 		.then((user) => {
 
-			console.log(__data)
-
 			// clean up string in case there is globalizer handle in front
 			globalizer_string = globalizer_string.replace('@@', '')
 

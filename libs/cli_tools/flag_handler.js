@@ -12,6 +12,14 @@ var FLAG_MAP =  {
 	f: {
 		label: 'force',
 		message: 'Force flag - weird stuff might happen'
+	},
+	nojswatch: {
+		label: 'nojswatch',
+		message: 'No javascript watch flag - will to refresh on js changes'
+	},
+	nocmswatch: {
+		label: 'nocmswatch',
+		message: 'No CMS watch flag - will to refresh on cms changes'
 	}
 }
 

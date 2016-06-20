@@ -33,7 +33,7 @@ gulp.set_refresh = function (callback) {
 }
 
 gulp.enduro_refresh = function () {
-	console.log('refresh not defined')
+	kiska_logger.err('refresh not defined')
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -82,10 +82,13 @@ function browsersync_start(norefresh) {
 		startPath: START_PATH,
 		open: !norefresh
 	})
-
 	watch([ CMD_FOLDER + '/assets/css/**/*', CMD_FOLDER + '/assets/fonticons/*', '!' + CMD_FOLDER + '/assets/css/sprites/*'],
-				() => { gulp.start('scss-lint', 'sass') })										// Watch for scss
-	watch([CMD_FOLDER + '/assets/js/**/*'], () => { gulp.start('js'); browser_sync.reload() })							// Watch for js
+				() => { gulp.start('scss-lint', 'sass') })									// Watch for scss
+
+	if(!flags.nojswatch) {
+		watch([CMD_FOLDER + '/assets/js/**/*'], () => { gulp.start('js'); browser_sync.reload() })							// Watch for js
+	}
+
 	watch([CMD_FOLDER + '/assets/img/**/*'], () => { gulp.start('img') })						// Watch for images
 	watch([CMD_FOLDER + '/assets/vendor/**/*'], () => { gulp.start('vendor') })					// Watch for vendor files
 	watch([CMD_FOLDER + '/assets/fonts/**/*'], () => { gulp.start('fonts') })					// Watch for fonts
@@ -99,11 +102,13 @@ function browsersync_start(norefresh) {
 	watch([CMD_FOLDER + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
 
 	// Watch for enduro changes
-	watch([CMD_FOLDER + '/pages/**/*.hbs', CMD_FOLDER + '/components/**/*.hbs', CMD_FOLDER + '/cms/**/*.js'], function() {
-		gulp.enduro_refresh(() => {
-			browser_sync.reload()
+	if(!flags.nocmswatch) {
+		watch([CMD_FOLDER + '/pages/**/*.hbs', CMD_FOLDER + '/components/**/*.hbs', CMD_FOLDER + '/cms/**/*.js'], function() {
+			gulp.enduro_refresh(() => {
+				browser_sync.reload()
+			})
 		})
-	})
+	}
 }
 
 
@@ -122,7 +127,7 @@ gulp.task('sass', function() {
 		.pipe(sass())
 		.on('error', function(err){
 			kiska_logger.err_blockStart('Sass error')
-			console.log(err.message)
+			kiska_logger.err(err.message)
 			kiska_logger.err_blockEnd()
 			this.emit('end')
 		})
@@ -156,7 +161,7 @@ gulp.task('scss-lint', function() {
 
 	}
 	catch(err){
-		return console.log('No liting. you need to install scss_lint')
+		return kiska_logger('No liting. you need to install scss_lint')
 	}
 })
 

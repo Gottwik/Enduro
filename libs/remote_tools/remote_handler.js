@@ -30,7 +30,6 @@ function s3_upload(filename, filepath) {
 	return new Promise(function(resolve, reject){
 
 		var destination_url = get_remote_url(filename)
-		console.log(filename, filepath)
 
 		var client = s3.createClient({
 			s3Options: {

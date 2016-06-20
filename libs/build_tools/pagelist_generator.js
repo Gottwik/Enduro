@@ -100,10 +100,36 @@ pagelist_generator.prototype.get_cms_list = function() {
 
 					partial_pages[pagepath[0]] = page
 				} else {
+
+					// remove templates from pagelist
+					if(pagepath[0] == 'templates') {
+						return
+					}
+
+					// remove generator templates
+					if(pagepath[0] == 'generators' && pagepath[1] == pagepath[2]) {
+						return
+					}
+
 					var folder = {}
 					folder.folder = true
 					folder.fullpath = '/' + fullpath.join('/')
 					folder.name = format_service.prettify_string(pagepath[0])
+
+					if(fullpath[0] == 'generators' && pagepath.length != fullpath.length) {
+						folder.generator = true
+					}
+
+					// change global name
+					if(folder.name == 'Global') {
+						folder.name = 'Datasets'
+					}
+
+					// change generators name
+					if(folder.name == 'Generators') {
+						folder.name = 'Multipages'
+					}
+
 					if(!(pagepath[0] in partial_pages)){
 						partial_pages[pagepath[0]] = folder
 					}

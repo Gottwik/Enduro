@@ -3,7 +3,7 @@ enduro_admin_app.controller('cms-editor-controller', ['$scope', '$rootScope', '$
 	// Get pages
 	content_service.get_content($routeParams.page_path)
 		.then(function(res){
-			$scope.page_name = res.page_name
+			$scope.page_name = res.page_name.split('/').splice(-1)[0]
 			$scope.context = res.context
 		})
 

@@ -19,20 +19,22 @@ enduro_admin_app.config(['$routeProvider',
 	function($routeProvider) {
 	$routeProvider
 		.when('/login', {
-			templateUrl: '/admin/assets/js/views/login.html'
+			templateUrl: '/admin/assets/js/views/login.html',
+			controller: 'pagesplit_controller'
 		})
 		.when('/', {
 			templateUrl: '/admin/assets/js/views/main_layout.html',
+			controller: 'pagesplit_controller'
 		})
 		.when('/cms/:page_path*', {
 			templateUrl: '/admin/assets/js/views/main_layout.html',
+			controller: 'pagesplit_controller'
 		})
 		.otherwise({ redirectTo: '/' })
 	}]);
 
 
 enduro_admin_app.run(['$rootScope', '$location', 'user_service', function($rootScope, $location, user_service) {
-
 
 	$rootScope.$on('$locationChangeSuccess', function() {
 		user_service.is_logged_in()

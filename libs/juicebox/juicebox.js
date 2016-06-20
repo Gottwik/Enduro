@@ -17,6 +17,8 @@ var request = require('request')
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var remote_handler = require(ENDURO_FOLDER + '/libs/remote_tools/remote_handler')
+//var juice_packer = require(ENDURO_FOLDER + '/libs/juicebox/juice_packer')
+var juice_helpers = require(ENDURO_FOLDER + '/libs/juicebox/juice_helpers')
 
 var EXTENSION = '.tar.gz'
 
@@ -67,7 +69,7 @@ juicebox.prototype.pack = function (user) {
 
 juicebox.prototype.pull = function (nojuice) {
 
-	if(nojuice) {
+	if(nojuice || !config.variables.juicebox_enabled) {
 		return Promise.resolve()
 	}
 
@@ -83,6 +85,24 @@ juicebox.prototype.pull = function (nojuice) {
 			kiska_logger.log('Juice pulled successfully')
 			kiska_logger.end()
 			return Promise.resolve()
+		})
+}
+
+juicebox.prototype.diff = function (nojuice) {
+	console.log('diff')
+
+	var diff_juice
+
+	return get_latest_juice()
+		.then((juice) => {
+			diff_juice = juice
+			return get_juicebox_by_name(juice.latest.hash + EXTENSION)
+		})
+		.then((latest_juicebox) => {
+			return spill_the_juice(latest_juicebox, path.join('juicebox', 'staging', diff_juice.latest.hash))
+		})
+		.then(() => {
+			juice_helpers.diff_with_cms(path.join('juicebox', 'staging', diff_juice.latest.hash, 'cms'))
 		})
 }
 
@@ -132,16 +152,18 @@ function get_juicebox_by_name(juicebox_name) {
 	})
 }
 
-function spill_the_juice(juicebox_name) {
+function spill_the_juice(juicebox_name, destination) {
+
+	destination = destination || path.join(CMD_FOLDER)
+
 	return new Promise(function(resolve, reject){
 
 		var tarball = path.join(CMD_FOLDER, 'juicebox', juicebox_name)
-		var dest = path.join(CMD_FOLDER)
 
 		fs.createReadStream(tarball)
 			.pipe(zlib.Unzip())
 			.pipe(tar.Extract({
-				path: dest,
+				path: destination,
 			}))
 			.on('end', function() {
 				resolve()

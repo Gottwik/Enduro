@@ -1,17 +1,13 @@
 <div class="blur-background light"></div>
-<div class="main-viewport" ng-controller="page-split-controller">
+<div class="main-viewport">
 
 	<nav class="side-main-menu">
 		<img class="menu-branding" src="/admin/assets/img/menu-logo.png">
 
-		<div class="side-menu-items">
-			<a class="side-main-menu-item" href="#/">Dashboard</a>
-
-			<div class="side-main-menu-group-label">Pages</div>
+		<div class="side-menu-items" ng-controller="mainmenu_controller">
 			<ul class="side-main-menu-group">
 				<div ng-include="'/admin/assets/js/views/cms_list.html'"></div>
 			</ul>
-
 		</div>
 
 		<div class="userbox" ng-controller="logout_controller">
@@ -26,5 +22,7 @@
 	</nav>
 
 	<!-- Inner page -->
-	<div class="inner-page-viewport" ng-include="inner_page"></div>
+		<div class="inner-page-viewport" ng-include="inner_page" ng-controller="pagesplit_controller"></div>
 </div>
+
+<div ng-include="modal"></div>

@@ -161,7 +161,17 @@ function run(args, flags){
 						return juicebox.pack()
 					} else if(arg == 'pull') {
 						return juicebox.pull()
+					} else if(arg == 'diff') {
+						return juicebox.diff()
 					}
+
+				} else if(arg == 'test'){
+					var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator')
+
+					return pagelist_generator.get_cms_list()
+						.then((pagelist) => {
+							console.log(pagelist)
+						})
 				}
 			}
 

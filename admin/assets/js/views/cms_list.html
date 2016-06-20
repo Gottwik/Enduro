@@ -1,8 +1,17 @@
 <div ng-repeat="page in cmslist">
-	<div ng-if="page.page">
-		<li><a href="#cms/{{page.path}}"><i class="fa fa-file"></i>{{page.name}}</a></li>
+
+	<div ng-if="page.page" ng-controller="menupage_controller">
+		<div class="menupage" ng-class="{'active': cmslist.active}" ng-click="pageclick()"><a href="#cms{{page.fullpath}}"><i class="fa fa-file"></i>{{page.name}}</a></div>
 	</div>
-	<div ng-if="page.folder">
-		<li><a href="#cms/{{page.path}}"><i class="fa fa-folder"></i>{{page.name}}</a></li>
+
+	<div ng-if="page.folder" ng-controller="folder_controller">
+
+
+		<div class="menufolder" ng-click="folderclick()"><i class="fa fa-folder"></i>{{page.name}}</div>
+		<div class="inner-folder" ng-class="{'open': cmslist.open}">
+			<div class="addpage_button" ng-click="add_page()" ng-if="page.generator"><i class="fa fa-plus"></i>Add page</div>
+			<div ng-include="'/admin/assets/js/views/cms_list.html'"></div>
+		</div>
 	</div>
+
 </div>

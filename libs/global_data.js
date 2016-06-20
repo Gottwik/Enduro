@@ -15,7 +15,7 @@ var glob = require("glob")
 // Local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
-var flatFileHandler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 
 // Constants
 var DATA_PATH = CMD_FOLDER + '/cms/global/**/*.js'
@@ -45,7 +45,7 @@ global_data.prototype.get_global_data = function() {
 				// Loads the file
 				var data = {}
 				if(enduro_helpers.fileExists(file)) {
-					flatFileHandler.load(fileInCms)
+					flat_file_handler.load(fileInCms)
 						.then((data) => {
 							// Extends global data with currently loaded data
 							extend(true, __data.global, data)

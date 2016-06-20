@@ -17,22 +17,75 @@ var request = require('request')
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var remote_handler = require(ENDURO_FOLDER + '/libs/remote_tools/remote_handler')
-//var juice_packer = require(ENDURO_FOLDER + '/libs/juicebox/juice_packer')
 var juice_helpers = require(ENDURO_FOLDER + '/libs/juicebox/juice_helpers')
 
 var EXTENSION = '.tar.gz'
 
 // packs up the juicebox together with new juice.json
 juicebox.prototype.pack = function (user) {
+
+	var self = this
+
+	return self.pull()
+		.then(() => {
+			return self.force_pack(user)
+		})
+}
+
+juicebox.prototype.pull = function (nojuice) {
+
+	if(nojuice || !config.variables.juicebox_enabled) {
+		return Promise.resolve()
+	}
+
+	kiska_logger.init('Juice pull')
+
+	if(flags.force) {
+			return get_latest_juice()
+				.then((juice) => {
+					return get_juicebox_by_name(juice.latest.hash + EXTENSION)
+				})
+				.then((latest_juicebox) => {
+					return spill_the_juice(latest_juicebox)
+				})
+				.then(() => {
+					kiska_logger.end()
+					return Promise.resolve()
+				})
+	} else {
+
+		var pull_juice
+
+		return get_latest_juice()
+			.then((juice) => {
+				pull_juice = juice
+				return get_juicebox_by_name(juice.latest.hash + EXTENSION)
+			})
+			.then((latest_juicebox) => {
+				return spill_the_juice(latest_juicebox, path.join('juicebox', 'staging', pull_juice.latest.hash))
+			})
+			.then(() => {
+				return juice_helpers.spill_newer(path.join('juicebox', 'staging', pull_juice.latest.hash))
+			})
+			.then(() => {
+				kiska_logger.end()
+				return Promise.resolve()
+			})
+	}
+}
+
+// packs up the juicebox together with new juice.json
+juicebox.prototype.force_pack = function (user) {
 	return new Promise(function(resolve, reject){
 
+		// sets user to developer if juicing is caused by console
 		user = user || 'developer'
 
+		// Skip juicing if juicing is not enabled(most likely s3 keys are missing)
 		if(!config.variables.juicebox_enabled) {
 			resolve()
 			return kiska_logger.log('juicebox not enabled')
 		}
-
 		get_latest_juice()
 			.then((juice) => {
 				juice.history = juice.history || []
@@ -40,6 +93,7 @@ juicebox.prototype.pack = function (user) {
 				if(juice.latest) {
 					juice.history.push(juice.latest)
 				}
+
 
 				juice.latest = {
 					hash: config.project_name + '_' + Math.floor(Date.now() / 1000),
@@ -58,34 +112,13 @@ juicebox.prototype.pack = function (user) {
 						return remote_handler.upload_to_s3_by_filepath('juicebox/' + juice.latest.hash + EXTENSION, path.join(CMD_FOLDER, 'juicebox', juice.latest.hash + EXTENSION))
 					})
 					.then(() => {
-						kiska_logger.init('Juice')
-						kiska_logger.log('Juice packed successfully')
+						kiska_logger.init('Juice pack')
+						kiska_logger.log('packed successfully')
 						kiska_logger.end()
 						resolve()
 					})
 			})
 	})
-}
-
-juicebox.prototype.pull = function (nojuice) {
-
-	if(nojuice || !config.variables.juicebox_enabled) {
-		return Promise.resolve()
-	}
-
-	return get_latest_juice()
-		.then((juice) => {
-			return get_juicebox_by_name(juice.latest.hash + EXTENSION)
-		})
-		.then((latest_juicebox) => {
-			return spill_the_juice(latest_juicebox)
-		})
-		.then(() => {
-			kiska_logger.init('Juice')
-			kiska_logger.log('Juice pulled successfully')
-			kiska_logger.end()
-			return Promise.resolve()
-		})
 }
 
 juicebox.prototype.diff = function (nojuice) {

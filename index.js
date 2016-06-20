@@ -158,7 +158,11 @@ function run(args, flags){
 				} else if(arg == 'juice'){
 					arg = args.shift()
 					if(arg == 'pack') {
-						return juicebox.pack()
+						if(global.flags.force) {
+							return juicebox.force_pack()
+						} else {
+							return juicebox.pack()
+						}
 					} else if(arg == 'pull') {
 						return juicebox.pull()
 					} else if(arg == 'diff') {

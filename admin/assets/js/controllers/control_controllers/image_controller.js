@@ -1,5 +1,7 @@
 enduro_admin_app.controller('image_controller', ['$scope', 'Upload', 'url_config', '$cookies', function ($scope, Upload, url_config, $cookies) {
 
+	$scope.progress = 100
+
 	// upload on file select or drop
 	$scope.upload = function (file) {
 		Upload.upload({

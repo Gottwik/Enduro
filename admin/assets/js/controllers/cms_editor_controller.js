@@ -20,7 +20,12 @@ enduro_admin_app.controller('cms-editor-controller', ['$scope', '$rootScope', '$
 	}
 
 	$scope.publish = function() {
+		$scope.publishing = true
+
 		content_service.save_content($routeParams.page_path, $scope.context)
+			.then(() => {
+				$scope.publishing = false
+			})
 	}
 
 	// Helper functions

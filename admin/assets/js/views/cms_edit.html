@@ -1,6 +1,6 @@
 <div ng-controller="cms-editor-controller">
 	<div class="header-bar">
-		<div class="btn btn-success small" ng-click="publish()"><i class="fa fa-diamond"></i>Publish</div>
+		<div class="btn btn-success small publish-button" ng-click="publish()" ng-class="{'publishing': publishing}"><i class="fa fa-diamond"></i>Publish</div>
 	</div>
 	<div class="page-viewport">
 		<div class="panel">

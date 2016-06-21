@@ -35,9 +35,6 @@ enduro_admin_app.factory('content_service', ['$http', 'url_config', '$cookies', 
 
 	content_service.save_content = function(page_path, content) {
 		return $http.get(url_config.get_base_url() + 'save_cms', {params: {sid: $cookies.get('sid'), content: content, filename: page_path}})
-			.then(function(res) {
-				return res.data
-			})
 	}
 
 	content_service.get_globalized_options = function(globalizer_string) {

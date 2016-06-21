@@ -15,6 +15,7 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 var globalizer = require(ENDURO_FOLDER + '/libs/globalizer/globalizer')
+var markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
 
 // Renders individual files
 page_renderer.prototype.render_file = function(file, context_filename, culture, dest_path) {
@@ -51,6 +52,8 @@ page_renderer.prototype.render_file = function(file, context_filename, culture, 
 
 					// adds in-cms networking
 					globalizer.globalize(context)
+
+					markdownifier.markdownify(context)
 
 					// Renders the template with the culturalized context
 					var output = "Error processing page"

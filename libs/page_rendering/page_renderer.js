@@ -39,7 +39,6 @@ page_renderer.prototype.render_file = function(file, context_filename, culture, 
 			// Creates a template
 			var template = __templating_engine.compile(data)
 
-			// Loads context if cms file with same name exists
 			flat_file_handler.load(context_filename)
 				.then((context) => {
 					// If global data exists extends the context with it
@@ -68,6 +67,7 @@ page_renderer.prototype.render_file = function(file, context_filename, culture, 
 					if(!config.render_templates) {
 						output = data
 					}
+
 
 					// Makes sure the target directory exists
 					enduro_helpers.ensureDirectoryExistence(CMD_FOLDER + '/_src/' + destination_path)

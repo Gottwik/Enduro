@@ -21,7 +21,6 @@ var UPLOADS_FOLDER = '/assets/img/uploaded'
 admin_file_upload_handler.prototype.upload = function(file) {
 	// decides where to upload files
 	if(global.config.variables.S3_KEY && global.config.variables.S3_SECRET) {
-		console.log('aaaaaa')
 		return remote_handler.upload_to_s3_by_file(file)
 	} else {
 		return uploadfile_local(file)

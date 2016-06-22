@@ -5,6 +5,12 @@ enduro_admin_app.controller('cms-editor-controller', ['$scope', '$rootScope', '$
 		.then(function(res){
 			$scope.page_name = res.page_name.split('/').splice(-1)[0]
 			$scope.context = res.context
+
+			console.log()
+			console.log($scope.context)
+			console.log()
+			console.log(JSON.stringify($scope.context))
+			console.log()
 		})
 
 	culture_service.get_cultures()

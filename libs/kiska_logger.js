@@ -27,6 +27,7 @@ var logtags_config = {
 	admin_login: false,
 	file_uploading: true,
 	render_debug: true,
+	juicebox: true
 }
 
 // * ———————————————————————————————————————————————————————— * //

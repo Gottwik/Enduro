@@ -29,7 +29,6 @@ juice_helpers.prototype.diff_with_cms = function(folder) {
 		// console.log('differences: ' + res.differences);
 		// console.log('same: ' + res.same);
 		res.diffSet.forEach(function (entry) {
-			console.log(entry.type1, entry.type2)
 			var state = {
 				'equal' : ' == ',
 				'left' : ' -> ',
@@ -39,10 +38,10 @@ juice_helpers.prototype.diff_with_cms = function(folder) {
 			var name1 = entry.name1 ? entry.name1 : '';
 			var name2 = entry.name2 ? entry.name2 : '';
 
+			console.log(name1, entry.type1, entry.date1, state, name2, entry.type2, entry.date2);
 			// files are different
 			if(entry.state == 'distinct') {
-				console.log(name1 + ' ' + (entry.date1 > entry.date2 ? 'local file newer' : 'remote file newer'))
-				//console.log(format('%s(%s)[%s]%s%s(%s)[%s]', name1, entry.type1, entry.date1, state, name2, entry.type2, entry.date2));
+			//	console.log(name1 + ' ' + (entry.date1 > entry.date2 ? 'local file newer' : 'remote file newer'))
 			}
 		});
 	})
@@ -64,7 +63,7 @@ juice_helpers.prototype.spill_newer = function(folder) {
 				}
 
 				// only on remote
-				if(entry.state == 2) {
+				if(entry.state == 'right') {
 					kiska_logger.twolog('new file in juicebar', entry.name2)
 					copy_stack.push(copy_file_to_cms(entry))
 				}
@@ -87,7 +86,12 @@ function get_diff(folder) {
 function copy_file_to_cms(entry) {
 	return new Promise(function(resolve, reject){
 
-		ncp(path.join(entry.path2, entry.name2), path.join(entry.path1, entry.name1), () => {
+		var from_path = path.join(entry.path2, entry.name2)
+		var to_path = path.join(CMD_FOLDER, 'cms', path.join(entry.path2, entry.name2).match(/\/cms\/(.*)/)[1])
+
+		kiska_logger.log('copying files from ' + from_path + ' to ' + to_path, 'juicebox')
+
+		ncp(from_path, to_path, () => {
 			resolve()
 		})
 	})

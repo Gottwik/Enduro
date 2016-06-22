@@ -1,14 +1,18 @@
 <div class="blur-background"></div>
-<div class="card login-card">
+<div class="card login-card" ng-controller="login_controller">
 	<img class="login-logo" src="/admin/assets/img/logo.png">
 	<div class="card-body">
+		<div class="infobox" ng-class="{'hidden': juicebox_enabled}">
+			<i class="fa fa-exclamation-triangle"></i>
+			<span><b>Juicebox is not enabled</b> - Whatever you do here won't survive container restart or scaling</span>
+		</div>
 
 		<div>
 			<h2>Login please:</h2>
 			<div class="wedge-2x"></div>
 		</div>
 
-		<form ng-submit="submit()" ng-controller="login_controller">
+		<form ng-submit="submit()">
 			<div class="form-row">
 				<label class="login-textfield-label">
 					<input type="text" ng-model="enduro_username" required tabindex="1">

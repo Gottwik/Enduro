@@ -107,6 +107,8 @@ kiska_logger.prototype.err_blockStart = function (message, logtag) {
 // * │ Something went wrong                                     │ * //
 kiska_logger.prototype.err = function (message, logtag) {
 	if(!pass_tagcheck(logtag)){ return }
+	console.log(message)
+	if(!message) { return }
 	log(chalk.red(message.rpad(FRAME_WIDTH)))
 };
 
@@ -122,6 +124,15 @@ kiska_logger.prototype.err_blockEnd = function (logtag) {
 	log(chalk.red(rep(FRAME_WIDTH, '▲')))
 	log('\n')
 };
+
+kiska_logger.prototype.raw_err = function (message, logtag) {
+	if(!pass_tagcheck(logtag)){ return }
+	this.err_blockStart()
+	console.log(message)
+	this.err_blockEnd()
+};
+
+
 
 // Silencer
 kiska_logger.prototype.silent = function (logtag) {

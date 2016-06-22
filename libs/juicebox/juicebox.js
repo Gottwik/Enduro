@@ -18,6 +18,7 @@ var request = require('request')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var remote_handler = require(ENDURO_FOLDER + '/libs/remote_tools/remote_handler')
 var juice_helpers = require(ENDURO_FOLDER + '/libs/juicebox/juice_helpers')
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
 var EXTENSION = '.tar.gz'
 
@@ -32,7 +33,7 @@ juicebox.prototype.pack = function (user) {
 		})
 }
 
-juicebox.prototype.pull = function (nojuice) {
+juicebox.prototype.pull = function (nojuice, force) {
 
 	if(nojuice || !config.variables.juicebox_enabled) {
 		return Promise.resolve()
@@ -40,37 +41,41 @@ juicebox.prototype.pull = function (nojuice) {
 
 	kiska_logger.init('Juice pull')
 
-	if(flags.force) {
+	if(flags.force || force) {
 			return get_latest_juice()
 				.then((juice) => {
 					return get_juicebox_by_name(juice.latest.hash + EXTENSION)
-				})
+				}, err)
 				.then((latest_juicebox) => {
 					return spill_the_juice(latest_juicebox)
-				})
+				}, err)
 				.then(() => {
 					kiska_logger.end()
 					return Promise.resolve()
-				})
+				}, err)
 	} else {
 
 		var pull_juice
 
 		return get_latest_juice()
+
 			.then((juice) => {
 				pull_juice = juice
 				return get_juicebox_by_name(juice.latest.hash + EXTENSION)
-			})
+			}, err)
+
 			.then((latest_juicebox) => {
 				return spill_the_juice(latest_juicebox, path.join('juicebox', 'staging', pull_juice.latest.hash))
-			})
+			}, err)
+
 			.then(() => {
 				return juice_helpers.spill_newer(path.join('juicebox', 'staging', pull_juice.latest.hash))
-			})
+			}, err)
+
 			.then(() => {
 				kiska_logger.end()
 				return Promise.resolve()
-			})
+			}, err)
 	}
 }
 
@@ -86,6 +91,7 @@ juicebox.prototype.force_pack = function (user) {
 			resolve()
 			return kiska_logger.log('juicebox not enabled')
 		}
+
 		get_latest_juice()
 			.then((juice) => {
 				juice.history = juice.history || []
@@ -93,7 +99,6 @@ juicebox.prototype.force_pack = function (user) {
 				if(juice.latest) {
 					juice.history.push(juice.latest)
 				}
-
 
 				juice.latest = {
 					hash: config.project_name + '_' + Math.floor(Date.now() / 1000),
@@ -139,6 +144,10 @@ juicebox.prototype.diff = function (nojuice) {
 		})
 }
 
+juicebox.prototype.juicebox_enabled = function () {
+	return config.variables.juicebox_enabled
+}
+
 function write_juicebox(juicebox_name) {
 	return new Promise(function(resolve, reject){
 		fstream.Reader({ 'path': path.join(CMD_FOLDER, 'cms'), 'type': 'Directory' })
@@ -154,10 +163,14 @@ function write_juicebox(juicebox_name) {
 
 function write_juicefile(juice) {
 	return new Promise(function(resolve, reject){
-		fs.writeFile( path.join(CMD_FOLDER, 'juicebox', 'juice.json') , JSON.stringify(juice), function(err) {
-			if(err) { reject() }
-			resolve()
-		})
+		var destination_juicefile_path = path.join(CMD_FOLDER, 'juicebox', 'juice.json')
+		enduro_helpers.ensureDirectoryExistence(destination_juicefile_path)
+			.then(() => {
+				fs.writeFile(destination_juicefile_path, JSON.stringify(juice), function(err) {
+					if(err) { reject(err) }
+					resolve()
+				})
+			})
 	})
 }
 
@@ -168,7 +181,7 @@ function get_latest_juice() {
 				write_juicefile(JSON.parse(body))
 					.then(() => {
 						resolve(JSON.parse(body))
-					})
+					}, err)
 		})
 
 	})
@@ -202,6 +215,10 @@ function spill_the_juice(juicebox_name, destination) {
 				resolve()
 			})
 	})
+}
+
+function err(err) {
+	kiska_logger.raw_err(err)
 }
 
 

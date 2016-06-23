@@ -45,8 +45,9 @@ api_call.prototype.call = function(req, res, enduro_server){
 		})
 		.then((data) => {
 			// Re-renders enduro - essential to publishing the change
-			enduro_server.enduro_refresh(() => {})
-			res.send(data)
+			enduro_server.enduro_refresh(() => {
+				res.send(data)
+			})
 		})
 
 }

@@ -17,9 +17,10 @@ api_call.prototype.call = function(req, res, enduro_server){
 			return juicebox.pull(false, true)
 		})
 		.then(() => {
-			res.send({success: true})
+			enduro_server.enduro_refresh(() => {
+				res.send({success: true})
+			})
 		})
-
 }
 
 module.exports = new api_call()

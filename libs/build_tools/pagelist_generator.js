@@ -98,6 +98,11 @@ pagelist_generator.prototype.get_cms_list = function() {
 					page.fullpath = '/' + fullpath.join('/')
 					page.name = format_service.prettify_string(pagepath[0])
 
+					// mark generator template as hidden
+					if(fullpath[0] == 'generators' && fullpath[1] == fullpath[2]) {
+						page.hidden = true
+					}
+
 					partial_pages[pagepath[0]] = page
 				} else {
 
@@ -111,10 +116,6 @@ pagelist_generator.prototype.get_cms_list = function() {
 					folder.fullpath = '/' + fullpath.join('/')
 					folder.name = format_service.prettify_string(pagepath[0])
 
-					// mark generator template as hidden
-					if(pagepath[0] == 'generators' && pagepath[1] == pagepath[2]) {
-						folder.hidden = true
-					}
 
 					if(fullpath[0] == 'generators' && pagepath.length != fullpath.length) {
 						folder.generator = true

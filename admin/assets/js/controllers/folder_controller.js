@@ -2,6 +2,8 @@ enduro_admin_app.controller('folder_controller', ['$scope', 'menu_cache', '$root
 
 	$scope.cmslist = $scope.page
 
+	console.log($scope.hidden)
+
 	$scope.folderclick = function() {
 		$scope.cmslist.open = !$scope.cmslist.open
 		menu_cache.put('mainmenu_data', $rootScope.cmslist)

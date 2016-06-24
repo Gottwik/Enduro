@@ -9,4 +9,8 @@ enduro_admin_app.controller('object_controller', ['$scope', 'format_service', '$
 		$scope.context = $scope.value
 	}
 
+	$scope.expand = function() {
+		$scope.open = !$scope.open
+	}
+
 }])

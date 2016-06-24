@@ -1,4 +1,9 @@
-<div ng-controller="object_controller">
+<div class="expander-btn" ng-if="terminated_context['expander']" ng-click="expand()">
+	<span ng-class="{'hidden': open}"><i class="fa fa-chevron-down"></i>click to expand</span>
+	<span ng-class="{'hidden': !open}"><i class="fa fa-chevron-up"></i>click to collapse</span>
+</div>
+
+<div ng-controller="object_controller" ng-class="{'object-expander-collapsed': (!open && terminated_context['expander'])}">
 	<div ng-if="!no_label" class="container-title">
 		<h3>{{object_name}}</h3>
 	</div>

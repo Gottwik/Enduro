@@ -7,7 +7,8 @@ enduro_admin_app.controller('templatitator_controller', ['$scope', 'content_serv
 			$scope.template_list = Object.keys(templates).map((key) => {
 				return {
 					value: templates[key],
-					label: key
+					label: key,
+					formatted_label: format_service.deslug(key)
 				}
 			})
 		})
@@ -15,7 +16,7 @@ enduro_admin_app.controller('templatitator_controller', ['$scope', 'content_serv
 	$scope.formated_globalizer = format_service.deglobalize($scope.terminated_context.templatitator)
 
 	$scope.templatitator_change = function(context) {
-		terminator_service.get_first_clean($scope.context).push(angular.copy(context))
+		$scope.context[$scope.key].push(angular.copy(context))
 	}
 
 }])

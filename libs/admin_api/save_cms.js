@@ -18,37 +18,48 @@ var Promise = require('bluebird')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
+var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // routed call
 api_call.prototype.call = function(req, res, enduro_server){
 
-	// gets parameters from query
-	var sid = req.query.sid
-	var filename = req.query.filename
-	var content = req.query.content
+	var jsonString = '';
+	req.on('data', function (data) {
+		jsonString += data;
+	});
 
-	// makes sure all required query parameters were sent
-	if(!sid || !filename || !content) {
-		res.send({success: false, message: 'Parameters not provided'})
-		return kiska_logger.err('parameters not provided')
-	}
+	req.on('end', function () {
 
-	var requesting_user
+		jsonString = JSON.parse(jsonString)
 
-	admin_sessions.get_user_by_session(sid)
-		.then((user) => {
-			requesting_user = user
-			return flat_file_handler.save_by_string(filename, content)
-		})
-		.then(() => {
-			return juicebox.pack(requesting_user.username)
-		})
-		.then((data) => {
-			// Re-renders enduro - essential to publishing the change
-			enduro_server.enduro_refresh(() => {
-				res.send(data)
+		// gets parameters from query
+		var sid = jsonString.sid
+		var filename = jsonString.filename
+		var content = jsonString.content
+
+		// makes sure all required query parameters were sent
+		if(!sid || !filename || !content) {
+			res.send({success: false, message: 'Parameters not provided'})
+			return kiska_logger.err('parameters not provided')
+		}
+
+		var requesting_user
+
+		admin_sessions.get_user_by_session(sid)
+			.then((user) => {
+				requesting_user = user
+				return flat_file_handler.save(filename, content)
 			})
-		})
+			.then(() => {
+				return juicebox.pack(requesting_user.username)
+			})
+			.then((data) => {
+				// Re-renders enduro - essential to publishing the change
+				enduro_server.enduro_refresh(() => {
+					res.send(data)
+				})
+			})
+	});
 
 }
 

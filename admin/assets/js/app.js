@@ -1,6 +1,8 @@
 //var $jq = jQuery.noConflict();
 
-var enduro_admin_app = angular.module('enduro_admin',['ngRoute', 'ngCookies', 'ngFileUpload']);
+var enduro_admin_app = angular.module('enduro_admin',['ngRoute', 'ngCookies', 'ngFileUpload'], function($rootScopeProvider) {
+  $rootScopeProvider.digestTtl(15)
+})
 
 enduro_admin_app
 	.constant('url_config', {

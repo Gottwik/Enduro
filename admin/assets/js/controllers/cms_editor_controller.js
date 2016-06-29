@@ -7,8 +7,6 @@ enduro_admin_app.controller('cms-editor-controller', ['$scope', '$rootScope', '$
 			$scope.context = res.context
 
 			console.log()
-			console.log($scope.context)
-			console.log()
 			console.log(JSON.stringify($scope.context))
 			console.log()
 		})

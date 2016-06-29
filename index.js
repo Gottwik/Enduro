@@ -197,7 +197,7 @@ function run(args, flags){
 // * ———————————————————————————————————————————————————————— * //
 function render(callback, nojuice){
 	kiska_logger.init('Enduro', 'enduro_render_events')
-	juicebox.pull(nojuice)
+	juicebox.pull(nojuice, true)
 		.then(() => {
 			return global_data.get_global_data()
 		})

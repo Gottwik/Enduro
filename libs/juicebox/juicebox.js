@@ -148,6 +148,11 @@ juicebox.prototype.juicebox_enabled = function () {
 	return config.variables.juicebox_enabled
 }
 
+juicebox.prototype.no_juice_yet = function () {
+	var juicefile_path = path.join(CMD_FOLDER, 'juicebox', 'juice.json')
+	return !enduro_helpers.fileExists(juicefile_path)
+}
+
 function write_juicebox(juicebox_name) {
 	return new Promise(function(resolve, reject){
 		fstream.Reader({ 'path': path.join(CMD_FOLDER, 'cms'), 'type': 'Directory' })

@@ -12,8 +12,9 @@ var s3 = require('s3')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 
-remote_handler.prototype.upload_to_s3_by_file = function (file) {
-	return s3_upload('direct_uploads/' + file.name, file.path)
+remote_handler.prototype.upload_to_s3_by_file = function (file, timestamp) {
+	var filename = timestamp ? timestamp_filename(file.name) : file.name
+	return s3_upload('direct_uploads/' + filename, file.path)
 }
 
 remote_handler.prototype.upload_to_s3_by_filepath = function (filename, filepath) {
@@ -24,6 +25,9 @@ remote_handler.prototype.get_remote_url = function (filename) {
 	return get_remote_url(filename)
 }
 
+function timestamp_filename(filename) {
+	return (new Date/1e3|0) + '_' + filename
+}
 
 function s3_upload(filename, filepath) {
 	//kiska_logger.timestamp('Uploading file to s3','file_uploading')
@@ -48,7 +52,7 @@ function s3_upload(filename, filepath) {
 			s3Params: {
 				Bucket: global.config.s3.bucket,
 				Key: filename,
-				// other options supported by putObject, except Body and ContentLength.
+				// other options suwpported by putObject, except Body and ContentLength.
 				// See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
 			},
 		};
@@ -63,7 +67,7 @@ function s3_upload(filename, filepath) {
 		});
 
 		uploader.on('end', function() {
-			//kiska_logger.timestamp('File uploaded successfully: ' + destination_url)
+			kiska_logger.timestamp('File uploaded successfully: ' + destination_url)
 			return resolve(destination_url)
 		});
 

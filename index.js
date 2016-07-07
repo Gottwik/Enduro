@@ -258,6 +258,7 @@ function developer_start(norefresh){
 	gulp.start('preproduction', () => {
 		if(first){
 			render(() => {
+				kiska_logger.timestamp('Render finished', 'enduro_events')
 				if(firstrender){
 					gulp.start(norefresh ? 'default_norefresh' : 'default', () => {
 						if(firstserverstart){

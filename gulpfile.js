@@ -83,7 +83,7 @@ function browsersync_start(norefresh) {
 		open: !norefresh
 	})
 	watch([ CMD_FOLDER + '/assets/css/**/*', CMD_FOLDER + '/assets/fonticons/*', '!' + CMD_FOLDER + '/assets/css/sprites/*'],
-				() => { gulp.start('scss-lint', 'sass') })									// Watch for scss
+				() => { gulp.start('sass') })									// Watch for scss
 
 	if(!flags.nojswatch) {
 		watch([CMD_FOLDER + '/assets/js/**/*'], () => { gulp.start('js'); browser_sync.reload() })							// Watch for js
@@ -98,7 +98,6 @@ function browsersync_start(norefresh) {
 		gulp.start('iconfont')
 		gulp.enduro_refresh(() => {})
 	})			// Watch for font icon
-	watch([CMD_FOLDER + '/_src/**/*.html'], () => { browser_sync.reload() })						// Watch for html files
 	watch([CMD_FOLDER + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
 
 	// Watch for enduro changes
@@ -291,8 +290,9 @@ gulp.task('hbs_helpers', function() {
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('default', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync'])
-gulp.task('default_norefresh', ['hbs_templates', 'sass', 'scss-lint', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync_norefresh'])
+//gulp.task('default', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync'])
+gulp.task('default', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync'])
+gulp.task('default_norefresh', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync_norefresh'])
 
 
 // * ———————————————————————————————————————————————————————— * //
@@ -312,7 +312,7 @@ gulp.task('production', ['sass', 'hbs_templates', 'js', 'img', 'vendor', 'fonts'
 // * ———————————————————————————————————————————————————————— * //
 // * 	check task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('check', [htmlvalidator, prettyfier])
+gulp.task('check', [htmlvalidator, prettyfier, 'scss-lint'])
 
 // Export gulp to enable access for enduro
 module.exports = gulp

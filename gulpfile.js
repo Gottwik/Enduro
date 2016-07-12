@@ -136,7 +136,7 @@ gulp.task('sass', function() {
 		})
 		.pipe(autoprefixer({
 			browsers: ['last 2 versions'],
-			cascade: false
+			cascade: false,
 		}))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/css'))
@@ -153,10 +153,10 @@ gulp.task('sass', function() {
 gulp.task('scss-lint', function() {
 	try{
 		kiska_logger.timestamp('Sass lint started', 'enduro_events')
-		return gulp.src(CMD_FOLDER + '/assets/css/**/*')
+		return gulp.src(path.join(CMD_FOLDER, '/assets/css/**/*'))
 			.pipe(checkGem({gemfile: 'scss-lint'}, scsslint(
 				{
-					'config': __dirname + '/support_files/scss-lint.yml'
+					'config': __dirname + '/support_files/scss-lint.yml',
 				}
 			).on('end', () => {
 				kiska_logger.timestamp('Sass lint finished', 'enduro_events')
@@ -244,7 +244,7 @@ gulp.task('iconfont', function(cb){
 			fontHeight: 1024,
 			normalize: true,
 			formats: ['ttf', 'eot', 'woff'],
-			log: () => {}
+			log: () => {},
 		}))
 		.on('glyphs', function(glyphs, options) {
 			glyphs = glyphs.map(function(glyph){
@@ -269,7 +269,7 @@ gulp.task('hbs_templates', function(){
 	gulp.src(CMD_FOLDER + '/components/**/*.hbs')
 		.pipe(handlebars({
 			// Pass local handlebars
-			handlebars: __templating_engine
+			handlebars: __templating_engine,
 		}))
 		.pipe(defineModule('amd'))
 		.pipe(flatten())

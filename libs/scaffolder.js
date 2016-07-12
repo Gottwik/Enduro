@@ -12,6 +12,7 @@ var ncp = require('ncp').ncp // Handles copying files
 // local variables
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
 
 // constants
 var SCAFFOLDING_SOURCE = ENDURO_FOLDER + '/scaffolding' // source of the scaffolding - directory where enduro is installed
@@ -44,9 +45,7 @@ scaffolder.prototype.scaffold = function(args){
 			return kiska_logger.err_block('\tdirectory already existss')
 		}
 
-		kiska_logger.init('ENDURO - CREATING PROJECT')
-		kiska_logger.log('Creating new project ' + project_name)
-		kiska_logger.line()
+		log_clusters.log('creating_project', {project_name: project_name})
 
 		// Copy files - Without overwriting existing files
 		ncp(SCAFFOLDING_SOURCE, scaffolding_destination, {clobber: false}, function (err) {
@@ -57,13 +56,8 @@ scaffolder.prototype.scaffold = function(args){
 			}
 
 			// Let the user know the project was created successfully
-			kiska_logger.log('Project created successfully.')
-			kiska_logger.line()
-			kiska_logger.log('Dont forget to cd into project with', true)
-			kiska_logger.tablog('$ cd ' + project_name, true)
-			kiska_logger.log('Then run', true)
-			kiska_logger.tablog('$ enduro', true)
-			kiska_logger.end()
+			log_clusters.log('project_created', {project_name: project_name})
+
 			resolve()
 		})
 	})

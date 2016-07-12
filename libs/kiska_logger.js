@@ -107,7 +107,6 @@ kiska_logger.prototype.err_blockStart = function (message, logtag) {
 // * │ Something went wrong                                     │ * //
 kiska_logger.prototype.err = function (message, logtag) {
 	if(!pass_tagcheck(logtag)){ return }
-	console.log(message)
 	if(!message) { return }
 	log(chalk.red(message.rpad(FRAME_WIDTH)))
 };

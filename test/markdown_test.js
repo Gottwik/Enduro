@@ -48,6 +48,4 @@ describe('Applying markdown to texts', function() {
 		expect(JSON.stringify(test_input)).to.equal(JSON.stringify(expected_output))
 	})
 
-
-
 })

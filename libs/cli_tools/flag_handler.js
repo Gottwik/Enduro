@@ -13,6 +13,10 @@ var FLAG_MAP =  {
 		label: 'force',
 		message: 'Force flag - weird stuff might happen'
 	},
+	nr: {
+		label: 'norefresh',
+		message: '',
+	},
 	nojswatch: {
 		label: 'nojswatch',
 		message: 'No javascript watch flag - will to refresh on js changes'
@@ -36,7 +40,6 @@ flag_handler.prototype.get_flag_object = function(flags) {
 	for(i in flags) {
 		if(FLAG_MAP[flags[i]]) {
 			flag_object[FLAG_MAP[flags[i]]['label']] = true
-			//console.log()
 			kiska_logger.err(FLAG_MAP[flags[i]]['message'])
 		}
 	}

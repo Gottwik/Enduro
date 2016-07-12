@@ -42,3 +42,4 @@ for(i in all_args) {
 
 // runs index.js file with defined arguments
 require("./index").run(args, flags)
+

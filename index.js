@@ -41,6 +41,7 @@ var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 var flag_handler = require(ENDURO_FOLDER + '/libs/cli_tools/flag_handler')
 var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
 var enduro_server = require(ENDURO_FOLDER + '/server')
+var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
 
 
 // Gets gulp tasks and extend it with refresh function which will render enduro
@@ -86,7 +87,6 @@ enduro_server.set_refresh(function(cb){
 // *	returns boolean based on if the arguments were recognized
 // * ———————————————————————————————————————————————————————— * //
 function run(args, flags){
-
 	global.flags = flag_handler.get_flag_object(flags)
 	return enduro_configurator.read_config()
 		.then(() => {
@@ -105,12 +105,6 @@ function run(args, flags){
 				// * ———————————————————————————————————————————————————————— * //
 				if(arg == 'render' || arg == 'r'){
 					return render()
-
-				// * ———————————————————————————————————————————————————————— * //
-				// * 	$ enduro nr
-				// * ———————————————————————————————————————————————————————— * //
-				} else if(arg == 'nr'){
-					return developer_start(true)
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro start
@@ -223,58 +217,39 @@ function render(callback, nojuice){
 // * 	Developer Start
 // *	Renders content and starts browsersync after that
 // * ———————————————————————————————————————————————————————— * //
-// function developer_start(){
-// 	// clears the global data
-// 	global_data.clear()
-
-// 	// Does the refresh procedure
-// 	gulp.start('preproduction', () => {
-// 		render(() => {
-// 			gulp.start('default', () => {
-// 				enduro_server.run()
-// 				// After everything is done
-// 			})
-// 		})
-// 	})
-// }
 var first = true
 var firstrender = true
 var firstserverstart = true
-function developer_start(norefresh){
-	// clears the global data
-	global_data.clear()
+function developer_start() {
+	return new Promise(function(resolve, reject){
+		// clears the global data
+		global_data.clear()
 
-	kiska_logger.init('Enduro started', 'nice_dev_init')
-	kiska_logger.log('Development server started at:', 'nice_dev_init')
-	kiska_logger.tablog('localhost:3000', 'nice_dev_init')
-	kiska_logger.log('Admin ui available at:', 'nice_dev_init')
-	kiska_logger.tablog('localhost:5000/admin', false, 'nice_dev_init')
-	kiska_logger.line('nice_dev_init')
-	kiska_logger.log('Admin has no live-reload!', false, 'nice_dev_init')
-	kiska_logger.end('nice_dev_init')
+		log_clusters.log('developer_start')
 
-	kiska_logger.timestamp('developer start', 'enduro_events')
-	// Does the refresh procedure
-	gulp.start('preproduction', () => {
-		if(first){
-			render(() => {
-				kiska_logger.timestamp('Render finished', 'enduro_events')
-				if(firstrender){
-					gulp.start(norefresh ? 'default_norefresh' : 'default', () => {
-						if(firstserverstart){
-							kiska_logger.timestamp('production server starting', 'enduro_events')
-
-							// start production server in development mode
-							enduro_server.run(true)
-						}
-						firstserverstart = false
-						// After everything is done
-					})
-				}
-				firstrender = false
-			})
-		}
-		first = false
+		kiska_logger.timestamp('developer start', 'enduro_events')
+		// Does the refresh procedure
+		gulp.start('preproduction', () => {
+			if(first){
+				render(() => {
+					kiska_logger.timestamp('Render finished', 'enduro_events')
+					if(firstrender){
+						gulp.start(flags.norefresh ? 'default_norefresh' : 'default', () => {
+							if(firstserverstart){
+								kiska_logger.timestamp('production server starting', 'enduro_events')
+								resolve()
+								// start production server in development mode
+								enduro_server.run(true)
+							}
+							firstserverstart = false
+							// After everything is done
+						})
+					}
+					firstrender = false
+				})
+			}
+			first = false
+		})
 	})
 }
 

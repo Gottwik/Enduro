@@ -54,12 +54,12 @@ gulp.set_refresh(function(callback){
 
 // Stores enduro_server and extends it with render
 
-var first = true
+var first_production_render = true
 var first_production = true
 enduro_server.set_init(function(cb){
 	kiska_logger.log('initializing production server', true, 'enduro_render_events')
 	gulp.start('preproduction', () => {
-		if(first) {
+		if(first_production_render) {
 			render(function(){
 				if(first_production) {
 					gulp.start('production', () => {
@@ -68,7 +68,7 @@ enduro_server.set_init(function(cb){
 					first_production = false
 				}
 			})
-			first = false
+			first_production_render = false
 		}
 	})
 })

@@ -1,10 +1,26 @@
 <div class="img-controller" ng-controller="image_controller">
 	<span>{{formated_key}}</span>
-	<div class="img-wrapper" ngf-drop="uploadFiles($files)" ng-model="context[terminatedkey]" ngf-drag-over-class="'dragover'">
+	<div class="img-wrapper">
+
+		<!-- thumbnail -->
 		<img ng-bind="current_culture" ngf-thumbnail="context[terminatedkey]">
-		<div class="img-file-upload-button" ngf-select="upload($file)" ng-model="context[terminatedkey]" >
+
+		<div class="img-dropper" ng-class="{'no-image': !context[terminatedkey]}" ngf-drop="upload($files)" ng-model="context[terminatedkey]" ngf-drag-over-class="'dragover'"  tabindex="0">
+			<div>
+				<i class="fa fa-picture-o" aria-hidden="true"></i>
+				<span>Paste or drop files here</span>
+			</div>
+		</div>
+
+		<div ng-if="context[terminatedkey]" class="tiny-controls">
+			<i class="fa fa-refresh" ngf-select="upload($file)" ng-model="context[terminatedkey]"></i>
+			<i class="fa fa-trash" ng-class="{'hidden': context.length <= terminated_context.min}" ng-click="delete_image()"></i>
+		</div>
+
+		<div ng-if="!context[terminatedkey]" class="img-file-upload-button" ngf-select="upload($file)" ng-model="context[terminatedkey]" >
 			<i class="fa fa-plus"></i>
 		</div>
+
 		<div class="img-progress" style="width: {{100 - progress}}%"></div>
 	</div>
 </div>

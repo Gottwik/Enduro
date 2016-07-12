@@ -4,10 +4,18 @@ enduro_admin_app.controller('image_controller', ['$scope', 'Upload', 'url_config
 
 	// upload on file select or drop
 	$scope.upload = function (file) {
+
+		$('.img-dropper').blur()
+		// catch pasted image
+		if(typeof file === 'object' && !file.name) {
+			file = file[0]
+			file.name = Math.random().toString(36).substring(7) + '.' + file.type.match(/\/(.*)$/)[1];
+		}
+
 		Upload.upload({
 			url: url_config.get_base_url() + 'img_upload',
 			data: {
-				'sid': $cookies.get('sid'),
+				sid: $cookies.get('sid'),
 				file: file
 			}
 		}).then(function (res) {
@@ -25,14 +33,9 @@ enduro_admin_app.controller('image_controller', ['$scope', 'Upload', 'url_config
 			console.log(progress)
 		});
 	};
-	// // for multiple files:
-	// $scope.uploadFiles = function (files) {
-	//   if (files && files.length) {
-	//     for (var i = 0; i < files.length; i++) {
-	//       Upload.upload({..., data: {file: files[i]}, ...})...;
-	//     }
-	//     // or send them all together for HTML5 browsers:
-	//     Upload.upload({..., data: {file: files}, ...})...;
-	//   }
-	// }
+
+	$scope.delete_image = function() {
+		$scope.context[$scope.terminatedkey] = ''
+	}
+
 }]);

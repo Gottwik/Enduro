@@ -30,9 +30,9 @@ admin_file_upload_handler.prototype.upload = function(file) {
 function uploadfile_local(file) {
 	kiska_logger.timestamp('Uploading file to local storage','file_uploading')
 	return new Promise(function(resolve, reject){
-		var destination_path = CMD_FOLDER + UPLOADS_FOLDER + '/' + file.name
-		var destination_src_path = path.join(CMD_FOLDER, '_src', UPLOADS_FOLDER, file.name)
-		var destination_url = UPLOADS_FOLDER + '/' + file.name
+		var destination_path = CMD_FOLDER + UPLOADS_FOLDER + '/' + (new Date/1e3|0) + '_' + file.name
+		var destination_src_path = path.join(CMD_FOLDER, '_src', UPLOADS_FOLDER, (new Date/1e3|0) + '_' + file.name)
+		var destination_url = UPLOADS_FOLDER + '/' + (new Date/1e3|0) + '_' + file.name
 
 		enduro_helpers.ensureDirectoryExistence(destination_path, destination_src_path)
 			.then(() => {

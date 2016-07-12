@@ -253,10 +253,16 @@ function developer_start() {
 	})
 }
 
+function server_stop(cb) {
+	gulp.start('browser_sync_stop')
+	enduro_server.stop(cb)
+}
+
 // Removes all logging
 function silent(){
 	kiska_logger.silent()
 }
 
 exports.run = run
+exports.server_stop = server_stop
 exports.silent = silent

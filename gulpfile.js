@@ -47,6 +47,10 @@ gulp.task('browser_sync_norefresh', ['sass'], function() {
 	browsersync_start(true)
 })
 
+gulp.task('browser_sync_stop', [], function() {
+	browser_sync.exit()
+})
+
 function browsersync_start(norefresh) {
 	kiska_logger.timestamp('browsersync started', 'enduro_events')
 	browser_sync.init({

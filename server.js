@@ -35,6 +35,8 @@ app.use(session({
 
 app.use(cors())
 
+var server
+
 // * ———————————————————————————————————————————————————————— * //
 // * 	server run
 // *
@@ -102,13 +104,17 @@ enduro_server.prototype.run = function(development_mode) {
 		}
 	})
 
-	app.listen(app.get('port'), function () {
+	server = app.listen(app.get('port'), function () {
 		if(!development_mode) {
 			self.enduro_init(() => {})
 		}
 		kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
 	})
 
+}
+
+enduro_server.prototype.stop = function(cb) {
+	server.close(cb)
 }
 
 // sets enduro_refresh function from parent

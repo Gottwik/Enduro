@@ -14,24 +14,28 @@ Enduro is minimalistic, lean & mean, node.js cms. See more at [enduro.js website
 1. Run `enduro create myproject`. This will create new folder /myproject with the enduro project
 1. Go in the newly created folder by running `cd myproject`.
 1. Start enduro in development mode by running simply `enduro`. Browser window should open with the website running.
-1. Folder `/pages` stores all the page templates
-1. Folder `/cms` stores all the content data
-1. Folder `/components` stores all the components, templates, or partial views - building blocks which you can use to build the website.
-1. Folder `/assets` stores scss, js, icons, images and all the static assets for your website
-2. Admin interface is accessible at `localhost:5000`. Add admin user by running `enduro addadmin username password`.
+1. Done!
+2. Also, **Admin** interface is accessible at `localhost:5000`. Add admin user by running `enduro addadmin username password`.
 
 ## Enduro cli
 
 To access cli tools, you need to install enduro globally: `npm install enduro -g`
 
- * `enduro create projectname`  - Creates new folder /projectname with neccessary scaffolding
  * `enduro` - Starts enduro for development
+ * `enduro create projectname`  - Creates new folder /projectname with neccessary scaffolding
  * `enduro start` - Starts enduro on server - Without build tools such as watching
  * `enduro build` - Runs requirejs optimization on assets/js/main.js. To have more requirejs config files use `enduro build dev` which will search for main_dev.js config file
  * `enduro secure passphrase` - Adds simple, one-passphrase security to your website. Useful in development phase to protect the website against web crawlers.
  * `enduro check` - Runs the built html sites agains w3 validator and performs several other checks such as scss lint.
  * `enduro addadmin username password` - Adds credentials that work with admin interface. There are no default credentials.
  * `enduro addculture en de` - Adds cultures/languages. This will generate two files out of every page. These pages are accessible at `/en/pagename` and `/de/pagename`
+
+ ### Flags
+* `-f` will ignore warnings and force action
+* `-nr` no refresh flag. Basically will not open new tab.
+* `-noadmin` will not start admin interface.
+* `-nojswatch` will not trigger browsersync refresh on js file changes
+* `-nocmswatch` will not trigger browsersync refresh on cms file changes
 
 
 ## Project directory structure
@@ -207,7 +211,27 @@ cms/index.js
 
 Non-terminated value will be used if no translation is given.
 
-## Flags
-* -f - will ignore warnings and force action
-* enduro -nojswatch will not trigger browsersync refresh on js file changes
-* enduro -nocmswatch will not trigger browsersync refresh on cms file changes
+# Developing enduro
+I welcome you to develop enduro.js. Follow these guides to get you started quickly:
+
+## Developing core enduro
+1. clone enduro repository
+2. cd into enduro's directory
+3. run `npm link`
+4. now you can develop enduro
+
+
+## Writing enduro tests
+1. enduro has mocha tests
+2. add your tests in the /test directory
+2. run all tests just by running `mocha`
+
+## Developing enduro admin
+1. I decided to decouple admin interface from enduro to make things cleaner
+2. enduro admin is built using enduro ( duh ;-) )
+2. clone enduro_admin's git repo: https://github.com/kiskadigitalmedia/Enduro_admin
+3. cd into enduro's directory
+4. run `npm link ../enduro_admin` or wherever you cloned the enduro_admin to
+5. run enduro on enduro_admin by `enduro -nr -noadmin`
+6. run `enduro` on your project
+7. now you can edit enduro admin's source code and see the change on your project at localhost:5000/admin

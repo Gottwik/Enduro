@@ -51,7 +51,8 @@
     "sha256": "^0.2.0",
     "stringify-object": "^2.3.1",
     "tar": "^2.2.1",
-    "urldecode": "^1.0.1"
+    "urldecode": "^1.0.1",
+    "enduro_admin": "*"
   },
   "scripts": {
     "test": "mocha"

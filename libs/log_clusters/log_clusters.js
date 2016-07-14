@@ -18,8 +18,12 @@ clusters['developer_start'] = (context) => {
 	kiska_logger.init('Enduro started', 'nice_dev_init')
 	kiska_logger.log('Development server started at:', 'nice_dev_init')
 	kiska_logger.tablog('localhost:3000', 'nice_dev_init')
-	kiska_logger.log('Admin ui available at:', 'nice_dev_init')
-	kiska_logger.tablog('localhost:5000/admin', false, 'nice_dev_init')
+
+	if(!flags.noadmin) {
+		kiska_logger.log('Admin ui available at:', 'nice_dev_init')
+		kiska_logger.tablog('localhost:5000/admin', false, 'nice_dev_init')
+	}
+
 	kiska_logger.line('nice_dev_init')
 	kiska_logger.log('Admin has no live-reload!', false, 'nice_dev_init')
 	kiska_logger.end('nice_dev_init')

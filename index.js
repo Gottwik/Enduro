@@ -20,7 +20,7 @@ global.config = {}
 global.config.secret = {}
 global.CMD_FOLDER = process.cwd()
 global.ENDURO_FOLDER = __dirname
-global.ADMIN_FOLDER = path.join(__dirname, 'admin')
+global.ADMIN_FOLDER = path.join(__dirname, 'node_modules', 'enduro_admin', '_src')
 global.BABEL_FILE = 'config/babel'
 global.START_PATH = ''
 global.flags = {}
@@ -235,7 +235,7 @@ function developer_start() {
 					kiska_logger.timestamp('Render finished', 'enduro_events')
 					if(firstrender){
 						gulp.start(flags.norefresh ? 'default_norefresh' : 'default', () => {
-							if(firstserverstart){
+							if(firstserverstart && !flags.noadmin){
 								kiska_logger.timestamp('production server starting', 'enduro_events')
 								resolve()
 								// start production server in development mode

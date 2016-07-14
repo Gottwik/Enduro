@@ -85,7 +85,9 @@ admin_security.prototype.login_by_password = function(username, password) {
 				} else {
 					reject({success: false, message: 'wrong username'})
 				}
-			}, () => {})
+			}, () => {
+				reject({success: false, message: 'wrong password'})
+			})
 	})
 }
 

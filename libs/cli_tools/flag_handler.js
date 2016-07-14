@@ -24,6 +24,10 @@ var FLAG_MAP =  {
 	nocmswatch: {
 		label: 'nocmswatch',
 		message: 'No CMS watch flag - will to refresh on cms changes'
+	},
+	noadmin: {
+		label: 'noadmin',
+		message: 'No admin flag - no admin on port 5000 is running'
 	}
 }
 

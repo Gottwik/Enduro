@@ -7,7 +7,7 @@
 		"postinstall": "./node_modules/bower/bin/bower install",
 		"start": "node_modules/.bin/enduro start"
 	},
-	"author": "KISKA",
+	"author": "author goes here",
 	"license": "ISC",
 	"dependencies": {
 		"bower": "^1.7.7",

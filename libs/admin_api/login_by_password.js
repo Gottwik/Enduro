@@ -28,8 +28,10 @@ api_call.prototype.call = function(req, res, enduro_server){
 
 	admin_security.login_by_password(username, password)
 		.then((user) => {
+			kiska_logger.timestamp(username + ' successfully logged in', 'admin_login')
 			return admin_sessions.create_session(req, user)
 		}, (err) => {
+			kiska_logger.timestamp(username + ' failed to log in', 'admin_login')
 			res.send({
 				success: false,
 			})
@@ -37,6 +39,7 @@ api_call.prototype.call = function(req, res, enduro_server){
 			return
 		})
 		.then((session) => {
+			kiska_logger.timestamp('session created for ' + username, 'admin_login')
 			res.send(session)
 		}, () => {})
 }

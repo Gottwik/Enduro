@@ -56,6 +56,8 @@ enduro_server.prototype.run = function(development_mode) {
 		// forward the app to running enduro application
 		website_app.forward(app)
 
+		kiska_logger.timestamp('heroku-debug - admin folder: ' + ADMIN_FOLDER, 'heroku_debug')
+
 		// serve static files from /_src folder
 		app.use('/admin', express.static(ADMIN_FOLDER))
 		app.use('/assets', express.static(CMD_FOLDER + '/_src/assets'))

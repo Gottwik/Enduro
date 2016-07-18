@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/kiskadigitalmedia/Enduro.svg?branch=master)](https://travis-ci.org/kiskadigitalmedia/Enduro)
 [![Coverage Status](https://coveralls.io/repos/github/kiskadigitalmedia/Enduro/badge.svg?branch=master)](https://coveralls.io/github/kiskadigitalmedia/Enduro?branch=master)
 [![Code Climate](https://codeclimate.com/github/kiskadigitalmedia/Enduro/badges/gpa.svg)](https://codeclimate.com/github/kiskadigitalmedia/Enduro)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kiskadigitalmedia/Enduro/master/License.md)
 
 Enduro is minimalistic, lean & mean, node.js cms. See more at [enduro.js website](https://kiskadigitalmedia.github.io/Enduro/)
 

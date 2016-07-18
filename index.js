@@ -7,25 +7,26 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-// Stores templating engine for possible future replacement
+// stores templating engine for possible future replacement
 global.__templating_engine = require('handlebars')
 
 // vendor dependencies
 var path = require("path")
 
-// Global variables
+// global variables
 global.__data = {}
 global.__data.global = {}
 global.config = {}
 global.config.secret = {}
 global.CMD_FOLDER = process.cwd()
 global.ENDURO_FOLDER = __dirname
-global.ADMIN_FOLDER = path.join(CMD_FOLDER, 'node_modules', 'enduro_admin', '_src')
+global.ADMIN_FOLDER = path.join(CMD_FOLDER, 'node_modules', 'enduro_admin', '_src') // this is production setting
 global.BABEL_FILE = 'config/babel'
 global.START_PATH = ''
 global.flags = {}
 
-// Local dependencies
+// local dependencies
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var enduro_configurator = require(ENDURO_FOLDER + '/libs/enduro_configurator')
 var scaffolder = require(ENDURO_FOLDER + '/libs/scaffolder')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
@@ -43,8 +44,12 @@ var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
 var enduro_server = require(ENDURO_FOLDER + '/server')
 var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
 
+// sets different admin if enduro is being used globally
+if(!enduro_helpers.dirExists(ADMIN_FOLDER)) {
+	global.ADMIN_FOLDER = path.join(ENDURO_FOLDER, 'node_modules', 'enduro_admin', '_src') // this is production setting
+}
 
-// Gets gulp tasks and extend it with refresh function which will render enduro
+// gets gulp tasks and extend it with refresh function which will render enduro
 gulp.set_refresh(function(callback){
 	kiska_logger.log('Refresh', true, 'enduro_render_events')
 	render(function(){
@@ -52,7 +57,7 @@ gulp.set_refresh(function(callback){
 	}, true)
 })
 
-// Stores enduro_server and extends it with render
+// stores enduro_server and extends it with render
 
 var first_production_render = true
 var first_production = true

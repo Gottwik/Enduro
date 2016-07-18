@@ -7,7 +7,14 @@
 
 Enduro is minimalistic, lean & mean, node.js cms. See more at [enduro.js website](https://kiskadigitalmedia.github.io/Enduro/)
 
+## What's Enduro
+Enduro is a complete platform for building websites with focus on productivity. In simpler terms you can build a website with Enduro really fast.
+
+![enduro admin](http://i.imgur.com/hWBXcCF.png)
+
 ## Getting started
+
+![enduro create](http://i.imgur.com/DtxhA7z.gif)
 
 1. Make sure you have node.js installed. Grab it here if you don't: [nodejs installer](https://nodejs.org/en/download/).
 1. Run `npm install enduro -g` in your terminal. This will install enduro.

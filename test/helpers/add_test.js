@@ -5,8 +5,6 @@ global.__templating_engine = require('handlebars')
 
 describe('Add helper', function() {
 
-	require(ENDURO_FOLDER + "/hbs_helpers/add")
-
 	// no add helper
 	it('should parse simple template successfully', function () {
 		expect(__templating_engine.compile('<a>aa<a>')()).to.equal('<a>aa<a>')

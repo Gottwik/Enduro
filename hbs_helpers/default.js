@@ -7,7 +7,12 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-__templating_engine.registerHelper("default", function (name, defaultValue) {
+__templating_engine.registerHelper("default", function (name, defaultValue, options) {
+
+	if(typeof options === 'undefined') {
+		defaultValue = ''
+	}
+
 	return typeof name !== 'undefined'
 		? name
 		: defaultValue

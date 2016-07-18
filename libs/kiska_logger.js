@@ -28,7 +28,7 @@ var logtags_config = {
 	file_uploading: true,
 	render_debug: true,
 	juicebox: true,
-	heroku_debug: true,
+	heroku_debug: false,
 }
 
 // * ———————————————————————————————————————————————————————— * //

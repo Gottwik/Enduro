@@ -55,7 +55,7 @@
     "enduro_admin": "1.0.7"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --recursive"
   },
   "bin": {
     "enduro": "./cli.js"

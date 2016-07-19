@@ -55,7 +55,7 @@ function read_config_file(config_file, default_config) {
 		if(!enduro_helpers.fileExists(config_file)) {
 
 			// uses default config if no configuration is specified
-			global.config = default_config
+			global.config = extend(true, config, default_config)
 			resolve()
 		} else {
 

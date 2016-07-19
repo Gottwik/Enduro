@@ -1,6 +1,6 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	Enduro Helpers
-// *	Random set of helper functions used all around
+// * 	babel
+// *	handles multilingual support
 // * ———————————————————————————————————————————————————————— * //
 var babel_handler = function () {};
 
@@ -37,6 +37,7 @@ babel_handler.prototype.get_cultures = function () {
 	})
 }
 
+// adds culture to culture array in cms folder
 babel_handler.prototype.add_culture = function (cultures) {
 	return flat_file_handler.add_array(BABEL_FILE, cultures, 'cultures')
 }

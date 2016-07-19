@@ -8,15 +8,11 @@ var components_handler = function () {}
 // vendor dependencies
 var Promise = require('bluebird')
 var fs = require('fs')
-var async = require("async")
-var glob = require("glob")
+var async = require('async')
+var glob = require('glob')
 
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
-
-// constants
-var COMPONENTS_PATH = CMD_FOLDER + '/components/**/*.hbs'
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	read components
@@ -27,8 +23,10 @@ var COMPONENTS_PATH = CMD_FOLDER + '/components/**/*.hbs'
 components_handler.prototype.read_components = function(){
 	return new Promise(function(resolve, reject){
 
+		var components_path = CMD_FOLDER + '/components/**/*.hbs'
+
 		// fetches the files
-		glob( COMPONENTS_PATH , function (err, files) {
+		glob( components_path , function (err, files) {
 			if (err) {
 				kiska_logger.err_block(err)
 				return reject()
@@ -57,7 +55,7 @@ components_handler.prototype.read_components = function(){
 			}, function(){
 
 				// after all components are loaded
-				kiska_logger.line('enduro_render_events');
+				kiska_logger.line('enduro_render_events')
 				resolve()
 			})
 		})

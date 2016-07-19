@@ -29,6 +29,7 @@ var logtags_config = {
 	render_debug: true,
 	juicebox: true,
 	heroku_debug: false,
+	page_manipulation: false,
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -49,7 +50,7 @@ kiska_logger.prototype.log = function (message, newline, logtag) {
 		newline = false
 	}
 	if(!pass_tagcheck(logtag)){ return }
-	log(chalk.cyan('│') + (' ' + message).rpad(FRAME_WIDTH-2) + chalk.cyan('│'))
+	log(chalk.cyan('│') + rpad(' ' + message, FRAME_WIDTH-2) + chalk.cyan('│'))
 	newline || false ? this.log('') : ''
 };
 
@@ -62,7 +63,7 @@ kiska_logger.prototype.tablog = function (message, newline, logtag) {
 // * │ Something                                       Happened │ * //
 kiska_logger.prototype.twolog = function (message, left_message, logtag) {
 	if(!pass_tagcheck(logtag)){ return }
-	log(chalk.cyan('│') + (' ' + message).rpad(FRAME_WIDTH - 3 - left_message.length) + left_message + chalk.cyan(' │'))
+	log(chalk.cyan('│') + rpad(' ' + message, FRAME_WIDTH - 3 - left_message.length) + left_message + chalk.cyan(' │'))
 };
 
 // * ├——————————————————————————————————————————————————————————┤ * //
@@ -109,13 +110,13 @@ kiska_logger.prototype.err_blockStart = function (message, logtag) {
 kiska_logger.prototype.err = function (message, logtag) {
 	if(!pass_tagcheck(logtag)){ return }
 	if(!message) { return }
-	log(chalk.red(message.rpad(FRAME_WIDTH)))
+	log(chalk.red(rpad(message, FRAME_WIDTH)))
 };
 
 // * │ Something                                       Happened │ * //
 kiska_logger.prototype.twoerr = function (message, left_message, logtag) {
 	if(!pass_tagcheck(logtag)){ return }
-	log(chalk.red('│') + chalk.red((' ' + message).rpad(FRAME_WIDTH - 3 - left_message.length) + left_message) + chalk.red(' │'))
+	log(chalk.red('│') + chalk.red(rpad(' ' + message, FRAME_WIDTH - 3 - left_message.length) + left_message) + chalk.red(' │'))
 };
 
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
@@ -166,7 +167,7 @@ function get_timestamp() {
 // * ———————————————————————————————————————————————————————— * //
 
 // pads from left
-String.prototype.lpad= function(len, c){
+String.prototype.lpad = function(len, c){
 	var s = this
 	var c = c || '0'
 
@@ -178,8 +179,8 @@ String.prototype.lpad= function(len, c){
 }
 
 // Pads the string with whitespace to the right
-String.prototype.rpad = function(length) {
-	return this + rep(length - this.length, ' ')
+function rpad(text, length) {
+	return text + rep(length - text.length, ' ')
 }
 
 // Pads and aligns the string with specified character to center

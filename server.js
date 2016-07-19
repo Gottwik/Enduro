@@ -61,6 +61,7 @@ enduro_server.prototype.run = function(development_mode) {
 		// serve static files from /_src folder
 		app.use('/admin', express.static(ADMIN_FOLDER))
 		app.use('/assets', express.static(CMD_FOLDER + '/_src/assets'))
+		app.use('/_prebuilt', express.static(CMD_FOLDER + '/_src/_prebuilt'))
 
 		// handle for executing enduro refresh from client
 		app.get('/admin_api_refresh', function (req, res) {

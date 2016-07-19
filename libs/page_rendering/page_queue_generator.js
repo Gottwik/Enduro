@@ -6,8 +6,8 @@ var page_queue_generator = function () {}
 
 // vendor dependencies
 var Promise = require('bluebird')
-var glob = require("glob-promise")
-var path = require("path")
+var glob = require('glob-promise')
+var path = require('path')
 
 // local dependencies
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')

@@ -11,7 +11,7 @@
 global.__templating_engine = require('handlebars')
 
 // vendor dependencies
-var path = require("path")
+var path = require('path')
 
 // global variables
 global.__data = {}
@@ -43,6 +43,8 @@ var flag_handler = require(ENDURO_FOLDER + '/libs/cli_tools/flag_handler')
 var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
 var enduro_server = require(ENDURO_FOLDER + '/server')
 var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
+var pregenerator = require(ENDURO_FOLDER + '/libs/pregenerator/pregenerator')
+
 
 // sets different admin if enduro is being used globally
 if(!enduro_helpers.dirExists(ADMIN_FOLDER)) {
@@ -59,9 +61,10 @@ gulp.set_refresh(function(callback){
 
 // stores enduro_server and extends it with render
 
-var first_production_render = true
-var first_production = true
 enduro_server.set_init(function(cb){
+	var first_production_render = true
+	var first_production = true
+
 	kiska_logger.log('initializing production server', true, 'enduro_render_events')
 	gulp.start('preproduction', () => {
 		if(first_production_render) {
@@ -205,6 +208,9 @@ function render(callback, nojuice){
 		})
 		.then(() => {
 			return helper_handler.read_helpers()
+		})
+		.then(() => {
+			return pregenerator.pregenerate()
 		})
 		.then(() => {
 			return enduro_render.render()

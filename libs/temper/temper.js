@@ -14,8 +14,8 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var page_renderer = require(ENDURO_FOLDER + '/libs/page_rendering/page_renderer')
 
 // Goes through the pages and renders them
-temper.prototype.render = function(filename, extended_context) {
-	return page_renderer.render_file_by_filename_extend_context(filename, extended_context)
+temper.prototype.render = function(filename, context) {
+	return page_renderer.render_file_by_filename_replace_context(filename, context)
 }
 
 

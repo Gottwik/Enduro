@@ -11,7 +11,7 @@ var page_renderer = require(ENDURO_FOLDER + '/libs/page_rendering/page_renderer'
 
 
 // Remove logging
-// enduro.silent()
+enduro.silent()
 
 describe('page rendering', function() {
 

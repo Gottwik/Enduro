@@ -10,24 +10,24 @@ var global_data = function () {}
 var Promise = require('bluebird')
 var async = require("async")
 var extend = require('extend')
-var glob = require("glob")
+var glob = require("multi-glob").glob;
 
 // Local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 
-// Constants
-var DATA_PATH = CMD_FOLDER + '/cms/global/**/*.js'
-
 global_data.prototype.get_global_data = function() {
+
+	// Constants
+	var data_path = [CMD_FOLDER + '/cms/global/**/*.js', CMD_FOLDER + '/cms/.settings.js']
 
 	this.clear()
 
 	return new Promise(function(resolve, reject) {
 
 		// Fetches the files
-		glob( DATA_PATH , function (err, files) {
+		glob( data_path , function (err, files) {
 			if (err) {
 				kiska_logger.block(err, 'enduro_render_events')
 				reject()

@@ -117,4 +117,16 @@ page_renderer.prototype.render_file_by_filename_extend_context = function(filena
 
 }
 
+page_renderer.prototype.render_file_by_filename_replace_context = function(filename, context) {
+
+	var self = this
+	context = context || {}
+
+	var file = path.join(CMD_FOLDER, 'pages', filename + '.hbs')
+	var culture = config.cultures[0]
+
+	return self.render_file_by_context(file, context, culture)
+
+}
+
 module.exports = new page_renderer()

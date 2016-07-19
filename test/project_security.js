@@ -2,7 +2,6 @@
 var expect = require("chai").expect
 var enduro = require('../index')
 var rimraf = require('rimraf')
-var fs = require('fs')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')

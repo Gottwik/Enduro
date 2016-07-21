@@ -84,8 +84,17 @@ function browsersync_start(norefresh) {
 		notify: false,
 		logPrefix: 'Enduro',
 		startPath: START_PATH,
-		open: !norefresh
+		open: !norefresh,
+		snippetOptions: {
+			rule: {
+				match: /<\/body>/i,
+				fn: function (snippet, match) {
+					return match + snippet;
+				}
+			}
+		}
 	})
+
 	watch([ CMD_FOLDER + '/assets/css/**/*', CMD_FOLDER + '/assets/fonticons/*', '!' + CMD_FOLDER + '/assets/css/sprites/*'],
 				() => { gulp.start('sass') })									// Watch for scss
 

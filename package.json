@@ -52,7 +52,7 @@
     "stringify-object": "^2.3.1",
     "tar": "^2.2.1",
     "urldecode": "^1.0.1",
-    "enduro_admin": "1.0.11"
+    "enduro_admin": "1.0.12"
   },
   "scripts": {
     "test": "mocha --recursive"

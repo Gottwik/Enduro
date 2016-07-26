@@ -24,6 +24,7 @@ global.ADMIN_FOLDER = path.join(CMD_FOLDER, 'node_modules', 'enduro_admin', '_sr
 global.BABEL_FILE = 'config/babel'
 global.START_PATH = ''
 global.flags = {}
+global.abstractors = {}
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -44,7 +45,7 @@ var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
 var enduro_server = require(ENDURO_FOLDER + '/server')
 var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
 var pregenerator = require(ENDURO_FOLDER + '/libs/pregenerator/pregenerator')
-
+var abstractor = require(ENDURO_FOLDER + '/libs/abstractor/abstractor')
 
 // sets different admin if enduro is being used globally
 if(!enduro_helpers.dirExists(ADMIN_FOLDER)) {
@@ -208,6 +209,9 @@ function render(callback, nojuice){
 		})
 		.then(() => {
 			return helper_handler.read_helpers()
+		})
+		.then(() => {
+			return abstractor.init()
 		})
 		.then(() => {
 			return pregenerator.pregenerate()

@@ -19,7 +19,7 @@ page_queue_generator.prototype.generate_pagelist = function() {
 
 	var self = this
 
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 
 		// Reads config file and gets cultures
 		babel.get_cultures()

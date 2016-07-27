@@ -60,17 +60,17 @@ abstractor.prototype.abstract_file = function (filename) {
 	var self = this
 	var cms_filename = flat_file_handler.get_cms_filename_from_fullpath(filename)
 
-	var inter_context = ''
+	var prechange_context = ''
 
 	return flat_file_handler.load(cms_filename)
 		.then((context) => {
-			inter_context = context
+			prechange_context = JSON.stringify(context)
 			return self.abstract_context(context)
 		})
 		.then((abstracted_context) => {
 
 			// check if the abstractor changed the context
-			if(inter_context == abstracted_context) {
+			if(prechange_context == JSON.stringify(abstracted_context)) {
 				return new Promise.resolve()
 			} else {
 				return flat_file_handler.save(cms_filename, abstracted_context)

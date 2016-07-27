@@ -1,19 +1,19 @@
 // * ———————————————————————————————————————————————————————— * //
-// *    Ternary helper
-// *	Simple if helper with two possible outputs
+// *    divisible helper
+// *	Simple ternary-style helper that will choose between two ouputs based on if the variables provided is divisible by next argument
 // *	Usage:
 // *
-// *	{{ternary this 'was true' 'was false'}}
+// *	{{divisible @inde 2 'even' 'odd'}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper("ternary", function (condition, value_if_true, value_if_false) {
+__templating_engine.registerHelper("divisible", function (number_to_dividee, divided_by, value_if_true, value_if_false) {
 
 	// if no false is provided
 	if(typeof value_if_false === 'object') {
 		value_if_false = ''
 	}
 
-	return condition
+	return number_to_dividee % divided_by == 0
 		? value_if_true
 		: value_if_false
-});
+})

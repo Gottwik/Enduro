@@ -50,7 +50,6 @@ pregenerators['settings'] = function() {
 			var template = __templating_engine.compile(raw_template)
 
 			var rendered_css_file = template(__data.global.settings)
-			console.log(rendered_css_file)
 
 			enduro_helpers.ensureDirectoryExistence(css_settings_destination_file_path)
 				.then(() => {
@@ -62,7 +61,5 @@ pregenerators['settings'] = function() {
 
 	})
 }
-
-
 
 module.exports = new pregenerator()

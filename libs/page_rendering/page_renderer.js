@@ -87,7 +87,7 @@ page_renderer.prototype.render_file_by_context = function(file, context, culture
 				output = template(babel.culturalize(context, culture))
 			}
 			catch(e) {
-				kiska_logger.err_block('Page: ' + filename + '\n' + e.message + '\n' + JSON.stringify(context))
+				kiska_logger.err_block('Page: ' + filename + '\n' + e.message)
 			}
 
 			// output raw templates if render_templates setting is set to false. Defaults to true

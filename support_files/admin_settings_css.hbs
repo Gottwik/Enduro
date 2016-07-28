@@ -1,0 +1,36 @@
+.full-background {
+	background-image:url('{{admin_background_image}}')
+}
+
+{{#if dark}}
+	#polygon {
+		fill: #fff !important;
+	}
+
+	#e {
+		fill: #000 !important;
+	}
+
+	#lettering path {
+		fill: #fff !important;
+		stroke: #fff;
+		stroke-width: 4px;
+	}
+
+	#lettering {
+	}
+
+	.login-logo {
+	}
+
+	.login-logo:before {
+		content: '';
+		width: 100%;
+		height: 100%;
+		background-color: #000;
+		position: absolute;
+		z-index: -1;
+		-webkit-filter: blur(30px);
+		filter: blur(30px);
+	}
+{{/if}}

@@ -8,7 +8,8 @@ var pregenerator = function () {}
 var Promise = require('bluebird')
 var fs = require('fs')
 var extend = require('extend')
-var path = require("path")
+var path = require('path')
+var handlebars = require('handlebars')
 
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
@@ -32,19 +33,32 @@ pregenerators['settings'] = function() {
 	return new Promise(function(resolve, reject){
 
 		var settings_file_path = path.join(CMD_FOLDER, 'cms', '.settings.js')
+		var settings_template_path = path.join(ENDURO_FOLDER, 'support_files', 'admin_settings_css.hbs')
 		var css_settings_destination_file_path = path.join(CMD_FOLDER, '_src', '_prebuilt', '_settings.css')
 
-		// just resolve if .settings.json file is missing
-		if(!enduro_helpers.fileExists(settings_file_path)) {
+		// just resolve if settings are not present
+		if(!__data.global.settings) {
 			return resolve()
 		}
-		enduro_helpers.ensureDirectoryExistence(css_settings_destination_file_path)
-			.then(() => {
-				console.lo
-				fs.writeFile(css_settings_destination_file_path, '.full-background{background-image:url(' + __data.global.settings.admin_background_image + ')}', () => {
-					resolve()
+
+		// load the css template
+		fs.readFile(settings_template_path, 'utf8', function read(err, raw_template) {
+			if (err) {
+				kiska_logger.err_block(err)
+			}
+
+			var template = __templating_engine.compile(raw_template)
+
+			var rendered_css_file = template(__data.global.settings)
+			console.log(rendered_css_file)
+
+			enduro_helpers.ensureDirectoryExistence(css_settings_destination_file_path)
+				.then(() => {
+					fs.writeFile(css_settings_destination_file_path, rendered_css_file, () => {
+						resolve()
+					})
 				})
-			})
+		})
 
 	})
 }

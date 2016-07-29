@@ -17,5 +17,7 @@ __templating_engine.registerHelper('list', function() {
 	for (var i = 0; i < arguments.length - 1; i++) {
 		accum += block.fn(arguments[i])
 	}
+
+	// returns the built string
 	return accum
-});
+})

@@ -1,9 +1,13 @@
 // * ———————————————————————————————————————————————————————— * //
 // *    Add helper
 // *	Adds two numbers together
-// *	Usage:
 // *
-// *	{{add @index 2}}
+// *	Usage:
+// *		{{add @index 2}} // outputs @index + 2
+// *
+// *	also takes more arguments
+// *		{{add 1 2 3}} outputs 6
+// *
 // *
 // * ———————————————————————————————————————————————————————— * //
 __templating_engine.registerHelper("add", function () {

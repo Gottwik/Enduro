@@ -5,11 +5,10 @@
 // *	Converts part of cms context into stirng with js object/array notation
 // *	Usable when passing cms static data to client.
 // *	Usage:
-// *
-// *	<script>
-// *		var global = {{{js_cms 'people'}}}
-// *		// global.mike.age is now
-// *	</script>
+// *		<script>
+// *			var global = {{{js_cms 'people'}}}
+// *			// global.mike.age is now
+// *		</script>
 // *
 // * ———————————————————————————————————————————————————————— * //
 
@@ -23,5 +22,6 @@ __templating_engine.registerHelper('js_cms', function(cmsfile) {
 		var file_in_cms = files[0].match(/cms\/(.*)\.([^\\/]+)$/)[1]
 		return flat_file_handler.loadsync(file_in_cms)
 	}
+
 	return ''
-});
+})

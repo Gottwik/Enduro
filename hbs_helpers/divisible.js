@@ -3,7 +3,7 @@
 // *	Simple ternary-style helper that will choose between two ouputs based on if the variables provided is divisible by next argument
 // *	Usage:
 // *
-// *	{{divisible @inde 2 'even' 'odd'}}
+// *	{{divisible @index 2 'even' 'odd'}} // outputs even if @index % 2 == 0
 // *
 // * ———————————————————————————————————————————————————————— * //
 __templating_engine.registerHelper("divisible", function (number_to_dividee, divided_by, value_if_true, value_if_false) {

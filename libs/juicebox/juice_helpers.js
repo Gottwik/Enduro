@@ -12,7 +12,7 @@ var ncp = require('ncp').ncp // Handles copying files
 
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
-
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
 juice_helpers.prototype.diff_with_cms = function(folder) {
 	return new Promise(function(resolve, reject){
@@ -49,6 +49,11 @@ juice_helpers.prototype.diff_with_cms = function(folder) {
 
 juice_helpers.prototype.spill_newer = function(folder) {
 	return new Promise(function(resolve, reject){
+
+		if(!enduro_helpers.dirExists(folder)) {
+			return resolve()
+		}
+
 		diff = get_diff(folder)
 
 		copy_stack = []

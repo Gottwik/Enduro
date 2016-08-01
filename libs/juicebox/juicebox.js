@@ -24,7 +24,6 @@ var EXTENSION = '.tar.gz'
 
 // packs up the juicebox together with new juice.json
 juicebox.prototype.pack = function (user) {
-
 	var self = this
 
 	return self.pull()
@@ -183,9 +182,17 @@ function get_latest_juice() {
 	return new Promise(function(resolve, reject){
 		request(remote_handler.get_remote_url('juicebox/juice.json'), function (error, response, body) {
 			if (error && response.statusCode != 200) { reject('couldnt read juice file') }
-				write_juicefile(JSON.parse(body))
+
+				var juicefile_in_json
+				if(!(body.indexOf('<Error>') + 1 && body.indexOf('AccessDenied') + 1)) {
+					juicefile_in_json = JSON.parse(body)
+				} else {
+					juicefile_in_json = get_new_juicefile()
+				}
+
+				write_juicefile(juicefile_in_json)
 					.then(() => {
-						resolve(JSON.parse(body))
+						resolve(juicefile_in_json)
 					}, err)
 		})
 
@@ -194,6 +201,11 @@ function get_latest_juice() {
 
 function get_juicebox_by_name(juicebox_name) {
 	return new Promise(function(resolve, reject){
+
+		if(juicebox_name != '0000') {
+			return resolve()
+		}
+
 		request(remote_handler.get_remote_url('juicebox/' + juicebox_name))
 			.pipe(fs.createWriteStream('juicebox/' + juicebox_name)
 				.on('close', function() {
@@ -209,23 +221,40 @@ function spill_the_juice(juicebox_name, destination) {
 
 	return new Promise(function(resolve, reject){
 
-		var tarball = path.join(CMD_FOLDER, 'juicebox', juicebox_name)
+		if(!juicebox_name) {
+			return resolve()
+		}
 
-		fs.createReadStream(tarball)
-			.pipe(zlib.Unzip())
-			.pipe(tar.Extract({
-				path: destination,
-			}))
-			.on('end', function() {
-				resolve()
-			})
+		var tarball = path.join(CMD_FOLDER, 'juicebox', juicebox_name)
+		if(enduro_helpers.fileExists(tarball)) {
+			fs.createReadStream(tarball)
+				.pipe(zlib.Unzip())
+				.pipe(tar.Extract({
+					path: destination,
+				}))
+				.on('end', function() {
+					resolve()
+				})
+				.on('error', function() {
+					console.log('asd')
+				})
+		}
 	})
+}
+
+function get_new_juicefile() {
+	return {
+		history: [],
+		latest: {
+			hash: '0000',
+			timestamp: Math.floor(Date.now() / 1000),
+			user: 'enduro',
+		}
+	}
 }
 
 function err(err) {
 	kiska_logger.raw_err(err)
 }
-
-
 
 module.exports = new juicebox()

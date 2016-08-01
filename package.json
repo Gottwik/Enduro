@@ -1,6 +1,6 @@
 {
   "name": "enduro",
-  "version": "1.1.16",
+  "version": "1.1.15",
   "description": "Minimalistic, lean & mean, node.js cms",
   "main": "gruntfile.js",
   "dependencies": {
@@ -52,7 +52,7 @@
     "stringify-object": "^2.3.1",
     "tar": "^2.2.1",
     "urldecode": "^1.0.1",
-    "enduro_admin": "1.0.15"
+    "enduro_admin": "1.0.16"
   },
   "scripts": {
     "test": "mocha --recursive"

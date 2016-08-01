@@ -25,6 +25,7 @@ global.BABEL_FILE = 'config/babel'
 global.START_PATH = ''
 global.flags = {}
 global.abstractors = {}
+global.markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -212,6 +213,9 @@ function render(callback, nojuice){
 		})
 		.then(() => {
 			return abstractor.init()
+		})
+		.then(() => {
+			return markdownifier.init()
 		})
 		.then(() => {
 			return pregenerator.pregenerate()

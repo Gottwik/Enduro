@@ -11,6 +11,7 @@
     "connect-multiparty": "^2.0.0",
     "cors": "^2.7.1",
     "dir-compare": "^1.0.1",
+    "enduro_admin": "1.0.17",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "extend": "^3.0.0",
@@ -51,8 +52,7 @@
     "sha256": "^0.2.0",
     "stringify-object": "^2.3.1",
     "tar": "^2.2.1",
-    "urldecode": "^1.0.1",
-    "enduro_admin": "1.0.16"
+    "urldecode": "^1.0.1"
   },
   "scripts": {
     "test": "mocha --recursive"

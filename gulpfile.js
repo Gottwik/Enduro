@@ -133,7 +133,7 @@ function browsersync_start(norefresh) {
 gulp.task('sass', function() {
 	kiska_logger.timestamp('Sass compiling started', 'enduro_events')
 
-	return gulp.src(CMD_FOLDER + '/assets/css/main.scss')
+	return gulp.src(CMD_FOLDER + '/assets/css/*.scss')
 		.pipe(bulkSass())
 		.pipe(sourcemaps.init())
 		.pipe(sass())

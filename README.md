@@ -8,7 +8,7 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kiskadigitalmedia/Enduro/master/License.md)
 
 
-Enduro is minimalistic, lean & mean, node.js cms. See more at [enduro.js website](https://kiskadigitalmedia.github.io/Enduro/)
+Enduro is minimalistic, lean & mean, node.js cms. See more at [enduro.js website](http://www.endurojs.com/)
 
 ## What's Enduro
 Enduro is a complete platform for building websites with focus on productivity. In simpler terms you can build a website with Enduro really fast.

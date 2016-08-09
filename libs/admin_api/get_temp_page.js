@@ -10,7 +10,6 @@
 var api_call = function () {}
 
 // Vendor dependencies
-var fs = require('fs')
 var path = require('path')
 
 // local dependencies
@@ -45,6 +44,10 @@ api_call.prototype.call = function(req, res, enduro_server){
 		admin_sessions.get_user_by_session(sid)
 			.then((user) => {
 				return temper.render(filename, content)
+			}, () => {
+				res.sendStatus(401)
+				throw new Error('abort promise chain')
+				return
 			})
 			.then((temp_page_in_raw_html) => {
 				var temp_filename = Math.random().toString(36).substring(7)
@@ -57,8 +60,8 @@ api_call.prototype.call = function(req, res, enduro_server){
 
 						})
 					})
-			})
-	});
+			}, () => {})
+	})
 
 }
 

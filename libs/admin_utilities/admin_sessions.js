@@ -13,7 +13,7 @@ var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // constants
-var SESSION_LIFETIME = 10 // in minutes
+var SESSION_LIFETIME = 30 // in minutes
 
 admin_sessions.prototype.create_session = function(req, user) {
 	global.admin_sessions_store = global.admin_sessions_store || {}

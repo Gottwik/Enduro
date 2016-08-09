@@ -33,6 +33,10 @@ api_call.prototype.call = function(req, res, enduro_server) {
 	admin_sessions.get_user_by_session(sid)
 		.then((user) => {
 			return flat_file_handler.load(filename)
+		}, () => {
+			res.sendStatus(401)
+			throw new Error('abort promise chain')
+			return
 		})
 		.then((data) => {
 
@@ -41,8 +45,12 @@ api_call.prototype.call = function(req, res, enduro_server) {
 			context.page_name = data.$page_name || filename
 			context.context = data
 
+			if(!['global', 'generators'].indexOf(context.page_name.split('/')[0].toLowerCase())) {
+				context.no_page_associated = true
+			}
+
 			res.send(context)
-		})
+		}, () => {})
 }
 
 module.exports = new api_call()

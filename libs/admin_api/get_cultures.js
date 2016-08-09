@@ -20,13 +20,12 @@ api_call.prototype.call = function(req, res, enduro_server){
 		.then((user) => {
 			return babel.get_cultures()
 		}, (user) => {
+			res.sendStatus(401)
 			throw new Error('abort promise chain');
 		})
 		.then((cultures) => {
 			res.send({success: true, data: cultures})
-		}, () => {
-			res.send({success: false, message: 'session not valid'})
-		})
+		}, () => {})
 }
 
 module.exports = new api_call()

@@ -10,8 +10,6 @@
 var api_call = function () {}
 
 // Vendor dependencies
-var fs = require('fs')
-var glob = require("glob")
 var Promise = require('bluebird')
 
 // local dependencies
@@ -49,17 +47,20 @@ api_call.prototype.call = function(req, res, enduro_server){
 			.then((user) => {
 				requesting_user = user
 				return flat_file_handler.save(filename, content)
+			}, () => {
+				res.sendStatus(401)
+				throw new Error()
 			})
 			.then(() => {
 				return juicebox.pack(requesting_user.username)
-			})
+			}, () => { throw new Error() })
 			.then((data) => {
 				// Re-renders enduro - essential to publishing the change
 				enduro_server.enduro_refresh(() => {
 					res.send(data)
 				})
-			})
-	});
+			}, () => {})
+	})
 
 }
 

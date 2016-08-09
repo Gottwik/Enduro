@@ -91,6 +91,8 @@ pagelist_generator.prototype.get_cms_list = function() {
 
 			// helper function to build the pagelist
 			function build(pagepath, partial_pages, fullpath) {
+
+				// decides if pagepath is folder or file
 				if(pagepath.length == 1){
 
 					var page = {}
@@ -116,25 +118,23 @@ pagelist_generator.prototype.get_cms_list = function() {
 					folder.fullpath = '/' + fullpath.join('/')
 					folder.name = format_service.prettify_string(pagepath[0])
 
-
 					if(fullpath[0] == 'generators' && pagepath.length != fullpath.length) {
 						folder.generator = true
 					}
 
-					// change global name
-					if(folder.name == 'Global') {
-						folder.name = 'Datasets'
+					// global and generators receive special treatment and the subfolders are not created
+					if(folder.name.toLowerCase() == 'global' || folder.name.toLowerCase() == 'generators') {
+						build(pagepath.slice(1), partial_pages, fullpath)
+					} else {
+
+						// adds the folder to the tree if it's not there yet
+						if(!(pagepath[0] in partial_pages)){
+							partial_pages[pagepath[0]] = folder
+						}
+
+						build(pagepath.slice(1), partial_pages[pagepath[0]], fullpath)
 					}
 
-					// change generators name
-					if(folder.name == 'Generators') {
-						folder.name = 'Multipages'
-					}
-
-					if(!(pagepath[0] in partial_pages)){
-						partial_pages[pagepath[0]] = folder
-					}
-					build(pagepath.slice(1), partial_pages[pagepath[0]], fullpath)
 				}
 			}
 

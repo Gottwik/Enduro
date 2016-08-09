@@ -106,7 +106,7 @@ page_renderer.prototype.render_file_by_filename_extend_context = function(filena
 	var self = this
 	extended_context = extended_context || {}
 
-	var file = path.join(CMD_FOLDER, 'pages', filename + '.hbs')
+	var file = get_template_by_filename(filename)
 	var culture = config.cultures[0]
 
 	return flat_file_handler.load(filename)
@@ -122,11 +122,21 @@ page_renderer.prototype.render_file_by_filename_replace_context = function(filen
 	var self = this
 	context = context || {}
 
-	var file = path.join(CMD_FOLDER, 'pages', filename + '.hbs')
+	var file = get_template_by_filename(filename)
 	var culture = config.cultures[0]
 
 	return self.render_file_by_context(file, context, culture)
 
+}
+
+function get_template_by_filename(filename) {
+
+	var splitted_filename = filename.split(path.sep)
+	if(splitted_filename.indexOf('generators') + 1) {
+		filename = splitted_filename.slice(0, -1).join(path.sep)
+	}
+
+	return path.join(CMD_FOLDER, 'pages', filename + '.hbs')
 }
 
 module.exports = new page_renderer()

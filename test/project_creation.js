@@ -1,7 +1,7 @@
 // vendor dependencies
 var expect = require("chai").expect
 var rimraf = require('rimraf')
-var fs = require('fs')
+var path = require('path')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -19,7 +19,7 @@ describe('Enduro project creation', function() {
 			}, () => {
 				done()
 			})
-	});
+	})
 
 	it("should not create new project if no project name is provided", function(done){
 		enduro.run(['create'])
@@ -28,7 +28,7 @@ describe('Enduro project creation', function() {
 			}, () => {
 				done()
 			})
-	});
+	})
 
 	it("should be able to create a new project", function(done){
 		enduro.run(['create', 'testproject_creation'])
@@ -37,7 +37,25 @@ describe('Enduro project creation', function() {
 			}, (err) => {
 				done(new Error(err))
 			})
-	});
+	})
+
+	it("should be able to create a new project even with extra useless parameters", function(done){
+		enduro.run(['create', 'testproject_creation_useless', 'test', '123'])
+			.then(() => {
+				done()
+			}, (err) => {
+				done(new Error(err))
+			})
+	})
+
+	it("should fail if non-existent scaffolding is provided", function(done){
+		enduro.run(['create', 'testproject_creation_useless', 'nonexistent scaffolding'])
+			.then(() => {
+				done(new Error(err))
+			}, (err) => {
+				done()
+			})
+	})
 
 	it("should not create another project with the same name", function(done){
 		enduro.run(['create', 'testproject_creation'])
@@ -46,11 +64,11 @@ describe('Enduro project creation', function() {
 			}, () => {
 				done()
 			})
-	});
+	})
 
 	it("the folder should exists", function(){
 		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation')).to.equal(true)
-	});
+	})
 
 	it("the project folder should have all the subfolders", function(){
 		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/pages')).to.equal(true)
@@ -58,10 +76,20 @@ describe('Enduro project creation', function() {
 		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/assets')).to.equal(true)
 		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/cms')).to.equal(true)
 		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/components')).to.equal(true)
-	});
+	})
 
 	it("the project folder should contain files", function(){
 		expect(enduro_helpers.fileExists(CMD_FOLDER + '/testproject_creation/package.json')).to.equal(true)
 		expect(enduro_helpers.fileExists(CMD_FOLDER + '/testproject_creation/cms/index.js')).to.equal(true)
-	});
-});
+	})
+
+	it("should be able to create a new project with defined scaffolding", function(done){
+		enduro.run(['create', 'custom_scaffolding', 'test'])
+			.then(() => {
+				expect(enduro_helpers.fileExists(path.join(CMD_FOLDER, 'custom_scaffolding', 'app', 'markdown_rules', 'test_markdown_rule.js'))).to.equal(true)
+				done()
+			}, (err) => {
+				done(new Error(err))
+			})
+	})
+})

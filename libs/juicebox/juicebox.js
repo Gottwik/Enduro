@@ -19,6 +19,7 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var remote_handler = require(ENDURO_FOLDER + '/libs/remote_tools/remote_handler')
 var juice_helpers = require(ENDURO_FOLDER + '/libs/juicebox/juice_helpers')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
 
 var EXTENSION = '.tar.gz'
 
@@ -126,8 +127,6 @@ juicebox.prototype.force_pack = function (user) {
 }
 
 juicebox.prototype.diff = function (nojuice) {
-	console.log('diff')
-
 	var diff_juice
 
 	return get_latest_juice()
@@ -184,10 +183,23 @@ function get_latest_juice() {
 			if (error && response.statusCode != 200) { reject('couldnt read juice file') }
 
 				var juicefile_in_json
-				if(!(body.indexOf('<Error>') + 1 && body.indexOf('AccessDenied') + 1)) {
-					juicefile_in_json = JSON.parse(body)
+
+				// check if we got xml or json - xml means there is something wrong
+				if(body.indexOf('<?xml') + 1 && body.indexOf('<Error>') + 1) {
+
+					// juicefile doesn't exist yet - let's create a new juicefile
+					if(body.indexOf('AccessDenied') + 1) {
+						juicefile_in_json = get_new_juicefile()
+
+					// bucket was not created
+					} else if(body.indexOf('NoSuchBucket') + 1) {
+						log_clusters.log('nonexistent_bucket')
+
+						process.exit()
+					}
+
 				} else {
-					juicefile_in_json = get_new_juicefile()
+					juicefile_in_json = JSON.parse(body)
 				}
 
 				write_juicefile(juicefile_in_json)

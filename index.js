@@ -61,8 +61,6 @@ gulp.set_refresh(function(callback){
 	}, true)
 })
 
-// stores enduro_server and extends it with render
-
 enduro_server.set_init(function(cb){
 	var first_production_render = true
 	var first_production = true

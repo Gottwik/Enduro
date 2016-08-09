@@ -45,4 +45,14 @@ clusters['project_created'] = (context) => {
 	kiska_logger.end()
 }
 
+clusters['nonexistent_bucket'] = (context) => {
+	kiska_logger.err_blockStart('Bucket does not exist')
+	kiska_logger.err('Bucket ' + global.config.s3.bucket + ' does not exist')
+	kiska_logger.err(' ')
+	kiska_logger.err('Please go to your aws console and create one')
+	kiska_logger.err(' ')
+	kiska_logger.err('You probably also want to make it public')
+	kiska_logger.err_blockEnd()
+}
+
 module.exports = new log_clusters()

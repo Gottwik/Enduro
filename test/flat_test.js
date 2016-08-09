@@ -34,7 +34,7 @@ describe('Enduro helpers utilities', function() {
 	})
 
 	it('should detect an existing nested folder', function () {
-		expect(enduro_helpers.dirExists(process.cwd() + '/scaffolding/assets')).to.equal(true)
+		expect(enduro_helpers.dirExists(process.cwd() + '/scaffolding/minimalistic/assets')).to.equal(true)
 	})
 
 	it('should not detect an nonexisting folder', function () {

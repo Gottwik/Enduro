@@ -7,7 +7,7 @@ var pagelist_generator = function () {};
 // vendor dependencies
 var Promise = require('bluebird')
 var fs = require('fs')
-var glob = require("glob")
+var glob = require('glob')
 var stringify_object = require('stringify-object')
 var extend = require('extend')
 var path = require("path")

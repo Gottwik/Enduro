@@ -8,20 +8,22 @@ var scaffolder = function () {}
 // vendor variables
 var Promise = require('bluebird')
 var ncp = require('ncp').ncp // Handles copying files
+var path = require('path')
 
 // local variables
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
+var glob = require('glob')
 
 // constants
-var SCAFFOLDING_SOURCE = ENDURO_FOLDER + '/scaffolding' // source of the scaffolding - directory where enduro is installed
+var DEFAULT_SCAFFOLDING_NAME = 'minimalistic'
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	scaffold
 // *
 // *	copies required files into new project
-// *	@param {array} args - args[0] stores the desired name of the new project
+// *	@param {array} args - args[0] - desired name of the new project, args[1] - scaffolding name
 // *	@return {Promise} - promise with no content. resolve if login was successfull
 // * ———————————————————————————————————————————————————————— * //
 scaffolder.prototype.scaffold = function(args){
@@ -36,8 +38,14 @@ scaffolder.prototype.scaffold = function(args){
 		// Stores project name
 		var project_name = args[0]
 
+		var scaffolding_path = get_scaffolding_path_by_name(args[1])
+
+		if(scaffolding_path == -1) {
+			reject()
+		}
+
 		// Destination directory
-		var scaffolding_destination = CMD_FOLDER + '/' + project_name
+		var scaffolding_destination = path.join(CMD_FOLDER, project_name)
 
 		// Reject if directory already exists
 		if(enduro_helpers.dirExists(scaffolding_destination) && !flags.force){
@@ -48,7 +56,7 @@ scaffolder.prototype.scaffold = function(args){
 		log_clusters.log('creating_project', {project_name: project_name})
 
 		// Copy files - Without overwriting existing files
-		ncp(SCAFFOLDING_SOURCE, scaffolding_destination, {clobber: false}, function (err) {
+		ncp(scaffolding_path, scaffolding_destination, {clobber: false}, function (err) {
 			if (err) {
 				// Something went wrong with the copying
 				reject('creating new files failed')
@@ -61,6 +69,33 @@ scaffolder.prototype.scaffold = function(args){
 			resolve()
 		})
 	})
+}
+
+function get_scaffolding_path_by_name(scaffolding_name) {
+
+	scaffolding_name = scaffolding_name || DEFAULT_SCAFFOLDING_NAME
+
+	var scaffolding_path = path.join(ENDURO_FOLDER, 'scaffolding', scaffolding_name)
+	if(!enduro_helpers.dirExists(scaffolding_path)) {
+		non_existent_scaffoling_logout(scaffolding_name)
+		return -1
+	}
+
+	return scaffolding_path
+}
+
+function non_existent_scaffoling_logout(scaffolding_name) {
+	kiska_logger.err_blockStart('Scaffolding does not exist')
+	kiska_logger.err('Scaffolding with name ' + scaffolding_name + ' does not exist')
+	kiska_logger.err('\nChoose from these scaffoldings:\n')
+
+	var scaffoldings = glob.sync(path.join(ENDURO_FOLDER, 'scaffolding', '*'))
+	for(var s in scaffoldings) {
+		kiska_logger.err('\t' + scaffoldings[s].match(/\/([^\/]*)$/)[1])
+	}
+
+	kiska_logger.err('\n')
+	kiska_logger.err_blockEnd()
 }
 
 module.exports = new scaffolder()

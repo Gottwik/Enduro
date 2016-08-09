@@ -85,7 +85,7 @@ admin_security.prototype.login_by_password = function(username, password) {
 
 		// if username or password is missing
 		if(!username || !password) {
-			reject({success: false, message: 'username or password not provided'})
+			return reject({success: false, message: 'username or password not provided'})
 		}
 
 		// gets user with specified username
@@ -183,8 +183,8 @@ function hash(password, salt) {
 // *	@return {} - nothing, just adds salt and hash to logincontext
 // * ———————————————————————————————————————————————————————— * //
 function salt_and_hash(logincontext) {
-	if(!logincontext.username || !logincontext.password) {
-		return logincontext
+	if(!logincontext || !logincontext.username || !logincontext.password) {
+		return
 	}
 
 	// adds salt

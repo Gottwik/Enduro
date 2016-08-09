@@ -7,7 +7,6 @@ var abstractor = function () {};
 
 // vendor dependencies
 var Promise = require('bluebird')
-var fs = require('fs')
 var glob = require('glob-promise')
 var path = require('path')
 
@@ -33,7 +32,11 @@ abstractor.prototype.init = function () {
 				var abstractor_name = path.basename(files[f], '.js')
 
 				global.abstractors[abstractor_name] = require(files[f])
-				abstraction_inits.push(abstractors[abstractor_name].init())
+
+				// check if abstractor has an init function
+				if(abstractors[abstractor_name].init) {
+					abstraction_inits.push(abstractors[abstractor_name].init())
+				}
 			}
 			return Promise.all(abstraction_inits)
 		})

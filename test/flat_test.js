@@ -1,12 +1,12 @@
 
 // vendor dependencies
-var expect = require("chai").expect
+var expect = require('chai').expect
 var fs = require('fs')
 var rimraf = require('rimraf')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
-var flat_file_handler = require(ENDURO_FOLDER+'/libs/flat_utilities/flat_file_handler')
+var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var enduro = require(ENDURO_FOLDER + '/index')
 
 enduro.silent()
@@ -79,7 +79,7 @@ describe('Enduro flat utilities', function() {
 			}, (err) => {
 				done(new Error(err))
 			})
-	});
+	})
 
 	it('should detect an existing flat file', function () {
 		expect(flat_file_handler.file_exists('index')).to.equal(true)

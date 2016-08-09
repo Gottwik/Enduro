@@ -9,7 +9,7 @@ describe('Abstractor', function() {
 
 		var test_project_name = 'abstractor_testfolder'
 
-		enduro.run(['create', test_project_name])
+		enduro.run(['create', test_project_name, 'test'])
 			.then(() => {
 				CMD_FOLDER = process.cwd() + '/testfolder/' + test_project_name
 				done()
@@ -21,7 +21,7 @@ describe('Abstractor', function() {
 	it('should register all the abstractors', function () {
 		return abstractor.init()
 			.then(() => {
-				expect(abstractors).to.include.keys('tweet');
+				expect(abstractors).to.include.keys('empty_init');
 			})
 	})
 

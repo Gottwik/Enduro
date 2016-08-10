@@ -214,7 +214,7 @@ function get_latest_juice() {
 function get_juicebox_by_name(juicebox_name) {
 	return new Promise(function(resolve, reject){
 
-		if(juicebox_name != '0000') {
+		if(juicebox_name == '0000') {
 			return resolve()
 		}
 
@@ -230,7 +230,6 @@ function get_juicebox_by_name(juicebox_name) {
 function spill_the_juice(juicebox_name, destination) {
 
 	destination = destination || path.join(CMD_FOLDER)
-
 	return new Promise(function(resolve, reject){
 
 		if(!juicebox_name) {

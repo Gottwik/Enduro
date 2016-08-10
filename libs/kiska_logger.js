@@ -61,9 +61,10 @@ kiska_logger.prototype.tablog = function (message, newline, logtag) {
 };
 
 // * │ Something                                       Happened │ * //
-kiska_logger.prototype.twolog = function (message, left_message, logtag) {
+kiska_logger.prototype.twolog = function (message, right_message, logtag) {
 	if(!pass_tagcheck(logtag)){ return }
-	log(chalk.cyan('│') + rpad(' ' + message, FRAME_WIDTH - 3 - left_message.length) + left_message + chalk.cyan(' │'))
+	if(!right_message) { return log(message, logtag) }
+	log(chalk.cyan('│') + rpad(' ' + message, FRAME_WIDTH - 3 - right_message.length) + right_message + chalk.cyan(' │'))
 };
 
 // * ├——————————————————————————————————————————————————————————┤ * //

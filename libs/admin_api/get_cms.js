@@ -10,12 +10,13 @@ var api_call = function () {}
 
 // vendor dependencies
 var fs = require('fs')
-var glob = require("glob")
+var glob = require('glob')
 var Promise = require('bluebird')
 
 // local dependencies
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
+var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 
 // routed call
 api_call.prototype.call = function(req, res, enduro_server) {
@@ -43,11 +44,12 @@ api_call.prototype.call = function(req, res, enduro_server) {
 			var context = {}
 			context.success = true
 			context.page_name = data.$page_name || filename
+			context.only_page_name = context.page_name.split('/').splice(-1)[0]
 			context.context = data
-
-			if(!['global', 'generators'].indexOf(context.page_name.split('/')[0].toLowerCase())) {
-				context.no_page_associated = true
-			}
+			context.page_link = flat_file_handler.url_from_filename(context.page_name)
+			context.no_page_associated = flat_file_handler.has_page_associated(context.page_name)
+			context.pretty_name = format_service.prettify_string(context.only_page_name)
+			context.path_list = context.page_name.split('/')
 
 			res.send(context)
 		}, () => {})

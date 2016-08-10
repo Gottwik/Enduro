@@ -215,6 +215,7 @@ flat_file_handler.prototype.add_array = function(filename, context_to_add, key) 
 		})
 }
 
+
 // * ———————————————————————————————————————————————————————— * //
 // * 	checks filename and returns if it defines a generator file or not
 // *	@param {string} filename - path to file without extension, relative to /cms folder
@@ -222,6 +223,30 @@ flat_file_handler.prototype.add_array = function(filename, context_to_add, key) 
 // * ———————————————————————————————————————————————————————— * //
 flat_file_handler.prototype.is_generator = function(filename) {
 	return filename.split('/')[0] == 'generators'
+}
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	returns url from filename, takes into account generators
+// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	@return {string} - returns relative url to the file
+// * ———————————————————————————————————————————————————————— * //
+flat_file_handler.prototype.url_from_filename = function(filename) {
+	if(this.is_generator(filename)) {
+		return filename.split('/').slice(1).join('/')
+	}
+
+	return filename
+}
+
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	returns url from filename, takes into account generators
+// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	@return {string} - returns relative url to the file
+// * ———————————————————————————————————————————————————————— * //
+flat_file_handler.prototype.has_page_associated = function(filename) {
+	return !['global', 'generators'].indexOf(filename.split('/')[0].toLowerCase())
 }
 
 

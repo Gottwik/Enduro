@@ -98,7 +98,8 @@ page_queue_generator.prototype.add_generator_pages = function(pages_to_render, p
 				context_clone.context_file = flat_file_handler.get_cms_filename_from_fullpath(files[f])
 
 				// sets new destination path, removing the /generator from the path
-				context_clone.destination_path = context_clone.context_file.split('/').slice(1).join('/')
+				context_clone.destination_path =
+				context_clone.destination_path = flat_file_handler.url_from_filename(context_clone.context_file)
 
 				// push to provided page list
 				pages_to_render.push(context_clone)

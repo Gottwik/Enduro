@@ -22,7 +22,8 @@ api_call.prototype.call = function(req, res, enduro_server){
 			kiska_logger.timestamp('uploading file: ' + req.files.file.name ,'file_uploading')
 			return file_uploader.upload(req.files.file)
 		}, (user) => {
-			throw new Error('abort promise chain');
+			res.sendStatus(401)
+			throw new Error(true)
 		})
 		.then((image_url) => {
 			res.send({
@@ -30,7 +31,9 @@ api_call.prototype.call = function(req, res, enduro_server){
 				image_url: image_url
 			})
 		}, () => {
-			res.send({success: false})
+			if(!res.headersSent) {
+				res.send({success: false})
+			}
 		})
 }
 

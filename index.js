@@ -148,7 +148,7 @@ function run(args, flags){
 				// * 	$ enduro addadmin (username) (password)
 				// * ———————————————————————————————————————————————————————— * //
 				} else if(arg == 'addadmin'){
-					return admin_security.add_admin(args.shift(), args.shift())
+					return admin_security.add_admin(args.shift(), args.shift(), args.shift())
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro addculture (culture1) [culture2] ...

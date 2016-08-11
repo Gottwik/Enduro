@@ -37,12 +37,14 @@ admin_sessions.prototype.get_user_by_session = function(sid) {
 
 	kiska_logger.timestamp('getting user by session', 'admin_login')
 
+	// session is not there
 	if(!(sid in global.admin_sessions_store)) {
-		return new Promise(function(resolve, reject){ reject('session doesn\'t exist') })
+		return Promise.reject('session doesn\'t exist')
 	}
 
+	// session is there but is expired
 	if(global.admin_sessions_store[sid].expires_at < moment().unix()) {
-		return new Promise(function(resolve, reject){ reject('session expired') })
+		return Promise.reject('session expired')
 	}
 
 	// prolonge the session

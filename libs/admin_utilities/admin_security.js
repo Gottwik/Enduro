@@ -117,7 +117,7 @@ admin_security.prototype.login_by_password = function(username, password) {
 // *	@param {string} plaintext password
 // *	@return {promise} - resolves/rejects based on if the creation was successful
 // * ———————————————————————————————————————————————————————— * //
-admin_security.prototype.add_admin = function(username, password) {
+admin_security.prototype.add_admin = function(username, password, tags) {
 	var self = this
 
 	return new Promise(function(resolve, reject){
@@ -127,13 +127,18 @@ admin_security.prototype.add_admin = function(username, password) {
 			username = 'root'
 		}
 
-		//generate random password if no password is provided
+		// generate random password if no password is provided
 		password = password || Math.random().toString(10).substring(10);
 
+		// put empty tag if no tags are provided
+		tags = tags
+			? tags.split(',')
+			: []
 
 		var logincontext = {
 			username: username,
-			password: password
+			password: password,
+			tags: tags
 		}
 
 		self.get_user_by_username(logincontext.username)

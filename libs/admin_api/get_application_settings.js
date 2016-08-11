@@ -1,6 +1,5 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	check juicebox enabled
-// * ———————————————————————————————————————————————————————— * //
+// * 	check juicebox enabledget_application_settings————————————————————————————————————————————————————— * //
 var api_call = function () {}
 
 // local dependencies
@@ -9,7 +8,11 @@ var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
 // routed call
 api_call.prototype.call = function(req, res, enduro_server){
 
-	res.send(juicebox.juicebox_enabled())
+	var application_settings = __data.global.settings
+
+	application_settings.juicebox_enabled = juicebox.juicebox_enabled()
+
+	res.send(application_settings)
 
 }
 

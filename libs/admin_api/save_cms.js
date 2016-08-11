@@ -17,6 +17,7 @@ var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var admin_rights = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_rights')
 
 // routed call
 api_call.prototype.call = function(req, res, enduro_server){
@@ -45,6 +46,11 @@ api_call.prototype.call = function(req, res, enduro_server){
 
 		admin_sessions.get_user_by_session(sid)
 			.then((user) => {
+				if(!admin_rights.can_user_do_that(user, 'write')) {
+					res.sendStatus(403)
+					throw new Error()
+				}
+
 				requesting_user = user
 				return flat_file_handler.save(filename, content)
 			}, () => {

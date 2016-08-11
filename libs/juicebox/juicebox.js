@@ -214,7 +214,7 @@ function get_latest_juice() {
 function get_juicebox_by_name(juicebox_name) {
 	return new Promise(function(resolve, reject){
 
-		if(juicebox_name == '0000') {
+		if(juicebox_name != '0000') {
 			return resolve()
 		}
 

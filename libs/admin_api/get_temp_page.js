@@ -11,6 +11,7 @@ var api_call = function () {}
 
 // Vendor dependencies
 var path = require('path')
+var fs = require('fs')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')

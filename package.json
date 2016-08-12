@@ -15,6 +15,7 @@
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "extend": "^3.0.0",
+    "fs-extra": "^0.30.0",
     "glob": "^7.0.3",
     "glob-promise": "^1.0.6",
     "gulp": "^3.9.0",

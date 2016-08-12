@@ -7,7 +7,7 @@ var juice_helpers = function () {}
 // vendor dependencies
 var dircompare = require('dir-compare')
 var path = require('path')
-var fs = require('fs')
+var fs = require('fs-extra')
 var ncp = require('ncp').ncp // Handles copying files
 
 // local dependencies
@@ -75,9 +75,7 @@ function copy_file_to_cms(entry) {
 		var from_path = path.join(entry.path2, entry.name2)
 		var to_path = path.join(CMD_FOLDER, 'cms', path.join(entry.path2, entry.name2).match(/\/cms\/(.*)/)[1])
 
-		kiska_logger.log('copying files from ' + from_path + ' to ' + to_path, 'juicebox')
-
-		ncp(from_path, to_path, () => {
+		fs.copy(from_path, to_path, {preserveTimestamps: true}, () => {
 			resolve()
 		})
 	})

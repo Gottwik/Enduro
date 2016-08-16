@@ -38,7 +38,7 @@ var logtags_config = {
 
 // * ┌——————————————~—ENDURO - CREATING PROJECT—~———————————————┐ * //
 kiska_logger.prototype.init = function (message, logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	message = message || 'ENDURO'
 	log('\n' + chalk.cyan('┌' + ('~—'+message+'—~').cpad(FRAME_WIDTH-2, '—') + '┐'))
 };
@@ -49,39 +49,39 @@ kiska_logger.prototype.log = function (message, newline, logtag) {
 		logtag = newline
 		newline = false
 	}
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	log(chalk.cyan('│') + rpad(' ' + message, FRAME_WIDTH-2) + chalk.cyan('│'))
 	newline || false ? this.log('') : ''
 };
 
 // * │     same as log but with a tab                           │ * //
 kiska_logger.prototype.tablog = function (message, newline, logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	this.log(rep(TAB_WIDTH) + message,newline)
 };
 
 // * │ Something                                       Happened │ * //
 kiska_logger.prototype.twolog = function (message, right_message, logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	if(!right_message) { return log(message, logtag) }
 	log(chalk.cyan('│') + rpad(' ' + message, FRAME_WIDTH - 3 - right_message.length) + right_message + chalk.cyan(' │'))
 };
 
 // * ├——————————————————————————————————————————————————————————┤ * //
 kiska_logger.prototype.line = function (logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	log(chalk.cyan('├' + rep(FRAME_WIDTH-2, '—') + '┤'))
 };
 
 // * └——————————————————————————————————————————————————————————┘ * //
 kiska_logger.prototype.end = function(logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	log(chalk.cyan('└' + rep(FRAME_WIDTH-2, '—') + '┘'))
 }
 
 // * [10:25:30] same as log but with a tab                           * //
 kiska_logger.prototype.timestamp = function (message, logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	log('[' + chalk.cyan(get_timestamp()) + '] ' + message)
 };
 
@@ -94,7 +94,7 @@ kiska_logger.prototype.timestamp = function (message, logtag) {
 // * directory already exists                                     * //
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
 kiska_logger.prototype.err_block = function (message, logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	log('\n' + chalk.red(rep(FRAME_WIDTH, '▼')))
 	this.err(message)
 	log(chalk.red(rep(FRAME_WIDTH, '▲')) + '\n')
@@ -102,33 +102,33 @@ kiska_logger.prototype.err_block = function (message, logtag) {
 
 // * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ ERROR ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ * //
 kiska_logger.prototype.err_blockStart = function (message, logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	log('\n')
 	log(chalk.red((' ' + message + ' ').cpad(FRAME_WIDTH, '▼')))
 };
 
 // * │ Something went wrong                                     │ * //
 kiska_logger.prototype.err = function (message, logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	if(!message) { return }
 	log(chalk.red(rpad(message, FRAME_WIDTH)))
 };
 
 // * │ Something                                       Happened │ * //
 kiska_logger.prototype.twoerr = function (message, left_message, logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	log(chalk.red('│') + chalk.red(rpad(' ' + message, FRAME_WIDTH - 3 - left_message.length) + left_message) + chalk.red(' │'))
 };
 
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
 kiska_logger.prototype.err_blockEnd = function (logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	log(chalk.red(rep(FRAME_WIDTH, '▲')))
 	log('\n')
 };
 
 kiska_logger.prototype.raw_err = function (message, logtag) {
-	if(!pass_tagcheck(logtag)){ return }
+	if(!pass_tagcheck(logtag)) { return }
 	this.err_blockStart()
 	console.log(message)
 	this.err_blockEnd()
@@ -168,7 +168,7 @@ function get_timestamp() {
 // * ———————————————————————————————————————————————————————— * //
 
 // pads from left
-String.prototype.lpad = function(len, c){
+String.prototype.lpad = function(len, c) {
 	var s = this
 	var c = c || '0'
 
@@ -191,7 +191,7 @@ String.prototype.cpad = function(length, char) {
 }
 
 // Returns string of length @len consisting of characters @char
-function rep(len, char){
+function rep(len, char) {
 	return len > 0
 		? Array(len + 1).join(char || ' ')
 		: ''

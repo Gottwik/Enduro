@@ -31,7 +31,7 @@ function timestamp_filename(filename) {
 
 function s3_upload(filename, filepath) {
 	//kiska_logger.timestamp('Uploading file to s3','file_uploading')
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 
 		var destination_url = get_remote_url(filename)
 

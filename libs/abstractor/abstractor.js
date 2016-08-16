@@ -82,7 +82,7 @@ abstractor.prototype.abstract_file = function (filename) {
 }
 
 abstractor.prototype.abstract_context = function (context) {
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 		deep_abstract(context)
 		.then(() => {
 			resolve(context)

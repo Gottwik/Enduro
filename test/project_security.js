@@ -10,7 +10,7 @@ var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
 describe('Enduro security', function() {
 
 	//Create a new project
-	before(function(done){
+	before(function(done) {
 		enduro.run(['create', 'testproject_security'])
 			.then(() => {
 				// navigate inside new project
@@ -21,7 +21,7 @@ describe('Enduro security', function() {
 			})
 	});
 
-	it("won't do nothing if no passphrase is provided", function(done){
+	it("won't do nothing if no passphrase is provided", function(done) {
 		enduro.run(['secure'])
 			.then(() => {
 				done(new Error("Failed to detect missing passphrase"))
@@ -30,7 +30,7 @@ describe('Enduro security', function() {
 			})
 	})
 
-	it("should create a passphrase file when enduro is secured", function(done){
+	it("should create a passphrase file when enduro is secured", function(done) {
 		enduro.run(['secure', 'testphrase'])
 			.then(() => {
 				done()
@@ -39,11 +39,11 @@ describe('Enduro security', function() {
 			})
 	})
 
-	it("should make sure the passphrase file is created", function(){
+	it("should make sure the passphrase file is created", function() {
 		expect(enduro_helpers.fileExists(CMD_FOLDER + '/.enduro_secure')).to.equal(true)
 	})
 
-	it("should verify the correct passphrase", function(done){
+	it("should verify the correct passphrase", function(done) {
 		kiska_guard.verify_passphrase('testphrase')
 			.then(() => {
 				done()
@@ -52,7 +52,7 @@ describe('Enduro security', function() {
 			})
 	})
 
-	it("should fail to verify the incorrect passphrase", function(done){
+	it("should fail to verify the incorrect passphrase", function(done) {
 		kiska_guard.verify_passphrase('notcorrectpassphrase')
 			.then(() => {
 				done(new Error("Failed to not verify the incorrect passphrase"))
@@ -61,7 +61,7 @@ describe('Enduro security', function() {
 			})
 	})
 
-	it("should fail to verify the empty passphrase", function(done){
+	it("should fail to verify the empty passphrase", function(done) {
 		kiska_guard.verify_passphrase()
 			.then(() => {
 				done(new Error("Failed to not verify the incorrect passphrase"))
@@ -71,7 +71,7 @@ describe('Enduro security', function() {
 	})
 
 	// navigate back to testfolder
-	after(function(){
+	after(function() {
 		global.CMD_FOLDER = process.cwd() + '/testfolder'
 	})
 })

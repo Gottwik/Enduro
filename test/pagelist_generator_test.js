@@ -1,8 +1,10 @@
 var expect = require('chai').expect
+var gulp = require('gulp')
 
 var babel = require(global.ENDURO_FOLDER + '/libs/babel/babel')
 var enduro = require(ENDURO_FOLDER + '/index')
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator')
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
 describe('Page list generation', function() {
 
@@ -16,16 +18,34 @@ describe('Page list generation', function() {
 			})
 	})
 
-	it('should generate cmslist successfully', function (done) {
+	it('should generate cmslist', function (done) {
 		pagelist_generator.generate_cms_list()
 			.then((cmslist) => {
-				console.log(cmslist)
+				expect(cmslist).to.have.property('flat')
+				expect(cmslist).to.have.property('structured')
+				expect(cmslist).to.have.deep.property('structured.testgenerator.folder', true)
+				expect(cmslist['flat']).to.have.length.of.at.least(3)
 				done()
 			})
 	})
 
+	it('should register gulp task', function () {
+		var gulp_task_name = pagelist_generator.init(gulp)
+		expect(gulp.tasks[gulp_task_name]).to.not.be.undefined
+	})
+
+	it('should save the cmslist', function () {
+		pagelist_generator.generate_cms_list()
+			.then((cmslist) => {
+				return pagelist_generator.save_cms_list(cmslist)
+			})
+			.then(() => {
+				expect(enduro_helpers.fileExists(pagelist_generator.pregenerated_pagelist_path)).to.be.ok
+			})
+	})
+
 	// navigate back to testfolder
-	after(function(){
+	after(function() {
 		global.CMD_FOLDER = process.cwd() + '/testfolder'
 	})
 

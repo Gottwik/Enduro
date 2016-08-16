@@ -15,7 +15,7 @@ var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessio
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server){
+api_call.prototype.call = function(req, res, enduro_server) {
 	var username = req.query.username
 	var password = req.query.password
 

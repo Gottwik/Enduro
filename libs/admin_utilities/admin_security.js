@@ -21,8 +21,7 @@ var ADMIN_SECURE_FILE = '.users'
 // *	@return {object} - User as defiend in the user file
 // * ———————————————————————————————————————————————————————— * //
 admin_security.prototype.get_user_by_username = function(username) {
-	return new Promise(function(resolve, reject){
-
+	return new Promise(function(resolve, reject) {
 		// load up all admins
 		return flat_file_handler.load(ADMIN_SECURE_FILE)
 			.then((raw_userlist) => {
@@ -81,7 +80,7 @@ admin_security.prototype.get_all_users = function() {
 admin_security.prototype.login_by_password = function(username, password) {
 	var self = this
 
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 
 		// if username or password is missing
 		if(!username || !password) {
@@ -120,7 +119,7 @@ admin_security.prototype.login_by_password = function(username, password) {
 admin_security.prototype.add_admin = function(username, password, tags) {
 	var self = this
 
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 
 		// sets username to 'root' if no username is provided
 		if(!username || typeof username == 'object') {

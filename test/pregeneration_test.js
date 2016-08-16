@@ -11,7 +11,7 @@ var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helper
 describe('Pregeneration', function() {
 
 	//Create a new project
-	before(function(done){
+	before(function(done) {
 		enduro.run(['create', 'testproject_pregeneration'])
 			.then(() => {
 				// navigate inside new project
@@ -25,7 +25,7 @@ describe('Pregeneration', function() {
 			})
 	})
 
-	it("_settings.css should be pregenerated", function(done){
+	it("_settings.css should be pregenerated", function(done) {
 
 		var settings_css_filepath = path.join(CMD_FOLDER, '_src', '_prebuilt', '_settings.css')
 		expect(enduro_helpers.fileExists(settings_css_filepath)).to.be.ok
@@ -39,7 +39,7 @@ describe('Pregeneration', function() {
 	})
 
 	// navigate back to testfolder
-	after(function(done){
+	after(function(done) {
 		enduro.server_stop(() => {
 			global.CMD_FOLDER = process.cwd() + '/testfolder'
 			done()

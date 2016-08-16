@@ -16,20 +16,22 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var SESSION_LIFETIME = 30 // in minutes
 
 admin_sessions.prototype.create_session = function(req, user) {
-	global.admin_sessions_store = global.admin_sessions_store || {}
+	return new Promise(function(resolve, reject) {
+		global.admin_sessions_store = global.admin_sessions_store || {}
 
-	kiska_logger.timestamp('creating session for: ' + JSON.stringify(user), 'admin_login')
+		kiska_logger.timestamp('creating session for: ' + JSON.stringify(user), 'admin_login')
 
-	session = {}
-	session.success = true
-	session.username = user.username
-	session.sid = req.sessionID
-	session.created = moment().unix()
-	session.expires_at = moment().add(SESSION_LIFETIME, 'minutes').unix()
+		session = {}
+		session.success = true
+		session.username = user.username
+		session.sid = req.sessionID
+		session.created = moment().unix()
+		session.expires_at = moment().add(SESSION_LIFETIME, 'minutes').unix()
 
-	global.admin_sessions_store[req.sessionID] = session
+		global.admin_sessions_store[req.sessionID] = session
 
-	return session
+		resolve(session)
+	})
 }
 
 admin_sessions.prototype.get_user_by_session = function(sid) {

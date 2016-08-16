@@ -15,7 +15,7 @@ var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helper
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 
 function globalize(context, root_context) {
-	if(typeof(context) != 'object'){
+	if(typeof(context) != 'object') {
 		return
 	}
 

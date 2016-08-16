@@ -20,7 +20,7 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var temper = require(ENDURO_FOLDER+ '/libs/temper/temper')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server){
+api_call.prototype.call = function(req, res, enduro_server) {
 
 	var jsonString = '';
 	req.on('data', function (data) {

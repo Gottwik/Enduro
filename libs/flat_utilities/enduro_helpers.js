@@ -40,9 +40,9 @@ enduro_helpers.prototype.ensureDirectoryExistence = function() {
 }
 
 function ensureDirectoryExistence(file_path) {
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 		mkdirp(file_path, function(err) {
-			if(err){
+			if(err) {
 				kiska_logger.err_block(err)
 				return reject()
 			}

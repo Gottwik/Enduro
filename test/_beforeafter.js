@@ -19,8 +19,8 @@ before(function(done) {
 
 // delete the test folder
 after(function(done) {
-	if(DELETE_TEST_PROJECTS){
-		rimraf(process.cwd() + '/testfolder', function(err){
+	if(DELETE_TEST_PROJECTS) {
+		rimraf(process.cwd() + '/testfolder', function(err) {
 			done()
 		})
 	}

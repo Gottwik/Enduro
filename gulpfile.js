@@ -58,7 +58,7 @@ function browsersync_start(norefresh) {
 			baseDir: CMD_FOLDER + '/_src',
 			middleware: function(req, res, next) {
 
-				if(req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1){
+				if(req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1) {
 					return next()
 				}
 
@@ -69,12 +69,12 @@ function browsersync_start(norefresh) {
 
 				// patch to enable development of admin ui in enduro
 				static_path_pattern = new RegExp(config.static_path_prefix + '\/(.*)')
-				if(static_path_pattern.test(req.url)){
+				if(static_path_pattern.test(req.url)) {
 					req.url = '/' + req.url.match(static_path_pattern)[1]
 				}
 
 				// server admin/index file on /admin url
-				if(req.url == '/admin/'){ req.url = '/admin/index.html' }
+				if(req.url == '/admin/') { req.url = '/admin/index.html' }
 
 				return next()
 			},
@@ -137,7 +137,7 @@ gulp.task('sass', function() {
 		.pipe(bulkSass())
 		.pipe(sourcemaps.init())
 		.pipe(sass())
-		.on('error', function(err){
+		.on('error', function(err) {
 			kiska_logger.err_blockStart('Sass error')
 			kiska_logger.err(err.message)
 			kiska_logger.err_blockEnd()
@@ -172,7 +172,7 @@ gulp.task('scss-lint', function() {
 			})))
 
 	}
-	catch(err){
+	catch(err) {
 		return kiska_logger('No liting. you need to install scss_lint')
 	}
 })
@@ -239,7 +239,7 @@ gulp.task('png_sprites', function() {
 // * ———————————————————————————————————————————————————————— * //
 // * 	iconfont
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('iconfont', function(cb){
+gulp.task('iconfont', function(cb) {
 	return gulp.src([CMD_FOLDER + '/assets/fonticons/*.svg'])
 		.pipe(iconfontCss({
 			fontName: config.project_slug + '_icons',
@@ -256,7 +256,7 @@ gulp.task('iconfont', function(cb){
 			log: () => {},
 		}))
 		.on('glyphs', function(glyphs, options) {
-			glyphs = glyphs.map(function(glyph){
+			glyphs = glyphs.map(function(glyph) {
 				glyph.unicode = glyph.unicode[0].charCodeAt(0).toString(16)
 				return glyph
 			})
@@ -274,7 +274,7 @@ gulp.task('iconfont', function(cb){
 // * ———————————————————————————————————————————————————————— * //
 // * 	JS Handlebars - Not enduro, page-generation related
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('hbs_templates', function(){
+gulp.task('hbs_templates', function() {
 	gulp.src(CMD_FOLDER + '/components/**/*.hbs')
 		.pipe(handlebars({
 			// Pass local handlebars
@@ -295,7 +295,7 @@ gulp.task('hbs_helpers', function() {
 			return file.contents.toString().indexOf('enduro_nojs') == -1
 		}))
 		.pipe(concat('hbs_helpers.js'))
-		.pipe(wrap('define([],function(){ return function(__templating_engine){ \n\n<%= contents %>\n\n }})'))
+		.pipe(wrap('define([],function() { return function(__templating_engine) { \n\n<%= contents %>\n\n }})'))
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/hbs_helpers/'))
 })
 

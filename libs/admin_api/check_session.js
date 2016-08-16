@@ -16,7 +16,7 @@ var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessio
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server){
+api_call.prototype.call = function(req, res, enduro_server) {
 
 	// gets session id from query parameters
 	var sid = req.query.sid

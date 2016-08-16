@@ -20,8 +20,8 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 // *
 // *	@return {promise} - empty promise
 // * ———————————————————————————————————————————————————————— * //
-components_handler.prototype.read_components = function(){
-	return new Promise(function(resolve, reject){
+components_handler.prototype.read_components = function() {
+	return new Promise(function(resolve, reject) {
 
 		var components_path = CMD_FOLDER + '/components/**/*.hbs'
 
@@ -52,7 +52,7 @@ components_handler.prototype.read_components = function(){
 					kiska_logger.twolog('component ' + filename, 'registered', 'enduro_render_events')
 					callback()
 				})
-			}, function(){
+			}, function() {
 
 				// after all components are loaded
 				kiska_logger.line('enduro_render_events')

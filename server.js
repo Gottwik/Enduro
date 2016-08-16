@@ -48,7 +48,7 @@ enduro_server.prototype.run = function(development_mode) {
 	// stores current enduro_server instance
 	var self = this
 
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 
 		// 5000 or server's port
 		app.set('port', (process.env.PORT || PRODUCTION_SERVER_PORT))
@@ -65,7 +65,7 @@ enduro_server.prototype.run = function(development_mode) {
 
 		// handle for executing enduro refresh from client
 		app.get('/admin_api_refresh', function (req, res) {
-			self.enduro_refresh(function(){
+			self.enduro_refresh(function() {
 				res.send({success: true, message: 'enduro refreshed successfully'})
 			})
 		})
@@ -80,7 +80,7 @@ enduro_server.prototype.run = function(development_mode) {
 		// kinda works but needs to be properly done
 		app.get('/*', function (req, res) {
 			if(!/admin\/(.*)/.test(req.url) && !/assets\/(.*)/.test(req.url)) {
-				if(req.query['pswrd']){
+				if(req.query['pswrd']) {
 					kiska_guard.login(req)
 						.then(() => {
 							var htmlFile = req.url.length > 1 ? req.url.substring(0, req.url.indexOf('?')) : '/'

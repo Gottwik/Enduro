@@ -22,8 +22,8 @@ var PROJECT_HELPERS_PATH = CMD_FOLDER + '/assets/hbs_helpers/**/*.js'
 // *	loads the helpers from enduro and from local enduro app
 // *	@return {Promise} - Promise with no content. Resolve if all helpers are registered
 // * ———————————————————————————————————————————————————————— * //
-helper_handler.prototype.read_helpers = function(){
-	return new Promise(function(resolve, reject){
+helper_handler.prototype.read_helpers = function() {
+	return new Promise(function(resolve, reject) {
 		glob( [ENDURO_HELPERS_PATH, PROJECT_HELPERS_PATH] , function (err, files) {
 			if (err) { return console.log(err) }
 			async.each(files, function(file, callback) {
@@ -33,7 +33,7 @@ helper_handler.prototype.read_helpers = function(){
 				require(file)
 				kiska_logger.twolog('helper ' + filename, 'registered', 'enduro_render_events')
 				callback()
-			}, function(){
+			}, function() {
 				kiska_logger.line('enduro_render_events');
 				resolve()
 			})

@@ -49,7 +49,7 @@ enduro_configurator.prototype.read_config = function() {
 
 
 function read_config_file(config_file, default_config) {
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 
 		// check if file exists
 		if(!enduro_helpers.fileExists(config_file)) {

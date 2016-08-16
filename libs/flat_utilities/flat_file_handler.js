@@ -31,8 +31,8 @@ var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helper
 // *	@param {Object} contents - Content to be saved
 // *	@return {Promise} - Promise with no content. Resolve if saved successfully, reject otherwise
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.save = function(filename, contents){
-	return new Promise(function(resolve, reject){
+flat_file_handler.prototype.save = function(filename, contents) {
+	return new Promise(function(resolve, reject) {
 		// TODO: maybe the file could be backed up somewhere before overwriting
 		contents = contents || {}
 
@@ -66,7 +66,7 @@ flat_file_handler.prototype.save = function(filename, contents){
 // *	@param {String} contents - Content to be saved
 // *	@return {Promise} - Promise from save function
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.save_by_string = function(filename, contents){
+flat_file_handler.prototype.save_by_string = function(filename, contents) {
 	return this.save(filename, JSON.parse(contents))
 }
 

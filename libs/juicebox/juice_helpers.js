@@ -17,7 +17,7 @@ var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_
 var juice_diff = require(ENDURO_FOLDER + '/libs/juicebox/juice_diff')
 
 juice_helpers.prototype.diff_with_cms = function(folder) {
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 		// local path
 		var path1 = path.join(CMD_FOLDER, 'cms')
 
@@ -29,7 +29,7 @@ juice_helpers.prototype.diff_with_cms = function(folder) {
 }
 
 juice_helpers.prototype.spill_newer = function(folder) {
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 
 		if(!enduro_helpers.dirExists(folder)) {
 			return resolve()
@@ -70,7 +70,7 @@ function get_diff(folder) {
 }
 
 function copy_file_to_cms(entry) {
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 
 		var from_path = path.join(entry.path2, entry.name2)
 		var to_path = path.join(CMD_FOLDER, 'cms', path.join(entry.path2, entry.name2).match(/\/cms\/(.*)/)[1])

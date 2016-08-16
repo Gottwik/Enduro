@@ -5,7 +5,7 @@ var request = require('request');
 describe('Development server', function() {
 
 	//Create a new project
-	before(function(done){
+	before(function(done) {
 		enduro.run(['create', 'testproject_server'])
 			.then(() => {
 				// navigate inside new project
@@ -19,7 +19,7 @@ describe('Development server', function() {
 			})
 	});
 
-	it("should server something on port 3000", function(done){
+	it("should server something on port 3000", function(done) {
 		request('http://localhost:3000/', function(error, response, body) {
 			expect(body).to.contain('body');
 			expect(body).to.contain('head');
@@ -28,7 +28,7 @@ describe('Development server', function() {
 		});
 	})
 
-	it("should server something on port 5000", function(done){
+	it("should server something on port 5000", function(done) {
 		request('http://localhost:5000/', function(error, response, body) {
 			expect(body).to.contain('body');
 			expect(body).to.contain('head');
@@ -37,7 +37,7 @@ describe('Development server', function() {
 		});
 	})
 
-	it("should serve admin interface", function(done){
+	it("should serve admin interface", function(done) {
 		request('http://localhost:5000/admin', function(error, response, body) {
 			expect(body).to.contain('body');
 			expect(body).to.contain('head');
@@ -47,7 +47,7 @@ describe('Development server', function() {
 	})
 
 	// navigate back to testfolder
-	after(function(done){
+	after(function(done) {
 		enduro.server_stop(() => {
 			global.CMD_FOLDER = process.cwd() + '/testfolder'
 			done()

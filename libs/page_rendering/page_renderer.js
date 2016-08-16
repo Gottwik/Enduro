@@ -22,7 +22,7 @@ var globalizer = require(ENDURO_FOLDER + '/libs/globalizer/globalizer')
 page_renderer.prototype.render_file = function(file, context_filename, culture, dest_path) {
 	var self = this
 
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 
 		// where will the generated page be saved
 		var destination_path = path.join(culture, dest_path)
@@ -52,7 +52,7 @@ page_renderer.prototype.render_file = function(file, context_filename, culture, 
 }
 
 page_renderer.prototype.render_file_by_context = function(file, context, culture) {
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 	// Attempts to read the file
 		fs.readFile(file, 'utf8', function (err, raw_template) {
 			if (err) { return kiska_logger.err_block(err) }

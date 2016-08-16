@@ -26,11 +26,11 @@ var DEFAULT_SCAFFOLDING_NAME = 'minimalistic'
 // *	@param {array} args - args[0] - desired name of the new project, args[1] - scaffolding name
 // *	@return {Promise} - promise with no content. resolve if login was successfull
 // * ———————————————————————————————————————————————————————— * //
-scaffolder.prototype.scaffold = function(args){
-	return new Promise(function(resolve, reject){
+scaffolder.prototype.scaffold = function(args) {
+	return new Promise(function(resolve, reject) {
 
 		// No project name given
-		if(!args.length){
+		if(!args.length) {
 			kiska_logger.err('\nProvide project name as \n\n\t$ enduro create projectname\n')
 			return reject('no project name was specified')
 		}
@@ -48,7 +48,7 @@ scaffolder.prototype.scaffold = function(args){
 		var scaffolding_destination = path.join(CMD_FOLDER, project_name)
 
 		// Reject if directory already exists
-		if(enduro_helpers.dirExists(scaffolding_destination) && !flags.force){
+		if(enduro_helpers.dirExists(scaffolding_destination) && !flags.force) {
 			reject('requested directory already exists')
 			return kiska_logger.err_block('\tdirectory already existss')
 		}

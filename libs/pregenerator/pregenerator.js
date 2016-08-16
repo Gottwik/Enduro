@@ -30,7 +30,7 @@ pregenerator.prototype.pregenerate = function() {
 var pregenerators = []
 
 pregenerators['settings'] = function() {
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 
 		var settings_file_path = path.join(CMD_FOLDER, 'cms', '.settings.js')
 		var settings_template_path = path.join(ENDURO_FOLDER, 'support_files', 'admin_settings_css.hbs')

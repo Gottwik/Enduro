@@ -8,7 +8,7 @@ var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessio
 var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server){
+api_call.prototype.call = function(req, res, enduro_server) {
 
 	var sid = req.query.sid
 

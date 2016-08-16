@@ -14,7 +14,7 @@ var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessio
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server){
+api_call.prototype.call = function(req, res, enduro_server) {
 
 	admin_sessions.get_user_by_session(req.query.sid)
 		.then((user) => {

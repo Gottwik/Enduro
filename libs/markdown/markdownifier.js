@@ -13,7 +13,7 @@ var path = require('path')
 
 // Goes through the pages and renders them
 markdownifier.prototype.init = function() {
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve, reject) {
 
 		var self = this
 

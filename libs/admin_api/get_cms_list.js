@@ -14,7 +14,7 @@ var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_gen
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server){
+api_call.prototype.call = function(req, res, enduro_server) {
 
 	admin_sessions.get_user_by_session(req.query.sid)
 		.then((user) => {
@@ -25,7 +25,7 @@ api_call.prototype.call = function(req, res, enduro_server){
 		.then((pagelist) => {
 			res.send({success: true, data: pagelist})
 		}, () => {
-			res.send({success: false, message: 'session not valid'})
+			res.send({success: false, message: 'failed to get the cms list'})
 		})
 }
 

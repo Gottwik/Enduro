@@ -21,7 +21,7 @@ __templating_engine.registerHelper('times', function(iterations, upperrange, blo
 		iterations = Math.round(Math.random() * (upperrange - iterations) + iterations)
 	}
 
-	for(var i = 0; i < iterations; ++i){
+	for(var i = 0; i < iterations; ++i) {
 
 		// Sets is_first variable to context
 		i == 0

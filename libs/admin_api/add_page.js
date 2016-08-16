@@ -11,7 +11,7 @@ var page_adding_service = require(ENDURO_FOLDER + '/libs/admin_utilities/page_ad
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server){
+api_call.prototype.call = function(req, res, enduro_server) {
 
 	var new_pagename = req.query.new_pagename
 	var generator = req.query.generator

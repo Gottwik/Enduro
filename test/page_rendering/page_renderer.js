@@ -19,7 +19,7 @@ enduro.silent()
 describe('page rendering', function() {
 
 	//Create a new project
-	before(function(done){
+	before(function(done) {
 		enduro.run(['create', 'testproject_page_rendering'])
 			.then(() => {
 				// navigate inside new project
@@ -47,7 +47,7 @@ describe('page rendering', function() {
 	})
 
 	// navigate back to testfolder
-	after(function(){
+	after(function() {
 		global.CMD_FOLDER = process.cwd() + '/testfolder'
 	})
 

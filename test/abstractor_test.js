@@ -26,7 +26,7 @@ describe('Abstractor', function() {
 	})
 
 	// navigate back to testfolder
-	after(function(){
+	after(function() {
 		global.CMD_FOLDER = process.cwd() + '/testfolder'
 	})
 })

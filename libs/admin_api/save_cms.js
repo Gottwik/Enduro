@@ -20,7 +20,7 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var admin_rights = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_rights')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server){
+api_call.prototype.call = function(req, res, enduro_server) {
 
 	var jsonString = '';
 	req.on('data', function (data) {

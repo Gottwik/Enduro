@@ -16,8 +16,8 @@ var internal_admin_security = rewire(ENDURO_FOLDER + '/libs/admin_utilities/admi
 describe('Admin security', function() {
 
 	//Create a new project
-	before(function(done){
-		enduro.run(['create', 'admin_security', 'test'])
+	before(function(done) {
+		enduro.run(['create', 'admin_security'])
 			.then(() => {
 				// navigate inside new project
 				global.CMD_FOLDER = CMD_FOLDER + '/admin_security'
@@ -36,7 +36,7 @@ describe('Admin security', function() {
 	})
 
 
-	it('should add root admin successfully', function(done){
+	it('should add root admin successfully', function(done) {
 		enduro.run(['addadmin'])
 			.then(() => {
 				return flat_file_handler.load('.users')
@@ -55,7 +55,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should add admin with custom name successfully', function(done){
+	it('should add admin with custom name successfully', function(done) {
 		enduro.run(['addadmin', 'gottwik', '123'])
 			.then(() => {
 				return flat_file_handler.load('.users')
@@ -74,7 +74,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should not be possible to add user with an already existing username', function(done){
+	it('should not be possible to add user with an already existing username', function(done) {
 		enduro.run(['addadmin', 'gottwik', '123'])
 			.then(() => {
 				done(new Error())
@@ -156,7 +156,7 @@ describe('Admin security', function() {
 	})
 
 	// navigate back to testfolder
-	after(function(){
+	after(function() {
 		global.CMD_FOLDER = process.cwd() + '/testfolder'
 	})
 })

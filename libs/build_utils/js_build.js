@@ -21,11 +21,11 @@ js_build.prototype.build_js = function(config_name) {
 
 		var configpath = CMD_FOLDER + '/_src/assets/js/main' + config_name + '.js'
 
-		if(!enduro_helpers.fileExists(configpath)){
+		if(!enduro_helpers.fileExists(configpath)) {
 			return kiska_logger.err_block('No config file named main' + config_name + '.js')
 		}
 
-		return new Promise(function(resolve, reject){
+		return new Promise(function(resolve, reject) {
 			config = {
 				mainConfigFile: configpath,
 				baseUrl: CMD_FOLDER + '/_src/assets/',
@@ -35,11 +35,11 @@ js_build.prototype.build_js = function(config_name) {
 				findNestedDependencies: true
 			};
 
-			rjs.optimize(config, function(buildResponse){
+			rjs.optimize(config, function(buildResponse) {
 				console.log(buildResponse)
 				cb()
 				resolve();
-			}, function(err){
+			}, function(err) {
 				console.log(err)
 				reject();
 			});

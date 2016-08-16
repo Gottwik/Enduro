@@ -9,7 +9,7 @@ var admin_api = function () {}
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // Gets api name from url - /admin_api/get_something will call get_something.js
-admin_api.prototype.call = function(req, res, enduro_server){
+admin_api.prototype.call = function(req, res, enduro_server) {
 
 	// Extracts api call name
 	var api_name = req.url.match(/\/admin_api\/([^?]*)?.*/)[1]

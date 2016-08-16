@@ -18,23 +18,28 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 
 // constants
-var PAGELIS_DESTINATION = CMD_FOLDER + '/_src/_prebuilt/pagelist.json'
+var PAGELIST_DESTINATION = CMD_FOLDER + '/_src/_prebuilt/cmslist.json'
 
 // Creates all subdirectories neccessary to create the file in filepath
 pagelist_generator.prototype.init = function(gulp) {
 	var self = this
 
-	gulp.task('pagelist_generator', function(cb) {
-		self.get_pagelist()
-			.then((pagelist) => {
+	var pagelist_generator_task_name = 'pagelist_generator'
+
+	// adds task to gulp
+	gulp.task(pagelist_generator_task_name, function(cb) {
+
+		// generates cmslist
+		self.generate_cms_list()
+			.then((cmslist) => {
 
 				// Extends global data with currently loaded data
-				extend(true, __data.global, {pagelist: pagelist})
+				extend(true, __data.global, {cmslist: cmslist})
 
-				// Saves the pagelist into a specified file
-				enduro_helpers.ensureDirectoryExistence(PAGELIS_DESTINATION)
+				// Saves the cmslist into a specified file
+				enduro_helpers.ensureDirectoryExistence(PAGELIST_DESTINATION)
 					.then(() => {
-						fs.writeFile( PAGELIS_DESTINATION , JSON.stringify(pagelist), function(err) {
+						fs.writeFile( PAGELIST_DESTINATION , JSON.stringify(cmslist), function(err) {
 							if(err) { console.log(err) }
 							cb()
 						})
@@ -42,47 +47,51 @@ pagelist_generator.prototype.init = function(gulp) {
 			})
 	})
 
-	return 'pagelist_generator'
+	// returns name of the task so it can be stored and called comfortably
+	return pagelist_generator_task_name
 }
 
-pagelist_generator.prototype.get_pagelist = function() {
-	return new Promise(function(resolve, reject){
-		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
-			if(err) { console.log(err) }
+// deprecated in favor of generate_cms_list
+// // generates list of pages
+// pagelist_generator.prototype.get_pagelist = function() {
+// 	return new Promise(function(resolve, reject){
+// 		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
+// 			if(err) { console.log(err) }
 
-			var pagelist = {}
+// 			var pagelist = {}
 
-			// helper function to build the pagelist
-			function build(pagepath, partial_pages, fullpath) {
-				if(pagepath.length == 1){
+// 			// helper function to build the pagelist
+// 			function build(pagepath, partial_pages, fullpath) {
+// 				if(pagepath.length == 1){
 
-					var page = {}
-					page.type = 'page'
-					page.fullpath = '/' + fullpath.join('/')
-					page.name = format_service.prettify_string(pagepath[0])
+// 					var page = {}
+// 					page.type = 'page'
+// 					page.fullpath = '/' + fullpath.join('/')
+// 					page.name = format_service.prettify_string(pagepath[0])
 
-					partial_pages[pagepath[0]] = page
-				} else {
-					if(!(pagepath[0] in partial_pages)){
-						partial_pages[pagepath[0]] = {}
-					}
-					build(pagepath.slice(1), partial_pages[pagepath[0]], fullpath)
-				}
-			}
+// 					partial_pages[pagepath[0]] = page
+// 				} else {
+// 					if(!(pagepath[0] in partial_pages)){
+// 						partial_pages[pagepath[0]] = {}
+// 					}
+// 					build(pagepath.slice(1), partial_pages[pagepath[0]], fullpath)
+// 				}
+// 			}
 
-			// goes throught the glob, crops the filename and builds a pagelist
-			files.map((file) => {
-				return file.match('/pages/(.*)\.hbs')[1].split('/')
-			}).forEach((pagepath) => {
-				build(pagepath, pagelist, pagepath)
-			})
+// 			// goes throught the glob, crops the filename and builds a pagelist
+// 			files.map((file) => {
+// 				return file.match('/pages/(.*)\.hbs')[1].split('/')
+// 			}).forEach((pagepath) => {
+// 				build(pagepath, pagelist, pagepath)
+// 			})
 
-			resolve(pagelist)
-		})
-	})
-}
+// 			resolve(pagelist)
+// 		})
+// 	})
+// }
 
-pagelist_generator.prototype.get_cms_list = function() {
+// generates list of pages with global datasets and generators
+pagelist_generator.prototype.generate_cms_list = function() {
 	return new Promise(function(resolve, reject){
 		glob(CMD_FOLDER + '/cms/**/*.js', function (err, files) {
 			if(err) { console.log(err) }
@@ -148,11 +157,6 @@ pagelist_generator.prototype.get_cms_list = function() {
 			resolve(pagelist)
 		})
 	})
-}
-
-
-function capitalize(input) {
-	return input[0].toUpperCase() + input.substring(1)
 }
 
 module.exports = new pagelist_generator()

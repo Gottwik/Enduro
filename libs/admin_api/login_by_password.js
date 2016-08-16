@@ -36,7 +36,6 @@ api_call.prototype.call = function(req, res, enduro_server){
 				success: false,
 			})
 			throw new Error('abort promise chain')
-			return
 		})
 		.then((session) => {
 			kiska_logger.timestamp('session created for ' + username, 'admin_login')

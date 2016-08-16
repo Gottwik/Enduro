@@ -20,7 +20,7 @@ api_call.prototype.call = function(req, res, enduro_server){
 		.then((user) => {
 			return pagelist_generator.get_cms_list()
 		}, (user) => {
-			throw new Error('abort promise chain');
+			throw new Error('abort promise chain')
 		})
 		.then((pagelist) => {
 			res.send({success: true, data: pagelist})

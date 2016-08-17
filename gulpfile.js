@@ -2,7 +2,6 @@ var gulp = require('gulp')
 var watch = require('gulp-watch')
 var browser_sync = require('browser-sync').create()
 var sass = require('gulp-sass')
-var url = require('url')
 var fs = require('fs')
 var bulkSass = require('gulp-sass-bulk-import')
 var kiska_logger = require('./libs/kiska_logger')
@@ -39,42 +38,42 @@ gulp.enduro_refresh = function () {
 // * ———————————————————————————————————————————————————————— * //
 // * 	browser sync task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('browser_sync', ['sass'], function() {
+gulp.task('browser_sync', ['sass'], function () {
 	browsersync_start(false)
 })
 
-gulp.task('browser_sync_norefresh', ['sass'], function() {
+gulp.task('browser_sync_norefresh', ['sass'], function () {
 	browsersync_start(true)
 })
 
-gulp.task('browser_sync_stop', [], function() {
+gulp.task('browser_sync_stop', [], function () {
 	browser_sync.exit()
 })
 
-function browsersync_start(norefresh) {
+function browsersync_start (norefresh) {
 	kiska_logger.timestamp('browsersync started', 'enduro_events')
 	browser_sync.init({
 		server: {
 			baseDir: CMD_FOLDER + '/_src',
-			middleware: function(req, res, next) {
+			middleware: function (req, res, next) {
 
-				if(req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1) {
+				if (req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1) {
 					return next()
 				}
 
 				// serve files without html
-				if(!(req.url.indexOf('.') + 1) && req.url.length > 3) {
+				if (!(req.url.indexOf('.') + 1) && req.url.length > 3) {
 					req.url += '.html'
 				}
 
 				// patch to enable development of admin ui in enduro
-				static_path_pattern = new RegExp(config.static_path_prefix + '\/(.*)')
-				if(static_path_pattern.test(req.url)) {
+				static_path_pattern = new RegExp(config.static_path_prefix + '/(.*)')
+				if (static_path_pattern.test(req.url)) {
 					req.url = '/' + req.url.match(static_path_pattern)[1]
 				}
 
 				// server admin/index file on /admin url
-				if(req.url == '/admin/') { req.url = '/admin/index.html' }
+				if (req.url == '/admin/') { req.url = '/admin/index.html' }
 
 				return next()
 			},
@@ -89,7 +88,7 @@ function browsersync_start(norefresh) {
 			rule: {
 				match: /<\/body>/i,
 				fn: function (snippet, match) {
-					return match + snippet;
+					return match + snippet
 				}
 			}
 		}
@@ -98,7 +97,7 @@ function browsersync_start(norefresh) {
 	watch([ CMD_FOLDER + '/assets/css/**/*', CMD_FOLDER + '/assets/fonticons/*', '!' + CMD_FOLDER + '/assets/css/sprites/*'],
 				() => { gulp.start('sass') })									// Watch for scss
 
-	if(!flags.nojswatch) {
+	if (!flags.nojswatch) {
 		watch([CMD_FOLDER + '/assets/js/**/*'], () => { gulp.start('js'); browser_sync.reload() })							// Watch for js
 	}
 
@@ -114,8 +113,8 @@ function browsersync_start(norefresh) {
 	watch([CMD_FOLDER + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
 
 	// Watch for enduro changes
-	if(!flags.nocmswatch) {
-		watch([CMD_FOLDER + '/pages/**/*.hbs', CMD_FOLDER + '/components/**/*.hbs', CMD_FOLDER + '/cms/**/*.js'], function() {
+	if (!flags.nocmswatch) {
+		watch([CMD_FOLDER + '/pages/**/*.hbs', CMD_FOLDER + '/components/**/*.hbs', CMD_FOLDER + '/cms/**/*.js'], function () {
 			gulp.enduro_refresh(() => {
 				browser_sync.reload()
 			})
@@ -123,21 +122,20 @@ function browsersync_start(norefresh) {
 	}
 }
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Sass Task
 // *	Processes assets/css/main.scss file
 // *	All other scss files need to be imported in main.scss to get compiled
 // *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('sass', function() {
+gulp.task('sass', function () {
 	kiska_logger.timestamp('Sass compiling started', 'enduro_events')
 
 	return gulp.src(CMD_FOLDER + '/assets/css/*.scss')
 		.pipe(bulkSass())
 		.pipe(sourcemaps.init())
 		.pipe(sass())
-		.on('error', function(err) {
+		.on('error', function (err) {
 			kiska_logger.err_blockStart('Sass error')
 			kiska_logger.err(err.message)
 			kiska_logger.err_blockEnd()
@@ -155,74 +153,67 @@ gulp.task('sass', function() {
 		})
 })
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Scss lint
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('scss-lint', function() {
-	try{
+gulp.task('scss-lint', function () {
+	try {
 		kiska_logger.timestamp('Sass lint started', 'enduro_events')
 		return gulp.src(path.join(CMD_FOLDER, '/assets/css/**/*'))
 			.pipe(checkGem({gemfile: 'scss-lint'}, scsslint(
 				{
-					'config': __dirname + '/support_files/scss-lint.yml',
+					'config': path.join(__dirname, '/support_files/scss-lint.yml'),
 				}
 			).on('end', () => {
 				kiska_logger.timestamp('Sass lint finished', 'enduro_events')
 			})))
 
-	}
-	catch(err) {
+	} catch (err) {
 		return kiska_logger('No liting. you need to install scss_lint')
 	}
 })
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	js
 // *	Todo: require js optimization should go here
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('js', function() {
+gulp.task('js', function () {
 
 	return gulp.src(CMD_FOLDER + '/assets/js/**/*')
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/js'))
 
 })
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	img
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('img', function() {
+gulp.task('img', function () {
 	return gulp.src(CMD_FOLDER + '/assets/img/**/*')
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/img'))
 })
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	vendor
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('vendor', function() {
+gulp.task('vendor', function () {
 	return gulp.src(CMD_FOLDER + '/assets/vendor/**/*')
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/vendor'))
 })
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	fonts
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('fonts', function() {
+gulp.task('fonts', function () {
 	return gulp.src(CMD_FOLDER + '/assets/fonts/**/*')
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/fonts'))
 })
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	spriteicons
 // *	will get all pngs out of assets/spriteicons folder
 // *	and generate spritesheet out of them
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('png_sprites', function() {
+gulp.task('png_sprites', function () {
 	return gulp.src(CMD_FOLDER + '/assets/spriteicons/*.png')
 		.pipe(spritesmith({
 			imgName: '_src/assets/spriteicons/spritesheet.png',
@@ -235,11 +226,10 @@ gulp.task('png_sprites', function() {
 		.pipe(gulp.dest(CMD_FOLDER))
 })
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	iconfont
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('iconfont', function(cb) {
+gulp.task('iconfont', function (cb) {
 	return gulp.src([CMD_FOLDER + '/assets/fonticons/*.svg'])
 		.pipe(iconfontCss({
 			fontName: config.project_slug + '_icons',
@@ -255,8 +245,8 @@ gulp.task('iconfont', function(cb) {
 			formats: ['ttf', 'eot', 'woff'],
 			log: () => {},
 		}))
-		.on('glyphs', function(glyphs, options) {
-			glyphs = glyphs.map(function(glyph) {
+		.on('glyphs', function (glyphs, options) {
+			glyphs = glyphs.map(function (glyph) {
 				glyph.unicode = glyph.unicode[0].charCodeAt(0).toString(16)
 				return glyph
 			})
@@ -270,11 +260,10 @@ gulp.task('iconfont', function(cb) {
 		.pipe(gulp.dest('_src/assets/iconfont/'))
 })
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	JS Handlebars - Not enduro, page-generation related
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('hbs_templates', function() {
+gulp.task('hbs_templates', function () {
 	gulp.src(CMD_FOLDER + '/components/**/*.hbs')
 		.pipe(handlebars({
 			// Pass local handlebars
@@ -285,13 +274,12 @@ gulp.task('hbs_templates', function() {
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/hbs_templates'))
 })
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Handlebars helpers
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('hbs_helpers', function() {
+gulp.task('hbs_helpers', function () {
 	return gulp.src([CMD_FOLDER + '/assets/hbs_helpers/**/*.js', ENDURO_FOLDER + '/hbs_helpers/**/*.js'])
-		.pipe(filterBy(function(file) {
+		.pipe(filterBy(function (file) {
 			return file.contents.toString().indexOf('enduro_nojs') == -1
 		}))
 		.pipe(concat('hbs_helpers.js'))
@@ -299,14 +287,12 @@ gulp.task('hbs_helpers', function() {
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/hbs_helpers/'))
 })
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
-//gulp.task('default', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync'])
+// gulp.task('default', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync'])
 gulp.task('default', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync'])
 gulp.task('default_norefresh', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync_norefresh'])
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Preproduction Task
@@ -314,13 +300,11 @@ gulp.task('default_norefresh', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Production Task
 // *	No browser_sync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('production', ['sass', 'hbs_templates', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', prettyfier])
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	check task

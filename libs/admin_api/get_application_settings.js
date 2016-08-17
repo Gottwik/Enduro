@@ -6,7 +6,7 @@ var api_call = function () {}
 var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server) {
+api_call.prototype.call = function (req, res, enduro_server) {
 
 	var application_settings = __data.global.settings
 

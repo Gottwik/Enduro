@@ -8,25 +8,20 @@
 // * ———————————————————————————————————————————————————————— * //
 var api_call = function () {}
 
-// vendor dependencies
-var fs = require('fs')
-var glob = require('glob')
-var Promise = require('bluebird')
-
 // local dependencies
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server) {
+api_call.prototype.call = function (req, res, enduro_server) {
 
 	// gets query parameters
 	var sid = req.query.sid
 	var filename = req.query.filename
 
 	// checks if all required parameters had been received
-	if(!sid || !filename) {
+	if (!sid || !filename) {
 		res.send({success: false})
 		return
 	}
@@ -37,7 +32,6 @@ api_call.prototype.call = function(req, res, enduro_server) {
 		}, () => {
 			res.sendStatus(401)
 			throw new Error('abort promise chain')
-			return
 		})
 		.then((data) => {
 

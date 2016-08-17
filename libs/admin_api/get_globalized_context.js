@@ -10,24 +10,18 @@
 // * ———————————————————————————————————————————————————————— * //
 var api_call = function () {}
 
-// vendor dependencies
-var fs = require('fs')
-var glob = require("glob")
-var Promise = require('bluebird')
-
 // local dependencies
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server) {
+api_call.prototype.call = function (req, res, enduro_server) {
 
 	// gets query parameters
 	var sid = req.query.sid
 	var globalizer_string = req.query.globalizer_string
 
 	// checks if all required parameters had been received
-	if(!sid || !globalizer_string) {
+	if (!sid || !globalizer_string) {
 		res.send({success: false})
 		return
 	}
@@ -38,7 +32,6 @@ api_call.prototype.call = function(req, res, enduro_server) {
 			// clean up string in case there is globalizer handle in front
 			globalizer_string = globalizer_string.replace('@@', '')
 
-			var parent
 			var output = globalizer_string.split('.').reduce((prev, next) => {
 				parent = prev
 				return prev[next]

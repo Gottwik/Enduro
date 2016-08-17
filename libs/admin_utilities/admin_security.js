@@ -14,26 +14,25 @@ var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_
 // constants
 var ADMIN_SECURE_FILE = '.users'
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	get user by username
 // *	@param {string} username - username of user to be returned
 // *	@return {object} - User as defiend in the user file
 // * ———————————————————————————————————————————————————————— * //
-admin_security.prototype.get_user_by_username = function(username) {
-	return new Promise(function(resolve, reject) {
+admin_security.prototype.get_user_by_username = function (username) {
+	return new Promise(function (resolve, reject) {
 		// load up all admins
 		return flat_file_handler.load(ADMIN_SECURE_FILE)
 			.then((raw_userlist) => {
 
 				// if there are no users
-				if(!raw_userlist.users) {
+				if (!raw_userlist.users) {
 					return reject('no users found')
 				}
 
 				// find user with specified username
 				var selected_user = raw_userlist.users.filter((user) => {
-					if(user.username == username) {
+					if (user.username == username) {
 						return user
 					}
 				})
@@ -47,29 +46,27 @@ admin_security.prototype.get_user_by_username = function(username) {
 	})
 }
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	get all users
 // *	@return {list} - list of all user names
 // * ———————————————————————————————————————————————————————— * //
-admin_security.prototype.get_all_users = function() {
+admin_security.prototype.get_all_users = function () {
 
 	// load up the user file
 	return flat_file_handler.load(ADMIN_SECURE_FILE)
 		.then((raw_userlist) => {
 
 			// return empty array if no users found
-			if(!raw_userlist.users) {
+			if (!raw_userlist.users) {
 				return []
 			}
 
 			// return just usernames
-			return raw_userlist.users.map(function(user) {
+			return raw_userlist.users.map(function (user) {
 				return user.username
 			})
 		})
 }
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	login by password
@@ -77,13 +74,13 @@ admin_security.prototype.get_all_users = function() {
 // *	@param {string} plaintext password
 // *	@return {promise} - resolves if login successful and returns user
 // * ———————————————————————————————————————————————————————— * //
-admin_security.prototype.login_by_password = function(username, password) {
+admin_security.prototype.login_by_password = function (username, password) {
 	var self = this
 
-	return new Promise(function(resolve, reject) {
+	return new Promise(function (resolve, reject) {
 
 		// if username or password is missing
-		if(!username || !password) {
+		if (!username || !password) {
 			return reject({success: false, message: 'username or password not provided'})
 		}
 
@@ -95,7 +92,7 @@ admin_security.prototype.login_by_password = function(username, password) {
 				var hashed_input_password = hash(password, user.salt)
 
 				// compares hashed password with stored hash
-				if(hashed_input_password == user.hash) {
+				if (hashed_input_password == user.hash) {
 					resolve(user)
 				} else {
 
@@ -116,18 +113,18 @@ admin_security.prototype.login_by_password = function(username, password) {
 // *	@param {string} plaintext password
 // *	@return {promise} - resolves/rejects based on if the creation was successful
 // * ———————————————————————————————————————————————————————— * //
-admin_security.prototype.add_admin = function(username, password, tags) {
+admin_security.prototype.add_admin = function (username, password, tags) {
 	var self = this
 
-	return new Promise(function(resolve, reject) {
+	return new Promise(function (resolve, reject) {
 
 		// sets username to 'root' if no username is provided
-		if(!username || typeof username == 'object') {
+		if (!username || typeof username == 'object') {
 			username = 'root'
 		}
 
 		// generate random password if no password is provided
-		password = password || Math.random().toString(10).substring(10);
+		password = password || Math.random().toString(10).substring(10)
 
 		// put empty tag if no tags are provided
 		tags = tags
@@ -166,9 +163,7 @@ admin_security.prototype.add_admin = function(username, password, tags) {
 	})
 }
 
-
 // private functions
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	hash
@@ -176,23 +171,22 @@ admin_security.prototype.add_admin = function(username, password, tags) {
 // *	@param {string} salt
 // *	@return {string} - hashed password
 // * ———————————————————————————————————————————————————————— * //
-function hash(password, salt) {
-	return require('crypto').createHash('sha256').update(password + salt, "utf8").digest("hex");
+function hash (password, salt) {
+	return require('crypto').createHash('sha256').update(password + salt, 'utf8').digest('hex')
 }
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	salt and hash
 // *	@param {object} logincontext
 // *	@return {} - nothing, just adds salt and hash to logincontext
 // * ———————————————————————————————————————————————————————— * //
-function salt_and_hash(logincontext) {
-	if(!logincontext || !logincontext.username || !logincontext.password) {
+function salt_and_hash (logincontext) {
+	if (!logincontext || !logincontext.username || !logincontext.password) {
 		return
 	}
 
 	// adds salt
-	logincontext.salt = crypto.randomBytes(16).toString('hex');
+	logincontext.salt = crypto.randomBytes(16).toString('hex')
 
 	// adds hash
 	logincontext.hash = hash(logincontext.password, logincontext.salt)
@@ -207,7 +201,7 @@ function salt_and_hash(logincontext) {
 // *	@param {object} logincontext
 // *	@return {} - nothing, just adds timestamp to logincontext
 // * ———————————————————————————————————————————————————————— * //
-function timestamp(logincontext) {
+function timestamp (logincontext) {
 	logincontext.user_created_timestamp = Date.now()
 
 	return logincontext

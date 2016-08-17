@@ -9,14 +9,13 @@ var moment = require('moment')
 
 // local dependencies
 var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // constants
 var SESSION_LIFETIME = 30 // in minutes
 
-admin_sessions.prototype.create_session = function(req, user) {
-	return new Promise(function(resolve, reject) {
+admin_sessions.prototype.create_session = function (req, user) {
+	return new Promise(function (resolve, reject) {
 		global.admin_sessions_store = global.admin_sessions_store || {}
 
 		kiska_logger.timestamp('creating session for: ' + JSON.stringify(user), 'admin_login')
@@ -34,18 +33,18 @@ admin_sessions.prototype.create_session = function(req, user) {
 	})
 }
 
-admin_sessions.prototype.get_user_by_session = function(sid) {
+admin_sessions.prototype.get_user_by_session = function (sid) {
 	global.admin_sessions_store = global.admin_sessions_store || {}
 
 	kiska_logger.timestamp('getting user by session', 'admin_login')
 
 	// session is not there
-	if(!(sid in global.admin_sessions_store)) {
+	if (!(sid in global.admin_sessions_store)) {
 		return Promise.reject('session doesn\'t exist')
 	}
 
 	// session is there but is expired
-	if(global.admin_sessions_store[sid].expires_at < moment().unix()) {
+	if (global.admin_sessions_store[sid].expires_at < moment().unix()) {
 		return Promise.reject('session expired')
 	}
 
@@ -55,10 +54,10 @@ admin_sessions.prototype.get_user_by_session = function(sid) {
 	return admin_security.get_user_by_username(global.admin_sessions_store[sid].username)
 }
 
-admin_sessions.prototype.logout_by_session = function(sid) {
+admin_sessions.prototype.logout_by_session = function (sid) {
 	global.admin_sessions_store = global.admin_sessions_store || {}
 
-	if(sid in global.admin_sessions_store) {
+	if (sid in global.admin_sessions_store) {
 		delete global.admin_sessions_store[sid]
 	}
 

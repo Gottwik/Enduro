@@ -2,7 +2,7 @@
 // * 	babel
 // *	handles multilingual support
 // * ———————————————————————————————————————————————————————— * //
-var babel_handler = function () {};
+var babel_handler = function () {}
 
 // vendor dependencies
 var Promise = require('bluebird')
@@ -15,17 +15,17 @@ var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_
 
 // gets list of all cultures
 babel_handler.prototype.get_cultures = function () {
-	return new Promise(function(resolve, reject) {
+	return new Promise(function (resolve, reject) {
 		var babel_absolute_path = flat_file_handler.get_full_path_to_cms(BABEL_FILE)
 		// check if file exists. return empty object if not
-		if(!enduro_helpers.fileExists(babel_absolute_path)) {
+		if (!enduro_helpers.fileExists(babel_absolute_path)) {
 			return resolve([''])
 		}
-		fs.readFile(babel_absolute_path, function(err, data) {
+		fs.readFile(babel_absolute_path, function (err, data) {
 			if (err) { return reject() }
 
 			// check if file is empty. return empty object if so
-			if(data == '') {
+			if (data == '') {
 				return resolve([''])
 			}
 			var cultures_datafile = require_from_string('module.exports = ' + data)
@@ -42,19 +42,19 @@ babel_handler.prototype.add_culture = function (cultures) {
 	return flat_file_handler.add_array(BABEL_FILE, cultures, 'cultures')
 }
 
-function culturize(context, culture) {
-	if(typeof(context) != 'object') {
+function culturize (context, culture) {
+	if (typeof (context) != 'object') {
 		return context
 	}
 
 	terminated_context = terminate(context)
 
 	var culturized_part = {}
-	for(var key in terminated_context) {
+	for (var key in terminated_context) {
 
 		var cultural_key = get_cultural_key(key, culture)
 
-		if(cultural_key in context) {
+		if (cultural_key in context) {
 			culturized_part[key] = culturize(context[cultural_key], culture)
 		} else {
 			culturized_part[key] = culturize(context[key], culture)
@@ -63,11 +63,11 @@ function culturize(context, culture) {
 	return culturized_part
 }
 
-function terminate(context) {
+function terminate (context) {
 	var terminated_context = {}
 
-	for(var key in context) {
-		if(key[0] != '$') {
+	for (var key in context) {
+		if (key[0] != '$') {
 			terminated_context[key] = context[key]
 		}
 	}
@@ -75,7 +75,7 @@ function terminate(context) {
 	return terminated_context
 }
 
-function get_cultural_key(key, culture) {
+function get_cultural_key (key, culture) {
 	return '$' + key + '_' + culture
 }
 

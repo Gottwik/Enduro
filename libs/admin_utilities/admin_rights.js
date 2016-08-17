@@ -9,27 +9,22 @@
 // * ———————————————————————————————————————————————————————— * //
 var admin_rights = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-
-// local dependencies
-
 // constants
 var rights = {
 	demo: ['read', 'temp']
 }
 
-admin_rights.prototype.can_user_do_that = function(user, activity) {
+admin_rights.prototype.can_user_do_that = function (user, activity) {
 
 	var user_tags = user.tags
 
 	// if no user is provided we assume it is superuser(simple setup)
-	if(!user_tags) {
+	if (!user_tags) {
 		return true
 	}
 
-	for(u in user_tags) {
-		if(!can_tag_do_that(user_tags[u], activity)) {
+	for (u in user_tags) {
+		if (!can_tag_do_that(user_tags[u], activity)) {
 			return false
 		}
 	}
@@ -37,9 +32,9 @@ admin_rights.prototype.can_user_do_that = function(user, activity) {
 	return true
 }
 
-function can_tag_do_that(tag, activity) {
+function can_tag_do_that (tag, activity) {
 	// if tag is undefined here
-	if(!(tag in rights)) {
+	if (!(tag in rights)) {
 		return false
 	}
 

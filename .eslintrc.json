@@ -129,17 +129,7 @@
     "space-in-parens": [2, "never"],
     "space-infix-ops": 2,
     "space-unary-ops": [2, { "words": true, "nonwords": false }],
-    "spaced-comment": ["error", "always", {
-        "line": {
-            "markers": ["/"],
-            "exceptions": ["-", "+"]
-        },
-        "block": {
-            "markers": ["!"],
-            "exceptions": ["*"],
-            "balanced": true
-        }
-    }],
+    "spaced-comment": 2,
     "template-curly-spacing": [2, "never"],
     "unicode-bom": [2, "never"],
     "use-isnan": 2,

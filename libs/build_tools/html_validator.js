@@ -3,27 +3,30 @@
 // *	checks if the html is valid
 // * ———————————————————————————————————————————————————————— * //
 
-var htmlvalidator = function () {};
+var htmlvalidator = function () {}
 
 var validator = require('html-validator')
-var async = require("async")
+var async = require('async')
 var fs = require('fs')
-var glob = require("glob")
+var glob = require('glob')
 
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // Creates all subdirectories neccessary to create the file in filepath
-htmlvalidator.prototype.init = function(gulp) {
-	gulp.task('htmlvalidator', function(cb) {
+htmlvalidator.prototype.init = function (gulp) {
+	gulp.task('htmlvalidator', function (cb) {
 		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
+			if (err) {
+				kiska_logger.err(err)
+			}
 
 			kiska_logger.init('Validating pages')
 
 			files = files.map((file) => {
-				return file.match('/pages/(.*)\.hbs')[1]
+				return file.match('/pages/(.*).hbs')[1]
 			})
 
-			async.each(files, function(pagepath, callback) {
+			async.each(files, function (pagepath, callback) {
 				var src_path = CMD_FOLDER + '/_src/' + pagepath + '.html'
 
 				fs.readFile(src_path, 'utf8', function (err, data) {
@@ -33,9 +36,9 @@ htmlvalidator.prototype.init = function(gulp) {
 						if (error) {
 							throw error
 						}
-						data = JSON.parse(data);
-						if(data["messages"] && data["messages"].length == 0) {
-							kiska_logger.twolog('✓ ' + pagepath, 'ok');
+						data = JSON.parse(data)
+						if (data['messages'] && data['messages'].length == 0) {
+							kiska_logger.twolog('✓ ' + pagepath, 'ok')
 						} else {
 							kiska_logger.twoerr('✗ ' + pagepath, 'not ok')
 						}

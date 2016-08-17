@@ -11,7 +11,7 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-__templating_engine.registerHelper("lorem", function (length, upperrange) {
+__templating_engine.registerHelper('lorem', function (length, upperrange) {
 
 	length = length || 10
 
@@ -26,7 +26,7 @@ __templating_engine.registerHelper("lorem", function (length, upperrange) {
 	// Randomize string
 	dummy = dummy
 		.split(' ')
-		.sort(function() {
+		.sort(function () {
 			return .5 - Math.random()
 		})
 		.slice(0, length)
@@ -36,4 +36,4 @@ __templating_engine.registerHelper("lorem", function (length, upperrange) {
 	dummy = dummy[0].toUpperCase() + dummy.substring(1) + '.'
 
 	return dummy
-});
+})

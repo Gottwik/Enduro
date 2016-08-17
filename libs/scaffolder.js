@@ -26,11 +26,11 @@ var DEFAULT_SCAFFOLDING_NAME = 'minimalistic'
 // *	@param {array} args - args[0] - desired name of the new project, args[1] - scaffolding name
 // *	@return {Promise} - promise with no content. resolve if login was successfull
 // * ———————————————————————————————————————————————————————— * //
-scaffolder.prototype.scaffold = function(args) {
-	return new Promise(function(resolve, reject) {
+scaffolder.prototype.scaffold = function (args) {
+	return new Promise(function (resolve, reject) {
 
 		// No project name given
-		if(!args.length) {
+		if (!args.length) {
 			kiska_logger.err('\nProvide project name as \n\n\t$ enduro create projectname\n')
 			return reject('no project name was specified')
 		}
@@ -40,7 +40,7 @@ scaffolder.prototype.scaffold = function(args) {
 
 		var scaffolding_path = get_scaffolding_path_by_name(args[1])
 
-		if(scaffolding_path == -1) {
+		if (scaffolding_path == -1) {
 			reject()
 		}
 
@@ -48,7 +48,7 @@ scaffolder.prototype.scaffold = function(args) {
 		var scaffolding_destination = path.join(CMD_FOLDER, project_name)
 
 		// Reject if directory already exists
-		if(enduro_helpers.dirExists(scaffolding_destination) && !flags.force) {
+		if (enduro_helpers.dirExists(scaffolding_destination) && !flags.force) {
 			reject('requested directory already exists')
 			return kiska_logger.err_block('\tdirectory already existss')
 		}
@@ -71,12 +71,12 @@ scaffolder.prototype.scaffold = function(args) {
 	})
 }
 
-function get_scaffolding_path_by_name(scaffolding_name) {
+function get_scaffolding_path_by_name (scaffolding_name) {
 
 	scaffolding_name = scaffolding_name || DEFAULT_SCAFFOLDING_NAME
 
 	var scaffolding_path = path.join(ENDURO_FOLDER, 'scaffolding', scaffolding_name)
-	if(!enduro_helpers.dirExists(scaffolding_path)) {
+	if (!enduro_helpers.dirExists(scaffolding_path)) {
 		non_existent_scaffoling_logout(scaffolding_name)
 		return -1
 	}
@@ -84,13 +84,13 @@ function get_scaffolding_path_by_name(scaffolding_name) {
 	return scaffolding_path
 }
 
-function non_existent_scaffoling_logout(scaffolding_name) {
+function non_existent_scaffoling_logout (scaffolding_name) {
 	kiska_logger.err_blockStart('Scaffolding does not exist')
 	kiska_logger.err('Scaffolding with name ' + scaffolding_name + ' does not exist')
 	kiska_logger.err('\nChoose from these scaffoldings:\n')
 
 	var scaffoldings = glob.sync(path.join(ENDURO_FOLDER, 'scaffolding', '*'))
-	for(var s in scaffoldings) {
+	for (var s in scaffoldings) {
 		kiska_logger.err('\t' + scaffoldings[s].match(/\/([^\/]*)$/)[1])
 	}
 

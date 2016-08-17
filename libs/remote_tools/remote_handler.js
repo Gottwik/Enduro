@@ -2,7 +2,7 @@
 // * 	remote handler
 // *	uploads files to s3
 // * ———————————————————————————————————————————————————————— * //
-var remote_handler = function () {};
+var remote_handler = function () {}
 
 // vendor dependencies
 var Promise = require('bluebird')
@@ -10,7 +10,6 @@ var s3 = require('s3')
 
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
-
 
 remote_handler.prototype.upload_to_s3_by_file = function (file, timestamp) {
 	var filename = timestamp ? timestamp_filename(file.name) : file.name
@@ -25,13 +24,13 @@ remote_handler.prototype.get_remote_url = function (filename) {
 	return get_remote_url(filename)
 }
 
-function timestamp_filename(filename) {
-	return (new Date/1e3|0) + '_' + filename
+function timestamp_filename (filename) {
+	return (new Date() / 1e3 | 0) + '_' + filename
 }
 
-function s3_upload(filename, filepath) {
-	//kiska_logger.timestamp('Uploading file to s3','file_uploading')
-	return new Promise(function(resolve, reject) {
+function s3_upload (filename, filepath) {
+	// kiska_logger.timestamp('Uploading file to s3','file_uploading')
+	return new Promise(function (resolve, reject) {
 
 		var destination_url = get_remote_url(filename)
 
@@ -55,26 +54,26 @@ function s3_upload(filename, filepath) {
 				// other options suwpported by putObject, except Body and ContentLength.
 				// See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
 			},
-		};
-		var uploader = client.uploadFile(params);
+		}
+		var uploader = client.uploadFile(params)
 
-		uploader.on('error', function(err) {
-			console.error("unable to upload:", err.stack);
-		});
+		uploader.on('error', function (err) {
+			console.error('unable to upload:', err.stack)
+		})
 
-		uploader.on('progress', function() {
-			//console.log("progress", uploader.progressMd5Amount, uploader.progressAmount, uploader.progressTotal);
-		});
+		uploader.on('progress', function () {
+			// console.log("progress", uploader.progressMd5Amount, uploader.progressAmount, uploader.progressTotal);
+		})
 
-		uploader.on('end', function() {
+		uploader.on('end', function () {
 			kiska_logger.timestamp('File uploaded successfully: ' + destination_url)
 			return resolve(destination_url)
-		});
+		})
 
 	})
 }
 
-function get_remote_url(filename) {
+function get_remote_url (filename) {
 	return 'https://s3-' + (global.config.s3.region || 'us-west-1') + '.amazonaws.com/' + global.config.s3.bucket + '/' + filename
 }
 

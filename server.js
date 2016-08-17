@@ -27,10 +27,10 @@ var PRODUCTION_SERVER_PORT = 5000
 // initialization of the sessions
 app.set('trust proxy', 1)
 app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {}
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: true,
+	cookie: {},
 }))
 
 app.use(cors())
@@ -44,12 +44,11 @@ var server
 // *	@param {boolean} development_mode - if true, prevents enduro render on start to prevent double rendering
 // *	@return {}
 // * ———————————————————————————————————————————————————————— * //
-enduro_server.prototype.run = function(development_mode) {
+enduro_server.prototype.run = function (development_mode) {
 	// stores current enduro_server instance
 	var self = this
 
-	return new Promise(function(resolve, reject) {
-
+	return new Promise(function (resolve, reject) {
 		// 5000 or server's port
 		app.set('port', (process.env.PORT || PRODUCTION_SERVER_PORT))
 
@@ -65,7 +64,7 @@ enduro_server.prototype.run = function(development_mode) {
 
 		// handle for executing enduro refresh from client
 		app.get('/admin_api_refresh', function (req, res) {
-			self.enduro_refresh(function() {
+			self.enduro_refresh(function () {
 				res.send({success: true, message: 'enduro refreshed successfully'})
 			})
 		})
@@ -75,12 +74,11 @@ enduro_server.prototype.run = function(development_mode) {
 			admin_api.call(req, res, self)
 		})
 
-
 		// handle for all website api calls
 		// kinda works but needs to be properly done
 		app.get('/*', function (req, res) {
-			if(!/admin\/(.*)/.test(req.url) && !/assets\/(.*)/.test(req.url)) {
-				if(req.query['pswrd']) {
+			if (!/admin\/(.*)/.test(req.url) && !/assets\/(.*)/.test(req.url)) {
+				if (req.query['pswrd']) {
 					kiska_guard.login(req)
 						.then(() => {
 							var htmlFile = req.url.length > 1 ? req.url.substring(0, req.url.indexOf('?')) : '/'
@@ -88,19 +86,17 @@ enduro_server.prototype.run = function(development_mode) {
 						}, () => {
 							res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
 						})
-				}
-				else{
+				} else {
 					kiska_guard.login(req)
 						.then(() => {
-							if(req.url.length <= 1 && config.cultures[0].length > 0) {
+							if (req.url.length <= 1 && config.cultures[0].length > 0) {
 								return res.redirect('/' + config.cultures[0])
 							}
-							if(req.url.length <= 1 || (req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1 && req.url.split('/').length <= 2)) {
+							if (req.url.length <= 1 || (req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1 && req.url.split('/').length <= 2)) {
 								res.sendFile(CMD_FOLDER + '/_src' + req.url + '/index.html')
 							} else {
 								res.sendFile(CMD_FOLDER + '/_src' + req.url + '.html')
 							}
-
 						}, () => {
 							res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
 						})
@@ -110,19 +106,18 @@ enduro_server.prototype.run = function(development_mode) {
 
 		server = app.listen(app.get('port'), function () {
 			kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
-			if(!development_mode) {
+			if (!development_mode) {
 				self.enduro_init(() => {
 					resolve()
 				})
-			}
-			else {
+			} else {
 				resolve()
 			}
 		})
 	})
 }
 
-enduro_server.prototype.stop = function(cb) {
+enduro_server.prototype.stop = function (cb) {
 	server.close(cb)
 }
 

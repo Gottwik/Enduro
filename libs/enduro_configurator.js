@@ -24,35 +24,32 @@ var public_default_config = {
 
 var secret_default_config = {}
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	read configurtion file
 // *
 // *	@return {promise} - empty promise
 // * ———————————————————————————————————————————————————————— * //
-enduro_configurator.prototype.read_config = function() {
+enduro_configurator.prototype.read_config = function () {
 	return Promise.all([
 		read_config_file(CONFIG_PATH, public_default_config),
 		read_config_file(SECRET_CONFIG_PATH, secret_default_config)
 	])
 	.then(() => {
-		global.config.variables = {}
+		global.config.variables = {}
 		global.config.variables.S3_KEY = (global.config.secret && global.config.secret.s3 && global.config.secret.s3.S3_KEY) || process.env.S3_KEY
 		global.config.variables.S3_SECRET = (global.config.secret && global.config.secret.s3 && global.config.secret.s3.S3_SECRET) || process.env.S3_SECRET
 
-
-		global.config.variables.juicebox_enabled = ((global.config.project_name && global.config.variables.S3_KEY && global.config.variables.S3_SECRET) ? true : false) && !config.disable_juicebox
+		global.config.variables.juicebox_enabled = (global.config.project_name && global.config.variables.S3_KEY && global.config.variables.S3_SECRET) && !config.disable_juicebox
 
 		return Promise.resolve()
 	})
 }
 
-
-function read_config_file(config_file, default_config) {
-	return new Promise(function(resolve, reject) {
+function read_config_file (config_file, default_config) {
+	return new Promise(function (resolve, reject) {
 
 		// check if file exists
-		if(!enduro_helpers.fileExists(config_file)) {
+		if (!enduro_helpers.fileExists(config_file)) {
 
 			// uses default config if no configuration is specified
 			global.config = extend(true, config, default_config)
@@ -60,8 +57,8 @@ function read_config_file(config_file, default_config) {
 		} else {
 
 			// Reads the configuration file
-			fs.readFile(config_file, function read(err, data) {
-				if(err) {
+			fs.readFile(config_file, function read (err, data) {
+				if (err) {
 					kiska_logger.err_block(err)
 					return reject()
 				}

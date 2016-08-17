@@ -20,17 +20,16 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
 // constants
-var SECURE_FILE =  '.enduro_secure'
-
+var SECURE_FILE = '.enduro_secure'
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	login endpoint
 // *	@param {http request} req - request used to check if login flag is in the session
 // *	@return {Promise} - Promise with no content. Resolve if login was successfull
 // * ———————————————————————————————————————————————————————— * //
-kiska_guard.prototype.login = function(req) {
+kiska_guard.prototype.login = function (req) {
 	var self = this
-	return new Promise(function(resolve, reject) {
+	return new Promise(function (resolve, reject) {
 
 		typeof req.session.lggin_flag !== 'undefined'
 			? resolve()
@@ -39,17 +38,16 @@ kiska_guard.prototype.login = function(req) {
 	})
 }
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	set passphrase
 // *	@param {array} args - args[0] stores the desired passphrase
 // *	@return {Promise} - Promise with no content. Resolve if password setup was successfull
 // * ———————————————————————————————————————————————————————— * //
-kiska_guard.prototype.set_passphrase = function(args) {
-	return new Promise(function(resolve, reject) {
+kiska_guard.prototype.set_passphrase = function (args) {
+	return new Promise(function (resolve, reject) {
 
 		// No passphrase given
-		if(!args.length) {
+		if (!args.length) {
 			reject('No passphrase provided')
 			return kiska_logger.err('\nProvide an passphrase \n\n\t$ enduro secure catthrewupagain\n')
 		}
@@ -57,8 +55,8 @@ kiska_guard.prototype.set_passphrase = function(args) {
 		// Stores the passphrase
 		var passphrase = passwordHash.generate(args[0])
 
-		fs.writeFile(CMD_FOLDER + '/' + SECURE_FILE, passphrase, function(err) {
-			if(err) {
+		fs.writeFile(CMD_FOLDER + '/' + SECURE_FILE, passphrase, function (err) {
+			if (err) {
 				return kiska_logger.err(err)
 			}
 
@@ -68,24 +66,23 @@ kiska_guard.prototype.set_passphrase = function(args) {
 	})
 }
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	verify passphrase
 // *	@param {string} passphrase - passphrase to be checked against the stored one
 // *	@return {Promise} - Promise with no content. Resolve if password verification was successfull
 // * ———————————————————————————————————————————————————————— * //
-kiska_guard.prototype.verify_passphrase = function(passphrase) {
-	return new Promise(function(resolve, reject) {
+kiska_guard.prototype.verify_passphrase = function (passphrase) {
+	return new Promise(function (resolve, reject) {
 
-		if(!passphrase) {
+		if (!passphrase) {
 			reject('no passphrase provided')
 		}
 		// Reads the security file
-		fs.readFile(CMD_FOLDER + '/' + SECURE_FILE, function read(err, data) {
-			if(err) { return kiska_logger.err(err) }
+		fs.readFile(CMD_FOLDER + '/' + SECURE_FILE, function read (err, data) {
+			if (err) { return kiska_logger.err(err) }
 
 			// Compares the hashed passphrase, sets session flag and resolves if successful
-			if(passwordHash.verify(passphrase, data.toString())) {
+			if (passwordHash.verify(passphrase, data.toString())) {
 				resolve()
 			} else {
 				reject('incorrect passphrase provided')
@@ -93,7 +90,6 @@ kiska_guard.prototype.verify_passphrase = function(passphrase) {
 		})
 	})
 }
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	main verification endpoint
@@ -103,16 +99,16 @@ kiska_guard.prototype.verify_passphrase = function(passphrase) {
 // *	@param {function reject} req - failure callback
 // *	@return {null} - calls resolve or reject callback based on if the login was successfull
 // * ———————————————————————————————————————————————————————— * //
-kiska_guard.prototype.verify = function(req, passphrase, resolve, reject) {
+kiska_guard.prototype.verify = function (req, passphrase, resolve, reject) {
 
 	// don't check for security if no .enduro_secure file exists
-	if(!(enduro_helpers.fileExists(CMD_FOLDER + '/' + SECURE_FILE))) {
+	if (!(enduro_helpers.fileExists(CMD_FOLDER + '/' + SECURE_FILE))) {
 		req.session.lggin_flag = true
 		return resolve()
 	}
 
 	// reject if no passphrase is provided
-	if(!passphrase) {
+	if (!passphrase) {
 		return reject()
 	}
 

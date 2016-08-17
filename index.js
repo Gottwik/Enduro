@@ -49,27 +49,27 @@ var pregenerator = require(ENDURO_FOLDER + '/libs/pregenerator/pregenerator')
 var abstractor = require(ENDURO_FOLDER + '/libs/abstractor/abstractor')
 
 // sets different admin if enduro is being used globally
-if(!enduro_helpers.dirExists(ADMIN_FOLDER)) {
+if (!enduro_helpers.dirExists(ADMIN_FOLDER)) {
 	global.ADMIN_FOLDER = path.join(ENDURO_FOLDER, 'node_modules', 'enduro_admin', '_src') // this is production setting
 }
 
 // gets gulp tasks and extend it with refresh function which will render enduro
-gulp.set_refresh(function(callback) {
+gulp.set_refresh(function (callback) {
 	kiska_logger.log('Refresh', true, 'enduro_render_events')
-	render(function() {
+	render(function () {
 		callback()
 	}, true)
 })
 
-enduro_server.set_init(function(cb) {
+enduro_server.set_init(function (cb) {
 	var first_production_render = true
 	var first_production = true
 
 	kiska_logger.log('initializing production server', true, 'enduro_render_events')
 	gulp.start('preproduction', () => {
-		if(first_production_render) {
-			render(function() {
-				if(first_production) {
+		if (first_production_render) {
+			render(function () {
+				if (first_production) {
 					gulp.start('production', () => {
 						cb()
 					})
@@ -81,27 +81,26 @@ enduro_server.set_init(function(cb) {
 	})
 })
 
-enduro_server.set_refresh(function(cb) {
+enduro_server.set_refresh(function (cb) {
 	kiska_logger.log('refreshing production server', true, 'enduro_render_events')
-	render(function() {
+	render(function () {
 		cb()
 	})
 })
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	run
 // *	entry point from the cli
 // *	returns boolean based on if the arguments were recognized
 // * ———————————————————————————————————————————————————————— * //
-function run(args, flags) {
+function run (args, flags) {
 	global.flags = flag_handler.get_flag_object(flags)
 	return enduro_configurator.read_config()
 		.then(() => {
 			// * ———————————————————————————————————————————————————————— * //
 			// * 	$ enduro
 			// * ———————————————————————————————————————————————————————— * //
-			if(args.length == 0) {
+			if (args.length == 0) {
 				return developer_start()
 			}
 
@@ -111,83 +110,80 @@ function run(args, flags) {
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro render
 				// * ———————————————————————————————————————————————————————— * //
-				if(arg == 'render' || arg == 'r') {
+				if (arg == 'render' || arg == 'r') {
 					return render()
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro start
 				// * ———————————————————————————————————————————————————————— * //
-				} else if(arg == 'start') {
+				} else if (arg == 'start') {
 					return enduro_server.run()
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro create projectname
 				// * ———————————————————————————————————————————————————————— * //
-				} else if(arg == 'create') {
+				} else if (arg == 'create') {
 					return scaffolder.scaffold(args)
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro secure passphrasehere
 				// * ———————————————————————————————————————————————————————— * //
-				} else if(arg == 'secure') {
+				} else if (arg == 'secure') {
 					return kiska_guard.set_passphrase(args)
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro build [dev]
 				// * ———————————————————————————————————————————————————————— * //
-				} else if(arg == 'build') {
+				} else if (arg == 'build') {
 					return js_build.build_js(args.shift())
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro check
 				// * ———————————————————————————————————————————————————————— * //
-				} else if(arg == 'check') {
+				} else if (arg == 'check') {
 					return gulp.start('check')
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro addadmin (username) (password)
 				// * ———————————————————————————————————————————————————————— * //
-				} else if(arg == 'addadmin') {
+				} else if (arg == 'addadmin') {
 					return admin_security.add_admin(args.shift(), args.shift(), args.shift())
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro addculture (culture1) [culture2] ...
 				// * ———————————————————————————————————————————————————————— * //
-				} else if(arg == 'addculture') {
+				} else if (arg == 'addculture') {
 					return babel.add_culture(args)
-
-
-				} else if(arg == 'juice') {
+				} else if (arg == 'juice') {
 					arg = args.shift()
-					if(arg == 'pack') {
-						if(global.flags.force) {
+					if (arg == 'pack') {
+						if (global.flags.force) {
 							return juicebox.force_pack()
 						} else {
 							return juicebox.pack()
 						}
-					} else if(arg == 'pull') {
+					} else if (arg == 'pull') {
 						return juicebox.pull()
-					} else if(arg == 'diff') {
+					} else if (arg == 'diff') {
 						return juicebox.diff()
 					}
 
-				} else if(arg == 'test') {
+				} else if (arg == 'test') {
 					var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator')
 
 					return pagelist_generator.get_cms_list()
 						.then((pagelist) => {
-							//console.log(pagelist)
+							// console.log(pagelist)
 						})
 				}
 			}
 
 			// some weird arguments
 			kiska_logger.log('Arguments not recognized')
-			return new Promise(function(resolve, reject) { reject('not recognized') })
+			return new Promise(function (resolve, reject) { reject('not recognized') })
 
-	})
+		})
 }
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	render
@@ -197,7 +193,7 @@ function run(args, flags) {
 // *	- loads helpers
 // *	- renders files in ../pages
 // * ———————————————————————————————————————————————————————— * //
-function render(callback, nojuice) {
+function render (callback, nojuice) {
 	kiska_logger.init('Enduro', 'enduro_render_events')
 	juicebox.pull(nojuice, juicebox.no_juice_yet())
 		.then(() => {
@@ -223,12 +219,11 @@ function render(callback, nojuice) {
 		})
 		.then(() => {
 			kiska_logger.end('enduro_render_events')
-			if(callback) {
+			if (callback) {
 				callback()
 			}
 		})
 }
-
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Developer Start
@@ -237,8 +232,8 @@ function render(callback, nojuice) {
 var first = true
 var firstrender = true
 var firstserverstart = true
-function developer_start() {
-	return new Promise(function(resolve, reject) {
+function developer_start () {
+	return new Promise(function (resolve, reject) {
 		// clears the global data
 		global_data.clear()
 
@@ -247,12 +242,12 @@ function developer_start() {
 		kiska_logger.timestamp('developer start', 'enduro_events')
 		// Does the refresh procedure
 		gulp.start('preproduction', () => {
-			if(first) {
+			if (first) {
 				render(() => {
 					kiska_logger.timestamp('Render finished', 'enduro_events')
-					if(firstrender) {
+					if (firstrender) {
 						gulp.start(flags.norefresh ? 'default_norefresh' : 'default', () => {
-							if(firstserverstart && !flags.noadmin) {
+							if (firstserverstart && !flags.noadmin) {
 								kiska_logger.timestamp('production server starting', 'enduro_events')
 								resolve()
 								// start production server in development mode
@@ -270,13 +265,13 @@ function developer_start() {
 	})
 }
 
-function server_stop(cb) {
+function server_stop (cb) {
 	gulp.start('browser_sync_stop')
 	enduro_server.stop(cb)
 }
 
 // Removes all logging
-function silent() {
+function silent () {
 	kiska_logger.silent()
 }
 

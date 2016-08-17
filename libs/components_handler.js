@@ -20,25 +20,24 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 // *
 // *	@return {promise} - empty promise
 // * ———————————————————————————————————————————————————————— * //
-components_handler.prototype.read_components = function() {
-	return new Promise(function(resolve, reject) {
+components_handler.prototype.read_components = function () {
+	return new Promise(function (resolve, reject) {
 
 		var components_path = CMD_FOLDER + '/components/**/*.hbs'
 
 		// fetches the files
-		glob( components_path , function (err, files) {
+		glob(components_path, function (err, files) {
 			if (err) {
 				kiska_logger.err_block(err)
 				return reject()
 			}
 
 			// async goes through all files
-			async.each(files, function(file, callback) {
+			async.each(files, function (file, callback) {
 
 				// stores file name and file extension
 				var fileReg = file.match(/([^\\/]+)\.([^\\/]+)$/)
 				var filename = fileReg[1]
-				var fileext = fileReg[2]
 
 				// reads the file. @data stores the component's raw contents
 				fs.readFile(file, 'utf8', function (err, data) {
@@ -52,7 +51,7 @@ components_handler.prototype.read_components = function() {
 					kiska_logger.twolog('component ' + filename, 'registered', 'enduro_render_events')
 					callback()
 				})
-			}, function() {
+			}, function () {
 
 				// after all components are loaded
 				kiska_logger.line('enduro_render_events')

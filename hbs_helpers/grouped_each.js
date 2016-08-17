@@ -4,9 +4,9 @@
 // *    taken from https://funkjedi.com/technology/412-every-nth-item-in-handlebars/
 // * ———————————————————————————————————————————————————————— * //
 
-__templating_engine.registerHelper('grouped_each', function(every, context, options) {
+__templating_engine.registerHelper('grouped_each', function (every, context, options) {
 
-	if(!context || !(Object.keys(context).length || context.length)) {
+	if (!context || !(Object.keys(context).length || context.length)) {
 		return ''
 	}
 

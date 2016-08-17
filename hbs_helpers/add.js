@@ -10,13 +10,13 @@
 // *
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper("add", function () {
+__templating_engine.registerHelper('add', function () {
 
-	if(arguments.length <= 1) {
+	if (arguments.length <= 1) {
 		return ''
 	}
 
-	return Array.prototype.slice.call(arguments).slice(0, -1).reduce(function(prev, next) {
+	return Array.prototype.slice.call(arguments).slice(0, -1).reduce(function (prev, next) {
 		return prev + next
 	})
-});
+})

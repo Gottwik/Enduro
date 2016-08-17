@@ -10,7 +10,7 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-__templating_engine.registerHelper('json', function(filename, options) {
+__templating_engine.registerHelper('json', function (filename, options) {
 	var fs = require('fs')
 	var contents = JSON.parse(fs.readFileSync(CMD_FOLDER + filename, 'utf8'))
 

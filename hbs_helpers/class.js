@@ -14,18 +14,16 @@
 // *		{{class 'gradient_bottom'}} // will render gradient-bottom
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper('class', function() {
+__templating_engine.registerHelper('class', function () {
 	var context = this
 
-
 	// if no argument is provided renders empty string
-	if(arguments.length <= 1) {
+	if (arguments.length <= 1) {
 		return ''
 	}
 
-
 	return Array.prototype.slice.call(arguments).slice(0, -1) // takes all arguments without the handlebars context
-		.reduce(function(prev, next) {
+		.reduce(function (prev, next) {
 			return context[next]
 				? prev + ' ' + next // adds argument name if the value is truthy
 				: prev + ''

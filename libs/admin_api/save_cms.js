@@ -9,9 +9,6 @@
 // * ———————————————————————————————————————————————————————— * //
 var api_call = function () {}
 
-// Vendor dependencies
-var Promise = require('bluebird')
-
 // local dependencies
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
@@ -20,12 +17,12 @@ var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var admin_rights = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_rights')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server) {
+api_call.prototype.call = function (req, res, enduro_server) {
 
-	var jsonString = '';
+	var jsonString = ''
 	req.on('data', function (data) {
-		jsonString += data;
-	});
+		jsonString += data
+	})
 
 	req.on('end', function () {
 
@@ -37,7 +34,7 @@ api_call.prototype.call = function(req, res, enduro_server) {
 		var content = jsonString.content
 
 		// makes sure all required query parameters were sent
-		if(!sid || !filename || !content) {
+		if (!sid || !filename || !content) {
 			res.send({success: false, message: 'Parameters not provided'})
 			return kiska_logger.err('parameters not provided')
 		}
@@ -46,7 +43,7 @@ api_call.prototype.call = function(req, res, enduro_server) {
 
 		admin_sessions.get_user_by_session(sid)
 			.then((user) => {
-				if(!admin_rights.can_user_do_that(user, 'write')) {
+				if (!admin_rights.can_user_do_that(user, 'write')) {
 					res.sendStatus(403)
 					throw new Error()
 				}
@@ -61,7 +58,7 @@ api_call.prototype.call = function(req, res, enduro_server) {
 				return juicebox.pack(requesting_user.username)
 			}, () => { throw new Error() })
 			.then((data) => {
-				// Re-renders enduro - essential to publishing the change
+				// re-renders enduro - essential to publishing the change
 				enduro_server.enduro_refresh(() => {
 					res.send(data)
 				})

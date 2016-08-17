@@ -7,20 +7,17 @@
 // * ———————————————————————————————————————————————————————— * //
 var api_call = function () {}
 
-// Vendor dependencies
-var Promise = require('bluebird')
-
 // local dependencies
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server) {
+api_call.prototype.call = function (req, res, enduro_server) {
 
 	// gets session id from query parameters
 	var sid = req.query.sid
 
 	// if no session provided
-	if(!sid) {
+	if (!sid) {
 		res.send({success: false, message: 'no sessionid provided'})
 		return
 	}

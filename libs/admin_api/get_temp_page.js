@@ -17,15 +17,15 @@ var fs = require('fs')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
-var temper = require(ENDURO_FOLDER+ '/libs/temper/temper')
+var temper = require(ENDURO_FOLDER + '/libs/temper/temper')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server) {
+api_call.prototype.call = function (req, res, enduro_server) {
 
-	var jsonString = '';
+	var jsonString = ''
 	req.on('data', function (data) {
-		jsonString += data;
-	});
+		jsonString += data
+	})
 
 	req.on('end', function () {
 
@@ -37,7 +37,7 @@ api_call.prototype.call = function(req, res, enduro_server) {
 		var content = jsonString.content
 
 		// makes sure all required query parameters were sent
-		if(!sid || !filename || !content) {
+		if (!sid || !filename || !content) {
 			res.send({success: false, message: 'Parameters not provided'})
 			return kiska_logger.err('parameters not provided')
 		}
@@ -48,7 +48,6 @@ api_call.prototype.call = function(req, res, enduro_server) {
 			}, () => {
 				res.sendStatus(401)
 				throw new Error('abort promise chain')
-				return
 			})
 			.then((temp_page_in_raw_html) => {
 				var temp_filename = Math.random().toString(36).substring(7)
@@ -56,7 +55,7 @@ api_call.prototype.call = function(req, res, enduro_server) {
 				var temp_destination_path = path.join(CMD_FOLDER, '_src', temp_destination_url + '.html')
 				enduro_helpers.ensureDirectoryExistence(temp_destination_path)
 					.then(() => {
-						fs.writeFile(temp_destination_path, temp_page_in_raw_html, function() {
+						fs.writeFile(temp_destination_path, temp_page_in_raw_html, function () {
 							res.send(temp_destination_url)
 
 						})

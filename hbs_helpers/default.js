@@ -7,13 +7,13 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-__templating_engine.registerHelper("default", function (name, defaultValue, options) {
+__templating_engine.registerHelper('default', function (name, defaultValue, options) {
 
-	if(typeof options === 'undefined') {
+	if (typeof options === 'undefined') {
 		defaultValue = ''
 	}
 
 	return typeof name !== 'undefined'
 		? name
 		: defaultValue
-});
+})

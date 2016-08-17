@@ -6,22 +6,19 @@
 // * ———————————————————————————————————————————————————————— * //
 var api_call = function () {}
 
-// Vendor dependencies
-var Promise = require('bluebird')
-
 // Local dependencies
 var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // routed call
-api_call.prototype.call = function(req, res, enduro_server) {
+api_call.prototype.call = function (req, res, enduro_server) {
 	var username = req.query.username
 	var password = req.query.password
 
 	kiska_logger.timestamp(username + ' is trying to log in', 'admin_login')
 
-	if(!password || !username) {
+	if (!password || !username) {
 		res.send({success: false})
 		return
 	}
@@ -30,7 +27,7 @@ api_call.prototype.call = function(req, res, enduro_server) {
 		.then((user) => {
 			kiska_logger.timestamp(username + ' successfully logged in', 'admin_login')
 			return admin_sessions.create_session(req, user)
-		}, (err) => {
+		}, () => {
 			kiska_logger.timestamp(username + ' failed to log in', 'admin_login')
 			res.send({
 				success: false,

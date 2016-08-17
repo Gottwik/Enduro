@@ -6,9 +6,9 @@
 // *	{{partial 'partial name'}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper("partial", function (name, context, options) {
+__templating_engine.registerHelper('partial', function (name, context, options) {
 
-	if(!options) {
+	if (!options) {
 		options = context
 		context = this
 	}
@@ -20,7 +20,6 @@ __templating_engine.registerHelper("partial", function (name, context, options) 
 	if (!partial) return ''
 
 	// build up context
-	context = context
 	context.global = options.data.root.global
 
 	// Compile and call the partial with context
@@ -28,4 +27,4 @@ __templating_engine.registerHelper("partial", function (name, context, options) 
 		? new __templating_engine.SafeString(partial(context))
 		: new __templating_engine.SafeString(__templating_engine.compile(partial)(context))
 
-});
+})

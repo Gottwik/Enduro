@@ -8,11 +8,11 @@
 // *	returns last value as default
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper('switch', function() {
+__templating_engine.registerHelper('switch', function () {
 
 	// create a list out of arguments
 	var arguments_list = []
-	for(var i in arguments) {
+	for (var i in arguments) {
 		arguments_list.push(arguments[i])
 	}
 
@@ -20,12 +20,12 @@ __templating_engine.registerHelper('switch', function() {
 	arguments_list = arguments_list.slice(0, -1)
 
 	// check even argumens and return respective odd argument
-	for(i = 0; i < Math.floor(arguments_list.length / 2); i++) {
-		if(arguments_list[i * 2]) {
+	for (i = 0; i < Math.floor(arguments_list.length / 2); i++) {
+		if (arguments_list[i * 2]) {
 			return arguments_list[i * 2 + 1]
 		}
 	}
 
 	// return last provided argument as a default value
 	return arguments_list.slice(-1)[0]
-});
+})

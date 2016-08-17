@@ -91,7 +91,7 @@
     "no-proto": 2,
     "no-redeclare": 2,
     "no-regex-spaces": 2,
-    "no-return-assign": [2, "except-parens"],
+    "no-return-assign": [0, "except-parens"],
     "no-self-assign": 2,
     "no-self-compare": 2,
     "no-sequences": 2,
@@ -129,7 +129,17 @@
     "space-in-parens": [2, "never"],
     "space-infix-ops": 2,
     "space-unary-ops": [2, { "words": true, "nonwords": false }],
-    "spaced-comment": [2, "always", { "line": { "markers": ["*package", "!", ","] }, "block": { "balanced": true, "markers": ["*package", "!", ","], "exceptions": ["*"] } }],
+    "spaced-comment": ["error", "always", {
+        "line": {
+            "markers": ["/"],
+            "exceptions": ["-", "+"]
+        },
+        "block": {
+            "markers": ["!"],
+            "exceptions": ["*"],
+            "balanced": true
+        }
+    }],
     "template-curly-spacing": [2, "never"],
     "unicode-bom": [2, "never"],
     "use-isnan": 2,

@@ -8,16 +8,14 @@ var juice_helpers = function () {}
 var dircompare = require('dir-compare')
 var path = require('path')
 var fs = require('fs-extra')
-var ncp = require('ncp').ncp // Handles copying files
 
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var juice_diff = require(ENDURO_FOLDER + '/libs/juicebox/juice_diff')
 
-juice_helpers.prototype.diff_with_cms = function(folder) {
-	return new Promise(function(resolve, reject) {
+juice_helpers.prototype.diff_with_cms = function (folder) {
+	return new Promise(function (resolve, reject) {
 		// local path
 		var path1 = path.join(CMD_FOLDER, 'cms')
 
@@ -28,10 +26,10 @@ juice_helpers.prototype.diff_with_cms = function(folder) {
 	})
 }
 
-juice_helpers.prototype.spill_newer = function(folder) {
-	return new Promise(function(resolve, reject) {
+juice_helpers.prototype.spill_newer = function (folder) {
+	return new Promise(function (resolve, reject) {
 
-		if(!enduro_helpers.dirExists(folder)) {
+		if (!enduro_helpers.dirExists(folder)) {
 			return resolve()
 		}
 
@@ -41,15 +39,15 @@ juice_helpers.prototype.spill_newer = function(folder) {
 
 		diff.diffSet.forEach(function (entry) {
 
-			if(entry.type1 != 'directory') {
+			if (entry.type1 != 'directory') {
 				// remote is newer
-				if(entry.date2 > entry.date1) {
+				if (entry.date2 > entry.date1) {
 					kiska_logger.twolog('newer in juicebar', entry.name2)
 					copy_stack.push(copy_file_to_cms(entry))
 				}
 
 				// only on remote
-				if(entry.state == 'right') {
+				if (entry.state == 'right') {
 					kiska_logger.twolog('new file in juicebar', entry.name2)
 					copy_stack.push(copy_file_to_cms(entry))
 				}
@@ -63,14 +61,14 @@ juice_helpers.prototype.spill_newer = function(folder) {
 	})
 }
 
-function get_diff(folder) {
-	var path1 = path.join(CMD_FOLDER, 'cms');
-	var path2 = path.join(CMD_FOLDER, folder, 'cms');
-	return dircompare.compareSync(path1, path2, {compareSize: true});
+function get_diff (folder) {
+	var path1 = path.join(CMD_FOLDER, 'cms')
+	var path2 = path.join(CMD_FOLDER, folder, 'cms')
+	return dircompare.compareSync(path1, path2, {compareSize: true})
 }
 
-function copy_file_to_cms(entry) {
-	return new Promise(function(resolve, reject) {
+function copy_file_to_cms (entry) {
+	return new Promise(function (resolve, reject) {
 
 		var from_path = path.join(entry.path2, entry.name2)
 		var to_path = path.join(CMD_FOLDER, 'cms', path.join(entry.path2, entry.name2).match(/\/cms\/(.*)/)[1])

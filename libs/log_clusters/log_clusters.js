@@ -3,7 +3,7 @@
 // *
 // *	defines logging clusters
 // * ———————————————————————————————————————————————————————— * //
-var log_clusters = function () {};
+var log_clusters = function () {}
 
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
@@ -19,7 +19,7 @@ clusters['developer_start'] = (context) => {
 	kiska_logger.log('Development server started at:', 'nice_dev_init')
 	kiska_logger.tablog('localhost:3000', 'nice_dev_init')
 
-	if(!flags.noadmin) {
+	if (!flags.noadmin) {
 		kiska_logger.log('Admin ui available at:', 'nice_dev_init')
 		kiska_logger.tablog('localhost:5000/admin', false, 'nice_dev_init')
 	}

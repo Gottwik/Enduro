@@ -8,7 +8,7 @@ var flag_handler = function () {}
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // constants
-var FLAG_MAP =  {
+var FLAG_MAP = {
 	f: {
 		label: 'force',
 		message: 'Force flag - weird stuff might happen'
@@ -37,12 +37,12 @@ var FLAG_MAP =  {
 // *
 // *	@return {object} - object containing all the flags
 // * ———————————————————————————————————————————————————————— * //
-flag_handler.prototype.get_flag_object = function(flags) {
+flag_handler.prototype.get_flag_object = function (flags) {
 
 	var flag_object = {}
 
-	for(i in flags) {
-		if(FLAG_MAP[flags[i]]) {
+	for (i in flags) {
+		if (FLAG_MAP[flags[i]]) {
 			flag_object[FLAG_MAP[flags[i]]['label']] = true
 			kiska_logger.err(FLAG_MAP[flags[i]]['message'])
 		}

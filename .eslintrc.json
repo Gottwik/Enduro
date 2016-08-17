@@ -44,7 +44,7 @@
     "no-class-assign": 2,
     "no-cond-assign": 0,
     "no-const-assign": 2,
-    "no-constant-condition": [2, { "checkLoops": false }],
+    "no-constant-condition": 2,
     "no-control-regex": 2,
     "no-debugger": 2,
     "no-delete-var": 2,

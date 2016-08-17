@@ -17,12 +17,11 @@ var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 var globalizer = require(ENDURO_FOLDER + '/libs/globalizer/globalizer')
 
-
 // Renders individual files
-page_renderer.prototype.render_file = function(file, context_filename, culture, dest_path) {
+page_renderer.prototype.render_file = function (file, context_filename, culture, dest_path) {
 	var self = this
 
-	return new Promise(function(resolve, reject) {
+	return new Promise(function (resolve, reject) {
 
 		// where will the generated page be saved
 		var destination_path = path.join(culture, dest_path)
@@ -30,16 +29,16 @@ page_renderer.prototype.render_file = function(file, context_filename, culture, 
 		flat_file_handler.load(context_filename)
 			.then((context) => {
 				return self.render_file_by_context(file, context, culture)
-			},() => {
+			}, () => {
 				kiska_logger.err('something went wrong attempting to locate file: ' + file)
-				throw new Error('abort promise chain');
+				throw new Error('abort promise chain')
 			})
 			.then((output) => {
 				// Makes sure the target directory exists
 				enduro_helpers.ensureDirectoryExistence(CMD_FOLDER + '/_src/' + destination_path)
-					.then(function() {
+					.then(function () {
 						// Attempts to export the file
-						fs.writeFile(CMD_FOLDER + '/_src/' + destination_path + '.html', output, function(err) {
+						fs.writeFile(CMD_FOLDER + '/_src/' + destination_path + '.html', output, function (err) {
 							if (err) { return kiska_logger.err_block(err) }
 
 							kiska_logger.twolog('page ' + destination_path, 'created', 'enduro_render_events')
@@ -47,12 +46,11 @@ page_renderer.prototype.render_file = function(file, context_filename, culture, 
 						})
 					})
 			})
-
-		})
+	})
 }
 
-page_renderer.prototype.render_file_by_context = function(file, context, culture) {
-	return new Promise(function(resolve, reject) {
+page_renderer.prototype.render_file_by_context = function (file, context, culture) {
+	return new Promise(function (resolve, reject) {
 	// Attempts to read the file
 		fs.readFile(file, 'utf8', function (err, raw_template) {
 			if (err) { return kiska_logger.err_block(err) }
@@ -69,7 +67,7 @@ page_renderer.prototype.render_file_by_context = function(file, context, culture
 			var pagename = file.match(/([^\/]*)\.[^\.]*$/)[1]
 
 			// If global data exists extends the context with it
-			if(typeof __data !== 'undefined') {
+			if (typeof __data !== 'undefined') {
 				extend(true, context, __data)
 			}
 
@@ -82,27 +80,24 @@ page_renderer.prototype.render_file_by_context = function(file, context, culture
 			markdownifier.markdownify(context)
 
 			// renders the template with the culturalized context
-			var output = "Error processing page"
+			var output = 'Error processing page'
 			try {
 				output = template(babel.culturalize(context, culture))
-			}
-			catch(e) {
+			} catch (e) {
 				kiska_logger.err_block('Page: ' + filename + '\n' + e.message)
 			}
 
 			// output raw templates if render_templates setting is set to false. Defaults to true
-			if(!config.render_templates) {
+			if (!config.render_templates) {
 				output = raw_template
 			}
-
 
 			resolve(output)
 		})
 	})
 }
 
-page_renderer.prototype.render_file_by_filename_extend_context = function(filename, extended_context) {
-
+page_renderer.prototype.render_file_by_filename_extend_context = function (filename, extended_context) {
 	var self = this
 	extended_context = extended_context || {}
 
@@ -117,8 +112,7 @@ page_renderer.prototype.render_file_by_filename_extend_context = function(filena
 
 }
 
-page_renderer.prototype.render_file_by_filename_replace_context = function(filename, context) {
-
+page_renderer.prototype.render_file_by_filename_replace_context = function (filename, context) {
 	var self = this
 	context = context || {}
 
@@ -126,13 +120,12 @@ page_renderer.prototype.render_file_by_filename_replace_context = function(filen
 	var culture = config.cultures[0]
 
 	return self.render_file_by_context(file, context, culture)
-
 }
 
-function get_template_by_filename(filename) {
+function get_template_by_filename (filename) {
 
 	var splitted_filename = filename.split(path.sep)
-	if(splitted_filename.indexOf('generators') + 1) {
+	if (splitted_filename.indexOf('generators') + 1) {
 		filename = splitted_filename.slice(0, -1).join(path.sep)
 	}
 

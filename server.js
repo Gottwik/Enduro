@@ -44,7 +44,7 @@ var server
 // *	@param {boolean} development_mode - if true, prevents enduro render on start to prevent double rendering
 // *	@return {}
 // * ———————————————————————————————————————————————————————— * //
-enduro_server.prototype.run = function (development_mode) {
+enduro_server.prototype.run = function (server_setup) {
 	// stores current enduro_server instance
 	var self = this
 
@@ -106,7 +106,7 @@ enduro_server.prototype.run = function (development_mode) {
 
 		server = app.listen(app.get('port'), function () {
 			kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
-			if (!development_mode) {
+			if (!server_setup.development_mode) {
 				self.enduro_init(() => {
 					resolve()
 				})

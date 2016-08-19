@@ -117,7 +117,7 @@ function run (args, flags) {
 				// * 	$ enduro start
 				// * ———————————————————————————————————————————————————————— * //
 				} else if (arg == 'start') {
-					return enduro_server.run()
+					return enduro_server.run(args)
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro create projectname
@@ -251,7 +251,7 @@ function developer_start () {
 								kiska_logger.timestamp('production server starting', 'enduro_events')
 								resolve()
 								// start production server in development mode
-								enduro_server.run(true)
+								enduro_server.run({development_mode: true})
 							}
 							firstserverstart = false
 							// After everything is done

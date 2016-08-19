@@ -1,9 +1,10 @@
 // * ———————————————————————————————————————————————————————— * //
 // *    multiply helper
-// *	multiplies two numbers together
+// *	works with any number of arguments
 // *	Usage:
 // *
 // *	{{multiply @index 2}}
+// *	{{multiply 2 2 2}}
 // *
 // * ———————————————————————————————————————————————————————— * //
 __templating_engine.registerHelper('multiply', function () {

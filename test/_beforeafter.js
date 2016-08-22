@@ -1,3 +1,6 @@
+// load enduro for the first time to init global variables
+require('../index')
+
 // vendor dependencies
 var rimraf = require('rimraf')
 

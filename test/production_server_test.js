@@ -6,6 +6,7 @@ describe('Production server', function () {
 
 	// Create a new project
 	before(function (done) {
+		this.timeout(3000)
 		enduro.run(['create', 'testproject_productionserver'])
 			.then(() => {
 				// navigate inside new project

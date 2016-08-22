@@ -1,9 +1,9 @@
 // vendor dependencies
-var expect = require("chai").expect
+var expect = require('chai').expect
 
 global.__templating_engine = require('handlebars')
 
-describe('Add helper', function() {
+describe('Add helper', function () {
 
 	// no add helper
 	it('should parse simple template successfully', function () {

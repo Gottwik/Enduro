@@ -1,7 +1,6 @@
 
 // vendor dependencies
 var expect = require('chai').expect
-var fs = require('fs')
 var rimraf = require('rimraf')
 
 // local dependencies
@@ -11,7 +10,7 @@ var enduro = require(ENDURO_FOLDER + '/index')
 
 enduro.silent()
 
-describe('Enduro helpers utilities', function() {
+describe('Enduro helpers utilities', function () {
 
 	it('should detect an existing file', function () {
 		expect(enduro_helpers.fileExists(process.cwd() + '/index.js')).to.equal(true)
@@ -43,35 +42,34 @@ describe('Enduro helpers utilities', function() {
 
 	it('should create all neccessary subdirectories', function () {
 		enduro_helpers.ensureDirectoryExistence(process.cwd() + '/test_folder/subfolder/test.js')
-			.then(function() {
+			.then(function () {
 				expect(enduro_helpers.dirExists(process.cwd() + '/test_folder/subfolder')).to.equal(true)
-			}, function(err) {
+			}, function () {
 				expect(true).to.equal(false)
 			})
 	})
 
 	it('should create all neccessary subdirectories if given multiple paths', function () {
 		enduro_helpers.ensureDirectoryExistence(process.cwd() + '/test_folder/subfolder1/test.js', process.cwd() + '/test_folder/subfolder2/test.js')
-			.then(function() {
+			.then(function () {
 				expect(enduro_helpers.dirExists(process.cwd() + '/test_folder/subfolder1')).to.equal(true)
 				expect(enduro_helpers.dirExists(process.cwd() + '/test_folder/subfolder2')).to.equal(true)
-			}, function(err) {
+			}, function () {
 				expect(true).to.equal(false)
 			})
 	})
 
 	it('should delete all test folders', function () {
-		rimraf(process.cwd() + '/test_folder', function(err) {
+		rimraf(process.cwd() + '/test_folder', function () {
 			expect(enduro_helpers.dirExists(process.cwd() + '/test_folder')).to.not.equal(true)
 		})
 	})
 
 })
 
-describe('Enduro flat utilities', function() {
+describe('Enduro flat utilities', function () {
 
-
-	before(function(done) {
+	before(function (done) {
 		enduro.run(['create', 'testfolder_flat_test'])
 			.then(() => {
 				CMD_FOLDER = process.cwd() + '/testfolder/testfolder_flat_test'
@@ -100,7 +98,7 @@ describe('Enduro flat utilities', function() {
 	})
 
 	// navigate back to testfolder
-	after(function() {
+	after(function () {
 		global.CMD_FOLDER = process.cwd() + '/testfolder'
 	})
 })

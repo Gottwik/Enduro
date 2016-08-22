@@ -1,10 +1,10 @@
-var expect = require("chai").expect
+var expect = require('chai').expect
 
 var markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
 
-describe('Applying markdown to texts', function() {
+describe('Applying markdown to texts', function () {
 
-	before(function(done) {
+	before(function (done) {
 		markdownifier.init()
 			.then(() => {
 				done()

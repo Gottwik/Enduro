@@ -1,22 +1,19 @@
 // vendor dependencies
 var expect = require('chai').expect
-var rimraf = require('rimraf')
 var rewire = require('rewire')
 
 // local dependencies
 var enduro = require(ENDURO_FOLDER + '/index')
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
 
 // rewired
 var internal_admin_security = rewire(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
 
+describe('Admin security', function () {
 
-describe('Admin security', function() {
-
-	//Create a new project
-	before(function(done) {
+	// create a new project
+	before(function (done) {
 		enduro.run(['create', 'admin_security'])
 			.then(() => {
 				// navigate inside new project
@@ -27,7 +24,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should return empty list when all users requested before any was created', function(done) {
+	it('should return empty list when all users requested before any was created', function (done) {
 		admin_security.get_all_users()
 			.then((users) => {
 				expect(users).to.be.empty
@@ -35,8 +32,7 @@ describe('Admin security', function() {
 			})
 	})
 
-
-	it('should add root admin successfully', function(done) {
+	it('should add root admin successfully', function (done) {
 		enduro.run(['addadmin'])
 			.then(() => {
 				return flat_file_handler.load('.users')
@@ -55,7 +51,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should add admin with custom name successfully', function(done) {
+	it('should add admin with custom name successfully', function (done) {
 		enduro.run(['addadmin', 'gottwik', '123'])
 			.then(() => {
 				return flat_file_handler.load('.users')
@@ -74,7 +70,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should not be possible to add user with an already existing username', function(done) {
+	it('should not be possible to add user with an already existing username', function (done) {
 		enduro.run(['addadmin', 'gottwik', '123'])
 			.then(() => {
 				done(new Error())
@@ -83,7 +79,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should find user by username', function(done) {
+	it('should find user by username', function (done) {
 		admin_security.get_user_by_username('gottwik')
 			.then((user) => {
 				expect(user).to.have.property('username', 'gottwik')
@@ -94,7 +90,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should not find user if username does not exist', function(done) {
+	it('should not find user if username does not exist', function (done) {
 		admin_security.get_user_by_username('ggottwik')
 			.then((user) => {
 				done(new Error('Failed to detect non-existent user'))
@@ -103,7 +99,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should get all users', function(done) {
+	it('should get all users', function (done) {
 		admin_security.get_all_users()
 			.then((users) => {
 				expect(users).to.be.instanceof(Array)
@@ -113,7 +109,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should be able to login by password', function(done) {
+	it('should be able to login by password', function (done) {
 		admin_security.login_by_password('gottwik', '123')
 			.then(() => {
 				done()
@@ -122,7 +118,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should not be able to login without password', function(done) {
+	it('should not be able to login without password', function (done) {
 		admin_security.login_by_password('gottwik')
 			.then(() => {
 				done(new Error())
@@ -131,7 +127,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should be able to detect wrong password', function(done) {
+	it('should be able to detect wrong password', function (done) {
 		admin_security.login_by_password('gottwik', '1234')
 			.then(() => {
 				done(new Error())
@@ -141,7 +137,7 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should be able to detect wrong username', function(done) {
+	it('should be able to detect wrong username', function (done) {
 		admin_security.login_by_password('gottwikgfd', '1234')
 			.then(() => {
 				done(new Error())
@@ -151,12 +147,12 @@ describe('Admin security', function() {
 			})
 	})
 
-	it('should not be possible to hash and salt if either parameters are missing', function() {
+	it('should not be possible to hash and salt if either parameters are missing', function () {
 		expect(internal_admin_security.__get__('salt_and_hash')()).to.be.empty
 	})
 
 	// navigate back to testfolder
-	after(function() {
+	after(function () {
 		global.CMD_FOLDER = process.cwd() + '/testfolder'
 	})
 })

@@ -6,9 +6,9 @@ var rewire = require('rewire')
 
 var internal_babel = rewire(global.ENDURO_FOLDER + '/libs/babel/babel')
 
-describe('Babel - registering cultures', function() {
+describe('Babel - registering cultures', function () {
 
-	before(function(done) {
+	before(function (done) {
 		enduro.run(['create', 'babel_test'])
 			.then(() => {
 				CMD_FOLDER = process.cwd() + '/testfolder/babel_test'
@@ -27,7 +27,7 @@ describe('Babel - registering cultures', function() {
 				expect(cultures[0]).to.equal('')
 				done()
 			}, () => {
-				done(new Error("Failed to load cultures"))
+				done(new Error('Failed to load cultures'))
 			})
 	})
 
@@ -36,7 +36,7 @@ describe('Babel - registering cultures', function() {
 			.then(() => {
 				return babel.get_cultures()
 			}, () => {
-				done(new Error("Failed to load cultures"))
+				done(new Error('Failed to load cultures'))
 			})
 			.then((cultures) => {
 				expect(cultures).to.exist
@@ -66,13 +66,12 @@ describe('Babel - registering cultures', function() {
 	})
 
 	// navigate back to testfolder
-	after(function() {
+	after(function () {
 		global.CMD_FOLDER = process.cwd() + '/testfolder'
 	})
 })
 
-
-describe('Babel - culturalizing cms files', function() {
+describe('Babel - culturalizing cms files', function () {
 
 	var test_context = {
 		greeting: 'you',
@@ -87,12 +86,6 @@ describe('Babel - culturalizing cms files', function() {
 
 	var expected_culturalized_context_de = {
 		greeting: 'du!',
-		superlative: 'asd'
-	}
-
-	var test_nested_context = {
-		greeting: 'you',
-		$greeting_de: 'du!',
 		superlative: 'asd'
 	}
 

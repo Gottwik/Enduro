@@ -1,9 +1,9 @@
 // vendor dependencies
-var expect = require("chai").expect
+var expect = require('chai').expect
 
 global.__templating_engine = require('handlebars')
 
-describe('Compare helper', function() {
+describe('Compare helper', function () {
 
 	// {{compare 1 1 "yes" "no"}}
 	it('should compare two numbers successfully', function () {

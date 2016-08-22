@@ -1,14 +1,13 @@
 var expect = require('chai').expect
 var gulp = require('gulp')
 
-var babel = require(global.ENDURO_FOLDER + '/libs/babel/babel')
 var enduro = require(ENDURO_FOLDER + '/index')
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
-describe('Page list generation', function() {
+describe('Page list generation', function () {
 
-	before(function(done) {
+	before(function (done) {
 		enduro.run(['create', 'pagelist_generator_test', 'test'])
 			.then(() => {
 				CMD_FOLDER = process.cwd() + '/testfolder/pagelist_generator_test'
@@ -45,10 +44,8 @@ describe('Page list generation', function() {
 	})
 
 	// navigate back to testfolder
-	after(function() {
+	after(function () {
 		global.CMD_FOLDER = process.cwd() + '/testfolder'
 	})
 
 })
-
-

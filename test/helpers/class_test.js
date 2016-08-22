@@ -1,9 +1,9 @@
 // vendor dependencies
-var expect = require("chai").expect
+var expect = require('chai').expect
 
 global.__templating_engine = require('handlebars')
 
-describe('Class helper', function() {
+describe('Class helper', function () {
 
 	// {{class true_this}}
 	it('should return empty string if zero variables provided', function () {

@@ -11,7 +11,7 @@
     "connect-multiparty": "^2.0.0",
     "cors": "^2.7.1",
     "dir-compare": "^1.0.1",
-    "enduro_admin": "1.0.29",
+    "enduro_admin": "1.0.30",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "extend": "^3.0.0",

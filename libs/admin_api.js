@@ -16,7 +16,11 @@ admin_api.prototype.call = function (req, res, enduro_server) {
 	kiska_logger.timestamp('making api call: ' + api_name, 'admin_api_calls')
 
 	// Executes call function from specified api name
-	require('./admin_api/' + api_name).call(req, res, enduro_server)
+	try {
+		require('./admin_api/' + api_name).call(req, res, enduro_server)
+	} catch (e) {
+		res.send({success: false, message: 'api endpoint does not exist'})
+	}
 }
 
 module.exports = new admin_api()

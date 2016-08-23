@@ -3,6 +3,7 @@
 var Promise = require('bluebird')
 var fs = Promise.promisifyAll(require('fs-extra'))
 var path = require('path')
+var watch = require('gulp-watch')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -20,7 +21,7 @@ var assets_copier = function () {}
 // *	@param {object} gulp - gulp to register the task into
 // *	@return {} - will call an empty callback
 // * ———————————————————————————————————————————————————————— * //
-assets_copier.prototype.init = function (gulp) {
+assets_copier.prototype.init = function (gulp, browser_sync) {
 
 	// stores task name
 	var assets_copier_name = 'assets_copier'
@@ -41,6 +42,8 @@ assets_copier.prototype.init = function (gulp) {
 			var copy_from = path.join(CMD_FOLDER, static_locations[s])
 			var copy_to = path.join(CMD_FOLDER, '_src', static_locations[s])
 
+			watch_for_static_change(copy_from, copy_to, browser_sync)
+
 			// adds copy promise to the list
 			copy_actions.push(copy_if_exist(copy_from, copy_to))
 		}
@@ -60,8 +63,18 @@ assets_copier.prototype.init = function (gulp) {
 function copy_if_exist (copy_from, copy_to) {
 	return enduro_helpers.dir_exists(copy_from)
 		.then(() => {
-			return fs.copyAsync(copy_from, copy_to)
+			return fs.copyAsync(copy_from, copy_to, {clobber: true})
 		}, () => {})
+}
+
+// watches for changes
+function watch_for_static_change (copy_from, copy_to, browser_sync) {
+	watch([copy_from + '/**/*'], () => {
+		fs.copyAsync(copy_from, copy_to, {clobber: true})
+			.then(() => {
+				browser_sync.reload()
+			})
+	})
 }
 
 module.exports = new assets_copier()

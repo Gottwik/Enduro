@@ -26,7 +26,7 @@ var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helper
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator').init(gulp)
 var prettyfier = require(ENDURO_FOLDER + '/libs/build_tools/prettyfier').init(gulp)
 var htmlvalidator = require(ENDURO_FOLDER + '/libs/build_tools/html_validator').init(gulp)
-var assets_copier = require(ENDURO_FOLDER + '/libs/build_tools/assets_copier').init(gulp)
+var assets_copier = require(ENDURO_FOLDER + '/libs/build_tools/assets_copier').init(gulp, browser_sync)
 
 gulp.set_refresh = function (callback) {
 	gulp.enduro_refresh = callback
@@ -98,13 +98,6 @@ function browsersync_start (norefresh) {
 	watch([ CMD_FOLDER + '/assets/css/**/*', CMD_FOLDER + '/assets/fonticons/*', '!' + CMD_FOLDER + '/assets/css/sprites/*'],
 				() => { gulp.start('sass') })									// Watch for scss
 
-	if (!flags.nojswatch) {
-		watch([CMD_FOLDER + '/assets/js/**/*'], () => { gulp.start('js'); browser_sync.reload() })							// Watch for js
-	}
-
-	watch([CMD_FOLDER + '/assets/img/**/*'], () => { gulp.start('img') })						// Watch for images
-	watch([CMD_FOLDER + '/assets/vendor/**/*'], () => { gulp.start('vendor') })					// Watch for vendor files
-	watch([CMD_FOLDER + '/assets/fonts/**/*'], () => { gulp.start('fonts') })					// Watch for fonts
 	watch([CMD_FOLDER + '/assets/hbs_helpers/**/*'], () => { gulp.start('hbs_helpers') })		// Watch for local handlebars helpers
 	watch([CMD_FOLDER + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })				// Watch for png icons
 	watch([CMD_FOLDER + '/assets/fonticons/*.svg'], () => {

@@ -33,7 +33,7 @@ enduro_helpers.prototype.dir_exists = function (file_path) {
 		fs.stat(file_path, function (err, stats) {
 			if (err) {
 				reject()
-				return kiska_logger.err(err)
+				return
 			}
 
 			stats.isDirectory()

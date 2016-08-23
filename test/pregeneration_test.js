@@ -27,7 +27,7 @@ describe('Pregeneration', function () {
 	it('_settings.css should be pregenerated', function (done) {
 
 		var settings_css_filepath = path.join(CMD_FOLDER, '_src', '_prebuilt', '_settings.css')
-		expect(enduro_helpers.fileExists(settings_css_filepath)).to.be.ok
+		expect(enduro_helpers.file_exists_sync(settings_css_filepath)).to.be.ok
 
 		fs.readFile(settings_css_filepath, 'utf8', function (err, data) {
 			if (err) { return kiska_logger.err(err) }

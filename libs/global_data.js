@@ -43,7 +43,7 @@ global_data.prototype.get_global_data = function () {
 				var fileInCms = file.match(/cms\/(.*)\.([^\\/]+)$/)[1]
 
 				// Loads the file
-				if (enduro_helpers.fileExists(file)) {
+				if (enduro_helpers.file_exists_sync(file)) {
 					flat_file_handler.load(fileInCms)
 						.then((data) => {
 							// Extends global data with currently loaded data

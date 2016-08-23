@@ -35,7 +35,7 @@ page_renderer.prototype.render_file = function (file, context_filename, culture,
 			})
 			.then((output) => {
 				// Makes sure the target directory exists
-				enduro_helpers.ensureDirectoryExistence(CMD_FOLDER + '/_src/' + destination_path)
+				enduro_helpers.ensure_directory_existence(CMD_FOLDER + '/_src/' + destination_path)
 					.then(function () {
 						// Attempts to export the file
 						fs.writeFile(CMD_FOLDER + '/_src/' + destination_path + '.html', output, function (err) {

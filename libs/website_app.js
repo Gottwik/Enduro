@@ -20,7 +20,7 @@ var LOCAL_APP_FILE = CMD_FOLDER + '/app/app.js'
 website_api.prototype.forward = function (app) {
 
 	// checks if app.js is present in local enduro app
-	if (enduro_helpers.fileExists(LOCAL_APP_FILE)) {
+	if (enduro_helpers.file_exists_sync(LOCAL_APP_FILE)) {
 
 		// forward the app to local enduro app
 		require(LOCAL_APP_FILE).init(app)

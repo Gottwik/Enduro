@@ -14,30 +14,46 @@ var mkdirp = require('mkdirp')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // Checks if file exists
-enduro_helpers.prototype.fileExists = function (file_path) {
+enduro_helpers.prototype.file_exists_sync = function (file_path) {
 	try {
 		return fs.statSync(file_path).isFile()
 	} catch (err) { return false }
 }
 
 // Checks if directory exists
-enduro_helpers.prototype.dirExists = function (file_path) {
+enduro_helpers.prototype.dir_exists_sync = function (file_path) {
 	try {
 		return fs.statSync(file_path).isDirectory()
 	} catch (err) { return false }
 }
 
+// Checks if directory exists
+enduro_helpers.prototype.dir_exists = function (file_path) {
+	return new Promise(function (resolve, reject) {
+		fs.stat(file_path, function (err, stats) {
+			if (err) {
+				reject()
+				return kiska_logger.err(err)
+			}
+
+			stats.isDirectory()
+				? resolve()
+				: reject()
+		})
+	})
+}
+
 // Creates all subdirectories neccessary to create the file in file_path
-enduro_helpers.prototype.ensureDirectoryExistence = function () {
+enduro_helpers.prototype.ensure_directory_existence = function () {
 
 	if (!arguments.length) {
 		return Promise.resolve()
 	}
 	file_paths = Array.prototype.slice.call(arguments).map((file_path) => { return file_path.match(/^(.*)\/.*$/)[1] })
-	return Promise.all(file_paths.map((file_path) => { return ensureDirectoryExistence(file_path) }))
+	return Promise.all(file_paths.map((file_path) => { return ensure_directory_existence(file_path) }))
 }
 
-function ensureDirectoryExistence (file_path) {
+function ensure_directory_existence (file_path) {
 	return new Promise(function (resolve, reject) {
 		mkdirp(file_path, function (err) {
 			if (err) {

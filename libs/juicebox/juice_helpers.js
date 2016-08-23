@@ -29,7 +29,7 @@ juice_helpers.prototype.diff_with_cms = function (folder) {
 juice_helpers.prototype.spill_newer = function (folder) {
 	return new Promise(function (resolve, reject) {
 
-		if (!enduro_helpers.dirExists(folder)) {
+		if (!enduro_helpers.dir_exists_sync(folder)) {
 			return resolve()
 		}
 

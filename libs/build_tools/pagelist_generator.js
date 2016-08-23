@@ -147,7 +147,7 @@ pagelist_generator.prototype.generate_cms_list = function () {
 pagelist_generator.prototype.save_cms_list = function (cmslist) {
 	return new Promise(function (resolve, reject) {
 		// Saves the cmslist into a specified file
-		enduro_helpers.ensureDirectoryExistence(PAGELIST_DESTINATION)
+		enduro_helpers.ensure_directory_existence(PAGELIST_DESTINATION)
 			.then(() => {
 				fs.writeFile(PAGELIST_DESTINATION, JSON.stringify(cmslist), function (err) {
 					if (err) { console.log(err) }
@@ -167,7 +167,7 @@ pagelist_generator.prototype.save_cms_list = function (cmslist) {
 pagelist_generator.prototype.get_cms_list = function () {
 	var self = this
 	return new Promise(function (resolve, reject) {
-		if (enduro_helpers.fileExists(PAGELIST_DESTINATION)) {
+		if (enduro_helpers.file_exists_sync(PAGELIST_DESTINATION)) {
 			fs.readJson(PAGELIST_DESTINATION, function (err, cmslist) {
 				if (err) { kiska_logger.err(err) }
 				resolve(cmslist)

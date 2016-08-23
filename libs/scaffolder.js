@@ -48,7 +48,7 @@ scaffolder.prototype.scaffold = function (args) {
 		var scaffolding_destination = path.join(CMD_FOLDER, project_name)
 
 		// Reject if directory already exists
-		if (enduro_helpers.dirExists(scaffolding_destination) && !flags.force) {
+		if (enduro_helpers.dir_exists_sync(scaffolding_destination) && !flags.force) {
 			reject('requested directory already exists')
 			return kiska_logger.err_block('\tdirectory already existss')
 		}
@@ -76,7 +76,7 @@ function get_scaffolding_path_by_name (scaffolding_name) {
 	scaffolding_name = scaffolding_name || DEFAULT_SCAFFOLDING_NAME
 
 	var scaffolding_path = path.join(ENDURO_FOLDER, 'scaffolding', scaffolding_name)
-	if (!enduro_helpers.dirExists(scaffolding_path)) {
+	if (!enduro_helpers.dir_exists_sync(scaffolding_path)) {
 		non_existent_scaffoling_logout(scaffolding_name)
 		return -1
 	}

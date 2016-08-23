@@ -66,26 +66,26 @@ describe('Enduro project creation', function () {
 	})
 
 	it('the folder should exists', function () {
-		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation')).to.equal(true)
+		expect(enduro_helpers.dir_exists_sync(CMD_FOLDER + '/testproject_creation')).to.equal(true)
 	})
 
 	it('the project folder should have all the subfolders', function () {
-		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/pages')).to.equal(true)
-		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/app')).to.equal(true)
-		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/assets')).to.equal(true)
-		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/cms')).to.equal(true)
-		expect(enduro_helpers.dirExists(CMD_FOLDER + '/testproject_creation/components')).to.equal(true)
+		expect(enduro_helpers.dir_exists_sync(CMD_FOLDER + '/testproject_creation/pages')).to.equal(true)
+		expect(enduro_helpers.dir_exists_sync(CMD_FOLDER + '/testproject_creation/app')).to.equal(true)
+		expect(enduro_helpers.dir_exists_sync(CMD_FOLDER + '/testproject_creation/assets')).to.equal(true)
+		expect(enduro_helpers.dir_exists_sync(CMD_FOLDER + '/testproject_creation/cms')).to.equal(true)
+		expect(enduro_helpers.dir_exists_sync(CMD_FOLDER + '/testproject_creation/components')).to.equal(true)
 	})
 
 	it('the project folder should contain files', function () {
-		expect(enduro_helpers.fileExists(CMD_FOLDER + '/testproject_creation/package.json')).to.equal(true)
-		expect(enduro_helpers.fileExists(CMD_FOLDER + '/testproject_creation/cms/index.js')).to.equal(true)
+		expect(enduro_helpers.file_exists_sync(CMD_FOLDER + '/testproject_creation/package.json')).to.equal(true)
+		expect(enduro_helpers.file_exists_sync(CMD_FOLDER + '/testproject_creation/cms/index.js')).to.equal(true)
 	})
 
 	it('should be able to create a new project with defined scaffolding', function (done) {
 		enduro.run(['create', 'custom_scaffolding', 'test'])
 			.then(() => {
-				expect(enduro_helpers.fileExists(path.join(CMD_FOLDER, 'custom_scaffolding', 'app', 'markdown_rules', 'test_markdown_rule.js'))).to.equal(true)
+				expect(enduro_helpers.file_exists_sync(path.join(CMD_FOLDER, 'custom_scaffolding', 'app', 'markdown_rules', 'test_markdown_rule.js'))).to.equal(true)
 				done()
 			}, (err) => {
 				done(new Error(err))

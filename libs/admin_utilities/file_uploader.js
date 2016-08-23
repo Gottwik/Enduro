@@ -32,7 +32,7 @@ function uploadfile_local (file) {
 		var destination_src_path = path.join(CMD_FOLDER, '_src', UPLOADS_FOLDER, (new Date() / 1e3 | 0) + '_' + file.name)
 		var destination_url = UPLOADS_FOLDER + '/' + (new Date() / 1e3 | 0) + '_' + file.name
 
-		enduro_helpers.ensureDirectoryExistence(destination_path, destination_src_path)
+		enduro_helpers.ensure_directory_existence(destination_path, destination_src_path)
 			.then(() => {
 				var read_stream = fs.createReadStream(file.path)
 

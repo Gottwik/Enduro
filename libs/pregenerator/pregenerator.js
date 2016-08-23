@@ -47,7 +47,7 @@ pregenerators['settings'] = function () {
 
 			var rendered_css_file = template(__data.global.settings)
 
-			enduro_helpers.ensureDirectoryExistence(css_settings_destination_file_path)
+			enduro_helpers.ensure_directory_existence(css_settings_destination_file_path)
 				.then(() => {
 					fs.writeFile(css_settings_destination_file_path, rendered_css_file, () => {
 						resolve()

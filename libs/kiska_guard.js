@@ -102,7 +102,7 @@ kiska_guard.prototype.verify_passphrase = function (passphrase) {
 kiska_guard.prototype.verify = function (req, passphrase, resolve, reject) {
 
 	// don't check for security if no .enduro_secure file exists
-	if (!(enduro_helpers.fileExists(CMD_FOLDER + '/' + SECURE_FILE))) {
+	if (!(enduro_helpers.file_exists_sync(CMD_FOLDER + '/' + SECURE_FILE))) {
 		req.session.lggin_flag = true
 		return resolve()
 	}

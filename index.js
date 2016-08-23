@@ -49,7 +49,7 @@ var pregenerator = require(ENDURO_FOLDER + '/libs/pregenerator/pregenerator')
 var abstractor = require(ENDURO_FOLDER + '/libs/abstractor/abstractor')
 
 // sets different admin if enduro is being used globally
-if (!enduro_helpers.dirExists(ADMIN_FOLDER)) {
+if (!enduro_helpers.dir_exists_sync(ADMIN_FOLDER)) {
 	global.ADMIN_FOLDER = path.join(ENDURO_FOLDER, 'node_modules', 'enduro_admin', '_src') // this is production setting
 }
 

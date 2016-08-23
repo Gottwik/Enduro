@@ -26,6 +26,7 @@ var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helper
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator').init(gulp)
 var prettyfier = require(ENDURO_FOLDER + '/libs/build_tools/prettyfier').init(gulp)
 var htmlvalidator = require(ENDURO_FOLDER + '/libs/build_tools/html_validator').init(gulp)
+var assets_copier = require(ENDURO_FOLDER + '/libs/build_tools/assets_copier').init(gulp)
 
 gulp.set_refresh = function (callback) {
 	gulp.enduro_refresh = callback
@@ -174,41 +175,6 @@ gulp.task('scss-lint', function () {
 })
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	js
-// *	Todo: require js optimization should go here
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('js', function () {
-
-	return gulp.src(CMD_FOLDER + '/assets/js/**/*')
-		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/js'))
-
-})
-
-// * ———————————————————————————————————————————————————————— * //
-// * 	img
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('img', function () {
-	return gulp.src(CMD_FOLDER + '/assets/img/**/*')
-		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/img'))
-})
-
-// * ———————————————————————————————————————————————————————— * //
-// * 	vendor
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('vendor', function () {
-	return gulp.src(CMD_FOLDER + '/assets/vendor/**/*')
-		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/vendor'))
-})
-
-// * ———————————————————————————————————————————————————————— * //
-// * 	fonts
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('fonts', function () {
-	return gulp.src(CMD_FOLDER + '/assets/fonts/**/*')
-		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/fonts'))
-})
-
-// * ———————————————————————————————————————————————————————— * //
 // * 	spriteicons
 // *	will get all pngs out of assets/spriteicons folder
 // *	and generate spritesheet out of them
@@ -251,7 +217,7 @@ gulp.task('iconfont', function (cb) {
 				return glyph
 			})
 			var icon_json_file_path = CMD_FOLDER + '/_src/_prebuilt/icons.json'
-			enduro_helpers.ensureDirectoryExistence(icon_json_file_path)
+			enduro_helpers.ensure_directory_existence(icon_json_file_path)
 				.then(() => {
 					fs.writeFileSync(icon_json_file_path, JSON.stringify(glyphs))
 					cb()
@@ -291,8 +257,8 @@ gulp.task('hbs_helpers', function () {
 // * 	Default Task
 // * ———————————————————————————————————————————————————————— * //
 // gulp.task('default', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync'])
-gulp.task('default', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync'])
-gulp.task('default_norefresh', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync_norefresh'])
+gulp.task('default', ['hbs_templates', 'sass', assets_copier, 'hbs_helpers', 'browser_sync'])
+gulp.task('default_norefresh', ['hbs_templates', 'sass', assets_copier, 'hbs_helpers', 'browser_sync_norefresh'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Preproduction Task
@@ -304,7 +270,7 @@ gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 // * 	Production Task
 // *	No browser_sync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['sass', 'hbs_templates', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', prettyfier])
+gulp.task('production', ['sass', 'hbs_templates', assets_copier, 'hbs_helpers', prettyfier])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	check task

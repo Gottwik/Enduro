@@ -20,7 +20,7 @@ js_build.prototype.build_js = function (config_name) {
 
 		var configpath = CMD_FOLDER + '/_src/assets/js/main' + config_name + '.js'
 
-		if (!enduro_helpers.fileExists(configpath)) {
+		if (!enduro_helpers.file_exists_sync(configpath)) {
 			return kiska_logger.err_block('No config file named main' + config_name + '.js')
 		}
 

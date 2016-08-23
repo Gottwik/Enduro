@@ -45,7 +45,7 @@ flat_file_handler.prototype.save = function (filename, contents) {
 		var prettyString = stringify_object(flatObj, {indent: '	', singleQuotes: true})
 
 		// save cms file
-		enduro_helpers.ensureDirectoryExistence(fullpath_to_cms_file)
+		enduro_helpers.ensure_directory_existence(fullpath_to_cms_file)
 			.then(() => {
 				fs.writeFile(fullpath_to_cms_file, prettyString, function (err) {
 					if (err) {
@@ -82,7 +82,7 @@ flat_file_handler.prototype.load = function (filename) {
 		var fullpath_to_cms_file = get_full_path_to_cms(filename)
 
 		// check if file exists. return empty object if not
-		if (!enduro_helpers.fileExists(fullpath_to_cms_file)) {
+		if (!enduro_helpers.file_exists_sync(fullpath_to_cms_file)) {
 
 			resolve({})
 			// TODO
@@ -120,7 +120,7 @@ flat_file_handler.prototype.load = function (filename) {
 flat_file_handler.prototype.loadsync = function (filename) {
 	filename = decode(filename)
 
-	if (!enduro_helpers.fileExists(CMD_FOLDER + '/cms/' + filename + '.js')) {
+	if (!enduro_helpers.file_exists_sync(CMD_FOLDER + '/cms/' + filename + '.js')) {
 		return {}
 	}
 
@@ -148,7 +148,7 @@ flat_file_handler.prototype.get_cms_filename_from_fullpath = get_cms_filename_fr
 // *	@return {boolean} - returns true if specified file exists
 // * ———————————————————————————————————————————————————————— * //
 flat_file_handler.prototype.file_exists = function (filename) {
-	return enduro_helpers.fileExists(get_full_path_to_cms(filename))
+	return enduro_helpers.file_exists_sync(get_full_path_to_cms(filename))
 }
 
 // * ———————————————————————————————————————————————————————— * //

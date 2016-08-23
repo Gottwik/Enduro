@@ -147,7 +147,7 @@ juicebox.prototype.juicebox_enabled = function () {
 
 juicebox.prototype.no_juice_yet = function () {
 	var juicefile_path = path.join(CMD_FOLDER, 'juicebox', 'juice.json')
-	return !enduro_helpers.fileExists(juicefile_path)
+	return !enduro_helpers.file_exists_sync(juicefile_path)
 }
 
 function write_juicebox (juicebox_name) {
@@ -166,7 +166,7 @@ function write_juicebox (juicebox_name) {
 function write_juicefile (juice) {
 	return new Promise(function (resolve, reject) {
 		var destination_juicefile_path = path.join(CMD_FOLDER, 'juicebox', 'juice.json')
-		enduro_helpers.ensureDirectoryExistence(destination_juicefile_path)
+		enduro_helpers.ensure_directory_existence(destination_juicefile_path)
 			.then(() => {
 				fs.writeFile(destination_juicefile_path, JSON.stringify(juice), function (err) {
 					if (err) { reject(err) }
@@ -235,7 +235,7 @@ function spill_the_juice (juicebox_name, destination) {
 		}
 
 		var tarball = path.join(CMD_FOLDER, 'juicebox', juicebox_name)
-		if (enduro_helpers.fileExists(tarball)) {
+		if (enduro_helpers.file_exists_sync(tarball)) {
 			fs.createReadStream(tarball)
 				.pipe(zlib.Unzip())
 				.pipe(tar.Extract({

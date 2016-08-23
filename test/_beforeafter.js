@@ -11,7 +11,7 @@ global.DELETE_TEST_PROJECTS = true
 
 // create test folder where all the test projects will be created
 before(function (done) {
-	enduro_helpers.ensureDirectoryExistence(process.cwd() + '/testfolder/.')
+	enduro_helpers.ensure_directory_existence(process.cwd() + '/testfolder/.')
 		.then(() => {
 			global.CMD_FOLDER = process.cwd() + '/testfolder'
 			done()

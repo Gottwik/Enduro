@@ -13,47 +13,47 @@ enduro.silent()
 describe('Enduro helpers utilities', function () {
 
 	it('should detect an existing file', function () {
-		expect(enduro_helpers.fileExists(process.cwd() + '/index.js')).to.equal(true)
+		expect(enduro_helpers.file_exists_sync(process.cwd() + '/index.js')).to.equal(true)
 	})
 
 	it('should detect an existing file in subfolder', function () {
-		expect(enduro_helpers.fileExists(process.cwd() + '/libs/scaffolder.js')).to.equal(true)
+		expect(enduro_helpers.file_exists_sync(process.cwd() + '/libs/scaffolder.js')).to.equal(true)
 	})
 
 	it('should not detect an nonexisting file', function () {
-		expect(enduro_helpers.fileExists(process.cwd() + '/crazyfile.js')).to.not.equal(true)
+		expect(enduro_helpers.file_exists_sync(process.cwd() + '/crazyfile.js')).to.not.equal(true)
 	})
 
 	it('should not detect an nonexisting file in subfolder', function () {
-		expect(enduro_helpers.fileExists(process.cwd() + '/libs/crazyfile.js')).to.not.equal(true)
+		expect(enduro_helpers.file_exists_sync(process.cwd() + '/libs/crazyfile.js')).to.not.equal(true)
 	})
 
 	it('should detect an existing folder', function () {
-		expect(enduro_helpers.dirExists(process.cwd() + '/libs')).to.equal(true)
+		expect(enduro_helpers.dir_exists_sync(process.cwd() + '/libs')).to.equal(true)
 	})
 
 	it('should detect an existing nested folder', function () {
-		expect(enduro_helpers.dirExists(process.cwd() + '/scaffolding/minimalistic/assets')).to.equal(true)
+		expect(enduro_helpers.dir_exists_sync(process.cwd() + '/scaffolding/minimalistic/assets')).to.equal(true)
 	})
 
 	it('should not detect an nonexisting folder', function () {
-		expect(enduro_helpers.dirExists(process.cwd() + '/asdf')).to.not.equal(true)
+		expect(enduro_helpers.dir_exists_sync(process.cwd() + '/asdf')).to.not.equal(true)
 	})
 
 	it('should create all neccessary subdirectories', function () {
-		enduro_helpers.ensureDirectoryExistence(process.cwd() + '/test_folder/subfolder/test.js')
+		enduro_helpers.ensure_directory_existence(process.cwd() + '/test_folder/subfolder/test.js')
 			.then(function () {
-				expect(enduro_helpers.dirExists(process.cwd() + '/test_folder/subfolder')).to.equal(true)
+				expect(enduro_helpers.dir_exists_sync(process.cwd() + '/test_folder/subfolder')).to.equal(true)
 			}, function () {
 				expect(true).to.equal(false)
 			})
 	})
 
 	it('should create all neccessary subdirectories if given multiple paths', function () {
-		enduro_helpers.ensureDirectoryExistence(process.cwd() + '/test_folder/subfolder1/test.js', process.cwd() + '/test_folder/subfolder2/test.js')
+		enduro_helpers.ensure_directory_existence(process.cwd() + '/test_folder/subfolder1/test.js', process.cwd() + '/test_folder/subfolder2/test.js')
 			.then(function () {
-				expect(enduro_helpers.dirExists(process.cwd() + '/test_folder/subfolder1')).to.equal(true)
-				expect(enduro_helpers.dirExists(process.cwd() + '/test_folder/subfolder2')).to.equal(true)
+				expect(enduro_helpers.dir_exists_sync(process.cwd() + '/test_folder/subfolder1')).to.equal(true)
+				expect(enduro_helpers.dir_exists_sync(process.cwd() + '/test_folder/subfolder2')).to.equal(true)
 			}, function () {
 				expect(true).to.equal(false)
 			})
@@ -61,7 +61,7 @@ describe('Enduro helpers utilities', function () {
 
 	it('should delete all test folders', function () {
 		rimraf(process.cwd() + '/test_folder', function () {
-			expect(enduro_helpers.dirExists(process.cwd() + '/test_folder')).to.not.equal(true)
+			expect(enduro_helpers.dir_exists_sync(process.cwd() + '/test_folder')).to.not.equal(true)
 		})
 	})
 
@@ -86,7 +86,7 @@ describe('Enduro flat utilities', function () {
 	var full_index_file
 	it('should convert relative path into full path', function () {
 		full_index_file = flat_file_handler.get_full_path_to_cms('index')
-		expect(enduro_helpers.fileExists(full_index_file)).to.equal(true)
+		expect(enduro_helpers.file_exists_sync(full_index_file)).to.equal(true)
 	})
 
 	it('should convert absolute path into relative', function () {

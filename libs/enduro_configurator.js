@@ -49,7 +49,7 @@ function read_config_file (config_file, default_config) {
 	return new Promise(function (resolve, reject) {
 
 		// check if file exists
-		if (!enduro_helpers.fileExists(config_file)) {
+		if (!enduro_helpers.file_exists_sync(config_file)) {
 
 			// uses default config if no configuration is specified
 			global.config = extend(true, config, default_config)

@@ -39,7 +39,7 @@ describe('Enduro security', function () {
 	})
 
 	it('should make sure the passphrase file is created', function () {
-		expect(enduro_helpers.fileExists(CMD_FOLDER + '/.enduro_secure')).to.equal(true)
+		expect(enduro_helpers.file_exists_sync(CMD_FOLDER + '/.enduro_secure')).to.equal(true)
 	})
 
 	it('should verify the correct passphrase', function (done) {

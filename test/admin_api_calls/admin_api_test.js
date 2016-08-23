@@ -57,6 +57,20 @@ describe('admin api', function () {
 		})
 	})
 
+	it('should be able to get admin_extension list', function (done) {
+		request.get({
+			url: 'http://localhost:5000/admin_api/get_admin_extensions',
+			qs: {sid: sid}
+		}, function (error, response, body) {
+			if (error) { console.log(error) }
+			var res = JSON.parse(body)
+			expect(res.success).to.be.ok
+			expect(res.data).to.not.be.empty
+			expect(res.data[0]).to.have.string('sample_extension')
+			done()
+		})
+	})
+
 	// navigate back to testfolder
 	after(function (done) {
 		enduro.server_stop(() => {

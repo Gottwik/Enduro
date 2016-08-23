@@ -56,7 +56,7 @@
     "urldecode": "^1.0.1"
   },
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive --bail"
   },
   "bin": {
     "enduro": "./cli.js"

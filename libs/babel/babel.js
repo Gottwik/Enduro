@@ -18,7 +18,7 @@ babel_handler.prototype.get_cultures = function () {
 	return new Promise(function (resolve, reject) {
 		var babel_absolute_path = flat_file_handler.get_full_path_to_cms(BABEL_FILE)
 		// check if file exists. return empty object if not
-		if (!enduro_helpers.fileExists(babel_absolute_path)) {
+		if (!enduro_helpers.file_exists_sync(babel_absolute_path)) {
 			return resolve([''])
 		}
 		fs.readFile(babel_absolute_path, function (err, data) {

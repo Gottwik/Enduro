@@ -7,6 +7,7 @@ var watch = require('gulp-watch')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	assets_copier
@@ -52,6 +53,8 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 		Promise.all(copy_actions)
 			.then(() => {
 				cb()
+			}, (err) => {
+				kiska_logger.err(err)
 			})
 
 	})
@@ -73,6 +76,8 @@ function watch_for_static_change (copy_from, copy_to, browser_sync) {
 		fs.copyAsync(copy_from, copy_to, {clobber: true})
 			.then(() => {
 				browser_sync.reload()
+			}, (err) => {
+				kiska_logger.err(err)
 			})
 	})
 }

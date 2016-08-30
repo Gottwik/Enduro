@@ -2,7 +2,7 @@
 // * ———————————————————————————————————————————————————————— * //
 // *	Js_cms helper
 // *	Not being compiled for use on client. Only enduro use.
-// *	Converts part of cms context into stirng with js object/array notation
+// *	Converts part of cms context into string with js object/array notation
 // *	Usable when passing cms static data to client.
 // *	Usage:
 // *		<script>

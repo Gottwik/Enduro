@@ -10,14 +10,10 @@
 
 Enduro is minimalistic, lean & mean, node.js cms. See more at [enduro.js website](http://www.endurojs.com/)
 
-
-## What's Enduro
-Enduro is a complete platform for building websites with focus on productivity. In simpler terms you can build a website with Enduro really fast.
-
 ![enduro admin](http://i.imgur.com/3TdMJlY.jpg)
 ![enduro admin](http://i.imgur.com/4PHp7me.jpg)
 ![enduro admin](http://i.imgur.com/4OheTyl.jpg)
-
+![enduro admin](http://i.imgur.com/0IpLtzU.jpg)
 
 ## Documentation
 Complete, structured documentation is available here [http://www.endurojs.com/docs](http://www.endurojs.com/docs)

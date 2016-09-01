@@ -12,6 +12,7 @@ var path = require('path')
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var babel = require(global.ENDURO_FOLDER + '/libs/babel/babel')
 
 // Goes through the pages and renders them
 pregenerator.prototype.pregenerate = function () {
@@ -54,6 +55,28 @@ pregenerators['settings'] = function () {
 					})
 				})
 		})
+
+	})
+}
+
+pregenerators['cultures'] = function () {
+
+	return new Promise(function (resolve, reject) {
+		var cultures_json_destionation_path = path.join(CMD_FOLDER, '_src', '_prebuilt', '_cultures.json')
+		var cultures = {}
+		babel.get_cultures()
+			.then((fetched_cultures) => {
+				cultures = fetched_cultures
+				return enduro_helpers.ensure_directory_existence(cultures_json_destionation_path)
+			})
+			.then(() => {
+				fs.writeFile(cultures_json_destionation_path, JSON.stringify(cultures), function (err) {
+					if (err) {
+						kiska_logger.err(err)
+					}
+					resolve()
+				})
+			})
 
 	})
 }

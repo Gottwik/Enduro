@@ -15,12 +15,16 @@ describe('Pregeneration', function () {
 			.then(() => {
 				// navigate inside new project
 				global.CMD_FOLDER = CMD_FOLDER + '/testproject_pregeneration'
+				return enduro.run(['addculture', 'fr', 'es'])
+
+			}, () => {
+				done(new Error('Failed to create new project'))
+			})
+			.then(() => {
 				enduro.run(['start'], [])
 					.then(() => {
 						done()
 					})
-			}, () => {
-				done(new Error('Failed to create new project'))
 			})
 	})
 
@@ -35,6 +39,11 @@ describe('Pregeneration', function () {
 			done()
 		})
 
+	})
+
+	it('_cultures.json should be pregenerated', function () {
+		var cultures_json_filepath = path.join(CMD_FOLDER, '_src', '_prebuilt', '_cultures.json')
+		expect(enduro_helpers.file_exists_sync(cultures_json_filepath)).to.be.ok
 	})
 
 	// navigate back to testfolder

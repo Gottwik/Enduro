@@ -230,7 +230,8 @@ function spill_the_juice (juicebox_name, destination) {
 	destination = destination || path.join(CMD_FOLDER)
 	return new Promise(function (resolve, reject) {
 
-		if (!juicebox_name) {
+		console.log(juicebox_name)
+		if (!juicebox_name || juicebox_name == '0000.tar.gz') {
 			return resolve()
 		}
 

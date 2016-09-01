@@ -1,6 +1,6 @@
 {
   "name": "enduro",
-  "version": "1.1.33",
+  "version": "1.1.34",
   "description": "Minimalistic, lean & mean, node.js cms",
   "main": "gruntfile.js",
   "dependencies": {

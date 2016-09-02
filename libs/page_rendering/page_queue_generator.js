@@ -28,7 +28,7 @@ page_queue_generator.prototype.generate_pagelist = function () {
 				config.cultures = cultures
 
 				// gets all the pages
-				return glob(CMD_FOLDER + '/pages/**/*.hbs')
+				return self.get_all_pages()
 			})
 			.then((files) => {
 
@@ -45,7 +45,7 @@ page_queue_generator.prototype.generate_pagelist = function () {
 						page_to_render.file = files[f]
 
 						// relative, 'flat' path to cms file
-						page_to_render.context_file = files[f].match(/pages\/(.*)\.([^\\/]+)$/)[1]
+						page_to_render.context_file = self.get_page_url_from_full_path(files[f])
 
 						// culture string
 						page_to_render.culture = config.cultures[c]
@@ -105,6 +105,14 @@ page_queue_generator.prototype.add_generator_pages = function (pages_to_render, 
 		}
 
 	})
+}
+
+page_queue_generator.prototype.get_all_pages = function () {
+	return glob(CMD_FOLDER + '/pages/**/*.hbs')
+}
+
+page_queue_generator.prototype.get_page_url_from_full_path = function (full_path) {
+	return full_path.match(/pages\/(.*)\.([^\\/]+)$/)[1]
 }
 
 module.exports = new page_queue_generator()

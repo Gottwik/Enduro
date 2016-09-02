@@ -89,14 +89,23 @@ enduro_server.prototype.run = function (server_setup) {
 				} else {
 					kiska_guard.login(req)
 						.then(() => {
-							if (req.url.length <= 1 && config.cultures[0].length > 0) {
+
+							// redirects to a first available culture
+							if (req.url.length <= 1 && config.cultures[0].length) {
 								return res.redirect('/' + config.cultures[0])
 							}
+
+							var requested_url = req.url
+							console.log(requested_url)
+
 							if (req.url.length <= 1 || (req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1 && req.url.split('/').length <= 2)) {
+								// serves index.html when empty or culture-only url is provided
 								res.sendFile(CMD_FOLDER + '/_src' + req.url + '/index.html')
 							} else {
+								// regular behaviour
 								res.sendFile(CMD_FOLDER + '/_src' + req.url + '.html')
 							}
+
 						}, () => {
 							res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
 						})

@@ -48,13 +48,61 @@ ab_tester.prototype.get_ab_list = function () {
 					var file = page.length ? p + '@' + page : p
 
 					return {
-						page: file,
-						file: file + '.html'
+						page: file
 					}
 				})
 			}
 
 			return pages
+		})
+}
+
+ab_tester.prototype.get_ab_tested_filepath = function (url) {
+	var self = this
+
+	// removes slash from the front
+	page_name = url[0] == '/' ? url.substring(1) : url
+
+	return new Promise(function (resolve, reject) {
+		self.generate_global_ab_list_if_nonexistent()
+			.then(() => {
+
+				// return if page does not have an ab_tests
+				if (!(page_name in global.ab_test_scenarios)) {
+					return resolve(url)
+				}
+
+				var ab_scenario = global.ab_test_scenarios[page_name]
+
+				var picked_variation = ab_scenario[Math.floor(Math.random() * ab_scenario.length)]
+
+				resolve('/' + picked_variation.page)
+			})
+	})
+}
+
+ab_tester.prototype.generate_global_ab_list_if_nonexistent = function () {
+	var self = this
+
+	return new Promise(function (resolve, reject) {
+		if (typeof global.ab_test_scenarios === 'undefined') {
+			self.generate_global_ab_list()
+				.then(() => {
+					resolve()
+				})
+		} else {
+
+			resolve()
+		}
+	})
+}
+
+ab_tester.prototype.generate_global_ab_list = function () {
+	var self = this
+
+	return self.get_ab_list()
+		.then((ab_list) => {
+			global.ab_test_scenarios = ab_list
 		})
 }
 

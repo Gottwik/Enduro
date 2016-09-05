@@ -30,7 +30,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 		.then((user) => {
 
 			// clean up string in case there is globalizer handle in front
-			globalizer_string = globalizer_string.replace('@@', '')
+			globalizer_string = globalizer_string.replace('@@', '').replace('!@', '')
 
 			var output = globalizer_string.split('.').reduce((prev, next) => {
 				parent = prev

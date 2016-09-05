@@ -55,7 +55,6 @@ api_call.prototype.call = function (req, res, enduro_server) {
 				var temp_destination_path = path.join(CMD_FOLDER, '_src', temp_destination_url + '.html')
 				enduro_helpers.ensure_directory_existence(temp_destination_path)
 					.then(() => {
-						console.log(temp_page_in_raw_html)
 						fs.writeFile(temp_destination_path, temp_page_in_raw_html, function () {
 							res.send(temp_destination_url)
 						})

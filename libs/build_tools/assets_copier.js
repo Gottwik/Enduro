@@ -72,14 +72,16 @@ function copy_if_exist (copy_from, copy_to) {
 
 // watches for changes
 function watch_for_static_change (copy_from, copy_to, browser_sync) {
-	watch([copy_from + '/**/*'], () => {
-		fs.copyAsync(copy_from, copy_to, {clobber: true})
-			.then(() => {
-				browser_sync.reload()
-			}, (err) => {
-				kiska_logger.err(err)
-			})
-	})
+	if (!flags.nowatch) {
+		watch([copy_from + '/**/*'], () => {
+			fs.copyAsync(copy_from, copy_to, {clobber: true})
+				.then(() => {
+					browser_sync.reload()
+				}, (err) => {
+					kiska_logger.err(err)
+				})
+		})
+	}
 }
 
 module.exports = new assets_copier()

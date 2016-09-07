@@ -11,11 +11,13 @@ global.DELETE_TEST_PROJECTS = true
 
 // create test folder where all the test projects will be created
 before(function (done) {
-	enduro_helpers.ensure_directory_existence(process.cwd() + '/testfolder/.')
-		.then(() => {
-			global.CMD_FOLDER = process.cwd() + '/testfolder'
-			done()
-		})
+	rimraf(process.cwd() + '/testfolder', function () {
+		enduro_helpers.ensure_directory_existence(process.cwd() + '/testfolder/.')
+			.then(() => {
+				global.CMD_FOLDER = process.cwd() + '/testfolder'
+				done()
+			})
+	})
 })
 
 // delete the test folder

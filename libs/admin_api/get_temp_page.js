@@ -57,7 +57,6 @@ api_call.prototype.call = function (req, res, enduro_server) {
 					.then(() => {
 						fs.writeFile(temp_destination_path, temp_page_in_raw_html, function () {
 							res.send(temp_destination_url)
-
 						})
 					})
 			}, () => {})

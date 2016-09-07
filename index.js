@@ -47,6 +47,7 @@ var enduro_server = require(ENDURO_FOLDER + '/server')
 var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
 var pregenerator = require(ENDURO_FOLDER + '/libs/pregenerator/pregenerator')
 var abstractor = require(ENDURO_FOLDER + '/libs/abstractor/abstractor')
+var ab_tester = require(ENDURO_FOLDER + '/libs/ab_testing/ab_tester')
 
 // sets different admin if enduro is being used globally
 if (!enduro_helpers.dir_exists_sync(ADMIN_FOLDER)) {
@@ -210,6 +211,9 @@ function render (callback, nojuice) {
 		})
 		.then(() => {
 			return markdownifier.init()
+		})
+		.then(() => {
+			return ab_tester.generate_global_ab_list()
 		})
 		.then(() => {
 			return pregenerator.pregenerate()

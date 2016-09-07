@@ -17,9 +17,9 @@ var FLAG_MAP = {
 		label: 'norefresh',
 		message: '',
 	},
-	nojswatch: {
-		label: 'nojswatch',
-		message: 'No javascript watch flag - will to refresh on js changes'
+	nowatch: {
+		label: 'nowatch',
+		message: 'Will not watch static files and refresh for changes'
 	},
 	nocmswatch: {
 		label: 'nocmswatch',

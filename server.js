@@ -20,6 +20,7 @@ var admin_api = require(ENDURO_FOLDER + '/libs/admin_api')
 var website_app = require(ENDURO_FOLDER + '/libs/website_app')
 var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var ab_tester = require(ENDURO_FOLDER + '/libs/ab_testing/ab_tester')
 
 // constants
 var PRODUCTION_SERVER_PORT = 5000
@@ -89,14 +90,28 @@ enduro_server.prototype.run = function (server_setup) {
 				} else {
 					kiska_guard.login(req)
 						.then(() => {
-							if (req.url.length <= 1 && config.cultures[0].length > 0) {
+
+							// redirects to a first available culture
+							if (req.url.length <= 1 && config.cultures[0].length) {
 								return res.redirect('/' + config.cultures[0])
 							}
-							if (req.url.length <= 1 || (req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1 && req.url.split('/').length <= 2)) {
-								res.sendFile(CMD_FOLDER + '/_src' + req.url + '/index.html')
-							} else {
-								res.sendFile(CMD_FOLDER + '/_src' + req.url + '.html')
+
+							var requested_url = req.url
+
+							// serves index.html when empty or culture-only url is provided
+							if (requested_url.length <= 1 || (requested_url.split('/')[1] && config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2)) {
+								requested_url += requested_url[0] == '/' ? 'index' : '/index'
 							}
+
+							// applies ab testing
+							return ab_tester.get_ab_tested_filepath(requested_url)
+
+						}, () => {
+							throw new Error('user not logged in')
+						})
+						.then((requested_url) => {
+							// serves the requested file
+							res.sendFile(CMD_FOLDER + '/_src' + requested_url + '.html')
 						}, () => {
 							res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
 						})

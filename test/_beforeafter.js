@@ -5,7 +5,7 @@ require('../index')
 var rimraf = require('rimraf')
 
 // local dependencies
-var enduro_helpers = require('../libs/flat_utilities/enduro_helpers')
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
 global.DELETE_TEST_PROJECTS = true
 

@@ -27,6 +27,25 @@ describe('A/B testing', function () {
 			})
 	})
 
+	// list looks like this
+	//	{
+	//		index: [
+	//			{
+	//				page: 'index'
+	//			}, {
+	//				page: 'index@ab'
+	//			}, {
+	//				page: 'index@bb'
+	//			}
+	//		],
+	//		test: [
+	//			{
+	//				page: 'test'
+	//	 		}, {
+	//		 		page: 'test@bigbutton'
+	//	 		}
+	//		]
+	// }
 	it('should make a a/b list', function () {
 		return ab_tester.get_ab_list()
 			.then((ab_testing_list) => {

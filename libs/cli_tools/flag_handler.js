@@ -15,7 +15,7 @@ var FLAG_MAP = {
 	},
 	nr: {
 		label: 'norefresh',
-		message: '',
+		message: 'Will not open browser tab on first run',
 	},
 	nowatch: {
 		label: 'nowatch',
@@ -23,12 +23,16 @@ var FLAG_MAP = {
 	},
 	nocmswatch: {
 		label: 'nocmswatch',
-		message: 'No CMS watch flag - will to refresh on cms changes'
+		message: 'No CMS watch flag - will not refresh on cms changes'
 	},
 	noadmin: {
 		label: 'noadmin',
 		message: 'No admin flag - no admin on port 5000 is running'
-	}
+	},
+	debug: {
+		label: 'debug',
+		message: 'will log out everything'
+	},
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -49,6 +53,21 @@ flag_handler.prototype.get_flag_object = function (flags) {
 	}
 
 	return flag_object
+}
+
+flag_handler.prototype.list_flags = function () {
+	kiska_logger.init('available flags')
+
+	var first = true
+	for (f in FLAG_MAP) {
+		!first && kiska_logger.line()
+		kiska_logger.log('-' + f + ': ' + FLAG_MAP[f].label)
+		kiska_logger.log(FLAG_MAP[f].message)
+
+		first = false
+	}
+
+	kiska_logger.end()
 }
 
 module.exports = new flag_handler()

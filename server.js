@@ -14,6 +14,7 @@ var app = express()
 var session = require('express-session')
 var cors = require('cors')
 var multiparty_middleware = require('connect-multiparty')()
+var cookieParser = require('cookie-parser')
 
 // local dependencies
 var admin_api = require(ENDURO_FOLDER + '/libs/admin_api')
@@ -33,6 +34,8 @@ app.use(session({
 	saveUninitialized: true,
 	cookie: {},
 }))
+
+app.use(cookieParser())
 
 app.use(cors())
 
@@ -78,6 +81,7 @@ enduro_server.prototype.run = function (server_setup) {
 		// handle for all website api calls
 		// kinda works but needs to be properly done
 		app.get('/*', function (req, res) {
+			kiska_logger.timestamp('requested: ' + req.url, 'server_usage')
 			if (!/admin\/(.*)/.test(req.url) && !/assets\/(.*)/.test(req.url)) {
 				if (req.query['pswrd']) {
 					kiska_guard.login(req)
@@ -104,7 +108,7 @@ enduro_server.prototype.run = function (server_setup) {
 							}
 
 							// applies ab testing
-							return ab_tester.get_ab_tested_filepath(requested_url)
+							return ab_tester.get_ab_tested_filepath(requested_url, req, res)
 
 						}, () => {
 							throw new Error('user not logged in')

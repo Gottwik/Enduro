@@ -22,13 +22,14 @@ var logtags_config = {
 	nice_dev_init: true,
 	enduro_events: true,
 	enduro_render_events: false,
-	admin_api_calls: false,
+	admin_api_calls: true,
 	admin_login: false,
 	file_uploading: true,
 	render_debug: true,
 	juicebox: true,
 	heroku_debug: false,
 	page_manipulation: false,
+	server_usage: false,
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -142,7 +143,7 @@ kiska_logger.prototype.silent = function (logtag) {
 // * 	private functions
 // * ———————————————————————————————————————————————————————— * //
 function pass_tagcheck (logtag) {
-	if (typeof logtag === 'undefined') {
+	if (typeof logtag === 'undefined' || flags.debug) {
 		return true
 	}
 	return logtag in logtags_config && logtags_config[logtag]

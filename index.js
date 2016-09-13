@@ -155,27 +155,41 @@ function run (args, flags) {
 				// * ———————————————————————————————————————————————————————— * //
 				} else if (arg == 'addculture') {
 					return babel.add_culture(args)
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro juice ...
+				// * ———————————————————————————————————————————————————————— * //
 				} else if (arg == 'juice') {
 					arg = args.shift()
+
+					// * ———————————————————————————————————————————————————————— * //
+					// * 	$ enduro juice pack
+					// * ———————————————————————————————————————————————————————— * //
 					if (arg == 'pack') {
 						if (global.flags.force) {
 							return juicebox.force_pack()
 						} else {
 							return juicebox.pack()
 						}
+
+					// * ———————————————————————————————————————————————————————— * //
+					// * 	$ enduro juice pull
+					// * ———————————————————————————————————————————————————————— * //
 					} else if (arg == 'pull') {
 						return juicebox.pull()
+
+					// * ———————————————————————————————————————————————————————— * //
+					// * 	$ enduro juice diff
+					// * ———————————————————————————————————————————————————————— * //
 					} else if (arg == 'diff') {
 						return juicebox.diff()
 					}
 
-				} else if (arg == 'test') {
-					var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator')
-
-					return pagelist_generator.get_cms_list()
-						.then((pagelist) => {
-							// console.log(pagelist)
-						})
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro flags
+				// * ———————————————————————————————————————————————————————— * //
+				} else if (arg == 'flags') {
+					return flag_handler.list_flags()
 				}
 			}
 

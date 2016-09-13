@@ -9,6 +9,7 @@
     "browser-sync": "^2.11.1",
     "chalk": "^1.1.1",
     "connect-multiparty": "^2.0.0",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.7.1",
     "dir-compare": "^1.0.1",
     "enduro_admin": "1.0.34",

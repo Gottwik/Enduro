@@ -14,6 +14,26 @@ var page_queue_generator = require(ENDURO_FOLDER + '/libs/page_rendering/page_qu
 // * 	get ab list
 // * 	generates list of ab testing races
 // *
+// *	list looks like this:
+// *	{
+// *		index: [
+// *			{
+// *				page: 'index'
+// *			}, {
+// *				page: 'index@ab'
+// *			}, {
+// *				page: 'index@bb'
+// *			}
+// *		],
+// *		test: [
+// *			{
+// *				page: 'test'
+// *	 		}, {
+// *		 		page: 'test@bigbutton'
+// *	 		}
+// *		]
+// *	}
+// *
 // *	@return {object} - array of testing races
 // * ———————————————————————————————————————————————————————— * //
 ab_tester.prototype.get_ab_list = function () {
@@ -57,7 +77,7 @@ ab_tester.prototype.get_ab_list = function () {
 		})
 }
 
-ab_tester.prototype.get_ab_tested_filepath = function (url) {
+ab_tester.prototype.get_ab_tested_filepath = function (url, req, res) {
 	var self = this
 
 	// removes slash from the front
@@ -74,7 +94,15 @@ ab_tester.prototype.get_ab_tested_filepath = function (url) {
 
 				var ab_scenario = global.ab_test_scenarios[page_name]
 
-				var picked_variation = ab_scenario[Math.floor(Math.random() * ab_scenario.length)]
+				var picked_variation
+
+				// check if user has cookie for this url
+				if (req.cookies['enduro_ab_' + url]) {
+					picked_variation = req.cookies['enduro_ab_' + url]
+				} else {
+					picked_variation = ab_scenario[Math.floor(Math.random() * ab_scenario.length)]
+					res.cookie('enduro_ab_' + url, picked_variation, { maxAge: 900000, httpOnly: true })
+				}
 
 				resolve('/' + picked_variation.page)
 			})

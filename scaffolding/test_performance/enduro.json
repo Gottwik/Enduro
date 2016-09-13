@@ -1,0 +1,8 @@
+{
+	"project_name": "set name here",
+	"project_slug": "sn",
+	"s3": {
+		"bucket": "enduro.sethere",
+		"region": "eu-west-1"
+	}
+}

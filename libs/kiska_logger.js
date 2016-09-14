@@ -164,7 +164,7 @@ function get_timestamp () {
 // * ———————————————————————————————————————————————————————— * //
 
 // pads from left
-String.prototype.lpad = function(len, c) {
+String.prototype.lpad = function (len, c) {
 	var s = this
 	c = c || '0'
 

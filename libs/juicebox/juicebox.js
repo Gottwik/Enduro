@@ -36,6 +36,7 @@ juicebox.prototype.pack = function (user) {
 juicebox.prototype.pull = function (nojuice, force) {
 
 	if (nojuice || !config.variables.juicebox_enabled) {
+		kiska_logger.err('Juicebox is not set up')
 		return Promise.resolve()
 	}
 

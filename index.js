@@ -190,6 +190,12 @@ function run (args, flags) {
 				// * ———————————————————————————————————————————————————————— * //
 				} else if (arg == 'flags') {
 					return flag_handler.list_flags()
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro offline
+				// * ———————————————————————————————————————————————————————— * //
+				} else if (arg == 'offline') {
+					return require(ENDURO_FOLDER + '/libs/remote_tools/offline_handler').convert_all_to_offline()
 				}
 			}
 

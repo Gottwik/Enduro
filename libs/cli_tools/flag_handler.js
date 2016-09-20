@@ -33,6 +33,10 @@ var FLAG_MAP = {
 		label: 'debug',
 		message: 'will log out everything'
 	},
+	nocompile: {
+		label: 'nocompile',
+		message: 'will not compile anything - just serve built files'
+	},
 }
 
 // * ———————————————————————————————————————————————————————— * //

@@ -8,13 +8,16 @@ var juice_helpers = function () {}
 var dircompare = require('dir-compare')
 var path = require('path')
 var fs = require('fs-extra')
+var moment = require('moment')
+var glob = require('glob-promise')
 
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var juice_diff = require(ENDURO_FOLDER + '/libs/juicebox/juice_diff')
+var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 
-juice_helpers.prototype.diff_with_cms = function (folder) {
+juice_helpers.prototype.diff_folder_with_cms = function (folder) {
 	return new Promise(function (resolve, reject) {
 		// local path
 		var path1 = path.join(CMD_FOLDER, 'cms')
@@ -24,6 +27,38 @@ juice_helpers.prototype.diff_with_cms = function (folder) {
 
 		juice_diff.diff(path1, path2)
 	})
+}
+
+juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {
+	glob(path.join(CMD_FOLDER, 'juicebox', 'staging', juicebox_hash, '**', file + '.js'))
+		.then((file) => {
+			if (!file.length) {
+				return kiska_logger.err('no such file')
+			}
+
+			if (file.length > 1) {
+				console.log(file)
+				return kiska_logger.err('More than one file')
+			}
+
+			// get paths for both files
+			var staging_file_to_diff = file[0]
+			var current_file_to_diff = flat_file_handler.get_full_path_to_cms(staging_file_to_diff.match(/\/cms\/(.*)/)[1]).replace('.js.js', '.js')
+
+			const spawn = require('child_process').exec
+
+			spawn('diff "' + staging_file_to_diff + '" "' + current_file_to_diff + '"', [], function (err, stdout, stderr) {
+				if (err) { kiska_logger.err(err) } // handled error
+
+				// Node.js will invoke this callback when the
+				console.log(stdout)
+			})
+
+			spawn.stdout.on('data', function (data) {
+				console.log('stdout: ' + data)
+			})
+		})
+
 }
 
 juice_helpers.prototype.spill_newer = function (folder) {
@@ -59,6 +94,41 @@ juice_helpers.prototype.spill_newer = function (folder) {
 				resolve()
 			})
 	})
+}
+
+// * ———————————————————————————————————————————————————————— * //
+// *	nice_log
+// * 	logs latest juiceboxes
+// *
+// *	@param juice {object} - fetched juice.json
+// *	@param maxrows {int} - maximum number of rows logged. defaults to 20.
+// *	returns nothing - just logs out stuff
+// * ———————————————————————————————————————————————————————— * //
+juice_helpers.prototype.nice_log = function (juice, maxrows) {
+
+	var history_length = juice.history.length
+	maxrows = Math.min(maxrows | 20, history_length)
+
+	kiska_logger.init('Juice log')
+	kiska_logger.log('latest')
+	log_record(juice.latest)
+	kiska_logger.line()
+
+	for (var i = 0; i < maxrows; i++) {
+		log_record(juice.history[history_length - i - 1])
+	}
+	kiska_logger.end()
+}
+
+// * ———————————————————————————————————————————————————————— * //
+// *	log_record
+// * 	logs one record
+// *
+// *	@param record {object} - object with a record. {hash:'', user: '', timestamp: ''}
+// *	returns nothing - just logs out stuff
+// * ———————————————————————————————————————————————————————— * //
+function log_record (record) {
+	kiska_logger.twolog(record.hash.match(/_(.*)/)[1] + ' (' + record.user + ')', moment.unix(record.timestamp).fromNow())
 }
 
 function get_diff (folder) {

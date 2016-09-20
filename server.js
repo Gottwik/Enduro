@@ -41,6 +41,12 @@ app.use(cors())
 
 var server
 
+// add enduro.js header
+app.use(function (req, res, next) {
+	res.header('X-Powered-By', 'enduro.js')
+	next()
+})
+
 // * ———————————————————————————————————————————————————————— * //
 // * 	server run
 // *
@@ -125,7 +131,7 @@ enduro_server.prototype.run = function (server_setup) {
 
 		server = app.listen(app.get('port'), function () {
 			kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
-			if (!server_setup.development_mode) {
+			if (!server_setup.development_mode && !flags.nocompile) {
 				self.enduro_init(() => {
 					resolve()
 				})

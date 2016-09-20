@@ -101,7 +101,7 @@ juicebox.prototype.force_pack = function (user) {
 				}
 
 				juice.latest = {
-					hash: config.project_name + '_' + Math.floor(Date.now() / 1000),
+					hash: get_juicebox_hash_by_timestamp(Math.floor(Date.now() / 1000)),
 					timestamp: Math.floor(Date.now() / 1000),
 					user: user,
 				}
@@ -126,19 +126,40 @@ juicebox.prototype.force_pack = function (user) {
 	})
 }
 
-juicebox.prototype.diff = function (nojuice) {
-	var diff_juice
+juicebox.prototype.diff = function (args) {
+
+	// will store the specified juicebox hash
+	var juicebox_hash_to_diff
 
 	return get_latest_juice()
 		.then((juice) => {
-			diff_juice = juice
-			return get_juicebox_by_name(juice.latest.hash + EXTENSION)
+
+			// if user provided specified version
+			if (args.length) {
+				juicebox_hash_to_diff = get_juicebox_hash_by_timestamp(args[0])
+			} else {
+				juicebox_hash_to_diff = juice.latest.hash
+			}
+			args.shift()
+
+			return get_juicebox_by_name(juicebox_hash_to_diff + EXTENSION)
 		})
-		.then((latest_juicebox) => {
-			return spill_the_juice(latest_juicebox, path.join('juicebox', 'staging', diff_juice.latest.hash))
+		.then((specified_juicebox) => {
+			return spill_the_juice(specified_juicebox, path.join('juicebox', 'staging', juicebox_hash_to_diff))
 		})
 		.then(() => {
-			juice_helpers.diff_with_cms(path.join('juicebox', 'staging', diff_juice.latest.hash, 'cms'))
+			if (args.length) {
+				juice_helpers.diff_file_with_cms(juicebox_hash_to_diff, args[0])
+			} else {
+				juice_helpers.diff_folder_with_cms(path.join('juicebox', 'staging', juicebox_hash_to_diff, 'cms'))
+			}
+		})
+}
+
+juicebox.prototype.log = function (nojuice) {
+	return get_latest_juice()
+		.then((juice) => {
+			juice_helpers.nice_log(juice)
 		})
 }
 
@@ -211,6 +232,10 @@ function get_latest_juice () {
 	})
 }
 
+function get_juicebox_hash_by_timestamp (timestamp) {
+	return config.project_name + '_' + timestamp
+}
+
 function get_juicebox_by_name (juicebox_name) {
 	return new Promise(function (resolve, reject) {
 		if (juicebox_name == '0000') {
@@ -231,7 +256,6 @@ function spill_the_juice (juicebox_name, destination) {
 	destination = destination || path.join(CMD_FOLDER)
 	return new Promise(function (resolve, reject) {
 
-		console.log(juicebox_name)
 		if (!juicebox_name || juicebox_name == '0000.tar.gz') {
 			return resolve()
 		}

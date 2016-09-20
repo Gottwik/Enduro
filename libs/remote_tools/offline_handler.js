@@ -1,3 +1,8 @@
+// * ———————————————————————————————————————————————————————— * //
+// * 	offline_handler
+// *	set of tools that enables running enduro website offline
+// *	TODO: developed under time constrain, should be refactored and tested
+// * ———————————————————————————————————————————————————————— * //
 var offline_handler = function () {}
 
 // Vendor dependencies
@@ -37,7 +42,12 @@ offline_handler.prototype.convert_all_to_offline = function () {
 		})
 }
 
-// todo - do this properly
+// * ———————————————————————————————————————————————————————— * //
+// * 	parse_for_external_links
+// *
+// *	@param link {string} - text where links should be found
+// *	return array - list of link found in the provided text
+// * ———————————————————————————————————————————————————————— * //
 function parse_for_external_links (link) {
 	if (link.substring(0, 4) == 'http') {
 		return [link]

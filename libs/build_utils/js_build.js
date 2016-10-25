@@ -31,12 +31,12 @@ js_build.prototype.build_js = function (config_name) {
 				name: 'js/main',
 				out: CMD_FOLDER + '/_src/assets/js/main_dist.js',
 				include: ['vendor/requirejs/require'],
-				findNestedDependencies: true
+				findNestedDependencies: true,
+				optimize: 'uglify'
 			}
-
 			rjs.optimize(config, function (buildResponse) {
 				console.log(buildResponse)
-				cb()
+				// cb()
 				resolve()
 			}, function (err) {
 				console.log(err)

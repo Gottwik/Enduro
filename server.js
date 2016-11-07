@@ -39,6 +39,7 @@ app.use(cookieParser())
 
 app.use(cors())
 
+// stores  server as global variable
 var server
 
 // add enduro.js header
@@ -62,8 +63,20 @@ enduro_server.prototype.run = function (server_setup) {
 		// 5000 or server's port
 		app.set('port', (process.env.PORT || PRODUCTION_SERVER_PORT))
 
-		// forward the app to running enduro application
-		website_app.forward(app)
+		// starts listening to request on specified port
+		server = app.listen(app.get('port'), function () {
+			kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
+			if (!server_setup.development_mode && !flags.nocompile) {
+				self.enduro_init(() => {
+					resolve()
+				})
+			} else {
+				resolve()
+			}
+		})
+
+		// forward the app and server to running enduro application
+		website_app.forward(app, server)
 
 		kiska_logger.timestamp('heroku-debug - admin folder: ' + ADMIN_FOLDER, 'heroku_debug')
 
@@ -86,7 +99,7 @@ enduro_server.prototype.run = function (server_setup) {
 
 		// handle for all website api calls
 		// kinda works but needs to be properly done
-		app.get('/*', function (req, res) {
+		app.get('/*', function (req, res, next) {
 			kiska_logger.timestamp('requested: ' + req.url, 'server_usage')
 			if (!/admin\/(.*)/.test(req.url) && !/assets\/(.*)/.test(req.url)) {
 				if (req.query['pswrd']) {
@@ -126,17 +139,6 @@ enduro_server.prototype.run = function (server_setup) {
 							res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
 						})
 				}
-			}
-		})
-
-		server = app.listen(app.get('port'), function () {
-			kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
-			if (!server_setup.development_mode && !flags.nocompile) {
-				self.enduro_init(() => {
-					resolve()
-				})
-			} else {
-				resolve()
 			}
 		})
 	})

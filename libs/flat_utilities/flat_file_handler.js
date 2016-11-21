@@ -235,6 +235,16 @@ flat_file_handler.prototype.has_page_associated = function (filename) {
 	return !['global', 'generators'].indexOf(filename.split('/')[0].toLowerCase())
 }
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	makes a decision whether this content file is deletable
+// *	currently only generator content files are deletable
+// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	@return {bool} - returns true if particular content file is deletable
+// * ———————————————————————————————————————————————————————— * //
+flat_file_handler.prototype.is_deletable = function (filename) {
+	return this.is_generator(filename)
+}
+
 // Private functions
 function get_full_path_to_cms (filename) {
 	return CMD_FOLDER + '/cms/' + filename + '.js'

@@ -23,4 +23,11 @@ page_adding_service.prototype.new_generator_page = function (new_pagename, gener
 		})
 }
 
+page_adding_service.prototype.delete_page = function (pagename) {
+	return new Promise(function (resolve, reject) {
+		console.log('asd', pagename)
+		resolve()
+	})
+}
+
 module.exports = new page_adding_service()

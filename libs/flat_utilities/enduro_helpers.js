@@ -9,6 +9,7 @@ var enduro_helpers = function () {}
 var Promise = require('bluebird')
 var fs = require('fs')
 var mkdirp = require('mkdirp')
+var path = require('path')
 
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
@@ -45,11 +46,10 @@ enduro_helpers.prototype.dir_exists = function (file_path) {
 
 // Creates all subdirectories neccessary to create the file in file_path
 enduro_helpers.prototype.ensure_directory_existence = function () {
-
 	if (!arguments.length) {
 		return Promise.resolve()
 	}
-	file_paths = Array.prototype.slice.call(arguments).map((file_path) => { return file_path.match(/^(.*)\/.*$/)[1] })
+	file_paths = Array.prototype.slice.call(arguments).map((file_path) => { return file_path.split('/').slice(0, -1).join('/') })
 	return Promise.all(file_paths.map((file_path) => { return ensure_directory_existence(file_path) }))
 }
 

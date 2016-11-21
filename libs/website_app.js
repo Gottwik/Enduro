@@ -23,7 +23,12 @@ website_api.prototype.forward = function (app, server) {
 	if (enduro_helpers.file_exists_sync(LOCAL_APP_FILE)) {
 
 		// forward the app to local enduro app
-		require(LOCAL_APP_FILE).init(app, server)
+		try {
+			require(LOCAL_APP_FILE).init(app, server)
+		} catch (e) {
+			console.log(e)
+		}
+
 	}
 }
 

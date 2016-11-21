@@ -39,11 +39,25 @@ api_call.prototype.call = function (req, res, enduro_server) {
 			context.success = true
 			context.page_name = data.$page_name || filename
 			context.only_page_name = context.page_name.split('/').splice(-1)[0]
+
+			// main data of the content file
 			context.context = data
+
+			// url where this page is served
 			context.page_link = flat_file_handler.url_from_filename(context.page_name)
+
+			// associated page means that the page content file is directly linked with an existing url
+			// this is used when deciding whether provide a link from admin to the page that is being edited
 			context.no_page_associated = flat_file_handler.has_page_associated(context.page_name)
+
+			// name is capitalized and _ are replaced with whitespace
 			context.pretty_name = format_service.prettify_string(context.only_page_name)
+
+			// path to the content file provided in array
 			context.path_list = context.page_name.split('/')
+
+			// bool saying whether content file can be deleted
+			context.deletable = flat_file_handler.is_deletable(context.page_name)
 
 			res.send(context)
 		}, () => {})

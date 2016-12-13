@@ -2,10 +2,10 @@
 
 [![npm version](https://badge.fury.io/js/enduro.svg)](https://badge.fury.io/js/enduro)
 [![npm](https://img.shields.io/npm/dm/enduro.svg?maxAge=2592000)](https://www.npmjs.com/package/enduro)
-[![Build Status](https://travis-ci.org/kiskadigitalmedia/Enduro.svg?branch=master)](https://travis-ci.org/kiskadigitalmedia/Enduro)
-[![Coverage Status](https://coveralls.io/repos/github/kiskadigitalmedia/Enduro/badge.svg?branch=master)](https://coveralls.io/github/kiskadigitalmedia/Enduro?branch=master)
-[![Code Climate](https://codeclimate.com/github/kiskadigitalmedia/Enduro/badges/gpa.svg)](https://codeclimate.com/github/kiskadigitalmedia/Enduro)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kiskadigitalmedia/Enduro/master/License.md)
+[![Build Status](https://travis-ci.org/Gottwik/Enduro.svg?branch=master)](https://travis-ci.org/Gottwik/Enduro)
+[![Coverage Status](https://coveralls.io/repos/github/Gottwik/Enduro/badge.svg?branch=master)](https://coveralls.io/github/Gottwik/Enduro?branch=master)
+[![Code Climate](https://codeclimate.com/github/Gottwik/Enduro/badges/gpa.svg)](https://codeclimate.com/github/Gottwik/Enduro)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Gottwik/Enduro/master/License.md)
 
 
 Enduro is minimalistic, lean & mean, node.js cms. See more at [enduro.js website](http://www.endurojs.com/)
@@ -47,7 +47,7 @@ I welcome you to develop enduro.js. Follow these guides to get you started quick
 ## Developing enduro admin
 1. I decided to decouple admin interface from enduro to make things cleaner
 2. enduro admin is built using enduro ( duh ;-) )
-2. clone enduro_admin's git repo: https://github.com/kiskadigitalmedia/Enduro_admin
+2. clone enduro_admin's git repo: https://github.com/Gottwik/Enduro_admin
 3. cd into enduro's directory
 4. run `npm link ../enduro_admin` or wherever you cloned the enduro_admin to
 5. run enduro on enduro_admin by `enduro -nr -noadmin`

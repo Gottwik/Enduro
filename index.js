@@ -7,11 +7,14 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-// stores templating engine for possible future replacement
-global.__templating_engine = require('handlebars')
-
 // vendor dependencies
 var path = require('path')
+var promised_handlebars = require('promised-handlebars')
+var Promise = require('bluebird')
+
+// stores templating engine for possible future replacement
+// promised handlebars allows for asynchronous calls inside helpers
+global.__templating_engine = promised_handlebars(require('handlebars'), { Promise: Promise })
 
 // global variables
 global.__data = {}

@@ -28,7 +28,6 @@ var SECURE_FILE = '.enduro_secure'
 // *	@return {Promise} - Promise with no content. Resolve if login was successfull
 // * ———————————————————————————————————————————————————————— * //
 kiska_guard.prototype.login = function (req) {
-	console.log(req.query['pswrd'])
 	var self = this
 	return new Promise(function (resolve, reject) {
 
@@ -84,10 +83,8 @@ kiska_guard.prototype.verify_passphrase = function (passphrase) {
 
 			// Compares the hashed passphrase, sets session flag and resolves if successful
 			if (passwordHash.verify(passphrase, data.toString())) {
-				console.log('resolve')
 				resolve()
 			} else {
-				console.log('reject')
 				reject('incorrect passphrase provided')
 			}
 		})

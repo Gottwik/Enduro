@@ -30,13 +30,11 @@ api_call.prototype.call = function (req, res, enduro_server) {
 			// will store the specified object
 			var parent
 
-			console.log(__data)
 			// goes through globalizer string splitted by .
 			globalizer_string.split('.').reduce((prev, next) => {
 				parent = prev
 				return prev[next]
 			}, __data)
-
 
 			globalizer_options = Object.keys(parent).map((option) => {
 				return '@@' + globalizer_string.split('.').slice(0, -1).join('.') + '.' + option

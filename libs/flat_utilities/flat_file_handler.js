@@ -19,6 +19,7 @@ var fs = require('fs')
 var require_from_string = require('require-from-string')
 var decode = require('urldecode')
 var stringify_object = require('stringify-object')
+var extend = require('extend')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -73,6 +74,7 @@ flat_file_handler.prototype.save_by_string = function (filename, contents) {
 // *	@return {Promise} - Promise returning an object
 // * ———————————————————————————————————————————————————————— * //
 flat_file_handler.prototype.load = function (filename) {
+	var self = this
 
 	return new Promise(function (resolve, reject) {
 
@@ -106,6 +108,10 @@ flat_file_handler.prototype.load = function (filename) {
 				}
 
 				var flatObj = require_from_string('module.exports = ' + data)
+				extend(true, flatObj, {_meta: {
+					filename: filename,
+					url: self.url_from_filename(filename)
+				}})
 				resolve(flatObj)
 			})
 		}

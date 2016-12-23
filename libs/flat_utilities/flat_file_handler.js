@@ -108,10 +108,10 @@ flat_file_handler.prototype.load = function (filename) {
 				}
 
 				var flatObj = require_from_string('module.exports = ' + data)
-				extend(true, flatObj, {_meta: {
-					filename: filename,
-					url: self.url_from_filename(filename)
-				}})
+				// extend(true, flatObj, {_meta: {
+				// 	filename: filename,
+				// 	url: self.url_from_filename(filename)
+				// }})
 				resolve(flatObj)
 			})
 		}

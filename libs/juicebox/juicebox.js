@@ -33,9 +33,17 @@ juicebox.prototype.pack = function (user) {
 		})
 }
 
-juicebox.prototype.pull = function (nojuice, force) {
+// * ———————————————————————————————————————————————————————— * //
+// * 	pull
+// *
+// * 	gets the most recent file from the juicebar
+// *	@param {bool} force - overwrites newer files on local
+// *	@return {promise} - no data
+// * ———————————————————————————————————————————————————————— * //
+juicebox.prototype.pull = function (force) {
 
-	if (nojuice || !config.variables.juicebox_enabled) {
+	// if juicebox is not enabled
+	if (!config.variables.juicebox_enabled) {
 		kiska_logger.err('Juicebox is not set up')
 		return Promise.resolve()
 	}
@@ -167,7 +175,7 @@ juicebox.prototype.juicebox_enabled = function () {
 	return config.variables.juicebox_enabled
 }
 
-juicebox.prototype.no_juice_yet = function () {
+juicebox.prototype.is_juicebox_enabled = function () {
 	var juicefile_path = path.join(CMD_FOLDER, 'juicebox', 'juice.json')
 	return !enduro_helpers.file_exists_sync(juicefile_path)
 }

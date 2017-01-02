@@ -217,15 +217,18 @@ function run (args, flags) {
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	render
-// *	- reads configuration file
-// *	- loads global settings
-// *	- loads copomentns
-// *	- loads helpers
-// *	- renders files in ../pages
 // * ———————————————————————————————————————————————————————— * //
-function render (callback, nojuice) {
+function render (callback, dont_do_juice_pull) {
 	kiska_logger.init('Enduro', 'enduro_render_events')
-	juicebox.pull(nojuice, juicebox.no_juice_yet())
+
+	Promise.resolve()
+		.then(() => {
+			if (!dont_do_juice_pull) {
+				return juicebox.pull(juicebox.is_juicebox_enabled())
+			} else {
+				return new Promise.resolve()
+			}
+		})
 		.then(() => {
 			return global_data.get_global_data()
 		})

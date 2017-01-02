@@ -50,7 +50,6 @@ juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {
 			spawn('diff "' + staging_file_to_diff + '" "' + current_file_to_diff + '"', [], function (err, stdout, stderr) {
 				if (err) { kiska_logger.err(err) } // handled error
 
-				// Node.js will invoke this callback when the
 				console.log(stdout)
 			})
 

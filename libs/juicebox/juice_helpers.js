@@ -18,15 +18,13 @@ var juice_diff = require(ENDURO_FOLDER + '/libs/juicebox/juice_diff')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 
 juice_helpers.prototype.diff_folder_with_cms = function (folder) {
-	return new Promise(function (resolve, reject) {
-		// local path
-		var path1 = path.join(CMD_FOLDER, 'cms')
+	// local path
+	var path1 = path.join(CMD_FOLDER, 'cms')
 
-		// juice path
-		var path2 = path.join(CMD_FOLDER, folder)
+	// juice path
+	var path2 = path.join(CMD_FOLDER, folder)
 
-		juice_diff.diff(path1, path2)
-	})
+	return juice_diff.diff(path1, path2)
 }
 
 juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {

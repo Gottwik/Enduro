@@ -136,6 +136,8 @@ juicebox.prototype.force_pack = function (user) {
 
 juicebox.prototype.diff = function (args) {
 
+	args = args || []
+
 	// will store the specified juicebox hash
 	var juicebox_hash_to_diff
 
@@ -157,9 +159,9 @@ juicebox.prototype.diff = function (args) {
 		})
 		.then(() => {
 			if (args.length) {
-				juice_helpers.diff_file_with_cms(juicebox_hash_to_diff, args[0])
+				return juice_helpers.diff_file_with_cms(juicebox_hash_to_diff, args[0])
 			} else {
-				juice_helpers.diff_folder_with_cms(path.join('juicebox', 'staging', juicebox_hash_to_diff, 'cms'))
+				return juice_helpers.diff_folder_with_cms(path.join('juicebox', 'staging', juicebox_hash_to_diff, 'cms'))
 			}
 		})
 }

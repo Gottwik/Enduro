@@ -3,6 +3,9 @@
 // * ———————————————————————————————————————————————————————— * //
 var api_call = function () {}
 
+// vendor dependencies
+var Promise = require('bluebird')
+
 // local dependencies
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
@@ -18,7 +21,16 @@ api_call.prototype.call = function (req, res, enduro_server) {
 		})
 		.then(() => {
 			enduro_server.enduro_refresh(() => {
-				res.send({success: true})
+				return Promise.resolve()
+			})
+		})
+		.then(() => {
+			return juicebox.diff()
+		})
+		.then((diff_result) => {
+			res.send({
+				success: true,
+				diff_result: diff_result
 			})
 		})
 }

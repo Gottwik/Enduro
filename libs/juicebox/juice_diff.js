@@ -18,14 +18,18 @@ var dircompare = require('dir-compare')
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
 
 juice_diff.prototype.diff = function (path1, path2) {
-	dircompare.compare(path1, path2)
-		.then((res) => {
+	return dircompare.compare(path1, path2)
+		.then((compare_result) => {
 			kiska_logger.init('Juice diff')
 
-			res.diffSet.forEach((item) => {
+			// filter out ds_store files
+			_.remove(compare_result.diffSet, function (file) {
+				return (file.name1 == '.DS_Store' || file.name2 == '.DS_Store')
+			})
+
+			compare_result.diffSet.forEach((item) => {
 				abstract_diff_item(item)
 
-				if (item.name == '.DS_Store') { return }
 				if (item.type == 'directory') {
 					kiska_logger.log(item.indentation + item.name)
 				} else {
@@ -33,6 +37,8 @@ juice_diff.prototype.diff = function (path1, path2) {
 				}
 			})
 			kiska_logger.end()
+
+			return Promise.resolve(compare_result)
 		})
 }
 

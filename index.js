@@ -17,6 +17,7 @@ var Promise = require('bluebird')
 global.__templating_engine = promised_handlebars(require('handlebars'), { Promise: Promise })
 
 // global variables
+global._ = require('lodash')
 global.__data = {}
 global.__data.global = {}
 global.config = {}

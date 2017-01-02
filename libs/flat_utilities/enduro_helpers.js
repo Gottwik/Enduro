@@ -9,7 +9,6 @@ var enduro_helpers = function () {}
 var Promise = require('bluebird')
 var fs = require('fs')
 var mkdirp = require('mkdirp')
-var path = require('path')
 
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')

@@ -13,6 +13,7 @@ var zlib = require('zlib')
 var path = require('path')
 var fs = require('fs')
 var request = require('request')
+var rimraf = require('rimraf')
 
 // local dependencies
 var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
@@ -263,30 +264,37 @@ function get_juicebox_by_name (juicebox_name) {
 
 function spill_the_juice (juicebox_name, destination) {
 
+	// default destination is the project's root (juicebox has cms folder)
 	destination = destination || path.join(CMD_FOLDER)
-	return new Promise(function (resolve, reject) {
 
-		if (!juicebox_name || juicebox_name == '0000.tar.gz') {
-			return resolve()
-		}
+	// delete the folder if it exists
+	rimraf(destination, function () {
 
-		var tarball = path.join(CMD_FOLDER, 'juicebox', juicebox_name)
-		if (enduro_helpers.file_exists_sync(tarball)) {
-			fs.createReadStream(tarball)
-				.pipe(zlib.Unzip())
-				.pipe(tar.Extract({
-					path: destination,
-				}))
-				.on('end', function () {
-					resolve()
-				})
-				.on('error', function () {
-					console.log('asd')
-				})
-		}
+		return new Promise(function (resolve, reject) {
+
+			if (!juicebox_name || juicebox_name == '0000.tar.gz') {
+				return resolve()
+			}
+
+			var tarball = path.join(CMD_FOLDER, 'juicebox', juicebox_name)
+			if (enduro_helpers.file_exists_sync(tarball)) {
+				fs.createReadStream(tarball)
+					.pipe(zlib.Unzip())
+					.pipe(tar.Extract({
+						path: destination,
+					}))
+					.on('end', function () {
+						resolve()
+					})
+					.on('error', function () {
+						console.log('asd')
+					})
+			}
+		})
 	})
 }
 
+// provides default context of a fresh juicefile
 function get_new_juicefile () {
 	return {
 		history: [],
@@ -298,6 +306,7 @@ function get_new_juicefile () {
 	}
 }
 
+// handles errors
 function err (err) {
 	kiska_logger.raw_err(err)
 }

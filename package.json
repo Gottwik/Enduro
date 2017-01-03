@@ -46,18 +46,18 @@
     "multi-glob": "^1.0.1",
     "ncp": "^2.0.0",
     "password-hash": "^1.2.2",
-    "promised-handlebars": "https://github.com/Gottwik/promised-handlebars^2.0.1",
+    "promised-handlebars": "git+https://github.com/Gottwik/promised-handlebars.git",
     "request": "^2.72.0",
     "require-from-string": "^1.1.0",
     "requirejs": "^2.1.22",
     "rewire": "^2.5.1",
+    "rimraf": "^2.5.2",
     "s3": "^4.4.0",
     "scsslint": "0.0.3",
     "sha256": "^0.2.0",
     "stringify-object": "^2.3.1",
     "tar": "^2.2.1",
-    "urldecode": "^1.0.1",
-    "rimraf": "^2.5.2"
+    "urldecode": "^1.0.1"
   },
   "scripts": {
     "test": "mocha --recursive --bail"

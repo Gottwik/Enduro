@@ -3,3 +3,5 @@
 npm-debug.log
 /admin/assets/img/uploaded/
 /_src/*
+enduro_secret.json
+/testfolder

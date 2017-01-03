@@ -50,7 +50,7 @@ scaffolder.prototype.scaffold = function (args) {
 		// Reject if directory already exists
 		if (enduro_helpers.dir_exists_sync(scaffolding_destination) && !flags.force) {
 			reject('requested directory already exists')
-			return kiska_logger.err_block('\tdirectory already existss')
+			return kiska_logger.err_block('\tdirectory already exists')
 		}
 
 		log_clusters.log('creating_project', {project_name: project_name})

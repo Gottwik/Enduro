@@ -101,7 +101,7 @@ pagelist_generator.prototype.generate_cms_list = function () {
 					folder.folder = true
 					folder.fullpath = '/' + fullpath.join('/')
 					folder.name = format_service.prettify_string(pagepath[0])
-					folder.slug = pagepath[0].toString()
+					folder.folder_slug = pagepath[0].toString()
 
 					if (fullpath[0] == 'generators' && pagepath.length != fullpath.length) {
 						folder.generator = true

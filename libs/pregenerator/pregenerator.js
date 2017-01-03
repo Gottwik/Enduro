@@ -45,14 +45,14 @@ pregenerators['settings'] = function () {
 			}
 
 			var template = __templating_engine.compile(raw_template)
-
-			var rendered_css_file = template(__data.global.settings)
-
-			enduro_helpers.ensure_directory_existence(css_settings_destination_file_path)
-				.then(() => {
-					fs.writeFile(css_settings_destination_file_path, rendered_css_file, () => {
-						resolve()
-					})
+			template(__data.global.settings)
+				.then((rendered_css_file) => {
+					enduro_helpers.ensure_directory_existence(css_settings_destination_file_path)
+						.then(() => {
+							fs.writeFile(css_settings_destination_file_path, rendered_css_file, () => {
+								resolve()
+							})
+						})
 				})
 		})
 

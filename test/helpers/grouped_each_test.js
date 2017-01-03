@@ -1,12 +1,10 @@
 // vendor dependencies
 var expect = require('chai').expect
 
-global.__templating_engine = require('handlebars')
-
 describe('Grouped_each helper', function () {
 
 	it('render empty string if no context is provided', function () {
-		expect(__templating_engine.compile(test_input1)('{{#grouped_each}}aaa{{/grouped_each}}')).to.be.empty
+		expect(__templating_engine.compileSync('{{#grouped_each}}aaa{{/grouped_each}}')()).to.be.empty
 	})
 
 	var test_input1 = '{{#grouped_each 3 list}}a{{#each this}}{{this}}{{/each}}{{/grouped_each}}'
@@ -14,7 +12,10 @@ describe('Grouped_each helper', function () {
 	var test_context1 = {list: [1, 2, 3, 4, 5, 6]}
 
 	it('render every third item', function () {
-		expect(__templating_engine.compile(test_input1)(test_context1)).to.equal(test_output1)
+		__templating_engine.compile(test_input1)(test_context1)
+			.then((compiled_output) => {
+				expect(compiled_output).to.equal(test_output1)
+			})
 	})
 
 	var test_input2 = '{{#grouped_each 3 this}}a{{#each this}}{{this}}{{/each}}{{/grouped_each}}'
@@ -22,7 +23,10 @@ describe('Grouped_each helper', function () {
 	var test_context2 = [1, 2, 3, 4, 5, 6]
 
 	it('render every third item when array is provided', function () {
-		expect(__templating_engine.compile(test_input2)(test_context2)).to.equal(test_output2)
+		__templating_engine.compile(test_input2)(test_context2)
+			.then((compiled_output) => {
+				expect(compiled_output).to.equal(test_output2)
+			})
 	})
 
 	var test_input3 = '{{#grouped_each 2 this}}a{{#each this}}{{this}}{{/each}}{{/grouped_each}}'
@@ -30,7 +34,10 @@ describe('Grouped_each helper', function () {
 	var test_context3 = {a: 1, b: 2, c: 3, d: 4, e: 5, f: 6}
 
 	it('render every third item when object is provided', function () {
-		expect(__templating_engine.compile(test_input3)(test_context3)).to.equal(test_output3)
+		__templating_engine.compile(test_input3)(test_context3)
+			.then((compiled_output) => {
+				expect(compiled_output).to.equal(test_output3)
+			})
 	})
 
 })

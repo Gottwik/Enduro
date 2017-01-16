@@ -263,32 +263,35 @@ function get_juicebox_by_name (juicebox_name) {
 }
 
 function spill_the_juice (juicebox_name, destination) {
-
 	// default destination is the project's root (juicebox has cms folder)
 	destination = destination || path.join(CMD_FOLDER)
 
-	// delete the folder if it exists
-	rimraf(destination, function () {
+	return new Promise(function (resolve, reject) {
 
-		return new Promise(function (resolve, reject) {
+		// delete the folder if it exists
+		rimraf(destination, function () {
 
 			if (!juicebox_name || juicebox_name == '0000.tar.gz') {
 				return resolve()
 			}
 
 			var tarball = path.join(CMD_FOLDER, 'juicebox', juicebox_name)
+
 			if (enduro_helpers.file_exists_sync(tarball)) {
+				var tar_extract = tar.Extract({
+					path: destination,
+				})
+
 				fs.createReadStream(tarball)
 					.pipe(zlib.Unzip())
-					.pipe(tar.Extract({
-						path: destination,
-					}))
-					.on('end', function () {
-						resolve()
-					})
+					.pipe(tar_extract)
 					.on('error', function () {
 						console.log('asd')
 					})
+
+				tar_extract.on('finish', () => {
+					resolve()
+				})
 			}
 		})
 	})

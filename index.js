@@ -30,6 +30,7 @@ global.START_PATH = ''
 global.flags = {}
 global.abstractors = {}
 global.markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
+global.enduro = require(ENDURO_FOLDER + '/libs/linker/linker') // exposes enduro's libraries for app development
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')

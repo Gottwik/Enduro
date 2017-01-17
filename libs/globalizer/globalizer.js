@@ -9,12 +9,12 @@ var globalizer_handler = function () {}
 
 // decides whether control object is a globalizer
 function is_globalizer (content_object) {
-	return content_object.substring && (content_object.substring(0, 2) == '@@' || content_object.substring(0, 3) == '!@')
+	return content_object && content_object.substring && (content_object.substring(0, 2) == '@@' || content_object.substring(0, 3) == '!@')
 }
 
 // decides whether globalizer is is_shallow
 function is_shallow (content_object) {
-	return content_object.substring && (content_object.substring(0, 3) == '!@')
+	return content_object && content_object.substring && (content_object.substring(0, 3) == '!@')
 }
 
 // recursive function that injects the linked controls
@@ -30,7 +30,7 @@ function globalize (context, root_context) {
 
 		// stores whether object is a shallow globalizer
 		var is_object_shallow_globalizer = is_shallow(context[key])
-		if (is_globalizer(context[key])) {
+		if (typeof context[key] !== 'function' && is_globalizer(context[key])) {
 
 			// fetches the context behind the link
 			var routed_context = context[key].substring(2).split('.').reduce((prev, next) => {

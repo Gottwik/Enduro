@@ -31,7 +31,6 @@ abstractor.prototype.init = function () {
 				var abstractor_name = path.basename(files[f], '.js')
 
 				global.abstractors[abstractor_name] = require(files[f])
-
 				// check if abstractor has an init function
 				if (abstractors[abstractor_name].init) {
 					abstraction_inits.push(abstractors[abstractor_name].init())
@@ -83,9 +82,9 @@ abstractor.prototype.abstract_file = function (filename) {
 abstractor.prototype.abstract_context = function (context) {
 	return new Promise(function (resolve, reject) {
 		deep_abstract(context)
-		.then(() => {
-			resolve(context)
-		})
+			.then(() => {
+				resolve(context)
+			})
 	})
 }
 
@@ -94,8 +93,7 @@ function deep_abstract (context) {
 	var abstraction_list = []
 
 	for (c in context) {
-
-		if (c in abstractors) {
+		if (c in abstractors && typeof context[c] !== 'function') {
 			abstraction_list.push(abstractors[c].abstract(context))
 		}
 

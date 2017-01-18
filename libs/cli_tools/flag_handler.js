@@ -37,6 +37,10 @@ var FLAG_MAP = {
 		label: 'nocompile',
 		message: 'will not compile anything - just serve built files'
 	},
+	nojuice: {
+		label: 'nojuice',
+		message: 'will turn off juicebox'
+	},
 }
 
 // * ———————————————————————————————————————————————————————— * //

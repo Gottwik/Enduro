@@ -39,7 +39,7 @@ enduro_configurator.prototype.read_config = function () {
 		global.config.variables.S3_KEY = (global.config.secret && global.config.secret.s3 && global.config.secret.s3.S3_KEY) || process.env.S3_KEY
 		global.config.variables.S3_SECRET = (global.config.secret && global.config.secret.s3 && global.config.secret.s3.S3_SECRET) || process.env.S3_SECRET
 
-		global.config.variables.juicebox_enabled = (global.config.project_name && global.config.variables.S3_KEY && global.config.variables.S3_SECRET) && !config.disable_juicebox
+		global.config.variables.juicebox_enabled = (global.config.project_name && global.config.variables.S3_KEY && global.config.variables.S3_SECRET) && !config.disable_juicebox && !flags.nojuice
 
 		return Promise.resolve()
 	})

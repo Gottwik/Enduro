@@ -16,7 +16,7 @@ var fs = require('fs')
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var temper = require(ENDURO_FOLDER + '/libs/temper/temper')
 
 // routed call
@@ -39,7 +39,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 		// makes sure all required query parameters were sent
 		if (!sid || !filename || !content) {
 			res.send({success: false, message: 'Parameters not provided'})
-			return kiska_logger.err('parameters not provided')
+			return logger.err('parameters not provided')
 		}
 
 		admin_sessions.get_user_by_session(sid)

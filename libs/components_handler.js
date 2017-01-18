@@ -12,7 +12,7 @@ var async = require('async')
 var glob = require('glob')
 
 // local dependencies
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	read components
@@ -28,7 +28,7 @@ components_handler.prototype.read_components = function () {
 		// fetches the files
 		glob(components_path, function (err, files) {
 			if (err) {
-				kiska_logger.err_block(err)
+				logger.err_block(err)
 				return reject()
 			}
 
@@ -42,19 +42,19 @@ components_handler.prototype.read_components = function () {
 				// reads the file. @data stores the component's raw contents
 				fs.readFile(file, 'utf8', function (err, data) {
 					if (err) {
-						kiska_logger.err_block(err)
+						logger.err_block(err)
 						return reject(err)
 					}
 
 					// register the component
 					__templating_engine.registerPartial(filename.toLowerCase(), data)
-					kiska_logger.twolog('component ' + filename, 'registered', 'enduro_render_events')
+					logger.twolog('component ' + filename, 'registered', 'enduro_render_events')
 					callback()
 				})
 			}, function () {
 
 				// after all components are loaded
-				kiska_logger.line('enduro_render_events')
+				logger.line('enduro_render_events')
 				resolve()
 			})
 		})

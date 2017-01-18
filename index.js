@@ -36,7 +36,7 @@ global.enduro = require(ENDURO_FOLDER + '/libs/linker/linker') // exposes enduro
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var enduro_configurator = require(ENDURO_FOLDER + '/libs/enduro_configurator')
 var scaffolder = require(ENDURO_FOLDER + '/libs/scaffolder')
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var global_data = require(ENDURO_FOLDER + '/libs/global_data')
 var helper_handler = require(ENDURO_FOLDER + '/libs/helper_handler')
 var components_handler = require(ENDURO_FOLDER + '/libs/components_handler')
@@ -61,7 +61,7 @@ if (!enduro_helpers.dir_exists_sync(ADMIN_FOLDER)) {
 
 // gets gulp tasks and extend it with refresh function which will render enduro
 gulp.set_refresh(function (callback) {
-	kiska_logger.log('Refresh', true, 'enduro_render_events')
+	logger.log('Refresh', true, 'enduro_render_events')
 	render(function () {
 		callback()
 	}, true)
@@ -71,7 +71,7 @@ enduro_server.set_init(function (cb) {
 	var first_production_render = true
 	var first_production = true
 
-	kiska_logger.log('initializing production server', true, 'enduro_render_events')
+	logger.log('initializing production server', true, 'enduro_render_events')
 	gulp.start('preproduction', () => {
 		if (first_production_render) {
 			render(function () {
@@ -88,7 +88,7 @@ enduro_server.set_init(function (cb) {
 })
 
 enduro_server.set_refresh(function (cb) {
-	kiska_logger.log('refreshing production server', true, 'enduro_render_events')
+	logger.log('refreshing production server', true, 'enduro_render_events')
 	render(function () {
 		cb()
 	})
@@ -211,7 +211,7 @@ function run (args, flags) {
 			}
 
 			// some weird arguments
-			kiska_logger.log('Arguments not recognized')
+			logger.log('Arguments not recognized')
 			return new Promise(function (resolve, reject) { reject('not recognized') })
 
 		})
@@ -221,7 +221,7 @@ function run (args, flags) {
 // * 	render
 // * ———————————————————————————————————————————————————————— * //
 function render (callback, dont_do_juice_pull) {
-	kiska_logger.init('Enduro', 'enduro_render_events')
+	logger.init('Enduro', 'enduro_render_events')
 
 	Promise.resolve()
 		.then(() => {
@@ -256,7 +256,7 @@ function render (callback, dont_do_juice_pull) {
 			return enduro_render.render()
 		})
 		.then(() => {
-			kiska_logger.end('enduro_render_events')
+			logger.end('enduro_render_events')
 			if (callback) {
 				callback()
 			}
@@ -277,16 +277,16 @@ function developer_start () {
 
 		log_clusters.log('developer_start')
 
-		kiska_logger.timestamp('developer start', 'enduro_events')
+		logger.timestamp('developer start', 'enduro_events')
 		// Does the refresh procedure
 		gulp.start('preproduction', () => {
 			if (first) {
 				render(() => {
-					kiska_logger.timestamp('Render finished', 'enduro_events')
+					logger.timestamp('Render finished', 'enduro_events')
 					if (firstrender) {
 						gulp.start(flags.norefresh ? 'default_norefresh' : 'default', () => {
 							if (firstserverstart && !flags.noadmin) {
-								kiska_logger.timestamp('production server starting', 'enduro_events')
+								logger.timestamp('production server starting', 'enduro_events')
 								resolve()
 								// start production server in development mode
 								enduro_server.run({development_mode: true})
@@ -310,7 +310,7 @@ function server_stop (cb) {
 
 // Removes all logging
 function silent () {
-	kiska_logger.silent()
+	logger.silent()
 }
 
 exports.run = run

@@ -34,7 +34,7 @@ describe('Pregeneration', function () {
 		expect(enduro_helpers.file_exists_sync(settings_css_filepath)).to.be.ok
 
 		fs.readFile(settings_css_filepath, 'utf8', function (err, data) {
-			if (err) { return kiska_logger.err(err) }
+			if (err) { return logger.err(err) }
 			expect(data).to.contain('full-background')
 			done()
 		})

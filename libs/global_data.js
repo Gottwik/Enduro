@@ -13,7 +13,7 @@ var extend = require('extend')
 var glob = require('multi-glob').glob
 
 // Local dependencies
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 
@@ -29,7 +29,7 @@ global_data.prototype.get_global_data = function () {
 		// Fetches the files
 		glob(data_path, function (err, files) {
 			if (err) {
-				kiska_logger.block(err, 'enduro_render_events')
+				logger.block(err, 'enduro_render_events')
 				reject()
 			}
 
@@ -49,7 +49,7 @@ global_data.prototype.get_global_data = function () {
 							// Extends global data with currently loaded data
 							extend(true, __data.global, data)
 
-							kiska_logger.twolog('global ' + filename, 'loaded', 'enduro_render_events')
+							logger.twolog('global ' + filename, 'loaded', 'enduro_render_events')
 							callback()
 						}, () => {
 							callback()
@@ -58,7 +58,7 @@ global_data.prototype.get_global_data = function () {
 
 			}, () => {
 				// After all global files are loaded
-				kiska_logger.line('', 'enduro_render_events')
+				logger.line('', 'enduro_render_events')
 				resolve()
 			})
 		})

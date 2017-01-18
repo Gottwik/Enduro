@@ -11,7 +11,7 @@ var fs = require('fs')
 var mkdirp = require('mkdirp')
 
 // local dependencies
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // Checks if file exists
 enduro_helpers.prototype.file_exists_sync = function (file_path) {
@@ -56,7 +56,7 @@ function ensure_directory_existence (file_path) {
 	return new Promise(function (resolve, reject) {
 		mkdirp(file_path, function (err) {
 			if (err) {
-				kiska_logger.err_block(err)
+				logger.err_block(err)
 				return reject()
 			}
 			resolve()

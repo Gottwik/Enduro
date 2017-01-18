@@ -2,7 +2,7 @@
 // * 	Kiska Logger
 // *	Enables nicer console logging for enduro
 // * ———————————————————————————————————————————————————————— * //
-var kiska_logger = function () {}
+var logger = function () {}
 
 // vendor dependencies
 var chalk = require('chalk')
@@ -37,14 +37,14 @@ var logtags_config = {
 // * ———————————————————————————————————————————————————————— * //
 
 // * ┌——————————————~—ENDURO - CREATING PROJECT—~———————————————┐ * //
-kiska_logger.prototype.init = function (message, logtag) {
+logger.prototype.init = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	message = message || 'ENDURO'
 	log('\n' + chalk.cyan('┌' + ('~—' + message + '—~').cpad(FRAME_WIDTH - 2, '—') + '┐'))
 }
 
 // * │ I have something to tell you                             │ * //
-kiska_logger.prototype.log = function (message, newline, logtag) {
+logger.prototype.log = function (message, newline, logtag) {
 	if (typeof newline === 'string') {
 		logtag = newline
 		newline = false
@@ -56,32 +56,32 @@ kiska_logger.prototype.log = function (message, newline, logtag) {
 }
 
 // * │     same as log but with a tab                           │ * //
-kiska_logger.prototype.tablog = function (message, newline, logtag) {
+logger.prototype.tablog = function (message, newline, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	this.log(rep(TAB_WIDTH) + message, newline)
 }
 
 // * │ Something                                       Happened │ * //
-kiska_logger.prototype.twolog = function (message, right_message, logtag) {
+logger.prototype.twolog = function (message, right_message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	if (!right_message) { return log(message, logtag) }
 	log(chalk.cyan('│') + rpad(' ' + message, FRAME_WIDTH - 3 - right_message.length) + right_message + chalk.cyan(' │'))
 }
 
 // * ├——————————————————————————————————————————————————————————┤ * //
-kiska_logger.prototype.line = function (logtag) {
+logger.prototype.line = function (logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	log(chalk.cyan('├' + rep(FRAME_WIDTH - 2, '—') + '┤'))
 }
 
 // * └——————————————————————————————————————————————————————————┘ * //
-kiska_logger.prototype.end = function (logtag) {
+logger.prototype.end = function (logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	log(chalk.cyan('└' + rep(FRAME_WIDTH - 2, '—') + '┘'))
 }
 
 // * [10:25:30] same as log but with a tab                           * //
-kiska_logger.prototype.timestamp = function (message, logtag) {
+logger.prototype.timestamp = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	log('[' + chalk.cyan(get_timestamp()) + '] ' + message)
 }
@@ -93,7 +93,7 @@ kiska_logger.prototype.timestamp = function (message, logtag) {
 // * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ * //
 // * directory already exists                                     * //
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
-kiska_logger.prototype.err_block = function (message, logtag) {
+logger.prototype.err_block = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	log('\n' + chalk.red(rep(FRAME_WIDTH, '▼')))
 	this.err(message)
@@ -101,33 +101,33 @@ kiska_logger.prototype.err_block = function (message, logtag) {
 }
 
 // * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ ERROR ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ * //
-kiska_logger.prototype.err_blockStart = function (message, logtag) {
+logger.prototype.err_blockStart = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	log('\n')
 	log(chalk.red((' ' + message + ' ').cpad(FRAME_WIDTH, '▼')))
 }
 
 // * │ Something went wrong                                     │ * //
-kiska_logger.prototype.err = function (message, logtag) {
+logger.prototype.err = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	if (!message) { return }
 	log(chalk.red(rpad(message, FRAME_WIDTH)))
 }
 
 // * │ Something                                       Happened │ * //
-kiska_logger.prototype.twoerr = function (message, left_message, logtag) {
+logger.prototype.twoerr = function (message, left_message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	log(chalk.red('│') + chalk.red(rpad(' ' + message, FRAME_WIDTH - 3 - left_message.length) + left_message) + chalk.red(' │'))
 }
 
 // * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ * //
-kiska_logger.prototype.err_blockEnd = function (logtag) {
+logger.prototype.err_blockEnd = function (logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	log(chalk.red(rep(FRAME_WIDTH, '▲')))
 	log('\n')
 }
 
-kiska_logger.prototype.raw_err = function (message, logtag) {
+logger.prototype.raw_err = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	this.err_blockStart()
 	console.log(message)
@@ -135,7 +135,7 @@ kiska_logger.prototype.raw_err = function (message, logtag) {
 }
 
 // Silencer
-kiska_logger.prototype.silent = function (logtag) {
+logger.prototype.silent = function (logtag) {
 	log = () => {}
 }
 
@@ -193,4 +193,4 @@ function rep (len, char) {
 		: ''
 }
 
-module.exports = new kiska_logger()
+module.exports = new logger()

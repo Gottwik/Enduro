@@ -11,7 +11,7 @@ var glob = require('multi-glob').glob
 var path = require('path')
 
 // local dependencies
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // constants
 var ENDURO_HELPERS_PATH = path.join(__dirname, '..', 'hbs_helpers/**/*.js')
@@ -30,10 +30,10 @@ helper_handler.prototype.read_helpers = function () {
 				var fileReg = file.match(/([^\\/]+)\.([^\\/]+)$/)
 				var filename = fileReg[1]
 				require(file)
-				kiska_logger.twolog('helper ' + filename, 'registered', 'enduro_render_events')
+				logger.twolog('helper ' + filename, 'registered', 'enduro_render_events')
 				callback()
 			}, function () {
-				kiska_logger.line('enduro_render_events')
+				logger.line('enduro_render_events')
 				resolve()
 			})
 		})

@@ -10,7 +10,7 @@ var path = require('path')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var remote_handler = require(ENDURO_FOLDER + '/libs/remote_tools/remote_handler')
 
 // constants
@@ -26,7 +26,7 @@ admin_file_upload_handler.prototype.upload = function (file) {
 }
 
 function uploadfile_local (file) {
-	kiska_logger.timestamp('Uploading file to local storage', 'file_uploading')
+	logger.timestamp('Uploading file to local storage', 'file_uploading')
 	return new Promise(function (resolve, reject) {
 		var destination_path = CMD_FOLDER + UPLOADS_FOLDER + '/' + (new Date() / 1e3 | 0) + '_' + file.name
 		var destination_src_path = path.join(CMD_FOLDER, '_src', UPLOADS_FOLDER, (new Date() / 1e3 | 0) + '_' + file.name)
@@ -43,7 +43,7 @@ function uploadfile_local (file) {
 							console.log(err)
 							return reject(err)
 						}
-						kiska_logger.timestamp('file was uploaded ' + destination_url, 'file_uploading')
+						logger.timestamp('file was uploaded ' + destination_url, 'file_uploading')
 						resolve(destination_url)
 					})
 			})

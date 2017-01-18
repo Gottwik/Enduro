@@ -8,7 +8,7 @@ var Promise = require('bluebird')
 var crypto = require('crypto')
 
 // local dependencies
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 
 // constants
@@ -139,7 +139,7 @@ admin_security.prototype.add_admin = function (username, password, tags) {
 
 		self.get_user_by_username(logincontext.username)
 			.then(() => {
-				kiska_logger.err_block('User \'' + username + '\' already exists')
+				logger.err_block('User \'' + username + '\' already exists')
 				reject()
 			}, () => {
 				salt_and_hash(logincontext)
@@ -150,14 +150,14 @@ admin_security.prototype.add_admin = function (username, password, tags) {
 			.then(() => {
 
 				// Let the user know the project was created successfully
-				kiska_logger.init('ENDURO - Creating admin user')
-				kiska_logger.log('Username:', false)
-				kiska_logger.tablog(username, true)
-				kiska_logger.log('Password:', false)
-				kiska_logger.tablog(password, true)
-				kiska_logger.line()
-				kiska_logger.log('Don\'t forget to change password!', false)
-				kiska_logger.end()
+				logger.init('ENDURO - Creating admin user')
+				logger.log('Username:', false)
+				logger.tablog(username, true)
+				logger.log('Password:', false)
+				logger.tablog(password, true)
+				logger.line()
+				logger.log('Don\'t forget to change password!', false)
+				logger.end()
 				resolve()
 			})
 	})

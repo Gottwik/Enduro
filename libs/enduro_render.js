@@ -8,13 +8,13 @@ var enduro_render = function () {}
 var Promise = require('bluebird')
 
 // local dependencies
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var page_renderer = require(ENDURO_FOLDER + '/libs/page_rendering/page_renderer')
 var page_queue_generator = require(ENDURO_FOLDER + '/libs/page_rendering/page_queue_generator')
 
 // Goes through the pages and renders them
 enduro_render.prototype.render = function () {
-	kiska_logger.timestamp('Render started', 'enduro_events')
+	logger.timestamp('Render started', 'enduro_events')
 
 	// gets list of pages to be generated
 	return page_queue_generator.generate_pagelist()

@@ -59,7 +59,7 @@ function read_config_file (config_file, default_config) {
 			// Reads the configuration file
 			fs.readFile(config_file, function read (err, data) {
 				if (err) {
-					kiska_logger.err_block(err)
+					logger.err_block(err)
 					return reject()
 				}
 

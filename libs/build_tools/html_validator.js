@@ -10,17 +10,17 @@ var async = require('async')
 var fs = require('fs')
 var glob = require('glob')
 
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // Creates all subdirectories neccessary to create the file in filepath
 htmlvalidator.prototype.init = function (gulp) {
 	gulp.task('htmlvalidator', function (cb) {
 		glob(CMD_FOLDER + '/pages/**/*.hbs', function (err, files) {
 			if (err) {
-				kiska_logger.err(err)
+				logger.err(err)
 			}
 
-			kiska_logger.init('Validating pages')
+			logger.init('Validating pages')
 
 			files = files.map((file) => {
 				return file.match('/pages/(.*).hbs')[1]
@@ -38,9 +38,9 @@ htmlvalidator.prototype.init = function (gulp) {
 						}
 						data = JSON.parse(data)
 						if (data['messages'] && data['messages'].length == 0) {
-							kiska_logger.twolog('✓ ' + pagepath, 'ok')
+							logger.twolog('✓ ' + pagepath, 'ok')
 						} else {
-							kiska_logger.twoerr('✗ ' + pagepath, 'not ok')
+							logger.twoerr('✗ ' + pagepath, 'not ok')
 						}
 						callback()
 					})
@@ -48,7 +48,7 @@ htmlvalidator.prototype.init = function (gulp) {
 				})
 			}, () => {
 				// After all global files are loaded
-				kiska_logger.end()
+				logger.end()
 				cb()
 			})
 

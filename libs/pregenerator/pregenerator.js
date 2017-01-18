@@ -10,7 +10,7 @@ var fs = require('fs')
 var path = require('path')
 
 // local dependencies
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var babel = require(global.ENDURO_FOLDER + '/libs/babel/babel')
 
@@ -41,7 +41,7 @@ pregenerators['settings'] = function () {
 		// load the css template
 		fs.readFile(settings_template_path, 'utf8', function read (err, raw_template) {
 			if (err) {
-				kiska_logger.err_block(err)
+				logger.err_block(err)
 			}
 
 			var template = __templating_engine.compile(raw_template)
@@ -72,7 +72,7 @@ pregenerators['cultures'] = function () {
 			.then(() => {
 				fs.writeFile(cultures_json_destionation_path, JSON.stringify(cultures), function (err) {
 					if (err) {
-						kiska_logger.err(err)
+						logger.err(err)
 					}
 					resolve()
 				})

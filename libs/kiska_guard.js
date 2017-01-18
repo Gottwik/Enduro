@@ -16,7 +16,7 @@ var fs = require('fs')
 var passwordHash = require('password-hash')
 
 // local dependencies
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
 // constants
@@ -49,7 +49,7 @@ kiska_guard.prototype.set_passphrase = function (args) {
 		// No passphrase given
 		if (!args.length) {
 			reject('No passphrase provided')
-			return kiska_logger.err('\nProvide an passphrase \n\n\t$ enduro secure catthrewupagain\n')
+			return logger.err('\nProvide an passphrase \n\n\t$ enduro secure catthrewupagain\n')
 		}
 
 		// Stores the passphrase
@@ -57,10 +57,10 @@ kiska_guard.prototype.set_passphrase = function (args) {
 
 		fs.writeFile(CMD_FOLDER + '/' + SECURE_FILE, passphrase, function (err) {
 			if (err) {
-				return kiska_logger.err(err)
+				return logger.err(err)
 			}
 
-			kiska_logger.log('Enduro project is secure now')
+			logger.log('Enduro project is secure now')
 			resolve()
 		})
 	})
@@ -79,7 +79,7 @@ kiska_guard.prototype.verify_passphrase = function (passphrase) {
 		}
 		// Reads the security file
 		fs.readFile(CMD_FOLDER + '/' + SECURE_FILE, function read (err, data) {
-			if (err) { return kiska_logger.err(err) }
+			if (err) { return logger.err(err) }
 
 			// Compares the hashed passphrase, sets session flag and resolves if successful
 			if (passwordHash.verify(passphrase, data.toString())) {

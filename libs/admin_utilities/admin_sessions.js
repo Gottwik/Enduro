@@ -9,7 +9,7 @@ var moment = require('moment')
 
 // local dependencies
 var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // constants
 var SESSION_LIFETIME = 30 // in minutes
@@ -18,7 +18,7 @@ admin_sessions.prototype.create_session = function (req, user) {
 	return new Promise(function (resolve, reject) {
 		global.admin_sessions_store = global.admin_sessions_store || {}
 
-		kiska_logger.timestamp('creating session for: ' + JSON.stringify(user), 'admin_login')
+		logger.timestamp('creating session for: ' + JSON.stringify(user), 'admin_login')
 
 		session = {}
 		session.success = true
@@ -36,7 +36,7 @@ admin_sessions.prototype.create_session = function (req, user) {
 admin_sessions.prototype.get_user_by_session = function (sid) {
 	global.admin_sessions_store = global.admin_sessions_store || {}
 
-	kiska_logger.timestamp('getting user by session', 'admin_login')
+	logger.timestamp('getting user by session', 'admin_login')
 
 	// session is not there
 	if (!(sid in global.admin_sessions_store)) {

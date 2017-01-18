@@ -9,7 +9,7 @@ var api_call = function () {}
 
 // local dependencies
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
@@ -20,7 +20,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 	// if no session provided
 	if (!sid) {
 		res.send({success: false, message: 'no sessionid provided'})
-		return kiska_logger.err('login with no session id')
+		return logger.err('login with no session id')
 	}
 
 	// check for session

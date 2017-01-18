@@ -13,7 +13,7 @@ var api_call = function () {}
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var admin_rights = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_rights')
 
 // routed call
@@ -36,7 +36,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 		// makes sure all required query parameters were sent
 		if (!sid || !filename || !content) {
 			res.send({success: false, message: 'Parameters not provided'})
-			return kiska_logger.err('parameters not provided')
+			return logger.err('parameters not provided')
 		}
 
 		var requesting_user

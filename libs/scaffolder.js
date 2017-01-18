@@ -11,7 +11,7 @@ var ncp = require('ncp').ncp // Handles copying files
 var path = require('path')
 
 // local variables
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
 var glob = require('glob')
@@ -31,7 +31,7 @@ scaffolder.prototype.scaffold = function (args) {
 
 		// No project name given
 		if (!args.length) {
-			kiska_logger.err('\nProvide project name as \n\n\t$ enduro create projectname\n')
+			logger.err('\nProvide project name as \n\n\t$ enduro create projectname\n')
 			return reject('no project name was specified')
 		}
 
@@ -50,7 +50,7 @@ scaffolder.prototype.scaffold = function (args) {
 		// Reject if directory already exists
 		if (enduro_helpers.dir_exists_sync(scaffolding_destination) && !flags.force) {
 			reject('requested directory already exists')
-			return kiska_logger.err_block('\tdirectory already exists')
+			return logger.err_block('\tdirectory already exists')
 		}
 
 		log_clusters.log('creating_project', {project_name: project_name})
@@ -60,7 +60,7 @@ scaffolder.prototype.scaffold = function (args) {
 			if (err) {
 				// Something went wrong with the copying
 				reject('creating new files failed')
-				return kiska_logger.err_block(err)
+				return logger.err_block(err)
 			}
 
 			// Let the user know the project was created successfully
@@ -85,17 +85,17 @@ function get_scaffolding_path_by_name (scaffolding_name) {
 }
 
 function non_existent_scaffoling_logout (scaffolding_name) {
-	kiska_logger.err_blockStart('Scaffolding does not exist')
-	kiska_logger.err('Scaffolding with name ' + scaffolding_name + ' does not exist')
-	kiska_logger.err('\nChoose from these scaffoldings:\n')
+	logger.err_blockStart('Scaffolding does not exist')
+	logger.err('Scaffolding with name ' + scaffolding_name + ' does not exist')
+	logger.err('\nChoose from these scaffoldings:\n')
 
 	var scaffoldings = glob.sync(path.join(ENDURO_FOLDER, 'scaffolding', '*'))
 	for (var s in scaffoldings) {
-		kiska_logger.err('\t' + scaffoldings[s].match(/\/([^\/]*)$/)[1])
+		logger.err('\t' + scaffoldings[s].match(/\/([^\/]*)$/)[1])
 	}
 
-	kiska_logger.err('\n')
-	kiska_logger.err_blockEnd()
+	logger.err('\n')
+	logger.err_blockEnd()
 }
 
 module.exports = new scaffolder()

@@ -9,7 +9,7 @@ var Promise = require('bluebird')
 var s3 = require('s3')
 
 // local dependencies
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 remote_handler.prototype.upload_to_s3_by_file = function (file, timestamp) {
 	var filename = timestamp ? timestamp_filename(file.name) : file.name
@@ -29,7 +29,7 @@ function timestamp_filename (filename) {
 }
 
 function s3_upload (filename, filepath) {
-	// kiska_logger.timestamp('Uploading file to s3','file_uploading')
+	// logger.timestamp('Uploading file to s3','file_uploading')
 	return new Promise(function (resolve, reject) {
 
 		var destination_url = get_remote_url(filename)
@@ -66,7 +66,7 @@ function s3_upload (filename, filepath) {
 		})
 
 		uploader.on('end', function () {
-			kiska_logger.timestamp('File uploaded successfully: ' + destination_url)
+			logger.timestamp('File uploaded successfully: ' + destination_url)
 			return resolve(destination_url)
 		})
 

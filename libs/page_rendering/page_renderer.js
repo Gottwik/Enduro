@@ -12,7 +12,7 @@ var path = require('path')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 var globalizer = require(ENDURO_FOLDER + '/libs/globalizer/globalizer')
@@ -30,7 +30,7 @@ page_renderer.prototype.render_file = function (file, context_filename, culture,
 			.then((context) => {
 				return self.render_file_by_context(file, context, culture)
 			}, () => {
-				kiska_logger.err('something went wrong attempting to locate file: ' + file)
+				logger.err('something went wrong attempting to locate file: ' + file)
 				throw new Error('abort promise chain')
 			})
 			.then((output) => {
@@ -39,9 +39,9 @@ page_renderer.prototype.render_file = function (file, context_filename, culture,
 					.then(function () {
 						// Attempts to export the file
 						fs.writeFile(CMD_FOLDER + '/_src/' + destination_path + '.html', output, function (err) {
-							if (err) { return kiska_logger.err_block(err) }
+							if (err) { return logger.err_block(err) }
 
-							kiska_logger.twolog('page ' + destination_path, 'created', 'enduro_render_events')
+							logger.twolog('page ' + destination_path, 'created', 'enduro_render_events')
 							resolve()
 						})
 					})
@@ -53,7 +53,7 @@ page_renderer.prototype.render_file_by_context = function (file, context, cultur
 	return new Promise(function (resolve, reject) {
 	// Attempts to read the file
 		fs.readFile(file, 'utf8', function (err, raw_template) {
-			if (err) { return kiska_logger.err_block(err) }
+			if (err) { return logger.err_block(err) }
 
 			// Creates a template
 			var template = __templating_engine.compile(raw_template)
@@ -84,7 +84,7 @@ page_renderer.prototype.render_file_by_context = function (file, context, cultur
 			try {
 				output = template(babel.culturalize(context, culture))
 			} catch (e) {
-				kiska_logger.err_block('Page: ' + filename + '\n' + e.message)
+				logger.err_block('Page: ' + filename + '\n' + e.message)
 			}
 
 			// output raw templates if render_templates setting is set to false. Defaults to true

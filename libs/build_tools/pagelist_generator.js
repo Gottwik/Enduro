@@ -18,7 +18,7 @@ var extend = require('extend')
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // constants
 var PAGELIST_DESTINATION = CMD_FOLDER + '/_src/_prebuilt/cmslist.json'
@@ -171,7 +171,7 @@ pagelist_generator.prototype.get_cms_list = function () {
 	return new Promise(function (resolve, reject) {
 		if (enduro_helpers.file_exists_sync(PAGELIST_DESTINATION)) {
 			fs.readJson(PAGELIST_DESTINATION, function (err, cmslist) {
-				if (err) { kiska_logger.err(err) }
+				if (err) { logger.err(err) }
 				resolve(cmslist)
 			})
 		} else {

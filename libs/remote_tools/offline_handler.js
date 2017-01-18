@@ -12,7 +12,7 @@ var fs = require('fs')
 var path = require('path')
 
 // local dependencies
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -67,7 +67,7 @@ function parse_for_external_links (link) {
 
 function download_external_resource (external_link) {
 	return new Promise(function (resolve, reject) {
-		kiska_logger.twolog('Downloading ', external_link)
+		logger.twolog('Downloading ', external_link)
 
 		// handle https
 		external_link = external_link.replace(/^https/, 'http')

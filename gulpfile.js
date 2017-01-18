@@ -4,7 +4,7 @@ var browser_sync = require('browser-sync').create()
 var sass = require('gulp-sass')
 var fs = require('fs')
 var bulkSass = require('gulp-sass-bulk-import')
-var kiska_logger = require('./libs/kiska_logger')
+var logger = require('./libs/logger')
 var scsslint = require('gulp-scss-lint')
 var spritesmith = require('gulp.spritesmith')
 var sourcemaps = require('gulp-sourcemaps')
@@ -33,7 +33,7 @@ gulp.set_refresh = function (callback) {
 }
 
 gulp.enduro_refresh = function () {
-	kiska_logger.err('refresh not defined')
+	logger.err('refresh not defined')
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -52,7 +52,7 @@ gulp.task('browser_sync_stop', [], function () {
 })
 
 function browsersync_start (norefresh) {
-	kiska_logger.timestamp('browsersync started', 'enduro_events')
+	logger.timestamp('browsersync started', 'enduro_events')
 	browser_sync.init({
 		server: {
 			baseDir: CMD_FOLDER + '/_src',
@@ -123,16 +123,16 @@ function browsersync_start (norefresh) {
 // *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('sass', function () {
-	kiska_logger.timestamp('Sass compiling started', 'enduro_events')
+	logger.timestamp('Sass compiling started', 'enduro_events')
 
 	return gulp.src(CMD_FOLDER + '/assets/css/*.scss')
 		.pipe(bulkSass())
 		.pipe(sourcemaps.init())
 		.pipe(sass())
 		.on('error', function (err) {
-			kiska_logger.err_blockStart('Sass error')
-			kiska_logger.err(err.message)
-			kiska_logger.err_blockEnd()
+			logger.err_blockStart('Sass error')
+			logger.err(err.message)
+			logger.err_blockEnd()
 			this.emit('end')
 		})
 		.pipe(autoprefixer({
@@ -143,7 +143,7 @@ gulp.task('sass', function () {
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/css'))
 		.pipe(browser_sync.stream())
 		.on('end', () => {
-			kiska_logger.timestamp('Sass compiling finished', 'enduro_events')
+			logger.timestamp('Sass compiling finished', 'enduro_events')
 		})
 })
 
@@ -152,18 +152,18 @@ gulp.task('sass', function () {
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('scss-lint', function () {
 	try {
-		kiska_logger.timestamp('Sass lint started', 'enduro_events')
+		logger.timestamp('Sass lint started', 'enduro_events')
 		return gulp.src(path.join(CMD_FOLDER, '/assets/css/**/*'))
 			.pipe(checkGem({gemfile: 'scss-lint'}, scsslint(
 				{
 					'config': path.join(__dirname, '/support_files/scss-lint.yml'),
 				}
 			).on('end', () => {
-				kiska_logger.timestamp('Sass lint finished', 'enduro_events')
+				logger.timestamp('Sass lint finished', 'enduro_events')
 			})))
 
 	} catch (err) {
-		return kiska_logger('No liting. you need to install scss_lint')
+		return logger('No liting. you need to install scss_lint')
 	}
 })
 

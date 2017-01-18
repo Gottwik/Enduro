@@ -16,7 +16,7 @@ var request = require('request')
 var rimraf = require('rimraf')
 
 // local dependencies
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var remote_handler = require(ENDURO_FOLDER + '/libs/remote_tools/remote_handler')
 var juice_helpers = require(ENDURO_FOLDER + '/libs/juicebox/juice_helpers')
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -45,11 +45,11 @@ juicebox.prototype.pull = function (force) {
 
 	// if juicebox is not enabled
 	if (!config.variables.juicebox_enabled) {
-		kiska_logger.err('Juicebox is not set up')
+		logger.err('Juicebox is not set up')
 		return Promise.resolve()
 	}
 
-	kiska_logger.init('Juice pull')
+	logger.init('Juice pull')
 
 	if (flags.force || force) {
 		return get_latest_juice()
@@ -60,7 +60,7 @@ juicebox.prototype.pull = function (force) {
 				return spill_the_juice(latest_juicebox)
 			}, err)
 			.then(() => {
-				kiska_logger.end()
+				logger.end()
 				return Promise.resolve()
 			}, err)
 	} else {
@@ -82,7 +82,7 @@ juicebox.prototype.pull = function (force) {
 			}, err)
 
 			.then(() => {
-				kiska_logger.end()
+				logger.end()
 				return Promise.resolve()
 			}, err)
 	}
@@ -98,7 +98,7 @@ juicebox.prototype.force_pack = function (user) {
 		// Skip juicing if juicing is not enabled(most likely s3 keys are missing)
 		if (!config.variables.juicebox_enabled) {
 			resolve()
-			return kiska_logger.log('juicebox not enabled')
+			return logger.log('juicebox not enabled')
 		}
 
 		get_latest_juice()
@@ -126,9 +126,9 @@ juicebox.prototype.force_pack = function (user) {
 						return remote_handler.upload_to_s3_by_filepath('juicebox/' + juice.latest.hash + EXTENSION, path.join(CMD_FOLDER, 'juicebox', juice.latest.hash + EXTENSION))
 					})
 					.then(() => {
-						kiska_logger.init('Juice pack')
-						kiska_logger.log('packed successfully')
-						kiska_logger.end()
+						logger.init('Juice pack')
+						logger.log('packed successfully')
+						logger.end()
 						resolve()
 					})
 			})
@@ -311,7 +311,7 @@ function get_new_juicefile () {
 
 // handles errors
 function err (err) {
-	kiska_logger.raw_err(err)
+	logger.raw_err(err)
 }
 
 module.exports = new juicebox()

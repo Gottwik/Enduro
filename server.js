@@ -20,7 +20,7 @@ var cookieParser = require('cookie-parser')
 var admin_api = require(ENDURO_FOLDER + '/libs/admin_api')
 var website_app = require(ENDURO_FOLDER + '/libs/website_app')
 var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var ab_tester = require(ENDURO_FOLDER + '/libs/ab_testing/ab_tester')
 
 // constants
@@ -65,7 +65,7 @@ enduro_server.prototype.run = function (server_setup) {
 
 		// starts listening to request on specified port
 		server = app.listen(app.get('port'), function () {
-			kiska_logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
+			logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
 			if (!server_setup.development_mode && !flags.nocompile) {
 				self.enduro_init(() => {
 					resolve()
@@ -78,7 +78,7 @@ enduro_server.prototype.run = function (server_setup) {
 		// forward the app and server to running enduro application
 		website_app.forward(app, server)
 
-		kiska_logger.timestamp('heroku-debug - admin folder: ' + ADMIN_FOLDER, 'heroku_debug')
+		logger.timestamp('heroku-debug - admin folder: ' + ADMIN_FOLDER, 'heroku_debug')
 
 		// serve static files from /_src folder
 		app.use('/admin', express.static(ADMIN_FOLDER))
@@ -100,7 +100,7 @@ enduro_server.prototype.run = function (server_setup) {
 		// handle for all website api calls
 		// kinda works but needs to be properly done
 		app.get('/*', function (req, res, next) {
-			kiska_logger.timestamp('requested: ' + req.url, 'server_usage')
+			logger.timestamp('requested: ' + req.url, 'server_usage')
 			if (!/admin\/(.*)/.test(req.url) && !/assets\/(.*)/.test(req.url)) {
 				if (req.query['pswrd']) {
 					kiska_guard.login(req)

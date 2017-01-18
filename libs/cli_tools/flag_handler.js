@@ -5,7 +5,7 @@
 var flag_handler = function () {}
 
 // local variables
-var kiska_logger = require(ENDURO_FOLDER + '/libs/kiska_logger')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // constants
 var FLAG_MAP = {
@@ -52,7 +52,7 @@ flag_handler.prototype.get_flag_object = function (flags) {
 	for (i in flags) {
 		if (FLAG_MAP[flags[i]]) {
 			flag_object[FLAG_MAP[flags[i]]['label']] = true
-			kiska_logger.err(FLAG_MAP[flags[i]]['message'])
+			logger.err(FLAG_MAP[flags[i]]['message'])
 		}
 	}
 
@@ -60,18 +60,18 @@ flag_handler.prototype.get_flag_object = function (flags) {
 }
 
 flag_handler.prototype.list_flags = function () {
-	kiska_logger.init('available flags')
+	logger.init('available flags')
 
 	var first = true
 	for (f in FLAG_MAP) {
-		!first && kiska_logger.line()
-		kiska_logger.log('-' + f + ': ' + FLAG_MAP[f].label)
-		kiska_logger.log(FLAG_MAP[f].message)
+		!first && logger.line()
+		logger.log('-' + f + ': ' + FLAG_MAP[f].label)
+		logger.log(FLAG_MAP[f].message)
 
 		first = false
 	}
 
-	kiska_logger.end()
+	logger.end()
 }
 
 module.exports = new flag_handler()

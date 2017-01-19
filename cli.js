@@ -10,8 +10,8 @@
 // * ———————————————————————————————————————————————————————— * //
 
 // vendor dependencies
-var path = require("path")
-var fs = require("fs")
+var path = require('path')
+var fs = require('fs')
 
 // Stores all arguments without node and without enduro
 var all_args = process.argv.slice(2)
@@ -32,7 +32,7 @@ var flags = []
 // 	&& !(base = path.basename(arg)).match(/^enduro$|^enduro.js$|^enduro$/)
 // )
 
-for(i in all_args) {
+for (i in all_args) {
 
 	// check if argument is a flag or not
 	all_args[i][0] != '-'
@@ -41,5 +41,4 @@ for(i in all_args) {
 }
 
 // runs index.js file with defined arguments
-require("./index").run(args, flags)
-
+require('./index').run(args, flags)

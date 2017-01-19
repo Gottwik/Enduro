@@ -32,6 +32,8 @@ babel_handler.prototype.get_cultures = function () {
 			// set first culture as starting path
 			START_PATH = cultures_datafile.cultures[0] + '/'
 
+			cultures_datafile.cultures.push('')
+
 			return resolve(cultures_datafile.cultures)
 		})
 	})

@@ -123,7 +123,7 @@ enduro_server.prototype.run = function (server_setup) {
 
 							// serves index.html when empty or culture-only url is provided
 							if (requested_url.length <= 1 || (requested_url.split('/')[1] && config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2)) {
-								requested_url += requested_url[0] == '/' ? 'index' : '/index'
+								requested_url += requested_url.slice(-1) == '/' ? 'index' : '/index'
 							}
 
 							// applies ab testing

@@ -4,7 +4,7 @@ var enduro = require('../index')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
-var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
+var trollhunter = require(ENDURO_FOLDER + '/libs/trollhunter')
 
 describe('Enduro security', function () {
 
@@ -43,7 +43,7 @@ describe('Enduro security', function () {
 	})
 
 	it('should verify the correct passphrase', function (done) {
-		kiska_guard.verify_passphrase('testphrase')
+		trollhunter.verify_passphrase('testphrase')
 			.then(() => {
 				done()
 			}, () => {
@@ -52,7 +52,7 @@ describe('Enduro security', function () {
 	})
 
 	it('should fail to verify the incorrect passphrase', function (done) {
-		kiska_guard.verify_passphrase('notcorrectpassphrase')
+		trollhunter.verify_passphrase('notcorrectpassphrase')
 			.then(() => {
 				done(new Error('Failed to not verify the incorrect passphrase'))
 			}, () => {
@@ -61,7 +61,7 @@ describe('Enduro security', function () {
 	})
 
 	it('should fail to verify the empty passphrase', function (done) {
-		kiska_guard.verify_passphrase()
+		trollhunter.verify_passphrase()
 			.then(() => {
 				done(new Error('Failed to not verify the incorrect passphrase'))
 			}, () => {

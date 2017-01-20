@@ -41,7 +41,7 @@ var global_data = require(ENDURO_FOLDER + '/libs/global_data')
 var helper_handler = require(ENDURO_FOLDER + '/libs/helper_handler')
 var components_handler = require(ENDURO_FOLDER + '/libs/components_handler')
 var enduro_render = require(ENDURO_FOLDER + '/libs/enduro_render')
-var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
+var trollhunter = require(ENDURO_FOLDER + '/libs/trollhunter')
 var js_build = require(ENDURO_FOLDER + '/libs/build_utils/js_build')
 var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
 var gulp = require(ENDURO_FOLDER + '/gulpfile')
@@ -135,7 +135,7 @@ function run (args, flags) {
 				// * 	$ enduro secure passphrasehere
 				// * ———————————————————————————————————————————————————————— * //
 				} else if (arg == 'secure') {
-					return kiska_guard.set_passphrase(args)
+					return trollhunter.set_passphrase(args)
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro build [dev]

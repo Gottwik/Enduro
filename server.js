@@ -19,7 +19,7 @@ var cookieParser = require('cookie-parser')
 // local dependencies
 var admin_api = require(ENDURO_FOLDER + '/libs/admin_api')
 var website_app = require(ENDURO_FOLDER + '/libs/website_app')
-var kiska_guard = require(ENDURO_FOLDER + '/libs/kiska_guard')
+var trollhunter = require(ENDURO_FOLDER + '/libs/trollhunter')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
 var ab_tester = require(ENDURO_FOLDER + '/libs/ab_testing/ab_tester')
 
@@ -103,7 +103,7 @@ enduro_server.prototype.run = function (server_setup) {
 			logger.timestamp('requested: ' + req.url, 'server_usage')
 			if (!/admin\/(.*)/.test(req.url) && !/assets\/(.*)/.test(req.url)) {
 				if (req.query['pswrd']) {
-					kiska_guard.login(req)
+					trollhunter.login(req)
 						.then(() => {
 							var htmlFile = req.url.length > 1 ? req.url.substring(0, req.url.indexOf('?')) : '/'
 							res.redirect(htmlFile)
@@ -111,7 +111,7 @@ enduro_server.prototype.run = function (server_setup) {
 							res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
 						})
 				} else {
-					kiska_guard.login(req)
+					trollhunter.login(req)
 						.then(() => {
 
 							// redirects to a first available culture

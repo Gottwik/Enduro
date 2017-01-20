@@ -8,7 +8,7 @@
 // *	note that this is not secure, and should be used as fast and simple
 // * 	security during development
 // * ———————————————————————————————————————————————————————— * //
-var kiska_guard = function () {}
+var trollhunter = function () {}
 
 // vendor rependencies
 var Promise = require('bluebird')
@@ -27,7 +27,7 @@ var SECURE_FILE = '.enduro_secure'
 // *	@param {http request} req - request used to check if login flag is in the session
 // *	@return {Promise} - Promise with no content. Resolve if login was successfull
 // * ———————————————————————————————————————————————————————— * //
-kiska_guard.prototype.login = function (req) {
+trollhunter.prototype.login = function (req) {
 	var self = this
 	return new Promise(function (resolve, reject) {
 
@@ -43,7 +43,7 @@ kiska_guard.prototype.login = function (req) {
 // *	@param {array} args - args[0] stores the desired passphrase
 // *	@return {Promise} - Promise with no content. Resolve if password setup was successfull
 // * ———————————————————————————————————————————————————————— * //
-kiska_guard.prototype.set_passphrase = function (args) {
+trollhunter.prototype.set_passphrase = function (args) {
 	return new Promise(function (resolve, reject) {
 
 		// No passphrase given
@@ -71,7 +71,7 @@ kiska_guard.prototype.set_passphrase = function (args) {
 // *	@param {string} passphrase - passphrase to be checked against the stored one
 // *	@return {Promise} - Promise with no content. Resolve if password verification was successfull
 // * ———————————————————————————————————————————————————————— * //
-kiska_guard.prototype.verify_passphrase = function (passphrase) {
+trollhunter.prototype.verify_passphrase = function (passphrase) {
 	return new Promise(function (resolve, reject) {
 
 		if (!passphrase) {
@@ -99,7 +99,7 @@ kiska_guard.prototype.verify_passphrase = function (passphrase) {
 // *	@param {function reject} req - failure callback
 // *	@return {null} - calls resolve or reject callback based on if the login was successfull
 // * ———————————————————————————————————————————————————————— * //
-kiska_guard.prototype.verify = function (req, passphrase, resolve, reject) {
+trollhunter.prototype.verify = function (req, passphrase, resolve, reject) {
 
 	// don't check for security if no .enduro_secure file exists
 	if (!(enduro_helpers.file_exists_sync(CMD_FOLDER + '/' + SECURE_FILE))) {
@@ -121,4 +121,4 @@ kiska_guard.prototype.verify = function (req, passphrase, resolve, reject) {
 		})
 }
 
-module.exports = new kiska_guard()
+module.exports = new trollhunter()

@@ -104,28 +104,30 @@ enduro_server.prototype.run = function (server_setup) {
 			// exclude admin calls and access to static assets
 			if (!/admin\/(.*)/.test(req.url) && !/assets\/(.*)/.test(req.url)) {
 
-					trollhunter.login(req)
-						.then(() => {
+				trollhunter.login(req)
+					.then(() => {
 
-							var requested_url = req.url.length > 1 ? req.url.substring(0, req.url.indexOf('?')) : '/'
+						// var requested_url = req.url.length > 1 ? req.url.substring(0, req.url.indexOf('?')) : '/'
+						var requested_url = req.url
+						// console.log(req.url)
 
-							// serves index.html when empty or culture-only url is provided
-							if (requested_url.length <= 1 || (requested_url.split('/')[1] && config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2)) {
-								requested_url += requested_url.slice(-1) == '/' ? 'index' : '/index'
-							}
+						// serves index.html when empty or culture-only url is provided
+						if (requested_url.length <= 1 || (requested_url.split('/')[1] && config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2)) {
+							requested_url += requested_url.slice(-1) == '/' ? 'index' : '/index'
+						}
 
-							// applies ab testing
-							return ab_tester.get_ab_tested_filepath(requested_url, req, res)
+						// applies ab testing
+						return ab_tester.get_ab_tested_filepath(requested_url, req, res)
 
-						}, () => {
-							throw new Error('user not logged in')
-						})
-						.then((requested_url) => {
-							// serves the requested file
-							res.sendFile(CMD_FOLDER + '/_src' + requested_url + '.html')
-						}, () => {
-							res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
-						})
+					}, () => {
+						throw new Error('user not logged in')
+					})
+					.then((requested_url) => {
+						// serves the requested file
+						res.sendFile(CMD_FOLDER + '/_src' + requested_url + '.html')
+					}, () => {
+						res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
+					})
 			}
 		})
 	})

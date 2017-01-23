@@ -269,7 +269,7 @@ function spill_the_juice (juicebox_name, destination) {
 	return new Promise(function (resolve, reject) {
 
 		// delete the folder if it exists
-		rimraf(destination, function () {
+		rimraf(path.join(destination, 'cms'), function () {
 
 			if (!juicebox_name || juicebox_name == '0000.tar.gz') {
 				return resolve()

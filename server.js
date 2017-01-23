@@ -98,28 +98,16 @@ enduro_server.prototype.run = function (server_setup) {
 		})
 
 		// handle for all website api calls
-		// kinda works but needs to be properly done
-		app.get('/*', function (req, res, next) {
+		app.use(function (req, res, next) {
 			logger.timestamp('requested: ' + req.url, 'server_usage')
+
+			// exclude admin calls and access to static assets
 			if (!/admin\/(.*)/.test(req.url) && !/assets\/(.*)/.test(req.url)) {
-				if (req.query['pswrd']) {
-					trollhunter.login(req)
-						.then(() => {
-							var htmlFile = req.url.length > 1 ? req.url.substring(0, req.url.indexOf('?')) : '/'
-							res.redirect(htmlFile)
-						}, () => {
-							res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
-						})
-				} else {
+
 					trollhunter.login(req)
 						.then(() => {
 
-							// redirects to a first available culture
-							if (req.url.length <= 1 && config.cultures[0].length) {
-								return res.redirect('/' + config.cultures[0])
-							}
-
-							var requested_url = req.url
+							var requested_url = req.url.length > 1 ? req.url.substring(0, req.url.indexOf('?')) : '/'
 
 							// serves index.html when empty or culture-only url is provided
 							if (requested_url.length <= 1 || (requested_url.split('/')[1] && config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2)) {
@@ -138,7 +126,6 @@ enduro_server.prototype.run = function (server_setup) {
 						}, () => {
 							res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
 						})
-				}
 			}
 		})
 	})

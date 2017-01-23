@@ -31,7 +31,7 @@ trollhunter.prototype.login = function (req) {
 	var self = this
 	return new Promise(function (resolve, reject) {
 
-		typeof req.session.lggin_flag !== 'undefined'
+		typeof req.session.login_flag !== 'undefined'
 			? resolve()
 			: self.verify(req, req.query['pswrd'], resolve, reject)
 
@@ -103,7 +103,7 @@ trollhunter.prototype.verify = function (req, passphrase, resolve, reject) {
 
 	// don't check for security if no .enduro_secure file exists
 	if (!(enduro_helpers.file_exists_sync(CMD_FOLDER + '/' + SECURE_FILE))) {
-		req.session.lggin_flag = true
+		req.session.login_flag = true
 		return resolve()
 	}
 
@@ -114,7 +114,7 @@ trollhunter.prototype.verify = function (req, passphrase, resolve, reject) {
 
 	this.verify_passphrase(passphrase)
 		.then(() => {
-			req.session.lggin_flag = true
+			req.session.login_flag = true
 			resolve()
 		}, () => {
 			reject()

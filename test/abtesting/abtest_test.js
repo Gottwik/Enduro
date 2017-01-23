@@ -54,11 +54,11 @@ describe('A/B testing', function () {
 			})
 	})
 
-	it('should serve different at least one different page out of 20 requests', function (done) {
+	it('should serve different at least one different page out of 50 requests', function (done) {
 
 		var responses = []
 
-		async.each(new Array(20), function (file, callback) {
+		async.each(new Array(50), function (file, callback) {
 			request('http://localhost:5000/', function (error, response, body) {
 				if (error) { console.log(error) }
 				responses.push(body)

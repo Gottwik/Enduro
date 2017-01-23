@@ -66,7 +66,7 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 function copy_if_exist (copy_from, copy_to) {
 	return enduro_helpers.dir_exists(copy_from)
 		.then(() => {
-			return fs.copyAsync(copy_from, copy_to, {clobber: true})
+			return fs.copyAsync(copy_from, copy_to, { overwrite: true })
 		}, () => {})
 }
 
@@ -74,7 +74,7 @@ function copy_if_exist (copy_from, copy_to) {
 function watch_for_static_change (copy_from, copy_to, browser_sync) {
 	if (!flags.nowatch) {
 		watch([copy_from + '/**/*'], () => {
-			fs.copyAsync(copy_from, copy_to, {clobber: true})
+			fs.copyAsync(copy_from, copy_to, { overwrite: true })
 				.then(() => {
 					browser_sync.reload()
 				}, (err) => {

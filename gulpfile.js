@@ -263,7 +263,12 @@ gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 // * 	Production Task
 // *	No browser_sync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['sass', 'hbs_templates', assets_copier, 'hbs_helpers', prettyfier])
+gulp.task('production', ['sass', 'hbs_templates', assets_copier, 'hbs_helpers'])
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	prettyfi
+// * ———————————————————————————————————————————————————————— * //
+gulp.task('prettyfi', [prettyfier])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	check task

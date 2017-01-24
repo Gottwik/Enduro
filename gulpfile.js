@@ -5,10 +5,8 @@ var sass = require('gulp-sass')
 var fs = require('fs')
 var bulkSass = require('gulp-sass-bulk-import')
 var logger = require('./libs/logger')
-var scsslint = require('gulp-scss-lint')
 var spritesmith = require('gulp.spritesmith')
 var sourcemaps = require('gulp-sourcemaps')
-var checkGem = require('gulp-check-gems')
 var autoprefixer = require('gulp-autoprefixer')
 var iconfont = require('gulp-iconfont')
 var iconfontCss = require('gulp-iconfont-css')
@@ -24,8 +22,6 @@ var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helper
 
 // Gulp tasks
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator').init(gulp)
-var prettyfier = require(ENDURO_FOLDER + '/libs/build_tools/prettyfier').init(gulp)
-var htmlvalidator = require(ENDURO_FOLDER + '/libs/build_tools/html_validator').init(gulp)
 var assets_copier = require(ENDURO_FOLDER + '/libs/build_tools/assets_copier').init(gulp, browser_sync)
 
 gulp.set_refresh = function (callback) {
@@ -148,26 +144,6 @@ gulp.task('sass', function () {
 })
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	Scss lint
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('scss-lint', function () {
-	try {
-		logger.timestamp('Sass lint started', 'enduro_events')
-		return gulp.src(path.join(CMD_FOLDER, '/assets/css/**/*'))
-			.pipe(checkGem({gemfile: 'scss-lint'}, scsslint(
-				{
-					'config': path.join(__dirname, '/support_files/scss-lint.yml'),
-				}
-			).on('end', () => {
-				logger.timestamp('Sass lint finished', 'enduro_events')
-			})))
-
-	} catch (err) {
-		return logger('No liting. you need to install scss_lint')
-	}
-})
-
-// * ———————————————————————————————————————————————————————— * //
 // * 	spriteicons
 // *	will get all pngs out of assets/spriteicons folder
 // *	and generate spritesheet out of them
@@ -265,15 +241,6 @@ gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('production', ['sass', 'hbs_templates', assets_copier, 'hbs_helpers'])
 
-// * ———————————————————————————————————————————————————————— * //
-// * 	prettyfi
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('prettyfi', [prettyfier])
-
-// * ———————————————————————————————————————————————————————— * //
-// * 	check task
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('check', [htmlvalidator, prettyfier, 'scss-lint'])
 
 // Export gulp to enable access for enduro
 module.exports = gulp

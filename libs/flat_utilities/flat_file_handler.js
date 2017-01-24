@@ -85,19 +85,7 @@ flat_file_handler.prototype.load = function (filename) {
 
 		// check if file exists. return empty object if not
 		if (!enduro_helpers.file_exists_sync(fullpath_to_cms_file)) {
-
 			resolve({})
-			// TODO
-			// Decided to slash this feature because it was creating unneccesary files
-			// // saves the file if it doesn't exist
-			// if(!self.is_generator(filename)) {
-			// 	self.save(filename, {})
-			// 		.then(() => {
-			// 			resolve({})
-			// 		})
-			// } else {
-			// 	resolve({})
-			// }
 		} else {
 			fs.readFile(fullpath_to_cms_file, function (err, data) {
 				if (err) { reject() }

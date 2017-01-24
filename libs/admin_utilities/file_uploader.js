@@ -7,6 +7,7 @@ var admin_file_upload_handler = function () {}
 var Promise = require('bluebird')
 var fs = require('fs')
 var path = require('path')
+var http = require('http')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -23,6 +24,34 @@ admin_file_upload_handler.prototype.upload = function (file) {
 	} else {
 		return uploadfile_local(file)
 	}
+}
+
+admin_file_upload_handler.prototype.upload_by_url = function (file_url) {
+	var self = this
+
+	return new Promise(function (resolve, reject) {
+		var filename = enduro_helpers.get_filename_from_url(file_url)
+
+		var destination = path.join('t', filename)
+
+		enduro_helpers.ensure_directory_existence(destination)
+			.then(() => {
+				var file = fs.createWriteStream(destination)
+				http.get(file_url, function (response) {
+					response.pipe(file)
+
+					var mock_file = {
+						name: filename,
+						path: destination
+					}
+
+					return self.upload(mock_file)
+				})
+			})
+			.then((remote_url) => {
+				resolve(remote_url)
+			})
+	})
 }
 
 function uploadfile_local (file) {

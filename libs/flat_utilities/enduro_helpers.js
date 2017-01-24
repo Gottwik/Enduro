@@ -52,6 +52,12 @@ enduro_helpers.prototype.ensure_directory_existence = function () {
 	return Promise.all(file_paths.map((file_path) => { return ensure_directory_existence(file_path) }))
 }
 
+enduro_helpers.prototype.get_filename_from_url = function (file_path) {
+	return file_path
+		.split('/')
+		.slice(-1)[0]
+}
+
 function ensure_directory_existence (file_path) {
 	return new Promise(function (resolve, reject) {
 		mkdirp(file_path, function (err) {

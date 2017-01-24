@@ -144,12 +144,6 @@ function run (args, flags) {
 					return js_build.build_js(args.shift())
 
 				// * ———————————————————————————————————————————————————————— * //
-				// * 	$ enduro check
-				// * ———————————————————————————————————————————————————————— * //
-				} else if (arg == 'check') {
-					return gulp.start('check')
-
-				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro addadmin (username) (password)
 				// * ———————————————————————————————————————————————————————— * //
 				} else if (arg == 'addadmin') {
@@ -207,6 +201,12 @@ function run (args, flags) {
 				// * ———————————————————————————————————————————————————————— * //
 				} else if (arg == 'offline') {
 					return require(ENDURO_FOLDER + '/libs/remote_tools/offline_handler').convert_all_to_offline()
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro upload
+				// * ———————————————————————————————————————————————————————— * //
+				} else if (arg == 'upload') {
+					return require(ENDURO_FOLDER + '/libs/cli_tools/cli_upload').cli_upload(args.shift())
 				}
 			}
 

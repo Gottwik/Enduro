@@ -54,7 +54,15 @@ function browsersync_start (norefresh) {
 			baseDir: CMD_FOLDER + '/_src',
 			middleware: function (req, res, next) {
 
-				if (req.url.split('/')[1] && config.cultures.indexOf(req.url.split('/')[1]) + 1) {
+				if (req.url.slice(-1) == '/') {
+					req.url += 'index.html'
+					return next()
+				}
+
+				var splitted_url = req.url.split('/')
+
+				if (splitted_url.length == 2 && config.cultures.indexOf(splitted_url[1]) + 1) {
+					req.url += 'index.html'
 					return next()
 				}
 

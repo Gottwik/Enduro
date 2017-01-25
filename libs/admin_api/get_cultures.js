@@ -21,7 +21,8 @@ api_call.prototype.call = function (req, res, enduro_server) {
 			throw new Error('abort promise chain')
 		})
 		.then((cultures) => {
-			res.send({success: true, data: cultures})
+			// returns the cultures without the last, empty culture
+			res.send({success: true, data: cultures.splice(-1, 1)})
 		}, () => {})
 }
 

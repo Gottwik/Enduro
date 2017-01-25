@@ -30,33 +30,48 @@ admin_file_upload_handler.prototype.upload_by_url = function (file_url) {
 	var self = this
 
 	return new Promise(function (resolve, reject) {
+
 		var filename = enduro_helpers.get_filename_from_url(file_url)
 
-		var destination = path.join('t', filename)
+		if (enduro_helpers.is_local(file_url)) {
 
-		enduro_helpers.ensure_directory_existence(destination)
-			.then(() => {
-				var file = fs.createWriteStream(destination)
-				http.get(file_url, function (response) {
-					response.pipe(file)
-
-					var mock_file = {
-						name: filename,
-						path: destination
-					}
-
-					file.on('finish', () => {
-						file.close(() => {
-							self.upload(mock_file)
-								.then((remote_url) => {
-									resolve(remote_url)
-								})
-						})
-					})
-
+			self.upload_from_local(filename, file_url)
+				.then(() => {
+					resolve()
 				})
-			})
+		} else {
+
+			var destination = path.join('t', filename)
+			enduro_helpers.ensure_directory_existence(destination)
+				.then(() => {
+					var file = fs.createWriteStream(destination)
+					http.get(file_url, function (response) {
+						response.pipe(file)
+
+						file.on('finish', () => {
+							file.close(() => {
+								self.upload_from_local(filename, destination)
+									.then(() => {
+										resolve()
+									})
+							})
+						})
+
+					})
+				})
+		}
 	})
+}
+
+admin_file_upload_handler.prototype.upload_from_local = function (filename, file_location) {
+	var self = this
+
+	var mock_file = {
+		name: filename,
+		path: file_location
+	}
+
+	return self.upload(mock_file)
 }
 
 function uploadfile_local (file) {

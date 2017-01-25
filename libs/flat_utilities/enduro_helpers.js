@@ -58,6 +58,10 @@ enduro_helpers.prototype.get_filename_from_url = function (file_path) {
 		.slice(-1)[0]
 }
 
+enduro_helpers.prototype.is_local = function (file_path) {
+	return file_path.indexOf('http') == -1
+}
+
 function ensure_directory_existence (file_path) {
 	return new Promise(function (resolve, reject) {
 		mkdirp(file_path, function (err) {

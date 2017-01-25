@@ -45,11 +45,16 @@ admin_file_upload_handler.prototype.upload_by_url = function (file_url) {
 						path: destination
 					}
 
-					return self.upload(mock_file)
+					file.on('finish', () => {
+						file.close(() => {
+							self.upload(mock_file)
+								.then((remote_url) => {
+									resolve(remote_url)
+								})
+						})
+					})
+
 				})
-			})
-			.then((remote_url) => {
-				resolve(remote_url)
 			})
 	})
 }

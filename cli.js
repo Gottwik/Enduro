@@ -1,18 +1,5 @@
 #!/usr/bin/env node
 
-// * ———————————————————————————————————————————————————————— * //
-// * 	enduro's production server
-// *
-// *	runs production server with password protection and
-// *	admin ui and better routing
-// *
-// *	uses express mvc
-// * ———————————————————————————————————————————————————————— * //
-
-// vendor dependencies
-var path = require('path')
-var fs = require('fs')
-
 // Stores all arguments without node and without enduro
 var all_args = process.argv.slice(2)
 

@@ -62,7 +62,7 @@ function s3_upload (filename, filepath) {
 		})
 
 		uploader.on('progress', function () {
-			// console.log("progress", uploader.progressMd5Amount, uploader.progressAmount, uploader.progressTotal);
+			// console.log('progress', uploader.progressMd5Amount, uploader.progressAmount, uploader.progressTotal)
 		})
 
 		uploader.on('end', function () {

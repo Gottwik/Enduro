@@ -162,25 +162,12 @@ pagelist_generator.prototype.save_cms_list = function (cmslist) {
 // * ———————————————————————————————————————————————————————— * //
 // * 	get cms list
 // *
-// * 	tries to read the cms pregenerated file and returns it
-// *	if the pregenerated file is not present it generates a new one
+// *	generates and returns the cms list
 // *	@return {promise} - promise with cmslist
 // * ———————————————————————————————————————————————————————— * //
 pagelist_generator.prototype.get_cms_list = function () {
 	var self = this
-	return new Promise(function (resolve, reject) {
-		if (enduro_helpers.file_exists_sync(PAGELIST_DESTINATION)) {
-			fs.readJson(PAGELIST_DESTINATION, function (err, cmslist) {
-				if (err) { logger.err(err) }
-				resolve(cmslist)
-			})
-		} else {
-			return self.generate_cms_list()
-				.then((cmslist) => {
-					return save_cms_list(cmslist)
-				})
-		}
-	})
+	return self.generate_cms_list()
 }
 
 // * ———————————————————————————————————————————————————————— * //

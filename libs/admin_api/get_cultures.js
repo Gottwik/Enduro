@@ -22,8 +22,10 @@ api_call.prototype.call = function (req, res, enduro_server) {
 		})
 		.then((cultures) => {
 			// returns the cultures without the last, empty culture
-			console.log(cultures.slice(0, -1))
-			res.send({success: true, data: cultures.slice(0, -1)})
+			if (cultures.length > 1) {
+				cultures = cultures.slice(0, -1)
+			}
+			res.send({success: true, data: cultures})
 		}, () => {})
 }
 

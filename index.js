@@ -26,6 +26,7 @@ global.CMD_FOLDER = process.cwd()
 global.ENDURO_FOLDER = __dirname
 global.ADMIN_FOLDER = path.join(CMD_FOLDER, 'node_modules', 'enduro_admin', '_src') // this is production setting
 global.BABEL_FILE = 'config/babel'
+global.ADMIN_SECURE_FILE = '.users'
 global.START_PATH = ''
 global.flags = {}
 global.abstractors = {}

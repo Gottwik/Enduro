@@ -19,7 +19,6 @@ var fs = require('fs')
 var require_from_string = require('require-from-string')
 var decode = require('urldecode')
 var stringify_object = require('stringify-object')
-var extend = require('extend')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -44,6 +43,7 @@ flat_file_handler.prototype.save = function (filename, contents) {
 
 		// formats js file so it can be edited by hand later
 		var prettyString = stringify_object(flatObj, {indent: '	', singleQuotes: true})
+		console.log(prettyString)
 
 		// save cms file
 		enduro_helpers.ensure_directory_existence(fullpath_to_cms_file)
@@ -96,10 +96,7 @@ flat_file_handler.prototype.load = function (filename) {
 				}
 
 				var flatObj = require_from_string('module.exports = ' + data)
-				// extend(true, flatObj, {_meta: {
-				// 	filename: filename,
-				// 	url: self.url_from_filename(filename)
-				// }})
+
 				resolve(flatObj)
 			})
 		}

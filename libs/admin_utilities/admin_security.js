@@ -11,7 +11,6 @@ var crypto = require('crypto')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
 var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	get user by username
 // *	@param {string} username - username of user to be returned

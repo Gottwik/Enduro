@@ -43,7 +43,6 @@ flat_file_handler.prototype.save = function (filename, contents) {
 
 		// formats js file so it can be edited by hand later
 		var prettyString = stringify_object(flatObj, {indent: '	', singleQuotes: true})
-		console.log(prettyString)
 
 		// save cms file
 		enduro_helpers.ensure_directory_existence(fullpath_to_cms_file)

@@ -9,6 +9,7 @@ var links = {
 	'pagelist_generator': '/libs/build_tools/pagelist_generator',
 	'flat_file_handler': '/libs/flat_utilities/flat_file_handler',
 	'logger': '/libs/logger',
+	'enduro_helpers': '/libs/flat_utilities/enduro_helpers',
 }
 
 for (link in links) {

@@ -52,7 +52,6 @@ scaffolder.prototype.scaffold = function (args) {
 			reject('requested directory already exists')
 			return logger.err_block('\tdirectory already exists')
 		}
-
 		log_clusters.log('creating_project', {project_name: project_name})
 
 		// Copy files - Without overwriting existing files

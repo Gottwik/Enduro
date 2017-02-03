@@ -1,8 +1,9 @@
 {
-	"project_name": "set name here",
-	"project_slug": "sn",
+	"project_name": "enduro test project",
+	"project_slug": "etp",
 	"s3": {
-		"bucket": "enduro.sethere",
+		"bucket": "enduro.test",
 		"region": "eu-west-1"
-	}
+	},
+	"juicebox_enabled": false
 }

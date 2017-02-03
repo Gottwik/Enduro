@@ -41,18 +41,17 @@ admin_file_upload_handler.prototype.upload_by_url = function (file_url) {
 				})
 		} else {
 
-			var destination = path.join('t', filename)
+			var destination = path.join(CMD_FOLDER, 't', filename)
 			enduro_helpers.ensure_directory_existence(destination)
 				.then(() => {
 					var file = fs.createWriteStream(destination)
 					http.get(file_url, function (response) {
 						response.pipe(file)
-
 						file.on('finish', () => {
 							file.close(() => {
 								self.upload_from_local(filename, destination)
-									.then(() => {
-										resolve()
+									.then((destination_url) => {
+										resolve(destination_url)
 									})
 							})
 						})
@@ -70,7 +69,6 @@ admin_file_upload_handler.prototype.upload_from_local = function (filename, file
 		name: filename,
 		path: file_location
 	}
-
 	return self.upload(mock_file)
 }
 
@@ -89,7 +87,6 @@ function uploadfile_local (file) {
 				read_stream.pipe(fs.createWriteStream(destination_src_path))
 					.on('close', function (err) {
 						if (err) {
-							console.log(err)
 							return reject(err)
 						}
 						logger.timestamp('file was uploaded ' + destination_url, 'file_uploading')

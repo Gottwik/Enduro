@@ -5,7 +5,11 @@
 // * ———————————————————————————————————————————————————————— * //
 var cli_upload = function () {}
 
-// local variables
+// vendor dependencies
+var Promise = require('bluebird')
+
+// local dependencies
+var logger = require(ENDURO_FOLDER + '/libs/logger')
 var file_uploader = require(ENDURO_FOLDER + '/libs/admin_utilities/file_uploader')
 
 // * ———————————————————————————————————————————————————————— * //
@@ -15,7 +19,12 @@ var file_uploader = require(ENDURO_FOLDER + '/libs/admin_utilities/file_uploader
 // *	@return {string} - url for uploaded link
 // * ———————————————————————————————————————————————————————— * //
 cli_upload.prototype.cli_upload = function (file_url) {
-	file_uploader.upload_by_url(file_url)
+	if (!file_url) {
+		logger.err('File url not specified\nUsage: $ enduro upload http://yourdomain.com/yourimage.png')
+		return Promise.reject()
+	}
+
+	return file_uploader.upload_by_url(file_url)
 }
 
 module.exports = new cli_upload()

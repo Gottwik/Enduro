@@ -11,15 +11,12 @@ var extend = require('extend')
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 
-// constants
-var CONFIG_PATH = CMD_FOLDER + '/enduro.json'
-var SECRET_CONFIG_PATH = CMD_FOLDER + '/enduro_secret.json'
-
 // default public config
 var public_default_config = {
 	project_name: 'Enduro project',
 	project_slug: 'en',
-	render_templates: true
+	render_templates: true,
+	juicebox_enabled: true,
 }
 
 var secret_default_config = {}
@@ -30,6 +27,10 @@ var secret_default_config = {}
 // *	@return {promise} - empty promise
 // * ———————————————————————————————————————————————————————— * //
 enduro_configurator.prototype.read_config = function () {
+
+	var CONFIG_PATH = CMD_FOLDER + '/enduro.json'
+	var SECRET_CONFIG_PATH = CMD_FOLDER + '/enduro_secret.json'
+
 	return Promise.all([
 		read_config_file(CONFIG_PATH, public_default_config),
 		read_config_file(SECRET_CONFIG_PATH, secret_default_config)
@@ -39,8 +40,8 @@ enduro_configurator.prototype.read_config = function () {
 		global.config.variables.S3_KEY = (global.config.secret && global.config.secret.s3 && global.config.secret.s3.S3_KEY) || process.env.S3_KEY
 		global.config.variables.S3_SECRET = (global.config.secret && global.config.secret.s3 && global.config.secret.s3.S3_SECRET) || process.env.S3_SECRET
 
-		global.config.variables.juicebox_enabled = (global.config.project_name && global.config.variables.S3_KEY && global.config.variables.S3_SECRET) && !config.disable_juicebox && !flags.nojuice
-
+		global.config.variables.s3_enabled = (global.config.project_name && global.config.variables.S3_KEY && global.config.variables.S3_SECRET)
+		global.config.variables.juicebox_enabled = global.config.variables.s3_possible && config.juicebox_enabled && !flags.nojuice
 		return Promise.resolve()
 	})
 }

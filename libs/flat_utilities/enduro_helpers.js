@@ -53,13 +53,22 @@ enduro_helpers.prototype.ensure_directory_existence = function () {
 }
 
 enduro_helpers.prototype.get_filename_from_url = function (file_path) {
-	return file_path
+
+	// strip path and keep just the filename
+	file_path = file_path
 		.split('/')
 		.slice(-1)[0]
+
+	// strip parameters
+	if (file_path.indexOf('?')) {
+		file_path = file_path.split('?')[0]
+	}
+
+	return file_path
 }
 
 enduro_helpers.prototype.is_local = function (file_path) {
-	return file_path.indexOf('http') == -1
+	return file_path.indexOf('http') == -1 && file_path.indexOf('.com') == -1
 }
 
 function ensure_directory_existence (file_path) {

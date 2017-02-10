@@ -7,9 +7,9 @@ var js_build = function () {}
 var Promise = require('bluebird')
 var rjs = require('requirejs')
 
-var enduro_helpers = require('../flat_utilities/enduro_helpers')
-var logger = require('../logger')
-var gulp = require('../../gulpfile')
+var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var logger = require(ENDURO_FOLDER + '/libs/logger')
+var gulp = require(ENDURO_FOLDER + '/gulpfile')
 
 // Creates all subdirectories neccessary to create the file in filepath
 js_build.prototype.build_js = function (config_name) {

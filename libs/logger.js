@@ -64,7 +64,7 @@ logger.prototype.tablog = function (message, newline, logtag) {
 // * │ Something                                       Happened │ * //
 logger.prototype.twolog = function (message, right_message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
-	if (!right_message) { return log(message, logtag) }
+	if (!right_message) { return this.log(message, logtag) }
 	log(chalk.cyan('│') + rpad(' ' + message, FRAME_WIDTH - 3 - right_message.length) + right_message + chalk.cyan(' │'))
 }
 

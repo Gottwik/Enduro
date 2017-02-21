@@ -74,8 +74,6 @@ flat_file_handler.prototype.save_by_string = function (filename, contents) {
 // *	@return {Promise} - Promise returning an object
 // * ———————————————————————————————————————————————————————— * //
 flat_file_handler.prototype.load = function (filename) {
-	var self = this
-
 	return new Promise(function (resolve, reject) {
 
 		// url decode filename
@@ -87,15 +85,19 @@ flat_file_handler.prototype.load = function (filename) {
 		if (!enduro_helpers.file_exists_sync(fullpath_to_cms_file)) {
 			resolve({})
 		} else {
-			fs.readFile(fullpath_to_cms_file, function (err, data) {
+			fs.readFile(fullpath_to_cms_file, function (err, raw_context_data) {
 				if (err) { reject() }
 
 				// check if file is empty. return empty object if so
-				if (data == '') {
+				if (raw_context_data == '') {
 					return resolve({})
 				}
 
-				var flatObj = require_from_string('module.exports = ' + data)
+				// strip whatever is before the first curly brace
+				raw_context_data = raw_context_data.toString().substring(raw_context_data.indexOf('{'))
+
+				// convert the string-based javascript into an object
+				var flatObj = require_from_string('module.exports = ' + raw_context_data)
 
 				resolve(flatObj)
 			})

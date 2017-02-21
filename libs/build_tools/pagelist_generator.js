@@ -14,14 +14,12 @@ var Promise = require('bluebird')
 var fs = require('fs-extra')
 var glob = require('glob')
 var extend = require('extend')
+var path = require('path')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
 var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
-
-// variables
-var pagelist_destination = CMD_FOLDER + '/_src/_prebuilt/cmslist.json'
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	init
@@ -147,10 +145,13 @@ pagelist_generator.prototype.generate_cms_list = function () {
 // *	@return {promise} - promise with cmslist
 // * ———————————————————————————————————————————————————————— * //
 pagelist_generator.prototype.save_cms_list = function (cmslist) {
-
-	pagelist_destination = CMD_FOLDER + '/_src/_prebuilt/cmslist.json'
+	var self = this
 
 	return new Promise(function (resolve, reject) {
+
+		// regenerates pagelist_desination in case cmd_folder has changed
+		pagelist_destination = self.get_pregenerated_pagelist_path()
+
 		// Saves the cmslist into a specified file
 		enduro_helpers.ensure_directory_existence(pagelist_destination)
 			.then(() => {
@@ -179,6 +180,8 @@ pagelist_generator.prototype.get_cms_list = function () {
 // * 	global acccessible pagelist path
 // *	@return {promise} - promise with cmslist
 // * ———————————————————————————————————————————————————————— * //
-pagelist_generator.prototype.pregenerated_pagelist_path = pagelist_destination
+pagelist_generator.prototype.get_pregenerated_pagelist_path = function () {
+	return path.join(CMD_FOLDER, '_src', '_prebuilt', 'cmslist.json')
+}
 
 module.exports = new pagelist_generator()

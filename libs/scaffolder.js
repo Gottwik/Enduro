@@ -35,6 +35,7 @@ scaffolder.prototype.scaffold = function (args) {
 			return reject('no project name was specified')
 		}
 
+
 		// Stores project name
 		var project_name = args[0]
 

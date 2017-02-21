@@ -63,6 +63,7 @@ enduro_server.prototype.run = function (server_setup) {
 		// 5000 or server's port
 		app.set('port', (process.env.PORT || PRODUCTION_SERVER_PORT))
 
+
 		// starts listening to request on specified port
 		server = app.listen(app.get('port'), function () {
 			logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
@@ -91,6 +92,7 @@ enduro_server.prototype.run = function (server_setup) {
 				res.send({success: true, message: 'enduro refreshed successfully'})
 			})
 		})
+		
 
 		// handle for all admin api calls
 		app.all('/admin_api/*', multiparty_middleware, function (req, res) {

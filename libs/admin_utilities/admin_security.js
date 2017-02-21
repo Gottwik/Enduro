@@ -145,7 +145,6 @@ admin_security.prototype.add_admin = function (username, password, tags) {
 				return flat_file_handler.add(ADMIN_SECURE_FILE, logincontext, 'users')
 			})
 			.then(() => {
-
 				// Let the user know the project was created successfully
 				logger.init('ENDURO - Creating admin user')
 				logger.log('Username:', false)

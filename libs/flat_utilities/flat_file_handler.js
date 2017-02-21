@@ -105,7 +105,7 @@ flat_file_handler.prototype.load = function (filename) {
 // * ———————————————————————————————————————————————————————— * //
 // * 	Load cms file synchronously
 // *	@param {String} filename - Path to file without extension, relative to /cms folder
-// *	@return {Promise} - Promise returning an object
+// *	@return {String} - Raw string
 // * ———————————————————————————————————————————————————————— * //
 flat_file_handler.prototype.loadsync = function (filename) {
 	filename = decode(filename)
@@ -115,7 +115,7 @@ flat_file_handler.prototype.loadsync = function (filename) {
 	}
 
 	data = fs.readFileSync(CMD_FOLDER + '/cms/' + filename + '.js', 'utf-8')
-	return data
+	return require_from_string('module.exports = ' + data)
 }
 
 // * ———————————————————————————————————————————————————————— * //

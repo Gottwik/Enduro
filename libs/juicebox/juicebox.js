@@ -45,7 +45,7 @@ juicebox.prototype.pull = function (force) {
 
 	// if juicebox is not enabled
 	if (!config.variables.juicebox_enabled) {
-		logger.err('Juicebox is not set up')
+		logger.log('Juicebox is not set up')
 		return Promise.resolve()
 	}
 

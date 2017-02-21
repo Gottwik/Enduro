@@ -20,8 +20,8 @@ var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helper
 var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
 
-// constants
-var PAGELIST_DESTINATION = CMD_FOLDER + '/_src/_prebuilt/cmslist.json'
+// variables
+var pagelist_destination = CMD_FOLDER + '/_src/_prebuilt/cmslist.json'
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	init
@@ -147,11 +147,14 @@ pagelist_generator.prototype.generate_cms_list = function () {
 // *	@return {promise} - promise with cmslist
 // * ———————————————————————————————————————————————————————— * //
 pagelist_generator.prototype.save_cms_list = function (cmslist) {
+
+	pagelist_destination = CMD_FOLDER + '/_src/_prebuilt/cmslist.json'
+
 	return new Promise(function (resolve, reject) {
 		// Saves the cmslist into a specified file
-		enduro_helpers.ensure_directory_existence(PAGELIST_DESTINATION)
+		enduro_helpers.ensure_directory_existence(pagelist_destination)
 			.then(() => {
-				fs.writeFile(PAGELIST_DESTINATION, JSON.stringify(cmslist), function (err) {
+				fs.writeFile(pagelist_destination, JSON.stringify(cmslist), function (err) {
 					if (err) { console.log(err) }
 					resolve(cmslist)
 				})
@@ -176,6 +179,6 @@ pagelist_generator.prototype.get_cms_list = function () {
 // * 	global acccessible pagelist path
 // *	@return {promise} - promise with cmslist
 // * ———————————————————————————————————————————————————————— * //
-pagelist_generator.prototype.pregenerated_pagelist_path = PAGELIST_DESTINATION
+pagelist_generator.prototype.pregenerated_pagelist_path = pagelist_destination
 
 module.exports = new pagelist_generator()

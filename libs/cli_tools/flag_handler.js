@@ -40,7 +40,7 @@ var FLAG_MAP = {
 	nojuice: {
 		label: 'nojuice',
 		message: 'will turn off juicebox'
-	},
+	}
 }
 
 // * ———————————————————————————————————————————————————————— * //

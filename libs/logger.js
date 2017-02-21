@@ -32,6 +32,8 @@ var logtags_config = {
 	server_usage: false,
 }
 
+var logg = chalk.green
+
 // * ———————————————————————————————————————————————————————— * //
 // * 	Info messages
 // * ———————————————————————————————————————————————————————— * //
@@ -40,7 +42,7 @@ var logtags_config = {
 logger.prototype.init = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	message = message || 'ENDURO'
-	log('\n' + chalk.cyan('┌' + ('~—' + message + '—~').cpad(FRAME_WIDTH - 2, '—') + '┐'))
+	log('\n' + logg('┌' + ('~—' + message + '—~').cpad(FRAME_WIDTH - 2, '—') + '┐'))
 }
 
 // * │ I have something to tell you                             │ * //
@@ -50,8 +52,10 @@ logger.prototype.log = function (message, newline, logtag) {
 		newline = false
 	}
 
+	message = message || ''
+
 	if (!pass_tagcheck(logtag)) { return }
-	log(chalk.cyan('│') + rpad(' ' + message, FRAME_WIDTH - 2) + chalk.cyan('│'))
+	log(logg('│') + rpad(' ' + message, FRAME_WIDTH - 2) + logg('│'))
 	newline || false ? this.log('') : ''
 }
 
@@ -65,25 +69,25 @@ logger.prototype.tablog = function (message, newline, logtag) {
 logger.prototype.twolog = function (message, right_message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	if (!right_message) { return this.log(message, logtag) }
-	log(chalk.cyan('│') + rpad(' ' + message, FRAME_WIDTH - 3 - right_message.length) + right_message + chalk.cyan(' │'))
+	log(logg('│') + rpad(' ' + message, FRAME_WIDTH - 3 - right_message.length) + right_message + logg(' │'))
 }
 
 // * ├——————————————————————————————————————————————————————————┤ * //
 logger.prototype.line = function (logtag) {
 	if (!pass_tagcheck(logtag)) { return }
-	log(chalk.cyan('├' + rep(FRAME_WIDTH - 2, '—') + '┤'))
+	log(logg('├' + rep(FRAME_WIDTH - 2, '—') + '┤'))
 }
 
 // * └——————————————————————————————————————————————————————————┘ * //
 logger.prototype.end = function (logtag) {
 	if (!pass_tagcheck(logtag)) { return }
-	log(chalk.cyan('└' + rep(FRAME_WIDTH - 2, '—') + '┘'))
+	log(logg('└' + rep(FRAME_WIDTH - 2, '—') + '┘'))
 }
 
 // * [10:25:30] same as log but with a tab                           * //
 logger.prototype.timestamp = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
-	log('[' + chalk.cyan(get_timestamp()) + '] ' + message)
+	log('[' + logg(get_timestamp()) + '] ' + message)
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -137,6 +141,11 @@ logger.prototype.raw_err = function (message, logtag) {
 // Silencer
 logger.prototype.silent = function (logtag) {
 	log = () => {}
+}
+
+// Silencer
+logger.prototype.noisy = function (logtag) {
+	log = console.log
 }
 
 // * ———————————————————————————————————————————————————————— * //

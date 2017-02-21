@@ -1,17 +1,17 @@
 var expect = require('chai').expect
 
-var enduro = require(ENDURO_FOLDER + '/index')
+var enduro = require('../index')
 var abstractor = require(ENDURO_FOLDER + '/libs/abstractor/abstractor')
+var path = require('path')
 
 describe('Abstractor', function () {
 
 	before(function (done) {
 
 		var test_project_name = 'abstractor_testfolder'
-
 		enduro.run(['create', test_project_name, 'test'])
 			.then(() => {
-				CMD_FOLDER = process.cwd() + '/testfolder/' + test_project_name
+				CMD_FOLDER = path.join(process.cwd(), 'testfolder', test_project_name)
 				done()
 			}, (err) => {
 				done(new Error(err))
@@ -27,7 +27,7 @@ describe('Abstractor', function () {
 
 	// navigate back to testfolder
 	after(function () {
-		global.CMD_FOLDER = process.cwd() + '/testfolder'
+		global.CMD_FOLDER = path.join(process.cwd(), '/testfolder')
 	})
 })
 

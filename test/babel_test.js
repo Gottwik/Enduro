@@ -1,9 +1,14 @@
+
+// vendor dependencies
 var expect = require('chai').expect
-
-var babel = require(global.ENDURO_FOLDER + '/libs/babel/babel')
-var enduro = require(ENDURO_FOLDER + '/index')
 var rewire = require('rewire')
+var path = require('path')
 
+// local dependencies
+var enduro = require(ENDURO_FOLDER + '/index')
+var babel = require(global.ENDURO_FOLDER + '/libs/babel/babel')
+
+// rewired dependencies
 var internal_babel = rewire(global.ENDURO_FOLDER + '/libs/babel/babel')
 
 describe('Babel - registering cultures', function () {
@@ -11,7 +16,7 @@ describe('Babel - registering cultures', function () {
 	before(function (done) {
 		enduro.run(['create', 'babel_test'])
 			.then(() => {
-				CMD_FOLDER = process.cwd() + '/testfolder/babel_test'
+				CMD_FOLDER = path.join(process.cwd(), 'testfolder', 'babel_test')
 				done()
 			}, (err) => {
 				done(new Error(err))

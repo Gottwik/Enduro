@@ -11,10 +11,11 @@ describe('Pregeneration', function () {
 
 	// Create a new project
 	before(function (done) {
+		this.timeout(5000)
 		enduro.run(['create', 'testproject_pregeneration'])
 			.then(() => {
 				// navigate inside new project
-				global.CMD_FOLDER = CMD_FOLDER + '/testproject_pregeneration'
+				global.CMD_FOLDER = path.join(CMD_FOLDER, 'testproject_pregeneration')
 				return enduro.run(['addculture', 'fr', 'es'])
 
 			}, () => {

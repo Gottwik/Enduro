@@ -39,7 +39,7 @@ describe('Page list generation', function () {
 				return pagelist_generator.save_cms_list(cmslist)
 			})
 			.then(() => {
-				expect(enduro_helpers.file_exists_sync(pagelist_generator.pregenerated_pagelist_path)).to.be.ok
+				expect(enduro_helpers.file_exists_sync(pagelist_generator.get_pregenerated_pagelist_path())).to.be.ok
 			})
 	})
 

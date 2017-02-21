@@ -2,6 +2,7 @@
 // vendor dependencies
 var expect = require('chai').expect
 var rimraf = require('rimraf')
+var path = require('path')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -41,16 +42,19 @@ describe('Enduro helpers utilities', function () {
 	})
 
 	it('should create all neccessary subdirectories', function () {
-		enduro_helpers.ensure_directory_existence(process.cwd() + '/test_folder/subfolder/test.js')
+		return enduro_helpers.ensure_directory_existence(path.join(process.cwd(), 'test_folder', 'subfolder', 'test.js'))
 			.then(function () {
-				expect(enduro_helpers.dir_exists_sync(process.cwd() + '/test_folder/subfolder')).to.equal(true)
+				expect(enduro_helpers.dir_exists_sync(path.join(process.cwd(), 'test_folder', 'subfolder'))).to.equal(true)
 			}, function () {
 				expect(true).to.equal(false)
 			})
 	})
 
 	it('should create all neccessary subdirectories if given multiple paths', function () {
-		enduro_helpers.ensure_directory_existence(process.cwd() + '/test_folder/subfolder1/test.js', process.cwd() + '/test_folder/subfolder2/test.js')
+		return enduro_helpers.ensure_directory_existence(
+				path.join(process.cwd(), 'test_folder', 'subfolder1', 'test.js'),
+				path.join(process.cwd(), 'test_folder', 'subfolder2', 'test.js')
+			)
 			.then(function () {
 				expect(enduro_helpers.dir_exists_sync(process.cwd() + '/test_folder/subfolder1')).to.equal(true)
 				expect(enduro_helpers.dir_exists_sync(process.cwd() + '/test_folder/subfolder2')).to.equal(true)

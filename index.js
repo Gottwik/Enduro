@@ -232,7 +232,6 @@ function run (args, flags) {
 // * ———————————————————————————————————————————————————————— * //
 function render (callback, dont_do_juice_pull) {
 	logger.init('Enduro', 'enduro_render_events')
-
 	Promise.resolve()
 		.then(() => {
 			if (!dont_do_juice_pull) {

@@ -35,10 +35,10 @@ page_renderer.prototype.render_file = function (file, context_filename, culture,
 			})
 			.then((output) => {
 				// Makes sure the target directory exists
-				enduro_helpers.ensure_directory_existence(CMD_FOLDER + '/_src/' + destination_path)
+				enduro_helpers.ensure_directory_existence(path.join(CMD_FOLDER, '_src', destination_path))
 					.then(function () {
 						// Attempts to export the file
-						fs.writeFile(CMD_FOLDER + '/_src/' + destination_path + '.html', output, function (err) {
+						fs.writeFile(path.join(CMD_FOLDER, '_src', destination_path + '.html'), output, function (err) {
 							if (err) { return logger.err_block(err) }
 
 							logger.twolog('page ' + destination_path, 'created', 'enduro_render_events')
@@ -60,11 +60,11 @@ page_renderer.prototype.render_file_by_context = function (file, context, cultur
 
 			// Stores file name and extension
 			// Note that subdirecotries are included in the name
-			var file_regex_match = file.match(/pages\/(.*)\.([^\\/]+)$/)
+			var file_regex_match = file.match(/pages(?:\/|\\)(.*)\.([^\\/]+)$/)
 			var filename = file_regex_match[1]
 
 			// gets pagename
-			var pagename = file.match(/([^\/]*)\.[^\.]*$/)[1]
+			var pagename = file.match(/([^\/\\]*)\.[^\.]*$/)[1]
 
 			// If global data exists extends the context with it
 			if (typeof __data !== 'undefined') {
@@ -124,9 +124,9 @@ page_renderer.prototype.render_file_by_filename_replace_context = function (file
 
 function get_template_by_filename (filename) {
 
-	var splitted_filename = filename.split(path.sep)
+	var splitted_filename = filename.split('/')
 	if (splitted_filename.indexOf('generators') + 1) {
-		filename = splitted_filename.slice(0, -1).join(path.sep)
+		filename = splitted_filename.slice(0, -1).join('/')
 	}
 
 	return path.join(CMD_FOLDER, 'pages', filename + '.hbs')

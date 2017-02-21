@@ -19,6 +19,7 @@ var fs = require('fs')
 var require_from_string = require('require-from-string')
 var decode = require('urldecode')
 var stringify_object = require('stringify-object')
+var path = require('path')
 
 // local dependencies
 var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
@@ -237,11 +238,11 @@ flat_file_handler.prototype.is_deletable = function (filename) {
 
 // Private functions
 function get_full_path_to_cms (filename) {
-	return CMD_FOLDER + '/cms/' + filename + '.js'
+	return path.join(CMD_FOLDER, 'cms', filename + '.js')
 }
 
 function get_cms_filename_from_fullpath (full_path) {
-	return full_path.match(/\/cms\/(.*)\..*/)[1]
+	return full_path.match(/(?:\/|\\)cms(?:\/|\\)(.*)\..*/)[1]
 }
 
 module.exports = new flat_file_handler()

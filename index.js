@@ -34,7 +34,7 @@ global.markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
 global.enduro = require(ENDURO_FOLDER + '/libs/linker/linker') // exposes enduro's libraries for app development
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var enduro_configurator = require(ENDURO_FOLDER + '/libs/enduro_configurator')
 var scaffolder = require(ENDURO_FOLDER + '/libs/scaffolder')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
@@ -59,7 +59,7 @@ var ab_tester = require(ENDURO_FOLDER + '/libs/ab_testing/ab_tester')
 global.THEME_MANAGER_LINK = 'http://www.endurojs.com/theme_manager'
 
 // sets different admin if enduro is being used globally
-if (!enduro_helpers.dir_exists_sync(ADMIN_FOLDER)) {
+if (!flat_helpers.dir_exists_sync(ADMIN_FOLDER)) {
 	global.ADMIN_FOLDER = path.join(ENDURO_FOLDER, 'node_modules', 'enduro_admin', '_src') // this is production setting
 }
 

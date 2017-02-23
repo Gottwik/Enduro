@@ -11,7 +11,7 @@ var path = require('path')
 
 // local dependencies
 var logger = require(ENDURO_FOLDER + '/libs/logger')
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var babel = require(global.ENDURO_FOLDER + '/libs/babel/babel')
 
 // Goes through the pages and renders them
@@ -47,7 +47,7 @@ pregenerators['settings'] = function () {
 			var template = __templating_engine.compile(raw_template)
 			template(__data.global.settings)
 				.then((rendered_css_file) => {
-					enduro_helpers.ensure_directory_existence(css_settings_destination_file_path)
+					flat_helpers.ensure_directory_existence(css_settings_destination_file_path)
 						.then(() => {
 							fs.writeFile(css_settings_destination_file_path, rendered_css_file, () => {
 								resolve()
@@ -67,7 +67,7 @@ pregenerators['cultures'] = function () {
 		babel.get_cultures()
 			.then((fetched_cultures) => {
 				cultures = fetched_cultures
-				return enduro_helpers.ensure_directory_existence(cultures_json_destionation_path)
+				return flat_helpers.ensure_directory_existence(cultures_json_destionation_path)
 			})
 			.then(() => {
 				fs.writeFile(cultures_json_destionation_path, JSON.stringify(cultures), function (err) {

@@ -11,7 +11,7 @@ var glob = require('glob-promise')
 var path = require('path')
 
 // local dependencies
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 
 abstractor.prototype.abstractors = {}
 
@@ -59,11 +59,11 @@ abstractor.prototype.init = function () {
 abstractor.prototype.abstract_file = function (filename) {
 
 	var self = this
-	var cms_filename = flat_file_handler.get_cms_filename_from_fullpath(filename)
+	var cms_filename = flat.get_cms_filename_from_fullpath(filename)
 
 	var prechange_context = ''
 
-	return flat_file_handler.load(cms_filename)
+	return flat.load(cms_filename)
 		.then((context) => {
 			prechange_context = JSON.stringify(context)
 			return self.abstract_context(context)
@@ -74,7 +74,7 @@ abstractor.prototype.abstract_file = function (filename) {
 			if (prechange_context == JSON.stringify(abstracted_context)) {
 				return new Promise.resolve()
 			} else {
-				return flat_file_handler.save(cms_filename, abstracted_context)
+				return flat.save(cms_filename, abstracted_context)
 			}
 		})
 }

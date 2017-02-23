@@ -4,7 +4,7 @@ var api_call = function () {}
 
 // local dependencies
 var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
@@ -15,7 +15,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 
 	application_settings.has_admins = true
 
-	flat_file_handler.load(ADMIN_SECURE_FILE)
+	flat.load(ADMIN_SECURE_FILE)
 		.then((raw_userlist) => {
 
 			// if there are no users

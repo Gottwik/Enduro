@@ -14,7 +14,7 @@ var path = require('path')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // constants
-var ENDURO_HELPERS_PATH = path.join(__dirname, '..', 'hbs_helpers/**/*.js')
+var flat_helpers_PATH = path.join(__dirname, '..', 'hbs_helpers/**/*.js')
 var PROJECT_HELPERS_PATH = CMD_FOLDER + '/assets/hbs_helpers/**/*.js'
 
 // * ———————————————————————————————————————————————————————— * //
@@ -24,7 +24,7 @@ var PROJECT_HELPERS_PATH = CMD_FOLDER + '/assets/hbs_helpers/**/*.js'
 // * ———————————————————————————————————————————————————————— * //
 helper_handler.prototype.read_helpers = function () {
 	return new Promise(function (resolve, reject) {
-		glob([ENDURO_HELPERS_PATH, PROJECT_HELPERS_PATH], function (err, files) {
+		glob([flat_helpers_PATH, PROJECT_HELPERS_PATH], function (err, files) {
 			if (err) { return console.log(err) }
 			async.each(files, function (file, callback) {
 				var fileReg = file.match(/([^\\/]+)\.([^\\/]+)$/)

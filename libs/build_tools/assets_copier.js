@@ -6,7 +6,7 @@ var path = require('path')
 var watch = require('gulp-watch')
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // * ———————————————————————————————————————————————————————— * //
@@ -64,7 +64,7 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 
 // helper function that copies directory if it exists
 function copy_if_exist (copy_from, copy_to) {
-	return enduro_helpers.dir_exists(copy_from)
+	return flat_helpers.dir_exists(copy_from)
 		.then(() => {
 			return fs.copyAsync(copy_from, copy_to, { overwrite: true })
 		}, () => {})

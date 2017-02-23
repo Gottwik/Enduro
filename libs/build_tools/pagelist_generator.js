@@ -17,7 +17,7 @@ var extend = require('extend')
 var path = require('path')
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
 
@@ -153,7 +153,7 @@ pagelist_generator.prototype.save_cms_list = function (cmslist) {
 		pagelist_destination = self.get_pregenerated_pagelist_path()
 
 		// Saves the cmslist into a specified file
-		enduro_helpers.ensure_directory_existence(pagelist_destination)
+		flat_helpers.ensure_directory_existence(pagelist_destination)
 			.then(() => {
 				fs.writeFile(pagelist_destination, JSON.stringify(cmslist), function (err) {
 					if (err) { console.log(err) }

@@ -10,15 +10,15 @@ var fs = require('fs')
 var require_from_string = require('require-from-string')
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
+var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 
 // gets list of all cultures
 babel_handler.prototype.get_cultures = function () {
 	return new Promise(function (resolve, reject) {
-		var babel_absolute_path = flat_file_handler.get_full_path_to_cms(BABEL_FILE)
+		var babel_absolute_path = flat.get_full_path_to_cms(BABEL_FILE)
 		// check if file exists. return empty object if not
-		if (!enduro_helpers.file_exists_sync(babel_absolute_path)) {
+		if (!flat_helpers.file_exists_sync(babel_absolute_path)) {
 			return resolve([''])
 		}
 		fs.readFile(babel_absolute_path, function (err, data) {
@@ -41,7 +41,7 @@ babel_handler.prototype.get_cultures = function () {
 
 // adds culture to culture array in cms folder
 babel_handler.prototype.add_culture = function (cultures) {
-	return flat_file_handler.add_array(BABEL_FILE, cultures, 'cultures')
+	return flat.add_array(BABEL_FILE, cultures, 'cultures')
 }
 
 function culturize (context, culture) {

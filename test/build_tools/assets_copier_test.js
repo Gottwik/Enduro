@@ -3,7 +3,7 @@ var expect = require('chai').expect
 var path = require('path')
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var enduro = require(ENDURO_FOLDER + '/index')
 
 describe('Static assets copier', function () {
@@ -26,19 +26,19 @@ describe('Static assets copier', function () {
 	})
 
 	it('should have copied all images files', function () {
-		expect(enduro_helpers.file_exists_sync(path.join(CMD_FOLDER, '_src', 'assets', 'img', 'imagesgohere.txt'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(CMD_FOLDER, '_src', 'assets', 'img', 'imagesgohere.txt'))).to.be.ok
 	})
 
 	it('should have copied all fonts files', function () {
-		expect(enduro_helpers.file_exists_sync(path.join(CMD_FOLDER, '_src', 'assets', 'fonts', 'fontsgohere.txt'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(CMD_FOLDER, '_src', 'assets', 'fonts', 'fontsgohere.txt'))).to.be.ok
 	})
 
 	it('should have copied all javascript files', function () {
-		expect(enduro_helpers.file_exists_sync(path.join(CMD_FOLDER, '_src', 'assets', 'js', 'main.js'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(CMD_FOLDER, '_src', 'assets', 'js', 'main.js'))).to.be.ok
 	})
 
 	it('should have copied all admin_extensions files', function () {
-		expect(enduro_helpers.file_exists_sync(path.join(CMD_FOLDER, '_src', 'assets', 'admin_extensions', 'sample_extension.js'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(CMD_FOLDER, '_src', 'assets', 'admin_extensions', 'sample_extension.js'))).to.be.ok
 	})
 
 	// navigate back to testfolder

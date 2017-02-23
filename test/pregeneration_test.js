@@ -5,7 +5,7 @@ var path = require('path')
 var fs = require('fs')
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 
 describe('Pregeneration', function () {
 
@@ -32,7 +32,7 @@ describe('Pregeneration', function () {
 	it('_settings.css should be pregenerated', function (done) {
 
 		var settings_css_filepath = path.join(CMD_FOLDER, '_src', '_prebuilt', '_settings.css')
-		expect(enduro_helpers.file_exists_sync(settings_css_filepath)).to.be.ok
+		expect(flat_helpers.file_exists_sync(settings_css_filepath)).to.be.ok
 
 		fs.readFile(settings_css_filepath, 'utf8', function (err, data) {
 			if (err) { return logger.err(err) }
@@ -44,7 +44,7 @@ describe('Pregeneration', function () {
 
 	it('_cultures.json should be pregenerated', function () {
 		var cultures_json_filepath = path.join(CMD_FOLDER, '_src', '_prebuilt', '_cultures.json')
-		expect(enduro_helpers.file_exists_sync(cultures_json_filepath)).to.be.ok
+		expect(flat_helpers.file_exists_sync(cultures_json_filepath)).to.be.ok
 	})
 
 	// navigate back to testfolder

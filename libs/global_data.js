@@ -14,8 +14,8 @@ var glob = require('multi-glob').glob
 
 // Local dependencies
 var logger = require(ENDURO_FOLDER + '/libs/logger')
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
+var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 
 global_data.prototype.get_global_data = function () {
 
@@ -43,8 +43,8 @@ global_data.prototype.get_global_data = function () {
 				var fileInCms = file.match(/cms\/(.*)\.([^\\/]+)$/)[1]
 
 				// Loads the file
-				if (enduro_helpers.file_exists_sync(file)) {
-					flat_file_handler.load(fileInCms)
+				if (flat_helpers.file_exists_sync(file)) {
+					flat.load(fileInCms)
 						.then((data) => {
 							// Extends global data with currently loaded data
 							extend(true, __data.global, data)

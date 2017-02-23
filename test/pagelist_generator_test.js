@@ -3,7 +3,7 @@ var gulp = require('gulp')
 
 var enduro = require(ENDURO_FOLDER + '/index')
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator')
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 
 describe('Page list generation', function () {
 
@@ -39,7 +39,7 @@ describe('Page list generation', function () {
 				return pagelist_generator.save_cms_list(cmslist)
 			})
 			.then(() => {
-				expect(enduro_helpers.file_exists_sync(pagelist_generator.get_pregenerated_pagelist_path())).to.be.ok
+				expect(flat_helpers.file_exists_sync(pagelist_generator.get_pregenerated_pagelist_path())).to.be.ok
 			})
 	})
 

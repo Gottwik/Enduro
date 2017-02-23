@@ -3,7 +3,7 @@
 // *	Random set of helper functions used all around
 // * ———————————————————————————————————————————————————————— * //
 
-var enduro_helpers = function () {}
+var flat_helpers = function () {}
 
 // global dependencies
 var Promise = require('bluebird')
@@ -15,21 +15,21 @@ var path = require('path')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // Checks if file exists
-enduro_helpers.prototype.file_exists_sync = function (file_path) {
+flat_helpers.prototype.file_exists_sync = function (file_path) {
 	try {
 		return fs.statSync(file_path).isFile()
 	} catch (err) { return false }
 }
 
 // Checks if directory exists
-enduro_helpers.prototype.dir_exists_sync = function (file_path) {
+flat_helpers.prototype.dir_exists_sync = function (file_path) {
 	try {
 		return fs.statSync(file_path).isDirectory()
 	} catch (err) { return false }
 }
 
 // Checks if directory exists
-enduro_helpers.prototype.dir_exists = function (file_path) {
+flat_helpers.prototype.dir_exists = function (file_path) {
 	return new Promise(function (resolve, reject) {
 		fs.stat(file_path, function (err, stats) {
 			if (err) {
@@ -45,7 +45,7 @@ enduro_helpers.prototype.dir_exists = function (file_path) {
 }
 
 // Creates all subdirectories neccessary to create the file in file_path
-enduro_helpers.prototype.ensure_directory_existence = function () {
+flat_helpers.prototype.ensure_directory_existence = function () {
 	if (!arguments.length) {
 		return Promise.resolve()
 	}
@@ -53,7 +53,7 @@ enduro_helpers.prototype.ensure_directory_existence = function () {
 	return Promise.all(file_paths.map((file_path) => { return ensure_directory_existence(file_path) }))
 }
 
-enduro_helpers.prototype.get_filename_from_url = function (file_path) {
+flat_helpers.prototype.get_filename_from_url = function (file_path) {
 	// strip path and keep just the filename
 	file_path = file_path
 		.split('/')
@@ -67,7 +67,7 @@ enduro_helpers.prototype.get_filename_from_url = function (file_path) {
 	return file_path
 }
 
-enduro_helpers.prototype.is_local = function (file_path) {
+flat_helpers.prototype.is_local = function (file_path) {
 	return file_path.indexOf('http') == -1 && file_path.indexOf('.com') == -1
 }
 
@@ -84,4 +84,4 @@ function ensure_directory_existence (file_path) {
 	})
 }
 
-module.exports = new enduro_helpers()
+module.exports = new flat_helpers()

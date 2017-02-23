@@ -3,7 +3,7 @@ var expect = require('chai').expect
 var enduro = require('../index')
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var trollhunter = require(ENDURO_FOLDER + '/libs/trollhunter')
 
 describe('Enduro security', function () {
@@ -39,7 +39,7 @@ describe('Enduro security', function () {
 	})
 
 	it('should make sure the passphrase file is created', function () {
-		expect(enduro_helpers.file_exists_sync(CMD_FOLDER + '/.enduro_secure')).to.equal(true)
+		expect(flat_helpers.file_exists_sync(CMD_FOLDER + '/.enduro_secure')).to.equal(true)
 	})
 
 	it('should verify the correct passphrase', function (done) {

@@ -18,7 +18,7 @@ var filterBy = require('gulp-filter-by')
 var wrap = require('gulp-wrap')
 var path = require('path')
 
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 
 // Gulp tasks
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator').init(gulp)
@@ -194,7 +194,7 @@ gulp.task('iconfont', function (cb) {
 				return glyph
 			})
 			var icon_json_file_path = CMD_FOLDER + '/_src/_prebuilt/icons.json'
-			enduro_helpers.ensure_directory_existence(icon_json_file_path)
+			flat_helpers.ensure_directory_existence(icon_json_file_path)
 				.then(() => {
 					fs.writeFileSync(icon_json_file_path, JSON.stringify(glyphs))
 					cb()

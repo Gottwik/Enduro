@@ -19,7 +19,7 @@ var rimraf = require('rimraf')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
 var remote_handler = require(ENDURO_FOLDER + '/libs/remote_tools/remote_handler')
 var juice_helpers = require(ENDURO_FOLDER + '/libs/juicebox/juice_helpers')
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
 
 var EXTENSION = '.tar.gz'
@@ -180,7 +180,7 @@ juicebox.prototype.juicebox_enabled = function () {
 
 juicebox.prototype.is_juicebox_enabled = function () {
 	var juicefile_path = path.join(CMD_FOLDER, 'juicebox', 'juice.json')
-	return !enduro_helpers.file_exists_sync(juicefile_path)
+	return !flat_helpers.file_exists_sync(juicefile_path)
 }
 
 function write_juicebox (juicebox_name) {
@@ -199,7 +199,7 @@ function write_juicebox (juicebox_name) {
 function write_juicefile (juice) {
 	return new Promise(function (resolve, reject) {
 		var destination_juicefile_path = path.join(CMD_FOLDER, 'juicebox', 'juice.json')
-		enduro_helpers.ensure_directory_existence(destination_juicefile_path)
+		flat_helpers.ensure_directory_existence(destination_juicefile_path)
 			.then(() => {
 				fs.writeFile(destination_juicefile_path, JSON.stringify(juice), function (err) {
 					if (err) { reject(err) }
@@ -277,7 +277,7 @@ function spill_the_juice (juicebox_name, destination) {
 
 			var tarball = path.join(CMD_FOLDER, 'juicebox', juicebox_name)
 
-			if (enduro_helpers.file_exists_sync(tarball)) {
+			if (flat_helpers.file_exists_sync(tarball)) {
 				var tar_extract = tar.Extract({
 					path: destination,
 				})

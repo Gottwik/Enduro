@@ -11,9 +11,9 @@ var extend = require('extend')
 var path = require('path')
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 var globalizer = require(ENDURO_FOLDER + '/libs/globalizer/globalizer')
 
@@ -26,7 +26,7 @@ page_renderer.prototype.render_file = function (file, context_filename, culture,
 		// where will the generated page be saved
 		var destination_path = path.join(culture, dest_path)
 
-		flat_file_handler.load(context_filename)
+		flat.load(context_filename)
 			.then((context) => {
 				return self.render_file_by_context(file, context, culture)
 			}, () => {
@@ -35,7 +35,7 @@ page_renderer.prototype.render_file = function (file, context_filename, culture,
 			})
 			.then((output) => {
 				// Makes sure the target directory exists
-				enduro_helpers.ensure_directory_existence(path.join(CMD_FOLDER, '_src', destination_path))
+				flat_helpers.ensure_directory_existence(path.join(CMD_FOLDER, '_src', destination_path))
 					.then(function () {
 						// Attempts to export the file
 						fs.writeFile(path.join(CMD_FOLDER, '_src', destination_path + '.html'), output, function (err) {
@@ -104,7 +104,7 @@ page_renderer.prototype.render_file_by_filename_extend_context = function (filen
 	var file = get_template_by_filename(filename)
 	var culture = config.cultures[0]
 
-	return flat_file_handler.load(filename)
+	return flat.load(filename)
 		.then((context) => {
 			extend(true, context, extended_context)
 			return self.render_file_by_context(file, context, culture)

@@ -7,9 +7,9 @@ var linker = {}
 var links = {
 	'temper': '/libs/temper/temper',
 	'pagelist_generator': '/libs/build_tools/pagelist_generator',
-	'flat_file_handler': '/libs/flat_utilities/flat_file_handler',
+	'flat': '/libs/flat_db/flat',
+	'flat_helpers': '/libs/flat_db/flat_helpers',
 	'logger': '/libs/logger',
-	'enduro_helpers': '/libs/flat_utilities/enduro_helpers',
 }
 
 for (link in links) {

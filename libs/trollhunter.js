@@ -17,7 +17,7 @@ var passwordHash = require('password-hash')
 
 // local dependencies
 var logger = require(ENDURO_FOLDER + '/libs/logger')
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 
 // constants
 var SECURE_FILE = '.enduro_secure'
@@ -102,7 +102,7 @@ trollhunter.prototype.verify_passphrase = function (passphrase) {
 trollhunter.prototype.verify = function (req, passphrase, resolve, reject) {
 
 	// don't check for security if no .enduro_secure file exists
-	if (!(enduro_helpers.file_exists_sync(CMD_FOLDER + '/' + SECURE_FILE))) {
+	if (!(flat_helpers.file_exists_sync(CMD_FOLDER + '/' + SECURE_FILE))) {
 		req.session.login_flag = true
 		return resolve()
 	}

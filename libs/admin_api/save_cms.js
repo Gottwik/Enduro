@@ -10,7 +10,7 @@
 var api_call = function () {}
 
 // local dependencies
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
@@ -49,7 +49,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 				}
 
 				requesting_user = user
-				return flat_file_handler.save(filename, content)
+				return flat.save(filename, content)
 			}, () => {
 				res.sendStatus(401)
 				throw new Error()

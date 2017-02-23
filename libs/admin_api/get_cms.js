@@ -9,7 +9,7 @@
 var api_call = function () {}
 
 // local dependencies
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
 var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 
@@ -28,7 +28,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 
 	admin_sessions.get_user_by_session(sid)
 		.then((user) => {
-			return flat_file_handler.load(filename)
+			return flat.load(filename)
 		}, () => {
 			res.sendStatus(401)
 			throw new Error('abort promise chain')
@@ -44,11 +44,11 @@ api_call.prototype.call = function (req, res, enduro_server) {
 			context.context = data
 
 			// url where this page is served
-			context.page_link = flat_file_handler.url_from_filename(context.page_name)
+			context.page_link = flat.url_from_filename(context.page_name)
 
 			// associated page means that the page content file is directly linked with an existing url
 			// this is used when deciding whether provide a link from admin to the page that is being edited
-			context.no_page_associated = flat_file_handler.has_page_associated(context.page_name)
+			context.no_page_associated = flat.has_page_associated(context.page_name)
 
 			// name is capitalized and _ are replaced with whitespace
 			context.pretty_name = format_service.prettify_string(context.only_page_name)
@@ -57,7 +57,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 			context.path_list = context.page_name.split('/')
 
 			// bool saying whether content file can be deleted
-			context.deletable = flat_file_handler.is_deletable(context.page_name)
+			context.deletable = flat.is_deletable(context.page_name)
 
 			res.send(context)
 		}, () => {})

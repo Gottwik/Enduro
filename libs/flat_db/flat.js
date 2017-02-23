@@ -11,7 +11,7 @@
 // *	add
 // *
 // * ———————————————————————————————————————————————————————— * //
-var flat_file_handler = function () {}
+var flat = function () {}
 
 // Vendor dependencies
 var Promise = require('bluebird')
@@ -22,7 +22,7 @@ var stringify_object = require('stringify-object')
 var path = require('path')
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Save cms file
@@ -30,7 +30,7 @@ var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helper
 // *	@param {Object} contents - Content to be saved
 // *	@return {Promise} - Promise with no content. Resolve if saved successfully, reject otherwise
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.save = function (filename, contents) {
+flat.prototype.save = function (filename, contents) {
 	return new Promise(function (resolve, reject) {
 		// TODO: maybe the file could be backed up somewhere before overwriting
 		contents = contents || {}
@@ -46,7 +46,7 @@ flat_file_handler.prototype.save = function (filename, contents) {
 		var prettyString = stringify_object(flatObj, {indent: '	', singleQuotes: true})
 
 		// save cms file
-		enduro_helpers.ensure_directory_existence(fullpath_to_cms_file)
+		flat_helpers.ensure_directory_existence(fullpath_to_cms_file)
 			.then(() => {
 				fs.writeFile(fullpath_to_cms_file, prettyString, function (err) {
 					if (err) {
@@ -64,7 +64,7 @@ flat_file_handler.prototype.save = function (filename, contents) {
 // *	@param {String} contents - Content to be saved
 // *	@return {Promise} - Promise from save function
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.save_by_string = function (filename, contents) {
+flat.prototype.save_by_string = function (filename, contents) {
 	return this.save(filename, JSON.parse(contents))
 }
 
@@ -73,7 +73,7 @@ flat_file_handler.prototype.save_by_string = function (filename, contents) {
 // *	@param {String} filename - Path to file without extension, relative to /cms folder
 // *	@return {Promise} - Promise returning an object
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.load = function (filename) {
+flat.prototype.load = function (filename) {
 	return new Promise(function (resolve, reject) {
 
 		// url decode filename
@@ -82,7 +82,7 @@ flat_file_handler.prototype.load = function (filename) {
 		var fullpath_to_cms_file = get_full_path_to_cms(filename)
 
 		// check if file exists. return empty object if not
-		if (!enduro_helpers.file_exists_sync(fullpath_to_cms_file)) {
+		if (!flat_helpers.file_exists_sync(fullpath_to_cms_file)) {
 			resolve({})
 		} else {
 			fs.readFile(fullpath_to_cms_file, function (err, raw_context_data) {
@@ -110,10 +110,10 @@ flat_file_handler.prototype.load = function (filename) {
 // *	@param {String} filename - Path to file without extension, relative to /cms folder
 // *	@return {String} - Raw string
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.loadsync = function (filename) {
+flat.prototype.loadsync = function (filename) {
 	filename = decode(filename)
 
-	if (!enduro_helpers.file_exists_sync(CMD_FOLDER + '/cms/' + filename + '.js')) {
+	if (!flat_helpers.file_exists_sync(CMD_FOLDER + '/cms/' + filename + '.js')) {
 		return {}
 	}
 
@@ -126,22 +126,22 @@ flat_file_handler.prototype.loadsync = function (filename) {
 // *	@param {string} filename - path to file without extension, relative to /cms folder
 // *	@return {string} - peturns full server path to specified file
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.get_full_path_to_cms = get_full_path_to_cms
+flat.prototype.get_full_path_to_cms = get_full_path_to_cms
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	get cms filename from a full path
 // *	@param {string} full_path - absolute, server-root-related path to the file
 // *	@return {string} - returns file name relative to /cms folder
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.get_cms_filename_from_fullpath = get_cms_filename_from_fullpath
+flat.prototype.get_cms_filename_from_fullpath = get_cms_filename_from_fullpath
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	checks if specified file exists
 // *	@param {string} filename - path to file without extension, relative to /cms folder
 // *	@return {boolean} - returns true if specified file exists
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.file_exists = function (filename) {
-	return enduro_helpers.file_exists_sync(get_full_path_to_cms(filename))
+flat.prototype.file_exists = function (filename) {
+	return flat_helpers.file_exists_sync(get_full_path_to_cms(filename))
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -151,7 +151,7 @@ flat_file_handler.prototype.file_exists = function (filename) {
 // *	@param {string} key - key in the root of the file where the specified content should be added. defaults to 'items'
 // *	@return {promise} - returns promise from save function
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.add = function (filename, context_to_add, key) {
+flat.prototype.add = function (filename, context_to_add, key) {
 	var self = this
 
 	context_to_add = context_to_add || {}
@@ -175,7 +175,7 @@ flat_file_handler.prototype.add = function (filename, context_to_add, key) {
 // *	@param {string} key - key in the root of the file where the specified content should be added. defaults to 'items'
 // *	@return {promise} - returns promise from save function
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.add_array = function (filename, context_to_add, key) {
+flat.prototype.add_array = function (filename, context_to_add, key) {
 	var self = this
 
 	context_to_add = context_to_add || []
@@ -202,7 +202,7 @@ flat_file_handler.prototype.add_array = function (filename, context_to_add, key)
 // *	@param {string} filename - path to file without extension, relative to /cms folder
 // *	@return {bool} - returns true if filename belongs to a generator
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.is_generator = function (filename) {
+flat.prototype.is_generator = function (filename) {
 	return filename.split('/')[0] == 'generators'
 }
 
@@ -211,7 +211,7 @@ flat_file_handler.prototype.is_generator = function (filename) {
 // *	@param {string} filename - path to file without extension, relative to /cms folder
 // *	@return {string} - returns relative url to the file
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.url_from_filename = function (filename) {
+flat.prototype.url_from_filename = function (filename) {
 	if (this.is_generator(filename)) {
 		return filename.split('/').slice(1).join('/')
 	}
@@ -224,7 +224,7 @@ flat_file_handler.prototype.url_from_filename = function (filename) {
 // *	@param {string} filename - path to file without extension, relative to /cms folder
 // *	@return {string} - returns relative url to the file
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.has_page_associated = function (filename) {
+flat.prototype.has_page_associated = function (filename) {
 	return !['global', 'generators'].indexOf(filename.split('/')[0].toLowerCase())
 }
 
@@ -234,7 +234,7 @@ flat_file_handler.prototype.has_page_associated = function (filename) {
 // *	@param {string} filename - path to file without extension, relative to /cms folder
 // *	@return {bool} - returns true if particular content file is deletable
 // * ———————————————————————————————————————————————————————— * //
-flat_file_handler.prototype.is_deletable = function (filename) {
+flat.prototype.is_deletable = function (filename) {
 	return this.is_generator(filename)
 }
 
@@ -247,4 +247,4 @@ function get_cms_filename_from_fullpath (full_path) {
 	return full_path.match(/(?:\/|\\)cms(?:\/|\\)(.*)\..*/)[1]
 }
 
-module.exports = new flat_file_handler()
+module.exports = new flat()

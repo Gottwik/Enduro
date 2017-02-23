@@ -5,8 +5,8 @@
 var theme_manager = function () {}
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
+var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 
 // vendor dependencies
 var Promise = require('bluebird')
@@ -65,7 +65,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 			logger.twolog('Created neccessary folders', '✓')
 			logger.twolog('downloading your theme template', '✓')
 			theme_folder = answers.project_name
-			return enduro_helpers.ensure_directory_existence(process.cwd() + '/' + theme_folder + '/.')
+			return flat_helpers.ensure_directory_existence(process.cwd() + '/' + theme_folder + '/.')
 		}, theme_error)
 
 		// get the theme and put it in created folder
@@ -100,10 +100,10 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 
 		.then(() => {
 			logger.twolog('Remove login message', '✓')
-			var settings = flat_file_handler.loadsync('.settings')
+			var settings = flat.loadsync('.settings')
 			delete settings.settings.login_message
 
-			flat_file_handler.save('.settings', settings)
+			flat.save('.settings', settings)
 		}, theme_error)
 
 		// reads projects dependencies
@@ -177,6 +177,13 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 		.then(null, () => {})
 }
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	fetch theme by name
+// *
+// *	requests theme by theme name
+// *	@param {string} theme_name
+// *	@return {Promise} - promise with theme info as context
+// * ———————————————————————————————————————————————————————— * //
 theme_manager.prototype.fetch_theme_by_name = function (theme_name) {
 	var self = this
 

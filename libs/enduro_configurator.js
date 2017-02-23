@@ -9,7 +9,7 @@ var fs = require('fs')
 var extend = require('extend')
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 
 // default public config
 var public_default_config = {
@@ -50,7 +50,7 @@ function read_config_file (config_file, default_config) {
 	return new Promise(function (resolve, reject) {
 
 		// check if file exists
-		if (!enduro_helpers.file_exists_sync(config_file)) {
+		if (!flat_helpers.file_exists_sync(config_file)) {
 
 			// uses default config if no configuration is specified
 			global.config = extend(true, config, default_config)

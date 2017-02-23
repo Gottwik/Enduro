@@ -13,9 +13,9 @@ var glob = require('glob-promise')
 
 // local dependencies
 var logger = require(ENDURO_FOLDER + '/libs/logger')
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var juice_diff = require(ENDURO_FOLDER + '/libs/juicebox/juice_diff')
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 
 juice_helpers.prototype.diff_folder_with_cms = function (folder) {
 	// local path
@@ -41,7 +41,7 @@ juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {
 
 			// get paths for both files
 			var staging_file_to_diff = file[0]
-			var current_file_to_diff = flat_file_handler.get_full_path_to_cms(staging_file_to_diff.match(/\/cms\/(.*)/)[1]).replace('.js.js', '.js')
+			var current_file_to_diff = flat.get_full_path_to_cms(staging_file_to_diff.match(/\/cms\/(.*)/)[1]).replace('.js.js', '.js')
 
 			const spawn = require('child_process').exec
 
@@ -61,7 +61,7 @@ juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {
 juice_helpers.prototype.spill_newer = function (folder) {
 	return new Promise(function (resolve, reject) {
 
-		if (!enduro_helpers.dir_exists_sync(folder)) {
+		if (!flat_helpers.dir_exists_sync(folder)) {
 			return resolve()
 		}
 

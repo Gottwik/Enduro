@@ -4,7 +4,7 @@ var rewire = require('rewire')
 
 // local dependencies
 var enduro = require(ENDURO_FOLDER + '/index')
-var flat_file_handler = require(ENDURO_FOLDER + '/libs/flat_utilities/flat_file_handler')
+var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
 
 // rewired
@@ -35,7 +35,7 @@ describe('Admin security', function () {
 	it('should add root admin successfully', function (done) {
 		enduro.run(['addadmin'])
 			.then(() => {
-				return flat_file_handler.load('.users')
+				return flat.load('.users')
 			}, () => {
 				done(new Error('failed to add admin'))
 			})
@@ -54,7 +54,7 @@ describe('Admin security', function () {
 	it('should add admin with custom name successfully', function (done) {
 		enduro.run(['addadmin', 'gottwik', '123'])
 			.then(() => {
-				return flat_file_handler.load('.users')
+				return flat.load('.users')
 			}, () => {
 				done(new Error('failed to add admin'))
 			})

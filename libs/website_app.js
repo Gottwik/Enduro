@@ -6,7 +6,7 @@
 var website_api = function () {}
 
 // local dependencies
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 
 // constants
 var LOCAL_APP_FILE = CMD_FOLDER + '/app/app.js'
@@ -20,7 +20,7 @@ var LOCAL_APP_FILE = CMD_FOLDER + '/app/app.js'
 website_api.prototype.forward = function (app, server) {
 
 	// checks if app.js is present in local enduro app
-	if (enduro_helpers.file_exists_sync(LOCAL_APP_FILE)) {
+	if (flat_helpers.file_exists_sync(LOCAL_APP_FILE)) {
 
 		// forward the app to local enduro app
 		try {

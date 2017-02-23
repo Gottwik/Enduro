@@ -7,7 +7,7 @@ var js_build = function () {}
 var Promise = require('bluebird')
 var rjs = require('requirejs')
 
-var enduro_helpers = require(ENDURO_FOLDER + '/libs/flat_utilities/enduro_helpers')
+var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
 var gulp = require(ENDURO_FOLDER + '/gulpfile')
 
@@ -20,7 +20,7 @@ js_build.prototype.build_js = function (config_name) {
 
 		var configpath = CMD_FOLDER + '/_src/assets/js/main' + config_name + '.js'
 
-		if (!enduro_helpers.file_exists_sync(configpath)) {
+		if (!flat_helpers.file_exists_sync(configpath)) {
 			return logger.err_block('No config file named main' + config_name + '.js')
 		}
 

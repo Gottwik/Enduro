@@ -19,7 +19,6 @@ var path = require('path')
 // local dependencies
 var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
-var logger = require(ENDURO_FOLDER + '/libs/logger')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	init

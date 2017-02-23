@@ -9,6 +9,8 @@ var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
 var enduro_index = require(ENDURO_FOLDER + '/index')
+var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
+var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 
 // vendor dependencies
 var Promise = require('bluebird')
@@ -21,8 +23,8 @@ var npm = require('npm')
 var opn = require('opn')
 
 var theme_manager_api_routes = {
-	get_theme_by_name: 'www.endurojs.com/theme_manager/get_theme_by_name',
-	get_all_themes: 'www.endurojs.com/theme_manager/get_all_themes',
+	get_theme_by_name: 'http://www.endurojs.com/theme_manager/get_theme_by_name',
+	get_all_themes: 'http://www.endurojs.com/theme_manager/get_all_themes',
 }
 
 // Goes through the pages and renders them
@@ -68,27 +70,28 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 			// stores the answers
 			theme_progress_variables.answers = answers
 
+			theme_progress_variables.answers.project_name = format_service.enduro_slug(theme_progress_variables.answers.project_name)
+
 			return flat_helpers.ensure_directory_existence(process.cwd() + '/' + theme_progress_variables.answers.project_name + '/.')
 		}, theme_error)
 
 		// get the theme and put it in created folder
 		.then(function () {
-			return self.download_and_extract_theme_by_gz(theme_progress_variables.theme_info.gz_link, theme_progress_variables.answers.project_name)
+			return self.download_and_extract_theme_by_gz_link(theme_progress_variables.theme_info.gz_link, theme_progress_variables.answers.project_name)
+		}, theme_error)
+
+		.then(() => {
+			return self.clean_fresh_theme()
 		}, theme_error)
 
 		// sets up admin credentials
 		.then(() => {
-			logger.twolog('Setting up admin credentials', '✓')
+			logger.twolog('setting up admin credentials', '✓')
 			logger.silent()
-			return enduro_index.run(['addadmin', theme_progress_variables.answers.login_username, theme_progress_variables.answers.login_password], [])
+			return admin_security.add_admin(theme_progress_variables.answers.login_username, theme_progress_variables.answers.login_password)
 		}, theme_error)
 
-		// removes login_message
-		.then(() => {
-			return flat.update('.settings', { settings: { login_message: '' }})
-		}, theme_error)
-
-		// reads projects dependencies
+		// reads project dependencies
 		.then(() => {
 			logger.noisy()
 			logger.twolog('getting project dependencies', '✓')
@@ -96,7 +99,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 		}, theme_error)
 
 		.then((fetched_package) => {
-			logger.twolog('installing npm dependencies', '✓')
+			logger.loading('installing npm dependencies')
 			return new Promise(function (resolve, reject) {
 
 				// workaround to make npm silent
@@ -120,6 +123,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 
 						// replace console.log
 						console.log = log_temp
+						logger.loaded()
 						resolve()
 					})
 				})
@@ -127,7 +131,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 		}, theme_error)
 
 		.then(() => {
-			logger.twolog('installing bower dependencies', '✓')
+			logger.loading('installing bower dependencies')
 			return new Promise(function (resolve, reject) {
 				var bower = require(process.cwd() + '/' + theme_progress_variables.answers.project_name + '/node_modules/bower/lib/index')
 				bower.commands
@@ -137,23 +141,39 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 						cwd: theme_progress_variables.answers.project_name
 					})
 					.on('end', function (installed) {
-						logger.twolog('installed bower dependencies', '✓')
+						logger.loaded()
 						resolve()
 					})
 			})
 		}, theme_error)
 
 		.then(() => {
-			logger.line()
-			logger.end()
-
+			logger.loading('starting enduro')
+			logger.silent()
 			return enduro_index.run(['start'], [])
 
 		}, theme_error)
 
 		.then(() => {
-			logger.timestamp('opening browser')
-			opn('http://localhost:5000/')
+			logger.noisy()
+			logger.loaded()
+
+			logger.line()
+			logger.log('')
+			logger.log('your project was created successfully', true)
+			logger.log('to start your project again, just cd')
+			logger.log('into project directory and run', true)
+			logger.tablog('$ enduro', true)
+
+			logger.loading('the browser should open soon')
+
+			// open localhost in 3 seconds
+			// the delay is there to make the process more calm
+			setTimeout(() => {
+				logger.loaded()
+				logger.end()
+				opn('http://localhost:5000/')
+			}, 3000)
 		}, theme_error)
 
 		.then(null, () => {})
@@ -167,7 +187,6 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 // *	@return {Promise} - promise with theme info as context
 // * ———————————————————————————————————————————————————————— * //
 theme_manager.prototype.fetch_theme_info_by_name = function (theme_name) {
-	var self = this
 
 	// list all themes and exit if specified theme is not found
 	if (!theme_name) {
@@ -177,31 +196,50 @@ theme_manager.prototype.fetch_theme_info_by_name = function (theme_name) {
 		return Promise.reject()
 	}
 
-	logger.loading('Getting info for \'' + theme_name + '\' theme')
-	return request(theme_manager_api_routes.get_theme_by_name + '/theme_name')
+	logger.loading('etting info for \'' + theme_name + '\' theme')
+	return request(theme_manager_api_routes.get_theme_by_name + '/' + theme_name)
 		.then((themes_response) => {
+
+			themes_response = JSON.parse(themes_response)
+
 			logger.loaded()
 
-			console.log(themes_response, typeof themes_response)
+			if (!themes_response.found) {
+				logger.log('theme not found')
+				logger.end()
+				return Promise.reject()
+			}
 
-			logger.line()
+			return themes_response.theme_info
 		})
 }
 
-theme_manager.prototype.download_and_extract_theme_by_gz = function (gz_link, project_name) {
+// * ———————————————————————————————————————————————————————— * //
+// * 	download and extract theme by gzip link
+// *
+// *	@param {string} gz_link - remote link hosting the gzip archive
+// *	@param {string} project_name - project_name will serve as folder for the new project relative to current path
+// *	@return {Promise} - empty promise
+// * ———————————————————————————————————————————————————————— * //
+theme_manager.prototype.download_and_extract_theme_by_gz_link = function (gz_link, project_name) {
+	logger.loading('downloading and extracting theme')
+
 	return new Promise(function (resolve, reject) {
 
+		// tar settings - strip will omit the root folder of the gzip archive
 		var tar_extract = tar.Extract({
 			path: './' + project_name,
 			strip: 1,
 		})
 
+		// downloads and extracts
 		request(gz_link)
 			.pipe(zlib.createUnzip())
 			.pipe(tar_extract)
 
+		// resolve when extracting is finished
 		tar_extract.on('finish', () => {
-			logger.twolog('project extracted', '✓')
+			logger.loaded()
 			global.CMD_FOLDER = process.cwd() + '/' + project_name
 			resolve()
 		})
@@ -225,6 +263,19 @@ theme_manager.prototype.list_themes = function (themes) {
 
 	})
 	logger.end()
+}
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	removes theme specific attibutes such as login message
+// *	and demo users from theme
+// *
+// *	@return {promise} - empty promise
+// * ———————————————————————————————————————————————————————— * //
+theme_manager.prototype.clean_fresh_theme = function () {
+	return flat.update('.settings', { settings: { login_message: '' }})
+		.then(() => {
+			return admin_security.remove_all_users()
+		})
 }
 
 // helper function that propagates error in the promise chain

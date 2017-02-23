@@ -151,6 +151,32 @@ describe('Admin security', function () {
 		expect(internal_admin_security.__get__('salt_and_hash')()).to.be.empty
 	})
 
+	it('should be able to remove all users', () => {
+		return admin_security.add_admin('dude', 'dude')
+			.then(() => {
+				return admin_security.remove_all_users()
+			})
+			.then(() => {
+				return admin_security.get_all_users()
+			})
+			.then((users) => {
+				expect(users).to.be.empty
+			})
+	})
+
+	it('should be able to add users after deleting them all users', () => {
+		return admin_security.remove_all_users()
+			.then(() => {
+				return admin_security.add_admin('dude', 'dude')
+			})
+			.then(() => {
+				return admin_security.get_all_users()
+			})
+			.then((users) => {
+				expect(users).to.include.members(['dude'])
+			})
+	})
+
 	// navigate back to testfolder
 	after(function () {
 		global.CMD_FOLDER = process.cwd() + '/testfolder'

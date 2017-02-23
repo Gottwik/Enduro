@@ -159,6 +159,10 @@ admin_security.prototype.add_admin = function (username, password, tags) {
 	})
 }
 
+admin_security.prototype.remove_all_users = function () {
+	return flat.save('.users', {})
+}
+
 // private functions
 
 // * ———————————————————————————————————————————————————————— * //

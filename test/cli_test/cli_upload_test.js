@@ -18,10 +18,7 @@ describe('cli upload', function () {
 			.then(() => {
 				// navigate inside new project
 				global.CMD_FOLDER = path.join(CMD_FOLDER, test_project_name)
-				enduro.run(['start'])
-					.then(() => {
-						done()
-					})
+				done()
 			}, () => {
 				done(new Error('Failed to create new project'))
 			})

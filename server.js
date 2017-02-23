@@ -92,7 +92,7 @@ enduro_server.prototype.run = function (server_setup) {
 				res.send({success: true, message: 'enduro refreshed successfully'})
 			})
 		})
-		
+
 
 		// handle for all admin api calls
 		app.all('/admin_api/*', multiparty_middleware, function (req, res) {

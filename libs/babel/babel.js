@@ -16,7 +16,7 @@ var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 // gets list of all cultures
 babel_handler.prototype.get_cultures = function () {
 	return new Promise(function (resolve, reject) {
-		var babel_absolute_path = flat.get_full_path_to_cms(BABEL_FILE)
+		var babel_absolute_path = flat.get_full_path_to_flat_object(BABEL_FILE)
 		// check if file exists. return empty object if not
 		if (!flat_helpers.file_exists_sync(babel_absolute_path)) {
 			return resolve([''])
@@ -41,7 +41,7 @@ babel_handler.prototype.get_cultures = function () {
 
 // adds culture to culture array in cms folder
 babel_handler.prototype.add_culture = function (cultures) {
-	return flat.add_array(BABEL_FILE, cultures, 'cultures')
+	return flat.update(BABEL_FILE, { cultures: cultures })
 }
 
 function culturize (context, culture) {

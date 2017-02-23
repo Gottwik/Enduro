@@ -6,12 +6,11 @@ var path = require('path')
 
 // local dependencies
 var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 var enduro = require(ENDURO_FOLDER + '/index')
 
 enduro.silent()
 
-describe('Enduro helpers utilities', function () {
+describe('flat helpers', function () {
 
 	it('should detect an existing file', function () {
 		expect(flat_helpers.file_exists_sync(process.cwd() + '/index.js')).to.equal(true)
@@ -65,44 +64,8 @@ describe('Enduro helpers utilities', function () {
 
 	it('should delete all test folders', function () {
 		rimraf(process.cwd() + '/test_folder', function () {
-			expect(flat_helpers.dir_exists_sync(process.cwd() + '/test_folder')).to.not.equal(true)
+			expect(flat_helpers.dir_exists_sync(process.cwd() + '/test_folder')).to.equal(false)
 		})
 	})
 
-})
-
-describe('Enduro flat utilities', function () {
-
-	before(function (done) {
-		enduro.run(['create', 'testfolder_flat_test'])
-			.then(() => {
-				CMD_FOLDER = process.cwd() + '/testfolder/testfolder_flat_test'
-				done()
-			}, (err) => {
-				done(new Error(err))
-			})
-	})
-
-	it('should detect an existing flat file', function () {
-		expect(flat.file_exists('index')).to.equal(true)
-	})
-
-	var full_index_file
-	it('should convert relative path into full path', function () {
-		full_index_file = flat.get_full_path_to_cms('index')
-		expect(flat_helpers.file_exists_sync(full_index_file)).to.equal(true)
-	})
-
-	it('should convert absolute path into relative', function () {
-		expect(flat.get_cms_filename_from_fullpath(full_index_file)).to.equal('index')
-	})
-
-	it('should not detect an nonexisting flat file', function () {
-		expect(flat.file_exists('aegwa')).to.equal(false)
-	})
-
-	// navigate back to testfolder
-	after(function () {
-		global.CMD_FOLDER = process.cwd() + '/testfolder'
-	})
 })

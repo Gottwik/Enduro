@@ -1,15 +1,6 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	Flat file handler
-// * 	Handles flat file storage
-// *
-// *	save
-// *	save_by_string
-// *	load
-// *	loadsync
-// *	get_full_path_to_cms
-// *	file_exists
-// *	add
-// *
+// * 	flatdb custom built for enduro.js
+// * 	handles cms data storage
 // * ———————————————————————————————————————————————————————— * //
 var flat = function () {}
 
@@ -20,6 +11,7 @@ var require_from_string = require('require-from-string')
 var decode = require('urldecode')
 var stringify_object = require('stringify-object')
 var path = require('path')
+var _ = require('lodash')
 
 // local dependencies
 var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
@@ -31,6 +23,8 @@ var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 // *	@return {Promise} - Promise with no content. Resolve if saved successfully, reject otherwise
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.save = function (filename, contents) {
+	var self = this
+
 	return new Promise(function (resolve, reject) {
 		// TODO: maybe the file could be backed up somewhere before overwriting
 		contents = contents || {}
@@ -38,7 +32,7 @@ flat.prototype.save = function (filename, contents) {
 		// url decode filename
 		filename = decode(filename)
 
-		var fullpath_to_cms_file = get_full_path_to_cms(filename)
+		var fullpath_to_cms_file = self.get_full_path_to_flat_object(filename)
 
 		var flatObj = require_from_string('module.exports = ' + JSON.stringify(contents))
 
@@ -59,27 +53,19 @@ flat.prototype.save = function (filename, contents) {
 }
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	Save cms file with string as content
-// *	@param {String} filename - Path to file without extension, relative to /cms folder
-// *	@param {String} contents - Content to be saved
-// *	@return {Promise} - Promise from save function
-// * ———————————————————————————————————————————————————————— * //
-flat.prototype.save_by_string = function (filename, contents) {
-	return this.save(filename, JSON.parse(contents))
-}
-
-// * ———————————————————————————————————————————————————————— * //
 // * 	Load cms file
 // *	@param {String} filename - Path to file without extension, relative to /cms folder
 // *	@return {Promise} - Promise returning an object
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.load = function (filename) {
+	var self = this
+
 	return new Promise(function (resolve, reject) {
 
 		// url decode filename
 		filename = decode(filename)
 
-		var fullpath_to_cms_file = get_full_path_to_cms(filename)
+		var fullpath_to_cms_file = self.get_full_path_to_flat_object(filename)
 
 		// check if file exists. return empty object if not
 		if (!flat_helpers.file_exists_sync(fullpath_to_cms_file)) {
@@ -123,128 +109,106 @@ flat.prototype.loadsync = function (filename) {
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Get full path of a cms file
-// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	@param {string} flat_object_path - path to file without extension, relative to flat root folder
 // *	@return {string} - peturns full server path to specified file
 // * ———————————————————————————————————————————————————————— * //
-flat.prototype.get_full_path_to_cms = get_full_path_to_cms
+flat.prototype.get_full_path_to_flat_object = (filename) => {
+	return path.join(CMD_FOLDER, 'cms', filename + '.js')
+}
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	get cms filename from a full path
+// * 	get cms flat_object_path from a full path
 // *	@param {string} full_path - absolute, server-root-related path to the file
 // *	@return {string} - returns file name relative to /cms folder
 // * ———————————————————————————————————————————————————————— * //
-flat.prototype.get_cms_filename_from_fullpath = get_cms_filename_from_fullpath
+flat.prototype.get_cms_filename_from_fullpath = (full_path) => {
+	return full_path.match(/(?:\/|\\)cms(?:\/|\\)(.*)\..*/)[1]
+}
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	checks if specified file exists
-// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	@param {string} flat_object_path - path to file without extension, relative to flat root folder
 // *	@return {boolean} - returns true if specified file exists
 // * ———————————————————————————————————————————————————————— * //
-flat.prototype.file_exists = function (filename) {
-	return flat_helpers.file_exists_sync(get_full_path_to_cms(filename))
+flat.prototype.flat_object_exists = function (flat_object_path) {
+	var self = this
+	return flat_helpers.file_exists_sync(self.get_full_path_to_flat_object(flat_object_path))
 }
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	adds content to a file.
-// *	@param {string} filename - path to file without extension, relative to /cms folder
-// *	@param {object} context_to_add - content to be added
-// *	@param {string} key - key in the root of the file where the specified content should be added. defaults to 'items'
-// *	@return {promise} - returns promise from save function
+// * 	updates flat object with new context
+// *	merges array instead of replacing them
+// *	@param {string} flat_object_path - path to file without extension, relative to flat root folder
+// *	@param {object} context_to_update - object to be merged with current context
+// *	@return {object} - returns merged object
 // * ———————————————————————————————————————————————————————— * //
-flat.prototype.add = function (filename, context_to_add, key) {
+flat.prototype.update = function (flat_object_path, context_to_update) {
 	var self = this
 
-	context_to_add = context_to_add || {}
-	key = key || 'items'
-
-	return self.load(filename)
-		.then((context) => {
-			if (!(key in context)) {
-				context[key] = []
-			}
-
-			context[key].push(context_to_add)
-			return self.save(filename, context)
-		})
-}
-
-// * ———————————————————————————————————————————————————————— * //
-// * 	adds array to a file.
-// *	@param {string} filename - path to file without extension, relative to /cms folder
-// *	@param {object} context_to_add - content to be added
-// *	@param {string} key - key in the root of the file where the specified content should be added. defaults to 'items'
-// *	@return {promise} - returns promise from save function
-// * ———————————————————————————————————————————————————————— * //
-flat.prototype.add_array = function (filename, context_to_add, key) {
-	var self = this
-
-	context_to_add = context_to_add || []
-	key = key || 'items'
-
-	return self.load(filename)
-		.then((context) => {
-			if (!(key in context)) {
-				context[key] = []
-			}
-
-			// Extend loaded file with default configuration
-			context[key] = context[key].concat(context_to_add.filter((new_culture) => {
-				if (context[key].indexOf(new_culture) == -1) {
-					return new_culture
+	return self.load(flat_object_path)
+		.then((current_context) => {
+			var merged_context = _.mergeWith(current_context, context_to_update, function (objValue, srcValue) {
+				if (Array.isArray(objValue) && Array.isArray(srcValue)) {
+					return _.union(objValue, srcValue)
 				}
-			}))
-			return self.save(filename, context)
+			})
+			return self.save(flat_object_path, merged_context)
 		})
 }
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	checks filename and returns if it defines a generator file or not
-// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	@param {string} filename - path to file without extension, relative to flat folder
 // *	@return {bool} - returns true if filename belongs to a generator
 // * ———————————————————————————————————————————————————————— * //
-flat.prototype.is_generator = function (filename) {
-	return filename.split('/')[0] == 'generators'
+flat.prototype.is_generator = function (flat_object_path) {
+	return flat_object_path.split('/')[0] == 'generators'
 }
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	returns url from filename, takes into account generators
-// *	@param {string} filename - path to file without extension, relative to /cms folder
+// * 	returns a relative http url from flat_object_path
+// *	for example: `generators/blog/blog_entry` will result in `blog/blog_entry`
+// *	@param {string} flat_object_path - path to file without extension, relative to flat folder
 // *	@return {string} - returns relative url to the file
 // * ———————————————————————————————————————————————————————— * //
-flat.prototype.url_from_filename = function (filename) {
-	if (this.is_generator(filename)) {
-		return filename.split('/').slice(1).join('/')
+flat.prototype.url_from_filename = function (flat_object_path) {
+
+	if (flat_object_path == 'index') {
+		return ''
 	}
 
-	return filename
+	if (this.is_generator(flat_object_path)) {
+		return flat_object_path.split('/').slice(1).join('/')
+	}
+
+	return flat_object_path
 }
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	returns url from filename, takes into account generators
-// *	@param {string} filename - path to file without extension, relative to /cms folder
-// *	@return {string} - returns relative url to the file
+// * 	returns true if flat_object is directly linked to a accessible, served http page
+// *	currently global flat objects have no page associated with them
+// *	@param {string} flat_object_path - path to file without extension, relative to flat folder
+// *	@return {bool}
 // * ———————————————————————————————————————————————————————— * //
-flat.prototype.has_page_associated = function (filename) {
-	return !['global', 'generators'].indexOf(filename.split('/')[0].toLowerCase())
+flat.prototype.has_page_associated = function (flat_object_path) {
+	var first_route_part = flat_object_path.split('/')[0].toLowerCase()
+
+	// global flat objects does not have a page associated with them
+	if (first_route_part == 'global') {
+		return false
+	}
+
+	return true
 }
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	makes a decision whether this content file is deletable
-// *	currently only generator content files are deletable
-// *	@param {string} filename - path to file without extension, relative to /cms folder
+// *	currently only generator flat objects are deletable
+// *	@param {string} filename - path to file without extension, relative to flat folder
 // *	@return {bool} - returns true if particular content file is deletable
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.is_deletable = function (filename) {
 	return this.is_generator(filename)
-}
-
-// Private functions
-function get_full_path_to_cms (filename) {
-	return path.join(CMD_FOLDER, 'cms', filename + '.js')
-}
-
-function get_cms_filename_from_fullpath (full_path) {
-	return full_path.match(/(?:\/|\\)cms(?:\/|\\)(.*)\..*/)[1]
 }
 
 module.exports = new flat()

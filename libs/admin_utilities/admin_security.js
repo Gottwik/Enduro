@@ -142,7 +142,7 @@ admin_security.prototype.add_admin = function (username, password, tags) {
 				salt_and_hash(logincontext)
 				timestamp(logincontext)
 
-				return flat.add(ADMIN_SECURE_FILE, logincontext, 'users')
+				return flat.update(ADMIN_SECURE_FILE, {users: [logincontext]})
 			})
 			.then(() => {
 				// Let the user know the project was created successfully

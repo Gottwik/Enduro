@@ -41,7 +41,7 @@ juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {
 
 			// get paths for both files
 			var staging_file_to_diff = file[0]
-			var current_file_to_diff = flat.get_full_path_to_cms(staging_file_to_diff.match(/\/cms\/(.*)/)[1]).replace('.js.js', '.js')
+			var current_file_to_diff = flat.get_full_path_to_flat_object(staging_file_to_diff.match(/\/cms\/(.*)/)[1]).replace('.js.js', '.js')
 
 			const spawn = require('child_process').exec
 

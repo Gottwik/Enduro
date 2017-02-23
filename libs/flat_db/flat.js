@@ -92,22 +92,6 @@ flat.prototype.load = function (filename) {
 }
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	Load cms file synchronously
-// *	@param {String} filename - Path to file without extension, relative to /cms folder
-// *	@return {String} - Raw string
-// * ———————————————————————————————————————————————————————— * //
-flat.prototype.loadsync = function (filename) {
-	filename = decode(filename)
-
-	if (!flat_helpers.file_exists_sync(CMD_FOLDER + '/cms/' + filename + '.js')) {
-		return {}
-	}
-
-	data = fs.readFileSync(CMD_FOLDER + '/cms/' + filename + '.js', 'utf-8')
-	return require_from_string('module.exports = ' + data)
-}
-
-// * ———————————————————————————————————————————————————————— * //
 // * 	Get full path of a cms file
 // *	@param {string} flat_object_path - path to file without extension, relative to flat root folder
 // *	@return {string} - peturns full server path to specified file

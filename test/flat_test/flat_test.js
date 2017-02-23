@@ -60,14 +60,6 @@ describe('flat db data access', function () {
 			})
 	})
 
-	it('should be able to load a flat object synchronously', () => {
-		var index_context = flat.loadsync('index')
-
-		expect(index_context).to.be.an('object')
-		expect(index_context).to.have.property('greeting')
-		expect(index_context).to.have.property('superlative')
-	})
-
 	it('should be able to update a file with non-conflicting context', () => {
 		return flat.save('update_test_object', { old_key: 'old_value' })
 			.then(() => {

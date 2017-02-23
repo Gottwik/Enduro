@@ -217,6 +217,15 @@ function run (args, flags) {
 				// * ———————————————————————————————————————————————————————— * //
 				} else if (arg == 'theme') {
 					return require(ENDURO_FOLDER + '/libs/theme_manager/theme_manager').create_from_theme(args.shift())
+
+				// * ———————————————————————————————————————————————————————— * //
+				// * 	$ enduro theme
+				// * ———————————————————————————————————————————————————————— * //
+				} else if (arg == 'test') {
+					logger.loading('creating something')
+					setTimeout(() => {
+						logger.loaded('creating something')
+					}, 3000)
 				}
 			}
 

@@ -5,7 +5,7 @@
 var logger = function () {}
 
 // vendor dependencies
-var chalk = require('chalk')
+var chalk = require('chalk').green
 
 // constants
 var FRAME_WIDTH = 60
@@ -32,8 +32,6 @@ var logtags_config = {
 	server_usage: false,
 }
 
-var logg = chalk.green
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Info messages
 // * ———————————————————————————————————————————————————————— * //
@@ -42,7 +40,7 @@ var logg = chalk.green
 logger.prototype.init = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	message = message || 'ENDURO'
-	log('\n' + logg('┌' + ('~—' + message + '—~').cpad(FRAME_WIDTH - 2, '—') + '┐'))
+	log('\n' + chalk('┌' + ('~—' + message + '—~').cpad(FRAME_WIDTH - 2, '—') + '┐'))
 }
 
 // * │ I have something to tell you                             │ * //
@@ -55,7 +53,7 @@ logger.prototype.log = function (message, newline, logtag) {
 	message = message || ''
 
 	if (!pass_tagcheck(logtag)) { return }
-	log(logg('│') + rpad(' ' + message, FRAME_WIDTH - 2) + logg('│'))
+	log(chalk('│') + rpad(' ' + message, FRAME_WIDTH - 2) + chalk('│'))
 	newline || false ? this.log('') : ''
 }
 
@@ -69,25 +67,25 @@ logger.prototype.tablog = function (message, newline, logtag) {
 logger.prototype.twolog = function (message, right_message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	if (!right_message) { return this.log(message, logtag) }
-	log(logg('│') + rpad(' ' + message, FRAME_WIDTH - 3 - right_message.length) + right_message + logg(' │'))
+	log(chalk('│') + rpad(' ' + message, FRAME_WIDTH - 3 - right_message.length) + right_message + chalk(' │'))
 }
 
 // * ├——————————————————————————————————————————————————————————┤ * //
 logger.prototype.line = function (logtag) {
 	if (!pass_tagcheck(logtag)) { return }
-	log(logg('├' + rep(FRAME_WIDTH - 2, '—') + '┤'))
+	log(chalk('├' + rep(FRAME_WIDTH - 2, '—') + '┤'))
 }
 
 // * └——————————————————————————————————————————————————————————┘ * //
 logger.prototype.end = function (logtag) {
 	if (!pass_tagcheck(logtag)) { return }
-	log(logg('└' + rep(FRAME_WIDTH - 2, '—') + '┘'))
+	log(chalk('└' + rep(FRAME_WIDTH - 2, '—') + '┘'))
 }
 
 // * [10:25:30] same as log but with a tab                           * //
 logger.prototype.timestamp = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
-	log('[' + logg(get_timestamp()) + '] ' + message)
+	log('[' + chalk(get_timestamp()) + '] ' + message)
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -137,6 +135,42 @@ logger.prototype.raw_err = function (message, logtag) {
 	console.log(message)
 	this.err_blockEnd()
 }
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Loading functions
+// * ———————————————————————————————————————————————————————— * //
+var loading_symbols = '⠙⠸⠴⠦⠇⠋'
+var currently_loading_handle
+var last_message = 'loaded'
+logger.prototype.loading = function (message, loading_index) {
+	var self = this
+
+	// store current message as last message
+	last_message = message
+
+	loading_index = loading_index || 0
+	var loading_symbol = loading_symbols[loading_index % loading_symbols.length]
+	process.stdout.write(chalk('│') + rpad(' ' + message, FRAME_WIDTH - 3 - 1) + chalk(loading_symbol) + chalk(' │') + '\r')
+
+	currently_loading_handle = setTimeout(() => {
+		self.loading(message, loading_index + 1)
+	}, 50)
+}
+
+logger.prototype.loaded = function (message) {
+	var self = this
+
+	// fallback to last message if no message is provided
+	message = message || last_message
+
+	clearTimeout(currently_loading_handle)
+	process.stdout.write('\r\x1b[K') // clears current line
+	self.twolog(message, '✓')
+}
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Helper functions
+// * ———————————————————————————————————————————————————————— * //
 
 // Silencer
 logger.prototype.silent = function (logtag) {

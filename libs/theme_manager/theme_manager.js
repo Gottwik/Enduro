@@ -196,7 +196,7 @@ theme_manager.prototype.fetch_theme_info_by_name = function (theme_name) {
 		return Promise.reject()
 	}
 
-	logger.loading('etting info for \'' + theme_name + '\' theme')
+	logger.loading('getting info for \'' + theme_name + '\' theme')
 	return request(theme_manager_api_routes.get_theme_by_name + '/' + theme_name)
 		.then((themes_response) => {
 

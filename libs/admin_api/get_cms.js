@@ -48,7 +48,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 
 			// associated page means that the page content file is directly linked with an existing url
 			// this is used when deciding whether provide a link from admin to the page that is being edited
-			context.no_page_associated = flat.has_page_associated(context.page_name)
+			context.has_page_associated = flat.has_page_associated(context.page_name)
 
 			// name is capitalized and _ are replaced with whitespace
 			context.pretty_name = format_service.prettify_string(context.only_page_name)

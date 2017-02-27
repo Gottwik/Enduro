@@ -180,13 +180,23 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 }
 
 // * ———————————————————————————————————————————————————————— * //
+// * 	get all themes
+// *
+// *	fetches list of themes
+// *	@return {array} - list of all available themes
+// * ———————————————————————————————————————————————————————— * //
+theme_manager.prototype.get_all_themes = function () {
+	return request(theme_manager_api_routes.get_all_themes)
+}
+
+// * ———————————————————————————————————————————————————————— * //
 // * 	fetch theme by name
 // *
 // *	requests theme by theme name
 // *	@param {string} theme_name
 // *	@return {Promise} - promise with theme info as context
 // * ———————————————————————————————————————————————————————— * //
-theme_manager.prototype.fetch_theme_info_by_name = function (theme_name) {
+theme_manager.prototype.fetch_theme_info_by_name = function (theme_name, options) {
 
 	// list all themes and exit if specified theme is not found
 	if (!theme_name) {
@@ -197,7 +207,10 @@ theme_manager.prototype.fetch_theme_info_by_name = function (theme_name) {
 	}
 
 	logger.loading('getting info for \'' + theme_name + '\' theme')
-	return request(theme_manager_api_routes.get_theme_by_name + '/' + theme_name)
+	return request({
+		url: theme_manager_api_routes.get_theme_by_name + '/' + theme_name,
+		qs: options,
+	})
 		.then((themes_response) => {
 
 			themes_response = JSON.parse(themes_response)

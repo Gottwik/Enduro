@@ -4,6 +4,13 @@ var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 
 describe('Format service', function () {
 
+	it('should sluggify strings', function () {
+		expect(format_service.slug('Project Name')).to.equal('project-name')
+		expect(format_service.slug('Project Name!.?')).to.equal('project-name')
+		expect(format_service.slug('    ProJect NaMe')).to.equal('project-name')
+		expect(format_service.slug('!__ProJect NaMe__')).to.equal('__project-name__')
+	})
+
 	it('should enduro_sluggify strings', function () {
 		expect(format_service.enduro_slug('Project Name')).to.equal('project_name')
 		expect(format_service.enduro_slug('Project Name!.?')).to.equal('project_name')

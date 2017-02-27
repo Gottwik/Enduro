@@ -7,16 +7,13 @@
 // *	will return this-link
 // * ———————————————————————————————————————————————————————— * //
 
+var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
+
 __templating_engine.registerHelper('slug', function (text) {
 
 	if (!text) {
 		return ''
 	}
 
-	return text.toString().toLowerCase()
-		.replace(/\s+/g, '-')			// Replace spaces with -
-		.replace(/[^\w\-]+/g, '')		// Remove all non-word chars
-		.replace(/\-\-+/g, '-')			// Replace multiple - with single -
-		.replace(/^-+/, '')				// Trim - from start of text
-		.replace(/-+$/, '')				// Trim - from end of text
+	return format_service.slug(text)
 })

@@ -69,22 +69,11 @@ gulp.set_refresh(function (callback) {
 })
 
 enduro_server.set_init(function (cb) {
-	var first_production_render = true
 	var first_production = true
 
 	logger.log('initializing production server', true, 'enduro_render_events')
-	gulp.start('preproduction', () => {
-		if (first_production_render) {
-			render(function () {
-				if (first_production) {
-					gulp.start('production', () => {
-						cb()
-					})
-					first_production = false
-				}
-			})
-			first_production_render = false
-		}
+	render(function () {
+		cb()
 	})
 })
 
@@ -118,7 +107,7 @@ function run (args, flags) {
 				// * 	$ enduro render
 				// * ———————————————————————————————————————————————————————— * //
 				if (arg == 'render' || arg == 'r') {
-					return render()
+					return render(() => {}, false)
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro start
@@ -238,7 +227,7 @@ function run (args, flags) {
 // * ———————————————————————————————————————————————————————— * //
 function render (callback, dont_do_juice_pull) {
 	logger.init('Enduro', 'enduro_render_events')
-	Promise.resolve()
+	return Promise.resolve()
 		.then(() => {
 			if (!dont_do_juice_pull) {
 				return juicebox.pull(juicebox.is_juicebox_enabled())
@@ -268,7 +257,21 @@ function render (callback, dont_do_juice_pull) {
 			return pregenerator.pregenerate()
 		})
 		.then(() => {
+			return new Promise(function (resolve, reject) {
+				return gulp.start('preproduction', () => {
+					resolve()
+				})
+			})
+		})
+		.then(() => {
 			return enduro_render.render()
+		})
+		.then(() => {
+			return new Promise(function (resolve, reject) {
+				return gulp.start('production', () => {
+					resolve()
+				})
+			})
 		})
 		.then(() => {
 			logger.end('enduro_render_events')
@@ -282,8 +285,6 @@ function render (callback, dont_do_juice_pull) {
 // * 	Developer Start
 // *	Renders content and starts browsersync after that
 // * ———————————————————————————————————————————————————————— * //
-var first = true
-var firstrender = true
 var firstserverstart = true
 function developer_start () {
 	return new Promise(function (resolve, reject) {
@@ -293,27 +294,18 @@ function developer_start () {
 		log_clusters.log('developer_start')
 
 		logger.timestamp('developer start', 'enduro_events')
-		// Does the refresh procedure
-		gulp.start('preproduction', () => {
-			if (first) {
-				render(() => {
-					logger.timestamp('Render finished', 'enduro_events')
-					if (firstrender) {
-						gulp.start(flags.norefresh ? 'default_norefresh' : 'default', () => {
-							if (firstserverstart && !flags.noadmin) {
-								logger.timestamp('production server starting', 'enduro_events')
-								resolve()
-								// start production server in development mode
-								enduro_server.run({development_mode: true})
-							}
-							firstserverstart = false
-							// After everything is done
-						})
-					}
-					firstrender = false
-				})
-			}
-			first = false
+		render(() => {
+			logger.timestamp('Render finished', 'enduro_events')
+			gulp.start(flags.norefresh ? 'default_norefresh' : 'default', () => {
+				if (firstserverstart && !flags.noadmin) {
+					logger.timestamp('production server starting', 'enduro_events')
+					resolve()
+					// start production server in development mode
+					enduro_server.run({ development_mode: true })
+				}
+				firstserverstart = false
+				// After everything is done
+			})
 		})
 	})
 }

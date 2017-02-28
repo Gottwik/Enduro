@@ -23,6 +23,7 @@ var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 // Gulp tasks
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator').init(gulp)
 var assets_copier = require(ENDURO_FOLDER + '/libs/build_tools/assets_copier').init(gulp, browser_sync)
+var assets_copier_watch = require(ENDURO_FOLDER + '/libs/build_tools/assets_copier').watch(gulp, browser_sync)
 
 gulp.set_refresh = function (callback) {
 	gulp.enduro_refresh = callback
@@ -35,11 +36,11 @@ gulp.enduro_refresh = function () {
 // * ———————————————————————————————————————————————————————— * //
 // * 	browser sync task
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('browser_sync', ['sass'], function () {
+gulp.task('browser_sync', function () {
 	browsersync_start(false)
 })
 
-gulp.task('browser_sync_norefresh', ['sass'], function () {
+gulp.task('browser_sync_norefresh', function () {
 	browsersync_start(true)
 })
 
@@ -231,13 +232,6 @@ gulp.task('hbs_helpers', function () {
 })
 
 // * ———————————————————————————————————————————————————————— * //
-// * 	Default Task
-// * ———————————————————————————————————————————————————————— * //
-// gulp.task('default', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync'])
-gulp.task('default', ['hbs_templates', 'sass', assets_copier, 'hbs_helpers', 'browser_sync'])
-gulp.task('default_norefresh', ['hbs_templates', 'sass', assets_copier, 'hbs_helpers', 'browser_sync_norefresh'])
-
-// * ———————————————————————————————————————————————————————— * //
 // * 	Preproduction Task
 // *	Tasks that need to be done before doing the enduro render
 // * ———————————————————————————————————————————————————————— * //
@@ -248,6 +242,13 @@ gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 // *	No browser_sync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
 gulp.task('production', ['sass', 'hbs_templates', assets_copier, 'hbs_helpers'])
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	Default Task
+// * ———————————————————————————————————————————————————————— * //
+// gulp.task('default', ['hbs_templates', 'sass', 'js', 'img', 'vendor', 'fonts', 'hbs_helpers', 'browser_sync'])
+gulp.task('default', [assets_copier_watch, 'browser_sync'])
+gulp.task('default_norefresh', [assets_copier_watch, 'browser_sync_norefresh'])
 
 
 // Export gulp to enable access for enduro

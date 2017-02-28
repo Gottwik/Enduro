@@ -12,14 +12,14 @@ describe('Development server', function () {
 				global.CMD_FOLDER = CMD_FOLDER + '/testproject_server'
 				enduro.run([], ['nr'])
 					.then(() => {
-						done()
+						setTimeout(done, 150)
 					})
 			}, () => {
 				done(new Error('Failed to create new project'))
 			})
 	})
 
-	it('should server something on port 3000', function (done) {
+	it('should serve something on port 3000', function (done) {
 		request('http://localhost:3000/', function (error, response, body) {
 			if (error) { console.log(error) }
 			expect(body).to.contain('body')
@@ -29,7 +29,7 @@ describe('Development server', function () {
 		})
 	})
 
-	it('should server something on port 5000', function (done) {
+	it('should serve something on port 5000', function (done) {
 		request('http://localhost:5000/', function (error, response, body) {
 			if (error) { console.log(error) }
 			expect(body).to.contain('body')

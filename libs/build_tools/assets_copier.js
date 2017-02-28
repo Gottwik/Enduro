@@ -9,6 +9,10 @@ var watch = require('gulp-watch')
 var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var logger = require(ENDURO_FOLDER + '/libs/logger')
 
+// defines locations that have static files
+var STATIC_LOCATIONS = ['assets/js', 'assets/img', 'assets/vendor', 'assets/fonts', 'assets/admin_extensions']
+
+
 // * ———————————————————————————————————————————————————————— * //
 // * 	assets_copier
 // *	copies static assets such as images and fonts to _src folder
@@ -28,38 +32,53 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 	var assets_copier_name = 'assets_copier'
 
 	// registeres task to provided gulp
-	gulp.task(assets_copier_name, function (cb) {
+	gulp.task(assets_copier_name, function () {
 
-		// defines locations that have static files
-		var static_locations = ['assets/js', 'assets/img', 'assets/vendor', 'assets/fonts', 'assets/admin_extensions']
 
 		// will store promises
 		var copy_actions = []
 
 		// goes through all the static locations
-		for (s in static_locations) {
+		for (s in STATIC_LOCATIONS) {
 
 			// stores from and to paths
-			var copy_from = path.join(CMD_FOLDER, static_locations[s])
-			var copy_to = path.join(CMD_FOLDER, '_src', static_locations[s])
+			var copy_from = path.join(CMD_FOLDER, STATIC_LOCATIONS[s])
+			var copy_to = path.join(CMD_FOLDER, '_src', STATIC_LOCATIONS[s])
 
-			watch_for_static_change(copy_from, copy_to, browser_sync)
+			// watch_for_static_change(copy_from, copy_to, browser_sync)
 
 			// adds copy promise to the list
 			copy_actions.push(copy_if_exist(copy_from, copy_to))
 		}
 
 		// execute callback when all promises are resolved
-		Promise.all(copy_actions)
-			.then(() => {
-				cb()
-			}, (err) => {
-				logger.err(err)
-			})
+		return Promise.all(copy_actions)
 
 	})
 
 	return assets_copier_name
+}
+
+assets_copier.prototype.watch = function (gulp, browser_sync) {
+
+	var assets_copier_watch_name = 'assets_copier_watch'
+
+	// registeres task to provided gulp
+	gulp.task(assets_copier_watch_name, function () {
+
+		// goes through all the static locations
+		for (s in STATIC_LOCATIONS) {
+
+			// stores from and to paths
+			var copy_from = path.join(CMD_FOLDER, STATIC_LOCATIONS[s])
+			var copy_to = path.join(CMD_FOLDER, '_src', STATIC_LOCATIONS[s])
+
+			watch_for_static_change(copy_from, copy_to, browser_sync)
+
+		}
+	})
+
+	return assets_copier_watch_name
 }
 
 // helper function that copies directory if it exists

@@ -145,8 +145,8 @@ enduro_server.prototype.set_refresh = function (callback) {
 }
 
 // placehodler refresh function - this function is being replaced by parent
-enduro_server.prototype.enduro_refresh = function () {
-	console.log('refresh not defined')
+enduro_server.prototype.enduro_refresh = function (cb) {
+	cb()
 }
 
 // sets enduro_refresh function from parent
@@ -155,8 +155,8 @@ enduro_server.prototype.set_init = function (callback) {
 }
 
 // placehodler refresh function - this function is being replaced by parent
-enduro_server.prototype.enduro_init = function () {
-	console.log('refresh not defined')
+enduro_server.prototype.enduro_init = function (cb) {
+	cb()
 }
 
 module.exports = new enduro_server()

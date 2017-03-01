@@ -49,6 +49,9 @@ api_call.prototype.call = function (req, res, enduro_server) {
 				}
 
 				requesting_user = user
+
+				// disable watching for cms files to prevent double rendering
+				flags.temporary_nocmswatch = true
 				return flat.save(filename, content)
 			}, () => {
 				res.sendStatus(401)
@@ -58,8 +61,13 @@ api_call.prototype.call = function (req, res, enduro_server) {
 				return juicebox.pack(requesting_user.username)
 			}, () => { throw new Error() })
 			.then((data) => {
+
+				// enable cmswatch again
+				flags.temporary_nocmswatch = false
+
 				// re-renders enduro - essential to publishing the change
-				enduro_server.enduro_refresh(() => {
+				return enduro_server.enduro_refresh(() => {
+					// send the response early to cut down on publish time
 					res.send(data)
 				})
 			}, () => {})

@@ -69,19 +69,18 @@ gulp.set_refresh(function (callback) {
 })
 
 enduro_server.set_init(function (cb) {
-	var first_production = true
-
 	logger.log('initializing production server', true, 'enduro_render_events')
 	render(function () {
 		cb()
 	})
 })
 
+// will rerender everything without juice pull
 enduro_server.set_refresh(function (cb) {
 	logger.log('refreshing production server', true, 'enduro_render_events')
 	render(function () {
 		cb()
-	})
+	}, true)
 })
 
 // * ———————————————————————————————————————————————————————— * //

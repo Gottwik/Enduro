@@ -45,7 +45,6 @@ juicebox.prototype.pull = function (force) {
 
 	// if juicebox is not enabled
 	if (!config.variables.juicebox_enabled) {
-		logger.log('Juicebox is not set up')
 		return Promise.resolve()
 	}
 
@@ -97,8 +96,7 @@ juicebox.prototype.force_pack = function (user) {
 
 		// Skip juicing if juicing is not enabled(most likely s3 keys are missing)
 		if (!config.variables.juicebox_enabled) {
-			resolve()
-			return logger.log('juicebox not enabled')
+			return resolve()
 		}
 
 		get_latest_juice()

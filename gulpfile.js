@@ -112,13 +112,15 @@ function browsersync_start (norefresh) {
 	watch([CMD_FOLDER + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
 
 	// Watch for enduro changes
-	if (!flags.nocmswatch) {
-		watch([CMD_FOLDER + '/pages/**/*.hbs', CMD_FOLDER + '/components/**/*.hbs', CMD_FOLDER + '/cms/**/*.js'], function () {
+	watch([CMD_FOLDER + '/pages/**/*.hbs', CMD_FOLDER + '/components/**/*.hbs', CMD_FOLDER + '/cms/**/*.js'], function () {
+
+		// don't do anything if nocmswatch flag is set
+		if (!flags.nocmswatch && !flags.temporary_nocmswatch) {
 			gulp.enduro_refresh(() => {
 				browser_sync.reload()
 			})
-		})
-	}
+		}
+	})
 }
 
 // * ———————————————————————————————————————————————————————— * //

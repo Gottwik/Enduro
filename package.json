@@ -12,7 +12,7 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.7.1",
     "dir-compare": "^1.0.1",
-    "enduro_admin": "1.0.54",
+    "enduro_admin": "1.0.55",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "extend": "^3.0.0",

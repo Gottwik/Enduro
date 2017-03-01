@@ -10,7 +10,7 @@
 // *
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper('add', function () {
+enduro.templating_engine.registerHelper('add', function () {
 
 	if (arguments.length <= 1) {
 		return ''

@@ -21,6 +21,7 @@ var inquirer = require('inquirer')
 var fs = Promise.promisifyAll(require('fs-extra'))
 var npm = require('npm')
 var opn = require('opn')
+var _ = require('lodash')
 
 var theme_manager_api_routes = {
 	get_theme_by_name: 'http://www.endurojs.com/theme_manager/get_theme_by_name',

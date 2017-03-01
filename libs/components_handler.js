@@ -47,7 +47,7 @@ components_handler.prototype.read_components = function () {
 					}
 
 					// register the component
-					__templating_engine.registerPartial(filename.toLowerCase(), data)
+					enduro.templating_engine.registerPartial(filename.toLowerCase(), data)
 					logger.twolog('component ' + filename, 'registered', 'enduro_render_events')
 					callback()
 				})

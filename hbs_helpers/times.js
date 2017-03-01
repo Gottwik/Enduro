@@ -8,7 +8,7 @@
 // *	{{/times}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper('times', function (iterations, upperrange, block) {
+enduro.templating_engine.registerHelper('times', function (iterations, upperrange, block) {
 
 	// will store the final accumulated html
 	var accum = ''

@@ -8,7 +8,7 @@
 // *	returns last value as default
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper('switch', function () {
+enduro.templating_engine.registerHelper('switch', function () {
 
 	// create a list out of arguments
 	var arguments_list = []

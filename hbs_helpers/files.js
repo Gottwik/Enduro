@@ -7,7 +7,7 @@
 // *		<p>Image: {{this}}</p>
 // *	{{/files}}
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper('files', function (path, block) {
+enduro.templating_engine.registerHelper('files', function (path, block) {
 	var glob = require('glob')
 
 	var files = glob.sync(CMD_FOLDER + path + '/**/*.*')

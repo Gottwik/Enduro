@@ -7,7 +7,7 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-__templating_engine.registerHelper('default', function (name, defaultValue, options) {
+enduro.templating_engine.registerHelper('default', function (name, defaultValue, options) {
 
 	if (typeof options === 'undefined') {
 		defaultValue = ''

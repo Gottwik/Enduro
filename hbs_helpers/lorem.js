@@ -11,7 +11,7 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-__templating_engine.registerHelper('lorem', function (length, upperrange) {
+enduro.templating_engine.registerHelper('lorem', function (length, upperrange) {
 
 	// set length to 10 if no length is provided
 	if (typeof length !== 'number') {

@@ -44,7 +44,7 @@ pregenerators['settings'] = function () {
 				logger.err_block(err)
 			}
 
-			var template = __templating_engine.compile(raw_template)
+			var template = enduro.templating_engine.compile(raw_template)
 			template(__data.global.settings)
 				.then((rendered_css_file) => {
 					flat_helpers.ensure_directory_existence(css_settings_destination_file_path)

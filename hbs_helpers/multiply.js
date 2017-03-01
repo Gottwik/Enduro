@@ -7,7 +7,7 @@
 // *	{{multiply 2 2 2}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper('multiply', function () {
+enduro.templating_engine.registerHelper('multiply', function () {
 
 	if (arguments.length <= 1) {
 		return ''

@@ -8,7 +8,7 @@
 // *	{{/list}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper('list', function () {
+enduro.templating_engine.registerHelper('list', function () {
 
 	// block is the last argument
 	var block = arguments[arguments.length - 1]

@@ -5,11 +5,11 @@ describe('Compare helper', function () {
 
 	// {{compare 1 1 "yes" "no"}}
 	it('should compare two numbers successfully', function () {
-		expect(__templating_engine.compileSync('{{compare 1 1 "yes" "no"}}')()).to.equal('yes')
+		expect(enduro.templating_engine.compileSync('{{compare 1 1 "yes" "no"}}')()).to.equal('yes')
 	})
 
 	it('should detect different values', function () {
-		expect(__templating_engine.compileSync('{{compare 1 2 "yes" "no"}}')()).to.equal('no')
+		expect(enduro.templating_engine.compileSync('{{compare 1 2 "yes" "no"}}')()).to.equal('no')
 	})
 
 })

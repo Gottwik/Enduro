@@ -14,7 +14,7 @@
 // *		{{class 'gradient_bottom'}} // will render gradient-bottom
 // *
 // * ———————————————————————————————————————————————————————— * //
-__templating_engine.registerHelper('class', function () {
+enduro.templating_engine.registerHelper('class', function () {
 	var context = this
 
 	// if no argument is provided renders empty string

@@ -9,12 +9,10 @@
 
 // vendor dependencies
 var path = require('path')
-var promised_handlebars = require('promised-handlebars')
 var Promise = require('bluebird')
 
 // stores templating engine for possible future replacement
 // promised handlebars allows for asynchronous calls inside helpers
-global.__templating_engine = promised_handlebars(require('handlebars'), { Promise: Promise })
 
 // global variables
 global._ = require('lodash')
@@ -31,6 +29,7 @@ global.START_PATH = ''
 global.flags = {}
 global.abstractors = {}
 global.markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
+
 global.enduro = require(ENDURO_FOLDER + '/libs/linker/linker') // exposes enduro's libraries for app development
 
 // local dependencies

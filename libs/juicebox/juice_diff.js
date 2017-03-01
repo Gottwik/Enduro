@@ -13,6 +13,7 @@ var juice_diff = function () {}
 
 // vendor dependencies
 var dircompare = require('dir-compare')
+var _ = require('lodash')
 
 // local dependencies
 var logger = require(ENDURO_FOLDER + '/libs/logger')

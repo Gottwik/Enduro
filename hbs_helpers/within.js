@@ -10,6 +10,6 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-__templating_engine.registerHelper('within', function (array, key, options) {
+enduro.templating_engine.registerHelper('within', function (array, key, options) {
 	return options.fn(array[key])
 })

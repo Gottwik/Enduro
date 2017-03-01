@@ -1,13 +1,10 @@
 var gulp = require('gulp')
 var watch = require('gulp-watch')
 var browser_sync = require('browser-sync').create()
-var sass = require('gulp-sass')
+
 var fs = require('fs')
-var bulkSass = require('gulp-sass-bulk-import')
+
 var logger = require('./libs/logger')
-var spritesmith = require('gulp.spritesmith')
-var sourcemaps = require('gulp-sourcemaps')
-var autoprefixer = require('gulp-autoprefixer')
 var iconfont = require('gulp-iconfont')
 var iconfontCss = require('gulp-iconfont-css')
 var handlebars = require('gulp-handlebars')
@@ -24,6 +21,8 @@ var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
 var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator').init(gulp)
 var assets_copier = require(ENDURO_FOLDER + '/libs/build_tools/assets_copier').init(gulp, browser_sync)
 var assets_copier_watch = require(ENDURO_FOLDER + '/libs/build_tools/assets_copier').watch(gulp, browser_sync)
+var sass_handler = require(ENDURO_FOLDER + '/libs/build_tools/sass_handler').init(gulp, browser_sync)
+var sprite_icons = require(ENDURO_FOLDER + '/libs/build_tools/sprite_icons').init(gulp, browser_sync)
 
 gulp.set_refresh = function (callback) {
 	gulp.enduro_refresh = callback
@@ -100,8 +99,12 @@ function browsersync_start (norefresh) {
 		}
 	})
 
-	watch([ CMD_FOLDER + '/assets/css/**/*', CMD_FOLDER + '/assets/fonticons/*', '!' + CMD_FOLDER + '/assets/css/sprites/*'],
-				() => { gulp.start('sass') })									// Watch for scss
+	// Watch for sass
+	watch([
+		CMD_FOLDER + '/assets/css/**/*',
+		CMD_FOLDER + '/assets/fonticons/*',
+		'!' + CMD_FOLDER + '/assets/css/sprites/*'],
+		() => { gulp.start(sass_handler) })
 
 	watch([CMD_FOLDER + '/assets/hbs_helpers/**/*'], () => { gulp.start('hbs_helpers') })		// Watch for local handlebars helpers
 	watch([CMD_FOLDER + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })				// Watch for png icons
@@ -122,55 +125,6 @@ function browsersync_start (norefresh) {
 		}
 	})
 }
-
-// * ———————————————————————————————————————————————————————— * //
-// * 	Sass Task
-// *	Processes assets/css/main.scss file
-// *	All other scss files need to be imported in main.scss to get compiled
-// *	Uses bulkSass for @import subfolder/* funcionality
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('sass', function () {
-	logger.timestamp('Sass compiling started', 'enduro_events')
-
-	return gulp.src(CMD_FOLDER + '/assets/css/*.scss')
-		.pipe(bulkSass())
-		.pipe(sourcemaps.init())
-		.pipe(sass())
-		.on('error', function (err) {
-			logger.err_blockStart('Sass error')
-			logger.err(err.message)
-			logger.err_blockEnd()
-			this.emit('end')
-		})
-		.pipe(autoprefixer({
-			browsers: ['last 2 versions'],
-			cascade: false,
-		}))
-		.pipe(sourcemaps.write())
-		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/css'))
-		.pipe(browser_sync.stream())
-		.on('end', () => {
-			logger.timestamp('Sass compiling finished', 'enduro_events')
-		})
-})
-
-// * ———————————————————————————————————————————————————————— * //
-// * 	spriteicons
-// *	will get all pngs out of assets/spriteicons folder
-// *	and generate spritesheet out of them
-// * ———————————————————————————————————————————————————————— * //
-gulp.task('png_sprites', function () {
-	return gulp.src(CMD_FOLDER + '/assets/spriteicons/*.png')
-		.pipe(spritesmith({
-			imgName: '_src/assets/spriteicons/spritesheet.png',
-			cssName: '_src/_prebuilt/sprites.scss',
-			padding: 3,
-			cssTemplate: path.join(__dirname, 'support_files', 'sprite_generator.handlebars'),
-			retinaSrcFilter: [path.join(CMD_FOLDER, 'assets/spriteicons/*@2x.png')],
-			retinaImgName: '_src/assets/spriteicons/spritesheet@2x.png',
-		}))
-		.pipe(gulp.dest(CMD_FOLDER))
-})
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	iconfont
@@ -213,7 +167,7 @@ gulp.task('hbs_templates', function () {
 	gulp.src(CMD_FOLDER + '/components/**/*.hbs')
 		.pipe(handlebars({
 			// Pass local handlebars
-			handlebars: __templating_engine,
+			handlebars: enduro.templating_engine,
 		}))
 		.pipe(defineModule('amd'))
 		.pipe(flatten())
@@ -229,7 +183,7 @@ gulp.task('hbs_helpers', function () {
 			return file.contents.toString().indexOf('enduro_nojs') == -1
 		}))
 		.pipe(concat('hbs_helpers.js'))
-		.pipe(wrap('define([],function() { return function(__templating_engine) { \n\n<%= contents %>\n\n }})'))
+		.pipe(wrap('define([],function() { return function(enduro.templating_engine) { \n\n<%= contents %>\n\n }})'))
 		.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/hbs_helpers/'))
 })
 
@@ -243,7 +197,7 @@ gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 // * 	Production Task
 // *	No browser_sync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', ['sass', 'hbs_templates', assets_copier, 'hbs_helpers'])
+gulp.task('production', [sass_handler, 'hbs_templates', assets_copier, 'hbs_helpers'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task

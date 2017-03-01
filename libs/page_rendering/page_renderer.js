@@ -56,7 +56,7 @@ page_renderer.prototype.render_file_by_context = function (file, context, cultur
 			if (err) { return logger.err_block(err) }
 
 			// Creates a template
-			var template = __templating_engine.compile(raw_template)
+			var template = enduro.templating_engine.compile(raw_template)
 
 			// Stores file name and extension
 			// Note that subdirecotries are included in the name

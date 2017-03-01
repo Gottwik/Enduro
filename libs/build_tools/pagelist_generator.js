@@ -23,7 +23,7 @@ var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 // * ———————————————————————————————————————————————————————— * //
 // * 	init
 // *
-// * 	registeres generating and saving the pagelist to gulp
+// * 	registers generating and saving the pagelist to gulp
 // *	additionaly it will expand the global data with the pagelist
 // *	@param {object} gulp - gulp to register the task into
 // *	@return {} - will call an empty callback

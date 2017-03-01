@@ -2,6 +2,10 @@
 // * 	linker
 // *	enables injecting enduro modules more comfortably
 // * ———————————————————————————————————————————————————————— * //
+
+// vendor depencies
+var Promise = require('bluebird')
+
 var linker = {}
 
 var links = {
@@ -15,5 +19,8 @@ var links = {
 for (link in links) {
 	linker[link] = require(ENDURO_FOLDER + links[link])
 }
+
+linker.templating_engine = require('promised-handlebars')(require('handlebars'), { Promise: Promise })
+
 
 module.exports = linker

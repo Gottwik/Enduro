@@ -5,6 +5,6 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-__templating_engine.registerHelper('uriencode', function (url) {
+enduro.templating_engine.registerHelper('uriencode', function (url) {
 	return encodeURI(url)
 })

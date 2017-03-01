@@ -10,6 +10,6 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-__templating_engine.registerHelper('stringify', function (context) {
+enduro.templating_engine.registerHelper('stringify', function (context) {
 	return JSON.stringify(context)
 })

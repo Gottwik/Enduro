@@ -14,6 +14,6 @@
 
 var stringify_object = require('stringify-object')
 
-__templating_engine.registerHelper('js_cms', function (context_object) {
+enduro.templating_engine.registerHelper('js_cms', function (context_object) {
 	return stringify_object(context_object, {indent: '	', singleQuotes: true})
 })

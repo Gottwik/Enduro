@@ -9,7 +9,7 @@
 
 var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
 
-__templating_engine.registerHelper('slug', function (text) {
+enduro.templating_engine.registerHelper('slug', function (text) {
 
 	if (!text) {
 		return ''

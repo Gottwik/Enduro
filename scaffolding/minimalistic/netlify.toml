@@ -1,0 +1,3 @@
+[build]
+  command = "enduro render"
+  publish = "/_src"

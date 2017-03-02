@@ -20,7 +20,12 @@ for (link in links) {
 	linker[link] = require(ENDURO_FOLDER + links[link])
 }
 
+// stores templating engine for possible future replacement
+// promised handlebars allows for asynchronous calls inside helpers
 linker.templating_engine = require('promised-handlebars')(require('handlebars'), { Promise: Promise })
+
+// stores markdownifier. It is initialized during render phase
+linker.markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
 
 
 module.exports = linker

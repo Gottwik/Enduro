@@ -11,9 +11,6 @@
 var path = require('path')
 var Promise = require('bluebird')
 
-// stores templating engine for possible future replacement
-// promised handlebars allows for asynchronous calls inside helpers
-
 // global variables
 global._ = require('lodash')
 global.__data = {}
@@ -28,8 +25,10 @@ global.ADMIN_SECURE_FILE = '.users'
 global.START_PATH = ''
 global.flags = {}
 global.abstractors = {}
-global.markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
 
+global.markdownifier = require('promised-handlebars')(require('handlebars'), { Promise: Promise })
+
+// stores global variables under enduro object to cut down on complexity
 global.enduro = require(ENDURO_FOLDER + '/libs/linker/linker') // exposes enduro's libraries for app development
 
 // local dependencies
@@ -246,7 +245,7 @@ function render (callback, dont_do_juice_pull) {
 			return abstractor.init()
 		})
 		.then(() => {
-			return markdownifier.init()
+			return enduro.markdownifier.init()
 		})
 		.then(() => {
 			return ab_tester.generate_global_ab_list()

@@ -77,7 +77,7 @@ page_renderer.prototype.render_file_by_context = function (file, context, cultur
 			// adds in-cms networking
 			globalizer.globalize(context)
 
-			markdownifier.markdownify(context)
+			enduro.markdownifier.markdownify(context)
 
 			// renders the template with the culturalized context
 			var output = 'Error processing page'

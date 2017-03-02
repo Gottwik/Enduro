@@ -16,6 +16,7 @@ var logger = require(ENDURO_FOLDER + '/libs/logger')
 var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 var globalizer = require(ENDURO_FOLDER + '/libs/globalizer/globalizer')
+var markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
 
 // Renders individual files
 page_renderer.prototype.render_file = function (file, context_filename, culture, dest_path) {
@@ -77,22 +78,23 @@ page_renderer.prototype.render_file_by_context = function (file, context, cultur
 			// adds in-cms networking
 			globalizer.globalize(context)
 
-			enduro.markdownifier.markdownify(context)
+			markdownifier.markdownify(context)
+				.then(() => {
+					// renders the template with the culturalized context
+					var rendered_page = 'Error processing page'
+					try {
+						rendered_page = template(babel.culturalize(context, culture))
+					} catch (e) {
+						logger.err_block('Page: ' + filename + '\n' + e.message)
+					}
 
-			// renders the template with the culturalized context
-			var output = 'Error processing page'
-			try {
-				output = template(babel.culturalize(context, culture))
-			} catch (e) {
-				logger.err_block('Page: ' + filename + '\n' + e.message)
-			}
+					// outputs raw templates if render_templates setting is set to false. Defaults to true
+					if (!config.render_templates) {
+						rendered_page = raw_template
+					}
+					resolve(rendered_page)
+				})
 
-			// output raw templates if render_templates setting is set to false. Defaults to true
-			if (!config.render_templates) {
-				output = raw_template
-			}
-
-			resolve(output)
 		})
 	})
 }

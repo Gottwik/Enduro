@@ -26,8 +26,6 @@ global.START_PATH = ''
 global.flags = {}
 global.abstractors = {}
 
-global.markdownifier = require('promised-handlebars')(require('handlebars'), { Promise: Promise })
-
 // stores global variables under enduro object to cut down on complexity
 global.enduro = require(ENDURO_FOLDER + '/libs/linker/linker') // exposes enduro's libraries for app development
 
@@ -52,6 +50,7 @@ var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
 var pregenerator = require(ENDURO_FOLDER + '/libs/pregenerator/pregenerator')
 var abstractor = require(ENDURO_FOLDER + '/libs/abstractor/abstractor')
 var ab_tester = require(ENDURO_FOLDER + '/libs/ab_testing/ab_tester')
+var markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
 
 // sets different admin if enduro is being used globally
 if (!flat_helpers.dir_exists_sync(ADMIN_FOLDER)) {
@@ -245,7 +244,7 @@ function render (callback, dont_do_juice_pull) {
 			return abstractor.init()
 		})
 		.then(() => {
-			return enduro.markdownifier.init()
+			return markdownifier.precompute()
 		})
 		.then(() => {
 			return ab_tester.generate_global_ab_list()

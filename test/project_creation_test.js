@@ -7,7 +7,7 @@ var local_enduro = require('../index')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 // Remove logging
-local_enduro.silent()
+enduro.actions.silent()
 
 describe('Enduro project creation', function () {
 

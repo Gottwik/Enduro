@@ -13,7 +13,7 @@ var theme_manager = require(enduro.enduro_path + '/libs/theme_manager/theme_mana
 describe('[online_test] Theme manager server endpoints', function () {
 
 	before(function () {
-		local_enduro.silent()
+		enduro.actions.silent()
 	})
 
 	it('should fetch list of all themes', function () {

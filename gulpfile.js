@@ -24,12 +24,11 @@ var assets_copier_watch = require(enduro.enduro_path + '/libs/build_tools/assets
 var sass_handler = require(enduro.enduro_path + '/libs/build_tools/sass_handler').init(gulp, browser_sync)
 var sprite_icons = require(enduro.enduro_path + '/libs/build_tools/sprite_icons').init(gulp, browser_sync)
 
-gulp.set_refresh = function (callback) {
-	gulp.enduro_refresh = callback
-}
-
-gulp.enduro_refresh = function () {
-	logger.err('refresh not defined')
+gulp.enduro_refresh = function (callback) {
+	logger.log('Refresh', true, 'enduro_render_events')
+	enduro.actions.render(function () {
+		callback()
+	}, true)
 }
 
 // * ———————————————————————————————————————————————————————— * //

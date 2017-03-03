@@ -7,7 +7,7 @@ var local_enduro = require('../../index')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
-local_enduro.silent()
+enduro.actions.silent()
 
 describe('flat db data access', function () {
 

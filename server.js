@@ -39,9 +39,6 @@ app.use(cookieParser())
 
 app.use(cors())
 
-// stores  server as global variable
-var server
-
 // add enduro.js header
 app.use(function (req, res, next) {
 	res.header('X-Powered-By', 'enduro.js')
@@ -65,7 +62,7 @@ enduro_server.prototype.run = function (server_setup) {
 
 
 		// starts listening to request on specified port
-		server = app.listen(app.get('port'), function () {
+		enduro.server = app.listen(app.get('port'), function () {
 			logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
 			if (!server_setup.development_mode && !enduro.flags.nocompile) {
 				self.enduro_init(() => {
@@ -77,7 +74,7 @@ enduro_server.prototype.run = function (server_setup) {
 		})
 
 		// forward the app and server to running enduro application
-		website_app.forward(app, server)
+		website_app.forward(app, enduro.server)
 
 		logger.timestamp('heroku-debug - admin folder: ' + enduro.config.admin_folder, 'heroku_debug')
 
@@ -136,27 +133,25 @@ enduro_server.prototype.run = function (server_setup) {
 }
 
 enduro_server.prototype.stop = function (cb) {
-	server.close(cb)
-}
-
-// sets enduro_refresh function from parent
-enduro_server.prototype.set_refresh = function (callback) {
-	this.enduro_refresh = callback
+	enduro.server.close(cb)
 }
 
 // placehodler refresh function - this function is being replaced by parent
 enduro_server.prototype.enduro_refresh = function (cb) {
-	cb()
+	logger.log('refreshing production server', true, 'enduro_render_events')
+	enduro.actions.render(function () {
+		cb()
+	}, true)
 }
 
-// sets enduro_refresh function from parent
-enduro_server.prototype.set_init = function (callback) {
-	this.enduro_init = callback
-}
 
 // placehodler refresh function - this function is being replaced by parent
 enduro_server.prototype.enduro_init = function (cb) {
-	cb()
+	logger.log('initializing production server', true, 'enduro_render_events')
+
+	enduro.actions.render(function () {
+		cb()
+	})
 }
 
 module.exports = new enduro_server()

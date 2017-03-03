@@ -13,18 +13,22 @@ var linker = require('./libs/linker/linker')
 // to cut down on complexity when developing enduro projects
 global.enduro = linker.init_enduro_linked_configuration(process.cwd(), __dirname)
 
-// exposes enduro's api functions
+// exposes enduro's api libraries and action functions
 linker.expose_enduro_api()
+linker.expose_enduro_actions()
+
+// var program = require('commander')
+
+// program
+//   .version('0.0.1')
+//   .command('list', 'list packages installed', {isDefault: true})
+//   .parse(process.argv);
+
 
 // local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 var enduro_configurator = require(enduro.enduro_path + '/libs/configuration/enduro_configurator')
 var scaffolder = require(enduro.enduro_path + '/libs/scaffolder')
 var logger = require(enduro.enduro_path + '/libs/logger')
-var global_data = require(enduro.enduro_path + '/libs/global_data')
-var helper_handler = require(enduro.enduro_path + '/libs/helper_handler')
-var components_handler = require(enduro.enduro_path + '/libs/components_handler')
-var enduro_render = require(enduro.enduro_path + '/libs/enduro_render')
 var trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
 var js_build = require(enduro.enduro_path + '/libs/build_utils/js_build')
 var admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
@@ -34,33 +38,7 @@ var flag_handler = require(enduro.enduro_path + '/libs/cli_tools/flag_handler')
 var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
 var enduro_server = require(enduro.enduro_path + '/server')
 var log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
-var pregenerator = require(enduro.enduro_path + '/libs/pregenerator/pregenerator')
-var abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
-var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
-var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
-
-// gets gulp tasks and extend it with refresh function which will render enduro
-gulp.set_refresh(function (callback) {
-	logger.log('Refresh', true, 'enduro_render_events')
-	render(function () {
-		callback()
-	}, true)
-})
-
-enduro_server.set_init(function (cb) {
-	logger.log('initializing production server', true, 'enduro_render_events')
-	render(function () {
-		cb()
-	})
-})
-
-// will rerender everything without juice pull
-enduro_server.set_refresh(function (cb) {
-	logger.log('refreshing production server', true, 'enduro_render_events')
-	render(function () {
-		cb()
-	}, true)
-})
+var global_data = require(enduro.enduro_path + '/libs/global_data')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	run
@@ -75,7 +53,7 @@ function run (args, flags) {
 			// * 	$ enduro
 			// * ———————————————————————————————————————————————————————— * //
 			if (args.length == 0) {
-				return developer_start()
+				return enduro.actions.developer_start()
 			}
 
 			// parse arguments
@@ -85,7 +63,7 @@ function run (args, flags) {
 				// * 	$ enduro render
 				// * ———————————————————————————————————————————————————————— * //
 				if (arg == 'render' || arg == 'r') {
-					return render(() => {}, false)
+					return enduro.actions.render(() => {}, false)
 
 				// * ———————————————————————————————————————————————————————— * //
 				// * 	$ enduro start
@@ -200,104 +178,10 @@ function run (args, flags) {
 		})
 }
 
-// * ———————————————————————————————————————————————————————— * //
-// * 	render
-// * ———————————————————————————————————————————————————————— * //
-function render (callback, dont_do_juice_pull) {
-	logger.init('Enduro', 'enduro_render_events')
-	return Promise.resolve()
-		.then(() => {
-			if (!dont_do_juice_pull) {
-				return juicebox.pull(juicebox.is_juicebox_enabled())
-			} else {
-				return new Promise.resolve()
-			}
-		})
-		.then(() => {
-			return global_data.get_global_data()
-		})
-		.then(() => {
-			return components_handler.read_components()
-		})
-		.then(() => {
-			return helper_handler.read_helpers()
-		})
-		.then(() => {
-			return abstractor.init()
-		})
-		.then(() => {
-			return markdownifier.precompute()
-		})
-		.then(() => {
-			return ab_tester.generate_global_ab_list()
-		})
-		.then(() => {
-			return pregenerator.pregenerate()
-		})
-		.then(() => {
-			return new Promise(function (resolve, reject) {
-				return gulp.start('preproduction', () => {
-					resolve()
-				})
-			})
-		})
-		.then(() => {
-			return enduro_render.render()
-		})
-		.then(() => {
-			return new Promise(function (resolve, reject) {
-				return gulp.start('production', () => {
-					resolve()
-				})
-			})
-		})
-		.then(() => {
-			logger.end('enduro_render_events')
-			if (callback) {
-				callback()
-			}
-		})
-}
-
-// * ———————————————————————————————————————————————————————— * //
-// * 	Developer Start
-// *	Renders content and starts browsersync after that
-// * ———————————————————————————————————————————————————————— * //
-var firstserverstart = true
-function developer_start () {
-	return new Promise(function (resolve, reject) {
-		// clears the global data
-		global_data.clear()
-
-		log_clusters.log('developer_start')
-
-		logger.timestamp('developer start', 'enduro_events')
-		render(() => {
-			logger.timestamp('Render finished', 'enduro_events')
-			gulp.start(enduro.flags.norefresh ? 'default_norefresh' : 'default', () => {
-				if (firstserverstart && !enduro.flags.noadmin) {
-					logger.timestamp('production server starting', 'enduro_events')
-					resolve()
-					// start production server in development mode
-					enduro_server.run({ development_mode: true })
-				}
-				firstserverstart = false
-				// After everything is done
-			})
-		})
-	})
-}
-
 function server_stop (cb) {
 	gulp.start('browser_sync_stop')
 	enduro_server.stop(cb)
 }
 
-// Removes all logging
-function silent () {
-	logger.silent()
-}
-
 exports.run = run
 exports.server_stop = server_stop
-exports.silent = silent

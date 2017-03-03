@@ -10,7 +10,7 @@ var page_renderer = require(enduro.enduro_path + '/libs/page_rendering/page_rend
 var internal_page_renderer = rewire(enduro.enduro_path + '/libs/page_rendering/page_renderer')
 
 // Remove logging
-local_enduro.silent()
+enduro.actions.silent()
 
 describe('page rendering', function () {
 

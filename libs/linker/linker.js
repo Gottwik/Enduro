@@ -16,6 +16,12 @@ var api_links = {
 	'logger': '/libs/logger',
 }
 
+var action_links = {
+	'render': '/libs/actions/render',
+	'developer_start': '/libs/actions/developer_start',
+	'silent': '/libs/actions/silent',
+}
+
 
 // will initialize shared variables that will represent state and configuration
 enduro_linker.prototype.init_enduro_linked_configuration = function (project_path, enduro_path) {
@@ -54,8 +60,18 @@ enduro_linker.prototype.expose_enduro_api = function () {
 
 	enduro.api = {}
 
-	for (link in api_links) {
-		enduro.api[link] = require(enduro.enduro_path + api_links[link])
+	for (api_link in api_links) {
+		enduro.api[api_link] = require(enduro.enduro_path + api_links[api_link])
+	}
+}
+
+// will expose all the enduro.js contextless actions
+enduro_linker.prototype.expose_enduro_actions = function () {
+
+	enduro.actions = {}
+
+	for (action_link in action_links) {
+		enduro.actions[action_link] = require(enduro.enduro_path + action_links[action_link]).action
 	}
 }
 

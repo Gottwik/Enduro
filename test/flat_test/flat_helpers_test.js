@@ -8,7 +8,7 @@ var path = require('path')
 var local_enduro = require('../../index')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
-local_enduro.silent()
+enduro.actions.silent()
 
 describe('flat helpers', function () {
 

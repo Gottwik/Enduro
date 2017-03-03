@@ -30,7 +30,7 @@ babel_handler.prototype.get_cultures = function () {
 			}
 			var cultures_datafile = require_from_string('module.exports = ' + data)
 			// set first culture as starting path
-			START_PATH = cultures_datafile.cultures[0] + '/'
+			enduro.development_firstload_url = cultures_datafile.cultures[0] + '/'
 
 			cultures_datafile.cultures.push('')
 

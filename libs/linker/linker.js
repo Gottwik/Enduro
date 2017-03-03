@@ -27,4 +27,7 @@ linker.templating_engine = require('promised-handlebars')(require('handlebars'),
 // creates an empty object to store precomputed data
 linker.precomputed_data = {}
 
+// initializes empty variables
+linker.development_firstload_url = ''
+
 module.exports = linker

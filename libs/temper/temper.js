@@ -21,7 +21,7 @@ temper.prototype.render = function (filename, context) {
 
 	return abstractor.abstract_context(context)
 		.then((context) => {
-			return page_renderer.render_file_by_filename_replace_context(filename, context)
+			return page_renderer.render_file_by_template_path_replace_context(filename, context)
 		})
 }
 

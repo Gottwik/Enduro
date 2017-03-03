@@ -27,7 +27,7 @@ describe('page rendering', function () {
 	})
 
 	it('should render a page based on page name', function () {
-		return page_renderer.render_file_by_filename_extend_context('index')
+		return page_renderer.render_file_by_template_path_extend_context('index')
 			.then((output) => {
 				expect(output).to.contain('head')
 				expect(output).to.contain('body')
@@ -36,7 +36,7 @@ describe('page rendering', function () {
 	})
 
 	it('should render a page based on page name with extended context', function () {
-		return page_renderer.render_file_by_filename_extend_context('index', {greeting: 'whatup'})
+		return page_renderer.render_file_by_template_path_extend_context('index', {greeting: 'whatup'})
 			.then((output) => {
 				expect(output).to.contain('whatup')
 			})
@@ -52,21 +52,21 @@ describe('page rendering', function () {
 describe('path handling by page renderer', function () {
 
 	it('should convert relative filename to absolute path', function () {
-		var generated_path = internal_page_renderer.__get__('get_template_by_filename')('index')
+		var generated_path = internal_page_renderer.__get__('get_absolute_template_path_by_context_path')('index')
 		expect(generated_path.toLowerCase()).to.contain('index.hbs')
 		expect(generated_path.toLowerCase()).to.contain('pages')
 		expect(generated_path.toLowerCase()).to.contain('enduro')
 	})
 
 	it('should convert relative filename to absolute path even if it is prepended by /', function () {
-		var generated_path = internal_page_renderer.__get__('get_template_by_filename')('/index')
+		var generated_path = internal_page_renderer.__get__('get_absolute_template_path_by_context_path')('/index')
 		expect(generated_path.toLowerCase()).to.contain('index.hbs')
 		expect(generated_path.toLowerCase()).to.contain('pages')
 		expect(generated_path.toLowerCase()).to.contain('enduro')
 	})
 
 	it('should convert relative generator filename to absolute path', function () {
-		var generated_path = internal_page_renderer.__get__('get_template_by_filename')('generators/docs/kitchen')
+		var generated_path = internal_page_renderer.__get__('get_absolute_template_path_by_context_path')('generators/docs/kitchen')
 		expect(generated_path.toLowerCase()).to.contain('docs.hbs')
 		expect(generated_path.toLowerCase()).to.contain('pages')
 		expect(generated_path.toLowerCase()).to.contain('enduro')

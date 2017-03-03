@@ -6,7 +6,7 @@ var page_renderer = function () {}
 
 // vendor dependencies
 var Promise = require('bluebird')
-var fs = require('fs')
+var fs = Promise.promisifyAll(require('fs-extra'))
 var extend = require('extend')
 var path = require('path')
 
@@ -18,8 +18,16 @@ var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
 var globalizer = require(ENDURO_FOLDER + '/libs/globalizer/globalizer')
 var markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
 
-// Renders individual files
-page_renderer.prototype.render_file = function (file, context_filename, culture, dest_path) {
+// * ———————————————————————————————————————————————————————— * //
+// * 	renders individual template with provided context, culture and destination path
+// * 	saves the file afterwards
+// *	@param {string} template_path - context - path to .hbs template file. absolute path
+// *	@param {string} context_path - context - path to context file, relative to /cms filder
+// *	@param {string} culture - context - culture name. destination path gets prefixed by culture
+// *	@param {string} dest_path - path to where the rendered .html file should be saved, relative to /_src folder.
+// *	@return {promise} -  empty payload
+// * ———————————————————————————————————————————————————————— * //
+page_renderer.prototype.render_file = function (template_path, context_path, culture, dest_path) {
 	var self = this
 
 	return new Promise(function (resolve, reject) {
@@ -27,18 +35,18 @@ page_renderer.prototype.render_file = function (file, context_filename, culture,
 		// where will the generated page be saved
 		var destination_path = path.join(culture, dest_path)
 
-		flat.load(context_filename)
+		flat.load(context_path)
 			.then((context) => {
-				return self.render_file_by_context(file, context, culture)
+				return self.render_file_by_context(template_path, context, culture)
 			}, () => {
-				logger.err('something went wrong attempting to locate file: ' + file)
+				logger.err('something went wrong attempting to locate template_path: ' + template_path)
 				throw new Error('abort promise chain')
 			})
 			.then((output) => {
 				// Makes sure the target directory exists
 				flat_helpers.ensure_directory_existence(path.join(CMD_FOLDER, '_src', destination_path))
 					.then(function () {
-						// Attempts to export the file
+						// Attempts to export the template_path
 						fs.writeFile(path.join(CMD_FOLDER, '_src', destination_path + '.html'), output, function (err) {
 							if (err) { return logger.err_block(err) }
 
@@ -50,22 +58,31 @@ page_renderer.prototype.render_file = function (file, context_filename, culture,
 	})
 }
 
-page_renderer.prototype.render_file_by_context = function (file, context, culture) {
-	return new Promise(function (resolve, reject) {
-	// Attempts to read the file
-		fs.readFile(file, 'utf8', function (err, raw_template) {
-			if (err) { return logger.err_block(err) }
+// * ———————————————————————————————————————————————————————— * //
+// * 	renders individual template with provided context and culture
+// *	@param {string} template_path - context - path to .hbs template file. absolute path
+// *	@param {object} context - context - path to context file, relative to /cms filder
+// *	@param {string} culture - context - culture name
+// *	@return {promise} -  promise with the rendered file as payload
+// * ———————————————————————————————————————————————————————— * //
+page_renderer.prototype.render_file_by_context = function (template_path, context, culture) {
 
-			// Creates a template
-			var template = enduro.templating_engine.compile(raw_template)
+	// extracts the relative path to the template from the absolute path
+	var file_regex_match = template_path.match(/pages(?:\/|\\)(.*)\.([^\\/]+)$/)
+	var filename = file_regex_match[1]
 
-			// Stores file name and extension
-			// Note that subdirecotries are included in the name
-			var file_regex_match = file.match(/pages(?:\/|\\)(.*)\.([^\\/]+)$/)
-			var filename = file_regex_match[1]
+	// will store filename and template function
+	var template
+
+	// loads the template
+	return fs.readFileAsync(template_path, 'utf8')
+		.then((raw_template) => {
+
+			// compiles a template
+			template = enduro.templating_engine.compile(raw_template)
 
 			// gets pagename
-			var pagename = file.match(/([^\/\\]*)\.[^\.]*$/)[1]
+			var pagename = template_path.match(/([^\/\\]*)\.[^\.]*$/)[1]
 
 			// If global data exists extends the context with it
 			if (typeof __data !== 'undefined') {
@@ -78,60 +95,62 @@ page_renderer.prototype.render_file_by_context = function (file, context, cultur
 			// adds in-cms networking
 			globalizer.globalize(context)
 
-			markdownifier.markdownify(context)
-				.then(() => {
-					// renders the template with the culturalized context
-					var rendered_page = 'Error processing page'
-					try {
-						rendered_page = template(babel.culturalize(context, culture))
-					} catch (e) {
-						logger.err_block('Page: ' + filename + '\n' + e.message)
-					}
-
-					// outputs raw templates if render_templates setting is set to false. Defaults to true
-					if (!config.render_templates) {
-						rendered_page = raw_template
-					}
-					resolve(rendered_page)
-				})
-
+			return markdownifier.markdownify(context)
 		})
-	})
+		.then(() => {
+			// renders the template with the culturalized context
+			var rendered_page = 'Error processing page'
+			try {
+				rendered_page = template(babel.culturalize(context, culture))
+			} catch (e) {
+				logger.err_block('Page: ' + filename + '\n' + e.message)
+			}
+
+			// outputs raw templates if render_templates setting is set to false. Defaults to true
+			if (!config.render_templates) {
+				rendered_page = raw_template
+			}
+
+			return rendered_page
+		})
 }
 
-page_renderer.prototype.render_file_by_filename_extend_context = function (filename, extended_context) {
+page_renderer.prototype.render_file_by_template_path_extend_context = function (context_path, extended_context) {
 	var self = this
 	extended_context = extended_context || {}
 
-	var file = get_template_by_filename(filename)
+	var template_path = get_absolute_template_path_by_context_path(context_path)
 	var culture = config.cultures[0]
 
-	return flat.load(filename)
+	return flat.load(context_path)
 		.then((context) => {
 			extend(true, context, extended_context)
-			return self.render_file_by_context(file, context, culture)
+			return self.render_file_by_context(template_path, context, culture)
 		})
 
 }
 
-page_renderer.prototype.render_file_by_filename_replace_context = function (filename, context) {
+page_renderer.prototype.render_file_by_template_path_replace_context = function (context_path, context) {
 	var self = this
 	context = context || {}
 
-	var file = get_template_by_filename(filename)
+	var template_path = get_absolute_template_path_by_context_path(context_path)
 	var culture = config.cultures[0]
 
-	return self.render_file_by_context(file, context, culture)
+	return self.render_file_by_context(template_path, context, culture)
 }
 
-function get_template_by_filename (filename) {
+// transforms cms path related to /cms folder to template path related to the /pages folder
+function get_absolute_template_path_by_context_path (context_path) {
 
-	var splitted_filename = filename.split('/')
+	var template_path = context_path
+
+	var splitted_filename = context_path.split('/')
 	if (splitted_filename.indexOf('generators') + 1) {
-		filename = splitted_filename.slice(0, -1).join('/')
+		template_path = splitted_filename.slice(0, -1).join('/')
 	}
 
-	return path.join(CMD_FOLDER, 'pages', filename + '.hbs')
+	return path.join(CMD_FOLDER, 'pages', template_path + '.hbs')
 }
 
 module.exports = new page_renderer()

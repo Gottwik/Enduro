@@ -17,6 +17,7 @@
     "express-session": "^1.13.0",
     "extend": "^3.0.0",
     "fs-extra": "^2.0.0",
+    "fstream": "^1.0.10",
     "glob": "^7.0.3",
     "glob-promise": "^3.1.0",
     "gulp": "^3.9.0",

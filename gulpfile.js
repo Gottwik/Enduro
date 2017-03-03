@@ -87,7 +87,7 @@ function browsersync_start (norefresh) {
 		logLevel: 'silent',
 		notify: false,
 		logPrefix: 'Enduro',
-		startPath: START_PATH,
+		startPath: enduro.development_firstload_url,
 		open: !norefresh,
 		snippetOptions: {
 			rule: {

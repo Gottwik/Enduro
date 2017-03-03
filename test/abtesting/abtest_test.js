@@ -5,8 +5,8 @@ var async = require('async')
 var _ = require('lodash')
 
 // local dependencies
-var ab_tester = require(ENDURO_FOLDER + '/libs/ab_testing/ab_tester')
-var enduro = require('../../index')
+var local_enduro = require('../../index')
+var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
 
 describe('A/B testing', function () {
 
@@ -14,11 +14,11 @@ describe('A/B testing', function () {
 	before(function (done) {
 		this.timeout(3000)
 		var ab_testing_foldername = 'testproject_abtesting'
-		enduro.run(['create', ab_testing_foldername, 'test'])
+		local_enduro.run(['create', ab_testing_foldername, 'test'])
 			.then(() => {
 				// navigate inside new project
-				global.CMD_FOLDER = CMD_FOLDER + '/' + ab_testing_foldername
-				enduro.run(['start'], [])
+				enduro.project_path = enduro.project_path + '/' + ab_testing_foldername
+				local_enduro.run(['start'], [])
 					.then(() => {
 						done()
 					})
@@ -72,8 +72,8 @@ describe('A/B testing', function () {
 
 	// navigate back to testfolder
 	after(function (done) {
-		enduro.server_stop(() => {
-			global.CMD_FOLDER = process.cwd() + '/testfolder'
+		local_enduro.server_stop(() => {
+			enduro.project_path = process.cwd() + '/testfolder'
 			done()
 		})
 	})

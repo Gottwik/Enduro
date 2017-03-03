@@ -1,6 +1,7 @@
 var expect = require('chai').expect
 
-var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
+var local_enduro = require('../../index')
+var format_service = require(enduro.enduro_path + '/libs/services/format_service')
 
 describe('Format service', function () {
 

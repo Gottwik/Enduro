@@ -14,7 +14,7 @@ var path = require('path')
 var _ = require('lodash')
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Save cms file
@@ -97,7 +97,7 @@ flat.prototype.load = function (filename) {
 // *	@return {string} - peturns full server path to specified file
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.get_full_path_to_flat_object = (filename) => {
-	return path.join(CMD_FOLDER, 'cms', filename + '.js')
+	return path.join(enduro.project_path, 'cms', filename + '.js')
 }
 
 // * ———————————————————————————————————————————————————————— * //

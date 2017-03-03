@@ -17,8 +17,8 @@ var extend = require('extend')
 var path = require('path')
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var format_service = require(enduro.enduro_path + '/libs/services/format_service')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	init
@@ -41,7 +41,7 @@ pagelist_generator.prototype.init = function (gulp) {
 			.then((cmslist) => {
 
 				// Extends global data with currently loaded data
-				extend(true, __data.global, {cmslist: cmslist})
+				extend(true, enduro.cms_data.global, {cmslist: cmslist})
 
 				return self.save_cms_list(cmslist)
 			})
@@ -62,7 +62,7 @@ pagelist_generator.prototype.init = function (gulp) {
 // * ———————————————————————————————————————————————————————— * //
 pagelist_generator.prototype.generate_cms_list = function () {
 	return new Promise(function (resolve, reject) {
-		glob(CMD_FOLDER + '/cms/**/*.js', function (err, files) {
+		glob(enduro.project_path + '/cms/**/*.js', function (err, files) {
 			if (err) { console.log(err) }
 
 			var pagelist = {}
@@ -180,7 +180,7 @@ pagelist_generator.prototype.get_cms_list = function () {
 // *	@return {promise} - promise with cmslist
 // * ———————————————————————————————————————————————————————— * //
 pagelist_generator.prototype.get_pregenerated_pagelist_path = function () {
-	return path.join(CMD_FOLDER, '_src', '_prebuilt', 'cmslist.json')
+	return path.join(enduro.project_path, '_src', '_prebuilt', 'cmslist.json')
 }
 
 module.exports = new pagelist_generator()

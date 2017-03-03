@@ -3,7 +3,7 @@ var spritesmith = require('gulp.spritesmith')
 var path = require('path')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	spriteicons
@@ -20,16 +20,16 @@ sprite_icons.prototype.init = function (gulp, browser_sync) {
 	// registeres task to provided gulp
 	gulp.task(sprite_icons_task_name, function () {
 
-		return gulp.src(CMD_FOLDER + '/assets/spriteicons/*.png')
+		return gulp.src(enduro.project_path + '/assets/spriteicons/*.png')
 			.pipe(spritesmith({
 				imgName: '_src/assets/spriteicons/spritesheet.png',
 				cssName: '_src/_prebuilt/sprites.scss',
 				padding: 3,
-				cssTemplate: path.join(ENDURO_FOLDER, 'support_files', 'sprite_generator.handlebars'),
-				retinaSrcFilter: [path.join(CMD_FOLDER, 'assets/spriteicons/*@2x.png')],
+				cssTemplate: path.join(enduro.enduro_path, 'support_files', 'sprite_generator.handlebars'),
+				retinaSrcFilter: [path.join(enduro.project_path, 'assets/spriteicons/*@2x.png')],
 				retinaImgName: '_src/assets/spriteicons/spritesheet@2x.png',
 			}))
-			.pipe(gulp.dest(CMD_FOLDER))
+			.pipe(gulp.dest(enduro.project_path))
 
 	})
 

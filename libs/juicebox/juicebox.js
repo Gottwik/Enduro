@@ -16,11 +16,11 @@ var request = require('request')
 var rimraf = require('rimraf')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var remote_handler = require(ENDURO_FOLDER + '/libs/remote_tools/remote_handler')
-var juice_helpers = require(ENDURO_FOLDER + '/libs/juicebox/juice_helpers')
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var log_clusters = require(ENDURO_FOLDER + '/libs/log_clusters/log_clusters')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var remote_handler = require(enduro.enduro_path + '/libs/remote_tools/remote_handler')
+var juice_helpers = require(enduro.enduro_path + '/libs/juicebox/juice_helpers')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
 
 var EXTENSION = '.tar.gz'
 
@@ -44,13 +44,13 @@ juicebox.prototype.pack = function (user) {
 juicebox.prototype.pull = function (force) {
 
 	// if juicebox is not enabled
-	if (!config.variables.juicebox_enabled) {
+	if (!enduro.config.variables.juicebox_enabled) {
 		return Promise.resolve()
 	}
 
 	logger.init('Juice pull')
 
-	if (flags.force || force) {
+	if (enduro.flags.force || force) {
 		return get_latest_juice()
 			.then((juice) => {
 				return get_juicebox_by_name(juice.latest.hash + EXTENSION)
@@ -95,7 +95,7 @@ juicebox.prototype.force_pack = function (user) {
 		user = user || 'developer'
 
 		// Skip juicing if juicing is not enabled(most likely s3 keys are missing)
-		if (!config.variables.juicebox_enabled) {
+		if (!enduro.config.variables.juicebox_enabled) {
 			return resolve()
 		}
 
@@ -118,10 +118,10 @@ juicebox.prototype.force_pack = function (user) {
 						return write_juicefile(juice)
 					})
 					.then(() => {
-						return remote_handler.upload_to_s3_by_filepath('juicebox/juice.json', path.join(CMD_FOLDER, 'juicebox', 'juice.json'))
+						return remote_handler.upload_to_s3_by_filepath('juicebox/juice.json', path.join(enduro.project_path, 'juicebox', 'juice.json'))
 					})
 					.then(() => {
-						return remote_handler.upload_to_s3_by_filepath('juicebox/' + juice.latest.hash + EXTENSION, path.join(CMD_FOLDER, 'juicebox', juice.latest.hash + EXTENSION))
+						return remote_handler.upload_to_s3_by_filepath('juicebox/' + juice.latest.hash + EXTENSION, path.join(enduro.project_path, 'juicebox', juice.latest.hash + EXTENSION))
 					})
 					.then(() => {
 						logger.init('Juice pack')
@@ -173,17 +173,17 @@ juicebox.prototype.log = function (nojuice) {
 }
 
 juicebox.prototype.juicebox_enabled = function () {
-	return config.variables.juicebox_enabled
+	return enduro.config.variables.juicebox_enabled
 }
 
 juicebox.prototype.is_juicebox_enabled = function () {
-	var juicefile_path = path.join(CMD_FOLDER, 'juicebox', 'juice.json')
+	var juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
 	return !flat_helpers.file_exists_sync(juicefile_path)
 }
 
 function write_juicebox (juicebox_name) {
 	return new Promise(function (resolve, reject) {
-		fstream.Reader({ 'path': path.join(CMD_FOLDER, 'cms'), 'type': 'Directory' })
+		fstream.Reader({ 'path': path.join(enduro.project_path, 'cms'), 'type': 'Directory' })
 			.pipe(tar.Pack())
 			.pipe(zlib.Gzip())
 			.pipe(fstream.Writer({ 'path': path.join('juicebox', juicebox_name) })
@@ -196,7 +196,7 @@ function write_juicebox (juicebox_name) {
 
 function write_juicefile (juice) {
 	return new Promise(function (resolve, reject) {
-		var destination_juicefile_path = path.join(CMD_FOLDER, 'juicebox', 'juice.json')
+		var destination_juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
 		flat_helpers.ensure_directory_existence(destination_juicefile_path)
 			.then(() => {
 				fs.writeFile(destination_juicefile_path, JSON.stringify(juice), function (err) {
@@ -242,7 +242,7 @@ function get_latest_juice () {
 }
 
 function get_juicebox_hash_by_timestamp (timestamp) {
-	return config.project_name + '_' + timestamp
+	return enduro.config.project_name + '_' + timestamp
 }
 
 function get_juicebox_by_name (juicebox_name) {
@@ -262,7 +262,7 @@ function get_juicebox_by_name (juicebox_name) {
 
 function spill_the_juice (juicebox_name, destination) {
 	// default destination is the project's root (juicebox has cms folder)
-	destination = destination || path.join(CMD_FOLDER)
+	destination = destination || path.join(enduro.project_path)
 
 	return new Promise(function (resolve, reject) {
 
@@ -273,7 +273,7 @@ function spill_the_juice (juicebox_name, destination) {
 				return resolve()
 			}
 
-			var tarball = path.join(CMD_FOLDER, 'juicebox', juicebox_name)
+			var tarball = path.join(enduro.project_path, 'juicebox', juicebox_name)
 
 			if (flat_helpers.file_exists_sync(tarball)) {
 				var tar_extract = tar.Extract({

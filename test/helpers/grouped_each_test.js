@@ -1,6 +1,8 @@
 // vendor dependencies
 var expect = require('chai').expect
 
+var local_enduro = require('../../index')
+
 describe('Grouped_each helper', function () {
 
 	it('render empty string if no context is provided', function () {

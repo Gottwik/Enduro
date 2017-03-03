@@ -8,8 +8,8 @@ var Promise = require('bluebird')
 var moment = require('moment')
 
 // local dependencies
-var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 // constants
 var SESSION_LIFETIME = 30 // in minutes

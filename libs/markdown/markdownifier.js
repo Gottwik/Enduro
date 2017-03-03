@@ -11,7 +11,7 @@ var glob = require('glob-promise')
 markdownifier.prototype.precompute = function () {
 	return new Promise(function (resolve, reject) {
 
-		var markdown_rules_path = CMD_FOLDER + '/app/markdown_rules/**/*.js'
+		var markdown_rules_path = enduro.project_path + '/app/markdown_rules/**/*.js'
 
 		// initalizes global precomputed markdown rules to an empty array
 		enduro.precomputed_data.markdown_rules = []

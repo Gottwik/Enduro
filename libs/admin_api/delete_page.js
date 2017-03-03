@@ -9,9 +9,9 @@ var api_call = function () {}
 // vendor dependencies
 
 // local dependencies
-var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
-var page_adding_service = require(ENDURO_FOLDER + '/libs/admin_utilities/page_adding_service')
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+var page_adding_service = require(enduro.enduro_path + '/libs/admin_utilities/page_adding_service')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

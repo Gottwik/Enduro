@@ -8,8 +8,8 @@ var Promise = require('bluebird')
 var crypto = require('crypto')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	get user by username
@@ -19,7 +19,7 @@ var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
 admin_security.prototype.get_user_by_username = function (username) {
 	return new Promise(function (resolve, reject) {
 		// load up all admins
-		return flat.load(ADMIN_SECURE_FILE)
+		return flat.load(enduro.config.admin_secure_file)
 			.then((raw_userlist) => {
 
 				// if there are no users
@@ -50,7 +50,7 @@ admin_security.prototype.get_user_by_username = function (username) {
 admin_security.prototype.get_all_users = function () {
 
 	// load up the user file
-	return flat.load(ADMIN_SECURE_FILE)
+	return flat.load(enduro.config.admin_secure_file)
 		.then((raw_userlist) => {
 
 			// return empty array if no users found
@@ -142,7 +142,7 @@ admin_security.prototype.add_admin = function (username, password, tags) {
 				salt_and_hash(logincontext)
 				timestamp(logincontext)
 
-				return flat.update(ADMIN_SECURE_FILE, {users: [logincontext]})
+				return flat.update(enduro.config.admin_secure_file, {users: [logincontext]})
 			})
 			.then(() => {
 				// Let the user know the project was created successfully

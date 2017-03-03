@@ -3,23 +3,23 @@ var expect = require('chai').expect
 var rewire = require('rewire')
 
 // local dependencies
-var enduro = require(ENDURO_FOLDER + '/index')
-var page_renderer = require(ENDURO_FOLDER + '/libs/page_rendering/page_renderer')
+var local_enduro = require('../../index')
+var page_renderer = require(enduro.enduro_path + '/libs/page_rendering/page_renderer')
 
 // rewired dependencies
-var internal_page_renderer = rewire(global.ENDURO_FOLDER + '/libs/page_rendering/page_renderer')
+var internal_page_renderer = rewire(enduro.enduro_path + '/libs/page_rendering/page_renderer')
 
 // Remove logging
-enduro.silent()
+local_enduro.silent()
 
 describe('page rendering', function () {
 
 	// create a new project
 	before(function (done) {
-		enduro.run(['create', 'testproject_page_rendering'])
+		local_enduro.run(['create', 'testproject_page_rendering'])
 			.then(() => {
 				// navigate inside new project
-				global.CMD_FOLDER = CMD_FOLDER + '/testproject_page_rendering'
+				enduro.project_path = enduro.project_path + '/testproject_page_rendering'
 				done()
 			}, () => {
 				done(new Error('Failed to create new project'))
@@ -44,7 +44,7 @@ describe('page rendering', function () {
 
 	// navigate back to testfolder
 	after(function () {
-		global.CMD_FOLDER = process.cwd() + '/testfolder'
+		enduro.project_path = process.cwd() + '/testfolder'
 	})
 
 })

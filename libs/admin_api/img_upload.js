@@ -7,10 +7,10 @@
 var api_call = function () {}
 
 // local dependencies
-var file_uploader = require(ENDURO_FOLDER + '/libs/admin_utilities/file_uploader')
-var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var admin_rights = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_rights')
+var file_uploader = require(enduro.enduro_path + '/libs/admin_utilities/file_uploader')
+var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var admin_rights = require(enduro.enduro_path + '/libs/admin_utilities/admin_rights')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

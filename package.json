@@ -1,8 +1,8 @@
 {
   "name": "enduro",
   "version": "1.2.23",
-  "description": "Minimalistic, lean & mean, node.js cms",
-  "main": "gruntfile.js",
+  "description": "Minimalistic, lean & mean static page generator / cms",
+  "main": "index.js",
   "dependencies": {
     "async": "^2.0.0-rc.2",
     "bluebird": "^3.1.5",
@@ -58,7 +58,8 @@
     "urldecode": "^1.0.1"
   },
   "scripts": {
-    "test": "mocha --recursive --bail"
+    "test": "mocha --recursive --bail",
+    "test_offline": "mocha --recursive --bail --grep online_test -i"
   },
   "bin": {
     "enduro": "./cli.js"
@@ -82,5 +83,11 @@
     "istanbul": "^0.4.2",
     "mocha": "^3.0.2",
     "mocha-lcov-reporter": "^1.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/Gottwik/Enduro/issues"
+  },
+  "engines": {
+    "node": ">= 4"
   }
 }

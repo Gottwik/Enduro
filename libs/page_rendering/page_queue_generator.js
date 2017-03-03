@@ -10,8 +10,8 @@ var glob = require('glob-promise')
 var path = require('path')
 
 // local dependencies
-var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
+var babel = require(enduro.enduro_path + '/libs/babel/babel')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
 // Renders individual files
 page_queue_generator.prototype.generate_pagelist = function () {
@@ -20,12 +20,12 @@ page_queue_generator.prototype.generate_pagelist = function () {
 
 	return new Promise(function (resolve, reject) {
 
-		// Reads config file and gets cultures
+		// Reads the culture config file and gets cultures and sets them to the global enduro.config.cultures variable
 		babel.get_cultures()
 			.then((cultures) => {
 
 				// save current cultures
-				config.cultures = cultures
+				enduro.config.cultures = cultures
 
 				// gets all the pages
 				return self.get_all_pages()
@@ -37,7 +37,7 @@ page_queue_generator.prototype.generate_pagelist = function () {
 
 				// iterates over files and fill all_pages_to_render list
 				for (f in files) {
-					for (c in config.cultures) {
+					for (c in enduro.config.cultures) {
 
 						var page_to_render = {}
 
@@ -48,7 +48,7 @@ page_queue_generator.prototype.generate_pagelist = function () {
 						page_to_render.context_file = self.get_page_url_from_full_path(files[f])
 
 						// culture string
-						page_to_render.culture = config.cultures[c]
+						page_to_render.culture = enduro.config.cultures[c]
 
 						// destination path
 						page_to_render.destination_path = page_to_render.context_file
@@ -84,7 +84,7 @@ page_queue_generator.prototype.generate_pagelist = function () {
 page_queue_generator.prototype.add_generator_pages = function (pages_to_render, page_context) {
 
 	// fetch all context files from folder of the same name as the template name
-	return glob(path.join(CMD_FOLDER, 'cms', page_context.context_file, '**/*.js'))
+	return glob(path.join(enduro.project_path, 'cms', page_context.context_file, '**/*.js'))
 	.then((files) => {
 
 		// iterate found context files and add them to the provided list
@@ -108,7 +108,7 @@ page_queue_generator.prototype.add_generator_pages = function (pages_to_render, 
 }
 
 page_queue_generator.prototype.get_all_pages = function () {
-	return glob(CMD_FOLDER + '/pages/**/*.hbs')
+	return glob(enduro.project_path + '/pages/**/*.hbs')
 }
 
 page_queue_generator.prototype.get_page_url_from_full_path = function (full_path) {

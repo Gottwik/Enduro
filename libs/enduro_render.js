@@ -8,9 +8,9 @@ var enduro_render = function () {}
 var Promise = require('bluebird')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var page_renderer = require(ENDURO_FOLDER + '/libs/page_rendering/page_renderer')
-var page_queue_generator = require(ENDURO_FOLDER + '/libs/page_rendering/page_queue_generator')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var page_renderer = require(enduro.enduro_path + '/libs/page_rendering/page_renderer')
+var page_queue_generator = require(enduro.enduro_path + '/libs/page_rendering/page_queue_generator')
 
 // Goes through the pages and renders them
 enduro_render.prototype.render = function () {

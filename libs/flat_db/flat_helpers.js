@@ -12,7 +12,7 @@ var mkdirp = require('mkdirp')
 var path = require('path')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 // Checks if file exists
 flat_helpers.prototype.file_exists_sync = function (file_path) {

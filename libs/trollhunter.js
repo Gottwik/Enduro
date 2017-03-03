@@ -16,8 +16,8 @@ var fs = require('fs')
 var passwordHash = require('password-hash')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 // constants
 var SECURE_FILE = '.enduro_secure'
@@ -55,7 +55,7 @@ trollhunter.prototype.set_passphrase = function (args) {
 		// Stores the passphrase
 		var passphrase = passwordHash.generate(args[0])
 
-		fs.writeFile(CMD_FOLDER + '/' + SECURE_FILE, passphrase, function (err) {
+		fs.writeFile(enduro.project_path + '/' + SECURE_FILE, passphrase, function (err) {
 			if (err) {
 				return logger.err(err)
 			}
@@ -78,7 +78,7 @@ trollhunter.prototype.verify_passphrase = function (passphrase) {
 			reject('no passphrase provided')
 		}
 		// Reads the security file
-		fs.readFile(CMD_FOLDER + '/' + SECURE_FILE, function read (err, data) {
+		fs.readFile(enduro.project_path + '/' + SECURE_FILE, function read (err, data) {
 			if (err) { return logger.err(err) }
 
 			// Compares the hashed passphrase, sets session flag and resolves if successful
@@ -102,7 +102,7 @@ trollhunter.prototype.verify_passphrase = function (passphrase) {
 trollhunter.prototype.verify = function (req, passphrase, resolve, reject) {
 
 	// don't check for security if no .enduro_secure file exists
-	if (!(flat_helpers.file_exists_sync(CMD_FOLDER + '/' + SECURE_FILE))) {
+	if (!(flat_helpers.file_exists_sync(enduro.project_path + '/' + SECURE_FILE))) {
 		req.session.login_flag = true
 		return resolve()
 	}

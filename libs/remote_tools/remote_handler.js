@@ -9,7 +9,7 @@ var Promise = require('bluebird')
 var s3 = require('s3')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 remote_handler.prototype.upload_to_s3_by_file = function (file, timestamp) {
 	var filename = timestamp ? timestamp_filename(file.name) : file.name
@@ -36,9 +36,9 @@ function s3_upload (filename, filepath) {
 
 		var client = s3.createClient({
 			s3Options: {
-				accessKeyId: global.config.variables.S3_KEY,
-				secretAccessKey: global.config.variables.S3_SECRET,
-				region: global.config.s3.region || 'us-west-1',
+				accessKeyId: enduro.config.variables.S3_KEY,
+				secretAccessKey: enduro.config.variables.S3_SECRET,
+				region: enduro.config.s3.region || 'us-west-1',
 				//endpoint: 'cloudhsm.eu-central-1.amazonaws.com',
 				// sslEnabled: false
 				// any other options are passed to new AWS.S3()
@@ -49,7 +49,7 @@ function s3_upload (filename, filepath) {
 		var params = {
 			localFile: filepath,
 			s3Params: {
-				Bucket: global.config.s3.bucket,
+				Bucket: enduro.config.s3.bucket,
 				Key: filename,
 				// other options suwpported by putObject, except Body and ContentLength.
 				// See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
@@ -74,7 +74,7 @@ function s3_upload (filename, filepath) {
 }
 
 function get_remote_url (filename) {
-	return 'https://s3-' + (global.config.s3.region || 'us-west-1') + '.amazonaws.com/' + global.config.s3.bucket + '/' + filename
+	return 'https://s3-' + (enduro.config.s3.region || 'us-west-1') + '.amazonaws.com/' + enduro.config.s3.bucket + '/' + filename
 }
 
 module.exports = new remote_handler()

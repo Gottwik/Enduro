@@ -9,9 +9,9 @@
 var api_call = function () {}
 
 // local dependencies
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
-var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
-var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+var format_service = require(enduro.enduro_path + '/libs/services/format_service')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

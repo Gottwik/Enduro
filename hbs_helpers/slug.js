@@ -7,7 +7,7 @@
 // *	will return this-link
 // * ———————————————————————————————————————————————————————— * //
 
-var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
+var format_service = require(enduro.enduro_path + '/libs/services/format_service')
 
 enduro.templating_engine.registerHelper('slug', function (text) {
 

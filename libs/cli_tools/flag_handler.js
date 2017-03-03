@@ -5,7 +5,7 @@
 var flag_handler = function () {}
 
 // local variables
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 // constants
 var FLAG_MAP = {

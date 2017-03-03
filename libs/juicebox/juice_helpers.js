@@ -12,23 +12,23 @@ var moment = require('moment')
 var glob = require('glob-promise')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var juice_diff = require(ENDURO_FOLDER + '/libs/juicebox/juice_diff')
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var juice_diff = require(enduro.enduro_path + '/libs/juicebox/juice_diff')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
 juice_helpers.prototype.diff_folder_with_cms = function (folder) {
 	// local path
-	var path1 = path.join(CMD_FOLDER, 'cms')
+	var path1 = path.join(enduro.project_path, 'cms')
 
 	// juice path
-	var path2 = path.join(CMD_FOLDER, folder)
+	var path2 = path.join(enduro.project_path, folder)
 
 	return juice_diff.diff(path1, path2)
 }
 
 juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {
-	glob(path.join(CMD_FOLDER, 'juicebox', 'staging', juicebox_hash, '**', file + '.js'))
+	glob(path.join(enduro.project_path, 'juicebox', 'staging', juicebox_hash, '**', file + '.js'))
 		.then((file) => {
 			if (!file.length) {
 				return logger.err('no such file')
@@ -129,8 +129,8 @@ function log_record (record) {
 }
 
 function get_diff (folder) {
-	var path1 = path.join(CMD_FOLDER, 'cms')
-	var path2 = path.join(CMD_FOLDER, folder, 'cms')
+	var path1 = path.join(enduro.project_path, 'cms')
+	var path2 = path.join(enduro.project_path, folder, 'cms')
 	return dircompare.compareSync(path1, path2, {compareSize: true})
 }
 
@@ -138,7 +138,7 @@ function copy_file_to_cms (entry) {
 	return new Promise(function (resolve, reject) {
 
 		var from_path = path.join(entry.path2, entry.name2)
-		var to_path = path.join(CMD_FOLDER, 'cms', path.join(entry.path2, entry.name2).match(/\/cms\/(.*)/)[1])
+		var to_path = path.join(enduro.project_path, 'cms', path.join(entry.path2, entry.name2).match(/\/cms\/(.*)/)[1])
 
 		fs.copy(from_path, to_path, {preserveTimestamps: true}, () => {
 			resolve()

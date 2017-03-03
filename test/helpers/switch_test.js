@@ -1,6 +1,8 @@
 // vendor dependencies
 var expect = require('chai').expect
 
+var local_enduro = require('../../index')
+
 describe('Switch helper', function () {
 
 	it('should output default(last) value if no context is provided', function () {

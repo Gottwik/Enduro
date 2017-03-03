@@ -7,8 +7,8 @@ var page_adding_service = function () {}
 var path = require('path')
 
 // local dependencies
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
-var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+var pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')
 
 page_adding_service.prototype.new_generator_page = function (new_pagename, generator) {
 	return flat.load(path.join('generators', generator, generator))

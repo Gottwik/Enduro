@@ -5,7 +5,7 @@ var sourcemaps = require('gulp-sourcemaps')
 var autoprefixer = require('gulp-autoprefixer')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 
 // * ———————————————————————————————————————————————————————— * //
@@ -26,7 +26,7 @@ sass_handler.prototype.init = function (gulp, browser_sync) {
 
 		logger.timestamp('Sass compiling started', 'enduro_events')
 
-		return gulp.src(CMD_FOLDER + '/assets/css/*.scss')
+		return gulp.src(enduro.project_path + '/assets/css/*.scss')
 			.pipe(bulkSass())
 			.pipe(sourcemaps.init())
 			.pipe(sass())
@@ -41,7 +41,7 @@ sass_handler.prototype.init = function (gulp, browser_sync) {
 				cascade: false,
 			}))
 			.pipe(sourcemaps.write())
-			.pipe(gulp.dest(CMD_FOLDER + '/_src/assets/css'))
+			.pipe(gulp.dest(enduro.project_path + '/_src/assets/css'))
 			.pipe(browser_sync.stream())
 			.on('end', () => {
 				logger.timestamp('Sass compiling finished', 'enduro_events')

@@ -3,18 +3,17 @@
 var expect = require('chai').expect
 var rewire = require('rewire')
 var path = require('path')
-
-// local dependencies
-var enduro = require(ENDURO_FOLDER + '/index')
-var babel = require(global.ENDURO_FOLDER + '/libs/babel/babel')
 var request = require('request-promise')
 
-var theme_manager = require(ENDURO_FOLDER + '/libs/theme_manager/theme_manager')
+// local dependencies
+var local_enduro = require('../../index')
+var babel = require(enduro.enduro_path + '/libs/babel/babel')
+var theme_manager = require(enduro.enduro_path + '/libs/theme_manager/theme_manager')
 
-describe('Theme manager server endpoints', function () {
+describe('[online_test] Theme manager server endpoints', function () {
 
 	before(function () {
-		enduro.silent()
+		local_enduro.silent()
 	})
 
 	it('should fetch list of all themes', function () {

@@ -1,28 +1,28 @@
 // vendor dependencies
 var expect = require('chai').expect
-var enduro = require('../index')
+var local_enduro = require('../index')
 var path = require('path')
 var fs = require('fs')
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 describe('Pregeneration', function () {
 
 	// Create a new project
 	before(function (done) {
 		this.timeout(5000)
-		enduro.run(['create', 'testproject_pregeneration'])
+		local_enduro.run(['create', 'testproject_pregeneration'])
 			.then(() => {
 				// navigate inside new project
-				global.CMD_FOLDER = path.join(CMD_FOLDER, 'testproject_pregeneration')
-				return enduro.run(['addculture', 'fr', 'es'])
+				enduro.project_path  = path.join(enduro.project_path, 'testproject_pregeneration')
+				return local_enduro.run(['addculture', 'fr', 'es'])
 
 			}, () => {
 				done(new Error('Failed to create new project'))
 			})
 			.then(() => {
-				enduro.run(['start'], [])
+				local_enduro.run(['start'], [])
 					.then(() => {
 						done()
 					})
@@ -31,7 +31,7 @@ describe('Pregeneration', function () {
 
 	it('_settings.css should be pregenerated', function (done) {
 
-		var settings_css_filepath = path.join(CMD_FOLDER, '_src', '_prebuilt', '_settings.css')
+		var settings_css_filepath = path.join(enduro.project_path, '_src', '_prebuilt', '_settings.css')
 		expect(flat_helpers.file_exists_sync(settings_css_filepath)).to.be.ok
 
 		fs.readFile(settings_css_filepath, 'utf8', function (err, data) {
@@ -43,14 +43,14 @@ describe('Pregeneration', function () {
 	})
 
 	it('_cultures.json should be pregenerated', function () {
-		var cultures_json_filepath = path.join(CMD_FOLDER, '_src', '_prebuilt', '_cultures.json')
+		var cultures_json_filepath = path.join(enduro.project_path, '_src', '_prebuilt', '_cultures.json')
 		expect(flat_helpers.file_exists_sync(cultures_json_filepath)).to.be.ok
 	})
 
 	// navigate back to testfolder
 	after(function (done) {
-		enduro.server_stop(() => {
-			global.CMD_FOLDER = process.cwd() + '/testfolder'
+		local_enduro.server_stop(() => {
+			enduro.project_path  = process.cwd() + '/testfolder'
 			done()
 		})
 	})

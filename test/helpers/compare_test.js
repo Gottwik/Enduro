@@ -1,6 +1,8 @@
 // vendor dependencies
 var expect = require('chai').expect
 
+var local_enduro = require('../../index')
+
 describe('Compare helper', function () {
 
 	// {{compare 1 1 "yes" "no"}}

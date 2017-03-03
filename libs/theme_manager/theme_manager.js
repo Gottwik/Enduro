@@ -5,12 +5,12 @@
 var theme_manager = function () {}
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var enduro_index = require(ENDURO_FOLDER + '/index')
-var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
-var format_service = require(ENDURO_FOLDER + '/libs/services/format_service')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var enduro_index = require(enduro.enduro_path + '/index')
+var admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
+var format_service = require(enduro.enduro_path + '/libs/services/format_service')
 
 // vendor dependencies
 var Promise = require('bluebird')
@@ -254,7 +254,7 @@ theme_manager.prototype.download_and_extract_theme_by_gz_link = function (gz_lin
 		// resolve when extracting is finished
 		tar_extract.on('finish', () => {
 			logger.loaded()
-			global.CMD_FOLDER = process.cwd() + '/' + project_name
+			global.enduro.project_path = process.cwd() + '/' + project_name
 			resolve()
 		})
 	})

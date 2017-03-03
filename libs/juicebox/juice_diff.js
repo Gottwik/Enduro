@@ -16,7 +16,7 @@ var dircompare = require('dir-compare')
 var _ = require('lodash')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 juice_diff.prototype.diff = function (path1, path2) {
 	return dircompare.compare(path1, path2)

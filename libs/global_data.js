@@ -13,14 +13,14 @@ var extend = require('extend')
 var glob = require('multi-glob').glob
 
 // Local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
 global_data.prototype.get_global_data = function () {
 
 	// Constants
-	var data_path = [CMD_FOLDER + '/cms/global/**/*.js', CMD_FOLDER + '/cms/.settings.js']
+	var data_path = [enduro.project_path + '/cms/global/**/*.js', enduro.project_path + '/cms/.settings.js']
 
 	this.clear()
 
@@ -47,7 +47,7 @@ global_data.prototype.get_global_data = function () {
 					flat.load(fileInCms)
 						.then((data) => {
 							// Extends global data with currently loaded data
-							extend(true, __data.global, data)
+							extend(true, enduro.cms_data.global, data)
 
 							logger.twolog('global ' + filename, 'loaded', 'enduro_render_events')
 							callback()
@@ -67,8 +67,8 @@ global_data.prototype.get_global_data = function () {
 
 // clears the global data
 global_data.prototype.clear = function () {
-	__data = {}
-	__data.global = {}
+	cms_data = {}
+	cms_data.global = {}
 }
 
 module.exports = new global_data()

@@ -12,10 +12,10 @@ var fs = require('fs')
 var path = require('path')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator')
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 offline_handler.prototype.convert_cms_file_to_offline = function (cms_file) {
 
@@ -73,7 +73,7 @@ function download_external_resource (external_link) {
 		external_link = external_link.replace(/^https/, 'http')
 
 		var new_filename = path.join('assets', 'img', 'offline', external_link.match(/\/([^\/]*)$/)[1])
-		flat_helpers.ensure_directory_existence(path.join(CMD_FOLDER, new_filename))
+		flat_helpers.ensure_directory_existence(path.join(enduro.project_path, new_filename))
 			.then(() => {
 				var file = fs.createWriteStream(new_filename)
 				http.get(external_link, function (response) {

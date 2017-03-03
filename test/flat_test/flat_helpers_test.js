@@ -5,10 +5,10 @@ var rimraf = require('rimraf')
 var path = require('path')
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var enduro = require(ENDURO_FOLDER + '/index')
+var local_enduro = require('../../index')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
-enduro.silent()
+local_enduro.silent()
 
 describe('flat helpers', function () {
 

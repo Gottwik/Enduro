@@ -3,18 +3,18 @@
 var expect = require('chai').expect
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
-var enduro = require(ENDURO_FOLDER + '/index')
+var local_enduro = require('../../index')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
-enduro.silent()
+local_enduro.silent()
 
 describe('flat db data access', function () {
 
 	before(function (done) {
-		enduro.run(['create', 'testfolder_flat_test'])
+		local_enduro.run(['create', 'testfolder_flat_test'])
 			.then(() => {
-				CMD_FOLDER = process.cwd() + '/testfolder/testfolder_flat_test'
+				enduro.project_path = process.cwd() + '/testfolder/testfolder_flat_test'
 				done()
 			}, (err) => {
 				done(new Error(err))
@@ -214,7 +214,7 @@ describe('flat db data access', function () {
 
 	// navigate back to testfolder
 	after(function () {
-		global.CMD_FOLDER = process.cwd() + '/testfolder'
+		enduro.project_path = process.cwd() + '/testfolder'
 	})
 })
 

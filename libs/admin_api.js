@@ -6,7 +6,7 @@
 var admin_api = function () {}
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 // Gets api name from url - /admin_api/get_something will call get_something.js
 admin_api.prototype.call = function (req, res, enduro_server) {

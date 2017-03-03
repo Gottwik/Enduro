@@ -7,8 +7,8 @@ var api_call = function () {}
 var Promise = require('bluebird')
 
 // local dependencies
-var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
-var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
+var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

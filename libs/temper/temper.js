@@ -8,8 +8,8 @@ var temper = function () {}
 var extend = require('extend')
 
 // local dependencies
-var page_renderer = require(ENDURO_FOLDER + '/libs/page_rendering/page_renderer')
-var abstractor = require(ENDURO_FOLDER + '/libs/abstractor/abstractor')
+var page_renderer = require(enduro.enduro_path + '/libs/page_rendering/page_renderer')
+var abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
 
 // Goes through the pages and renders them
 temper.prototype.render = function (filename, context) {

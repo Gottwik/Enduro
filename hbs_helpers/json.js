@@ -12,7 +12,7 @@
 
 enduro.templating_engine.registerHelper('json', function (filename, options) {
 	var fs = require('fs')
-	var contents = JSON.parse(fs.readFileSync(CMD_FOLDER + filename, 'utf8'))
+	var contents = JSON.parse(fs.readFileSync(enduro.project_path + filename, 'utf8'))
 
 	return options.fn(contents)
 })

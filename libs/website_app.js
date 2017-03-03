@@ -6,10 +6,10 @@
 var website_api = function () {}
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 // constants
-var LOCAL_APP_FILE = CMD_FOLDER + '/app/app.js'
+var LOCAL_APP_FILE = enduro.project_path + '/app/app.js'
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	forward app

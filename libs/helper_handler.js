@@ -11,11 +11,11 @@ var glob = require('multi-glob').glob
 var path = require('path')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 // constants
 var flat_helpers_PATH = path.join(__dirname, '..', 'hbs_helpers/**/*.js')
-var PROJECT_HELPERS_PATH = CMD_FOLDER + '/assets/hbs_helpers/**/*.js'
+var PROJECT_HELPERS_PATH = enduro.project_path + '/assets/hbs_helpers/**/*.js'
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	read helpers

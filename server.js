@@ -17,11 +17,11 @@ var multiparty_middleware = require('connect-multiparty')()
 var cookieParser = require('cookie-parser')
 
 // local dependencies
-var admin_api = require(ENDURO_FOLDER + '/libs/admin_api')
-var website_app = require(ENDURO_FOLDER + '/libs/website_app')
-var trollhunter = require(ENDURO_FOLDER + '/libs/trollhunter')
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var ab_tester = require(ENDURO_FOLDER + '/libs/ab_testing/ab_tester')
+var admin_api = require(enduro.enduro_path + '/libs/admin_api')
+var website_app = require(enduro.enduro_path + '/libs/website_app')
+var trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
 
 // constants
 var PRODUCTION_SERVER_PORT = 5000
@@ -67,7 +67,7 @@ enduro_server.prototype.run = function (server_setup) {
 		// starts listening to request on specified port
 		server = app.listen(app.get('port'), function () {
 			logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
-			if (!server_setup.development_mode && !flags.nocompile) {
+			if (!server_setup.development_mode && !enduro.flags.nocompile) {
 				self.enduro_init(() => {
 					resolve()
 				})
@@ -79,12 +79,12 @@ enduro_server.prototype.run = function (server_setup) {
 		// forward the app and server to running enduro application
 		website_app.forward(app, server)
 
-		logger.timestamp('heroku-debug - admin folder: ' + ADMIN_FOLDER, 'heroku_debug')
+		logger.timestamp('heroku-debug - admin folder: ' + enduro.config.admin_folder, 'heroku_debug')
 
 		// serve static files from /_src folder
-		app.use('/admin', express.static(ADMIN_FOLDER))
-		app.use('/assets', express.static(CMD_FOLDER + '/_src/assets'))
-		app.use('/_prebuilt', express.static(CMD_FOLDER + '/_src/_prebuilt'))
+		app.use('/admin', express.static(enduro.config.admin_folder))
+		app.use('/assets', express.static(enduro.project_path + '/_src/assets'))
+		app.use('/_prebuilt', express.static(enduro.project_path + '/_src/_prebuilt'))
 
 		// handle for executing enduro refresh from client
 		app.get('/admin_api_refresh', function (req, res) {
@@ -114,7 +114,7 @@ enduro_server.prototype.run = function (server_setup) {
 						// console.log(req.url)
 
 						// serves index.html when empty or culture-only url is provided
-						if (requested_url.length <= 1 || (requested_url.split('/')[1] && config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2)) {
+						if (requested_url.length <= 1 || (requested_url.split('/')[1] && enduro.config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2)) {
 							requested_url += requested_url.slice(-1) == '/' ? 'index' : '/index'
 						}
 
@@ -126,9 +126,9 @@ enduro_server.prototype.run = function (server_setup) {
 					})
 					.then((requested_url) => {
 						// serves the requested file
-						res.sendFile(CMD_FOLDER + '/_src' + requested_url + '.html')
+						res.sendFile(enduro.project_path + '/_src' + requested_url + '.html')
 					}, () => {
-						res.sendFile(ADMIN_FOLDER + '/enduro_login.html')
+						res.sendFile(enduro.config.admin_folder + '/enduro_login.html')
 					})
 			}
 		})

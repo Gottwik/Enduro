@@ -8,7 +8,7 @@ var ab_tester = function () {}
 var _ = require('lodash')
 
 // local dependencies
-var page_queue_generator = require(ENDURO_FOLDER + '/libs/page_rendering/page_queue_generator')
+var page_queue_generator = require(enduro.enduro_path + '/libs/page_rendering/page_queue_generator')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	get ab list

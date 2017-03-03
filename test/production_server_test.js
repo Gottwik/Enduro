@@ -1,5 +1,5 @@
 var expect = require('chai').expect
-var enduro = require('../index')
+var local_enduro = require('../index')
 var request = require('request')
 
 describe('Production server', function () {
@@ -7,11 +7,11 @@ describe('Production server', function () {
 	// Create a new project
 	before(function (done) {
 		this.timeout(3000)
-		enduro.run(['create', 'testproject_productionserver'])
+		local_enduro.run(['create', 'testproject_productionserver'])
 			.then(() => {
 				// navigate inside new project
-				global.CMD_FOLDER = CMD_FOLDER + '/testproject_productionserver'
-				enduro.run(['start'], [])
+				enduro.project_path  = enduro.project_path + '/testproject_productionserver'
+				local_enduro.run(['start'], [])
 					.then(() => {
 						done()
 					})
@@ -42,8 +42,8 @@ describe('Production server', function () {
 
 	// navigate back to testfolder
 	after(function (done) {
-		enduro.server_stop(() => {
-			global.CMD_FOLDER = process.cwd() + '/testfolder'
+		local_enduro.server_stop(() => {
+			enduro.project_path  = process.cwd() + '/testfolder'
 			done()
 		})
 	})

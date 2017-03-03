@@ -11,7 +11,7 @@
 var api_call = function () {}
 
 // local dependencies
-var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
+var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
@@ -35,7 +35,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 			var output = globalizer_string.split('.').reduce((prev, next) => {
 				parent = prev
 				return prev[next]
-			}, __data)
+			}, enduro.cms_data)
 
 			res.send(output)
 		})

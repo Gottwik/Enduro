@@ -6,7 +6,7 @@ var rimraf = require('rimraf')
 var path = require('path')
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 global.DELETE_TEST_PROJECTS = true
 
@@ -15,7 +15,7 @@ before(function (done) {
 	rimraf(path.join(process.cwd(), 'testfolder'), function () {
 		flat_helpers.ensure_directory_existence(path.join(process.cwd(), 'testfolder', 'dummy_filename'))
 			.then(() => {
-				global.CMD_FOLDER = path.join(process.cwd(), 'testfolder')
+				enduro.project_path  = path.join(process.cwd(), 'testfolder')
 				done()
 			})
 	})

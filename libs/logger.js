@@ -186,7 +186,7 @@ logger.prototype.noisy = function (logtag) {
 // * 	private functions
 // * ———————————————————————————————————————————————————————— * //
 function pass_tagcheck (logtag) {
-	if (typeof logtag === 'undefined' || flags.debug) {
+	if (typeof logtag === 'undefined' || enduro.flags.debug) {
 		return true
 	}
 	return logtag in logtags_config && logtags_config[logtag]

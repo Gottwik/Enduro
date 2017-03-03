@@ -6,8 +6,8 @@ var path = require('path')
 var watch = require('gulp-watch')
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 // defines locations that have static files
 var STATIC_LOCATIONS = ['assets/js', 'assets/img', 'assets/vendor', 'assets/fonts', 'assets/admin_extensions']
@@ -42,8 +42,8 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 		for (s in STATIC_LOCATIONS) {
 
 			// stores from and to paths
-			var copy_from = path.join(CMD_FOLDER, STATIC_LOCATIONS[s])
-			var copy_to = path.join(CMD_FOLDER, '_src', STATIC_LOCATIONS[s])
+			var copy_from = path.join(enduro.project_path, STATIC_LOCATIONS[s])
+			var copy_to = path.join(enduro.project_path, '_src', STATIC_LOCATIONS[s])
 
 			// watch_for_static_change(copy_from, copy_to, browser_sync)
 
@@ -70,8 +70,8 @@ assets_copier.prototype.watch = function (gulp, browser_sync) {
 		for (s in STATIC_LOCATIONS) {
 
 			// stores from and to paths
-			var copy_from = path.join(CMD_FOLDER, STATIC_LOCATIONS[s])
-			var copy_to = path.join(CMD_FOLDER, '_src', STATIC_LOCATIONS[s])
+			var copy_from = path.join(enduro.project_path, STATIC_LOCATIONS[s])
+			var copy_to = path.join(enduro.project_path, '_src', STATIC_LOCATIONS[s])
 
 			watch_for_static_change(copy_from, copy_to, browser_sync)
 
@@ -91,7 +91,7 @@ function copy_if_exist (copy_from, copy_to) {
 
 // watches for changes
 function watch_for_static_change (copy_from, copy_to, browser_sync) {
-	if (!flags.nowatch) {
+	if (!enduro.flags.nowatch) {
 		watch([copy_from + '/**/*'], () => {
 			fs.copyAsync(copy_from, copy_to, { overwrite: true })
 				.then(() => {

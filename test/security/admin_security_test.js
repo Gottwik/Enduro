@@ -3,21 +3,21 @@ var expect = require('chai').expect
 var rewire = require('rewire')
 
 // local dependencies
-var enduro = require(ENDURO_FOLDER + '/index')
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
-var admin_security = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
+var local_enduro = require('../../index')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+var admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
 
 // rewired
-var internal_admin_security = rewire(ENDURO_FOLDER + '/libs/admin_utilities/admin_security')
+var internal_admin_security = rewire(enduro.enduro_path + '/libs/admin_utilities/admin_security')
 
 describe('Admin security', function () {
 
 	// create a new project
 	before(function (done) {
-		enduro.run(['create', 'admin_security'])
+		local_enduro.run(['create', 'admin_security'])
 			.then(() => {
 				// navigate inside new project
-				global.CMD_FOLDER = CMD_FOLDER + '/admin_security'
+				enduro.project_path = enduro.project_path + '/admin_security'
 				done()
 			}, () => {
 				done(new Error('Failed to create new project'))
@@ -33,7 +33,7 @@ describe('Admin security', function () {
 	})
 
 	it('should add root admin successfully', function (done) {
-		enduro.run(['addadmin'])
+		local_enduro.run(['addadmin'])
 			.then(() => {
 				return flat.load('.users')
 			}, () => {
@@ -52,7 +52,7 @@ describe('Admin security', function () {
 	})
 
 	it('should add admin with custom name successfully', function (done) {
-		enduro.run(['addadmin', 'gottwik', '123'])
+		local_enduro.run(['addadmin', 'gottwik', '123'])
 			.then(() => {
 				return flat.load('.users')
 			}, () => {
@@ -71,7 +71,7 @@ describe('Admin security', function () {
 	})
 
 	it('should not be possible to add user with an already existing username', function (done) {
-		enduro.run(['addadmin', 'gottwik', '123'])
+		local_enduro.run(['addadmin', 'gottwik', '123'])
 			.then(() => {
 				done(new Error())
 			}, () => {
@@ -179,6 +179,6 @@ describe('Admin security', function () {
 
 	// navigate back to testfolder
 	after(function () {
-		global.CMD_FOLDER = process.cwd() + '/testfolder'
+		enduro.project_path = process.cwd() + '/testfolder'
 	})
 })

@@ -6,7 +6,7 @@
 var log_clusters = function () {}
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 var clusters = []
 
@@ -19,7 +19,7 @@ clusters['developer_start'] = (context) => {
 	logger.log('Development server started at:', 'nice_dev_init')
 	logger.tablog('localhost:3000', 'nice_dev_init')
 
-	if (!flags.noadmin) {
+	if (!enduro.flags.noadmin) {
 		logger.log('Admin ui available at:', 'nice_dev_init')
 		logger.tablog('localhost:5000/admin', false, 'nice_dev_init')
 	}
@@ -47,7 +47,7 @@ clusters['project_created'] = (context) => {
 
 clusters['nonexistent_bucket'] = (context) => {
 	logger.err_blockStart('Bucket does not exist')
-	logger.err('Bucket ' + global.config.s3.bucket + ' does not exist')
+	logger.err('Bucket ' + enduro.config.s3.bucket + ' does not exist')
 	logger.err(' ')
 	logger.err('Please go to your aws console and create one')
 	logger.err(' ')

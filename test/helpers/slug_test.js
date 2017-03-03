@@ -1,6 +1,8 @@
 // vendor dependencies
 var expect = require('chai').expect
 
+var local_enduro = require('../../index')
+
 describe('Slug helper', function () {
 
 	it('should sluggify simple one word', function () {

@@ -1,13 +1,13 @@
 var expect = require('chai').expect
 
-var enduro = require(ENDURO_FOLDER + '/index')
+var local_enduro = require('../index')
 
 describe('Global data handler', function () {
 
 	before(function (done) {
-		enduro.run(['create', 'global_data_test'])
+		local_enduro.run(['create', 'global_data_test'])
 			.then(() => {
-				CMD_FOLDER = process.cwd() + '/testfolder/global_data_test'
+				enduro.project_path = process.cwd() + '/testfolder/global_data_test'
 				done()
 			}, (err) => {
 				done(new Error(err))
@@ -15,12 +15,12 @@ describe('Global data handler', function () {
 	})
 
 	it('should read some global data', function () {
-		expect(__data).to.include.keys('global')
-		expect(__data).to.have.deep.property('global.settings.admin_background_image')
+		expect(enduro.cms_data).to.include.keys('global')
+		expect(enduro.cms_data).to.have.deep.property('global.settings.admin_background_image')
 	})
 
 	// navigate back to testfolder
 	after(function () {
-		global.CMD_FOLDER = process.cwd() + '/testfolder'
+		enduro.project_path  = process.cwd() + '/testfolder'
 	})
 })

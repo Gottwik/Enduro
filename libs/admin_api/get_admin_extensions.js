@@ -11,7 +11,7 @@ var glob = require('glob-promise')
 var path = require('path')
 
 // constants
-var extension_path = path.join(CMD_FOLDER, 'assets', 'admin_extensions', '**', '*.js')
+var extension_path = path.join(enduro.project_path, 'assets', 'admin_extensions', '**', '*.js')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

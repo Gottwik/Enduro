@@ -1,14 +1,14 @@
 var expect = require('chai').expect
 
-var enduro = require(ENDURO_FOLDER + '/index')
-var markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
+var local_enduro = require('../index')
+var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
 
 describe('markdownifier', function () {
 
 	before(function (done) {
-		enduro.run(['create', 'markdownifier_test'])
+		local_enduro.run(['create', 'markdownifier_test'])
 			.then(() => {
-				CMD_FOLDER = process.cwd() + '/testfolder/markdownifier_test'
+				enduro.project_path = process.cwd() + '/testfolder/markdownifier_test'
 				markdownifier.precompute()
 					.then(() => {
 						done()

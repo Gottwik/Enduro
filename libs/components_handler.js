@@ -12,7 +12,7 @@ var async = require('async')
 var glob = require('glob')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	read components
@@ -23,7 +23,7 @@ var logger = require(ENDURO_FOLDER + '/libs/logger')
 components_handler.prototype.read_components = function () {
 	return new Promise(function (resolve, reject) {
 
-		var components_path = CMD_FOLDER + '/components/**/*.hbs'
+		var components_path = enduro.project_path + '/components/**/*.hbs'
 
 		// fetches the files
 		glob(components_path, function (err, files) {

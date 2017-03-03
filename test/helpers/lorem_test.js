@@ -1,6 +1,8 @@
 // vendor dependencies
 var expect = require('chai').expect
 
+var local_enduro = require('../../index')
+
 describe('Lorem helper', function () {
 
 	it('Output 10 words on {{lorem}}', function () {

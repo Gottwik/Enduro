@@ -10,7 +10,7 @@
 enduro.templating_engine.registerHelper('files', function (path, block) {
 	var glob = require('glob')
 
-	var files = glob.sync(CMD_FOLDER + path + '/**/*.*')
+	var files = glob.sync(enduro.project_path + path + '/**/*.*')
 
 	var output = files.map((file) => {
 		return file.replace(new RegExp('.*' + path), '')

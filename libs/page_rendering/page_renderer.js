@@ -11,12 +11,12 @@ var extend = require('extend')
 var path = require('path')
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
-var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
-var globalizer = require(ENDURO_FOLDER + '/libs/globalizer/globalizer')
-var markdownifier = require(ENDURO_FOLDER + '/libs/markdown/markdownifier')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+var babel = require(enduro.enduro_path + '/libs/babel/babel')
+var globalizer = require(enduro.enduro_path + '/libs/globalizer/globalizer')
+var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	renders individual template with provided context, culture and destination path
@@ -44,10 +44,10 @@ page_renderer.prototype.render_file = function (template_path, context_path, cul
 			})
 			.then((output) => {
 				// Makes sure the target directory exists
-				flat_helpers.ensure_directory_existence(path.join(CMD_FOLDER, '_src', destination_path))
+				flat_helpers.ensure_directory_existence(path.join(enduro.project_path, '_src', destination_path))
 					.then(function () {
 						// Attempts to export the template_path
-						fs.writeFile(path.join(CMD_FOLDER, '_src', destination_path + '.html'), output, function (err) {
+						fs.writeFile(path.join(enduro.project_path, '_src', destination_path + '.html'), output, function (err) {
 							if (err) { return logger.err_block(err) }
 
 							logger.twolog('page ' + destination_path, 'created', 'enduro_render_events')
@@ -85,8 +85,8 @@ page_renderer.prototype.render_file_by_context = function (template_path, contex
 			var pagename = template_path.match(/([^\/\\]*)\.[^\.]*$/)[1]
 
 			// If global data exists extends the context with it
-			if (typeof __data !== 'undefined') {
-				extend(true, context, __data)
+			if (typeof enduro.cms_data !== 'undefined') {
+				extend(true, context, enduro.cms_data)
 			}
 
 			// Add pagename to the context
@@ -107,7 +107,7 @@ page_renderer.prototype.render_file_by_context = function (template_path, contex
 			}
 
 			// outputs raw templates if render_templates setting is set to false. Defaults to true
-			if (!config.render_templates) {
+			if (!enduro.config.render_templates) {
 				rendered_page = raw_template
 			}
 
@@ -120,7 +120,7 @@ page_renderer.prototype.render_file_by_template_path_extend_context = function (
 	extended_context = extended_context || {}
 
 	var template_path = get_absolute_template_path_by_context_path(context_path)
-	var culture = config.cultures[0]
+	var culture = enduro.config.cultures[0]
 
 	return flat.load(context_path)
 		.then((context) => {
@@ -135,7 +135,7 @@ page_renderer.prototype.render_file_by_template_path_replace_context = function 
 	context = context || {}
 
 	var template_path = get_absolute_template_path_by_context_path(context_path)
-	var culture = config.cultures[0]
+	var culture = enduro.config.cultures[0]
 
 	return self.render_file_by_context(template_path, context, culture)
 }
@@ -150,7 +150,7 @@ function get_absolute_template_path_by_context_path (context_path) {
 		template_path = splitted_filename.slice(0, -1).join('/')
 	}
 
-	return path.join(CMD_FOLDER, 'pages', template_path + '.hbs')
+	return path.join(enduro.project_path, 'pages', template_path + '.hbs')
 }
 
 module.exports = new page_renderer()

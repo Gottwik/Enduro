@@ -10,11 +10,11 @@
 var api_call = function () {}
 
 // local dependencies
-var flat = require(ENDURO_FOLDER + '/libs/flat_db/flat')
-var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
-var juicebox = require(ENDURO_FOLDER + '/libs/juicebox/juicebox')
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var admin_rights = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_rights')
+var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var admin_rights = require(enduro.enduro_path + '/libs/admin_utilities/admin_rights')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
@@ -51,7 +51,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 				requesting_user = user
 
 				// disable watching for cms files to prevent double rendering
-				flags.temporary_nocmswatch = true
+				enduro.flags.temporary_nocmswatch = true
 				return flat.save(filename, content)
 			}, () => {
 				res.sendStatus(401)
@@ -63,7 +63,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 			.then((data) => {
 
 				// enable cmswatch again
-				flags.temporary_nocmswatch = false
+				enduro.flags.temporary_nocmswatch = false
 
 				// re-renders enduro - essential to publishing the change
 				return enduro_server.enduro_refresh(() => {

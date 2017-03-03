@@ -1,6 +1,8 @@
 // vendor dependencies
 var expect = require('chai').expect
 
+var local_enduro = require('../../index')
+
 describe('Partial helper', function () {
 
 	it('Output nothing when no partial name is provided', function () {

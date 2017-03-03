@@ -1,19 +1,19 @@
 // vendor dependencies
 var expect = require('chai').expect
-var enduro = require('../index')
+var local_enduro = require('../index')
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var trollhunter = require(ENDURO_FOLDER + '/libs/trollhunter')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
 
 describe('Enduro security', function () {
 
 	// create a new project
 	before(function (done) {
-		enduro.run(['create', 'testproject_security'])
+		local_enduro.run(['create', 'testproject_security'])
 			.then(() => {
 				// navigate inside new project
-				global.CMD_FOLDER = CMD_FOLDER + '/testproject_security'
+				enduro.project_path  = enduro.project_path + '/testproject_security'
 				done()
 			}, () => {
 				done(new Error('Failed to create new project'))
@@ -21,7 +21,7 @@ describe('Enduro security', function () {
 	})
 
 	it('won\'t do nothing if no passphrase is provided', function (done) {
-		enduro.run(['secure'])
+		local_enduro.run(['secure'])
 			.then(() => {
 				done(new Error('Failed to detect missing passphrase'))
 			}, () => {
@@ -30,7 +30,7 @@ describe('Enduro security', function () {
 	})
 
 	it('should create a passphrase file when enduro is secured', function (done) {
-		enduro.run(['secure', 'testphrase'])
+		local_enduro.run(['secure', 'testphrase'])
 			.then(() => {
 				done()
 			}, () => {
@@ -39,7 +39,7 @@ describe('Enduro security', function () {
 	})
 
 	it('should make sure the passphrase file is created', function () {
-		expect(flat_helpers.file_exists_sync(CMD_FOLDER + '/.enduro_secure')).to.equal(true)
+		expect(flat_helpers.file_exists_sync(enduro.project_path + '/.enduro_secure')).to.equal(true)
 	})
 
 	it('should verify the correct passphrase', function (done) {
@@ -71,6 +71,6 @@ describe('Enduro security', function () {
 
 	// navigate back to testfolder
 	after(function () {
-		global.CMD_FOLDER = process.cwd() + '/testfolder'
+		enduro.project_path  = process.cwd() + '/testfolder'
 	})
 })

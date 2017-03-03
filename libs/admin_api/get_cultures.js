@@ -7,8 +7,8 @@
 var api_call = function () {}
 
 // local dependencies
-var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
-var babel = require(ENDURO_FOLDER + '/libs/babel/babel')
+var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+var babel = require(enduro.enduro_path + '/libs/babel/babel')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

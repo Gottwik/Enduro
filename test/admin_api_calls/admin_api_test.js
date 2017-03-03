@@ -1,7 +1,7 @@
 var expect = require('chai').expect
 var request = require('request')
 
-var enduro = require(ENDURO_FOLDER + '/index')
+var local_enduro = require('../../index')
 
 describe('admin api', function () {
 
@@ -9,11 +9,11 @@ describe('admin api', function () {
 
 	// create a new project
 	before(function (done) {
-		enduro.run(['create', 'testproject_admin_api', 'test'])
+		local_enduro.run(['create', 'testproject_admin_api', 'test'])
 			.then(() => {
 				// navigate inside new project
-				global.CMD_FOLDER = CMD_FOLDER + '/testproject_admin_api'
-				enduro.run(['start'], [])
+				enduro.project_path = enduro.project_path + '/testproject_admin_api'
+				local_enduro.run(['start'], [])
 					.then(() => {
 						done()
 					})
@@ -73,8 +73,8 @@ describe('admin api', function () {
 
 	// navigate back to testfolder
 	after(function (done) {
-		enduro.server_stop(() => {
-			global.CMD_FOLDER = process.cwd() + '/testfolder'
+		local_enduro.server_stop(() => {
+			enduro.project_path  = process.cwd() + '/testfolder'
 			done()
 		})
 	})

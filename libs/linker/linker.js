@@ -1,14 +1,14 @@
 // * ———————————————————————————————————————————————————————— * //
 // * 	linker
-// *	enables injecting enduro modules more comfortably
+// *	provides global access to enduro modules and state variables
 // * ———————————————————————————————————————————————————————— * //
 
 // vendor depencies
 var Promise = require('bluebird')
 
-var linker = {}
+var enduro_linker = function () {}
 
-var links = {
+var api_links = {
 	'temper': '/libs/temper/temper',
 	'pagelist_generator': '/libs/build_tools/pagelist_generator',
 	'flat': '/libs/flat_db/flat',
@@ -16,18 +16,47 @@ var links = {
 	'logger': '/libs/logger',
 }
 
-for (link in links) {
-	linker[link] = require(ENDURO_FOLDER + links[link])
+
+// will initialize shared variables that will represent state and configuration
+enduro_linker.prototype.init_enduro_linked_configuration = function (project_path, enduro_path) {
+	var linker = {}
+
+	// paths for project and enduro
+	linker.project_path = project_path
+	linker.enduro_path = enduro_path
+
+	// stores templating engine for possible future replacement
+	// promised handlebars allows for asynchronous calls inside helpers
+	linker.templating_engine = require('promised-handlebars')(require('handlebars'), { Promise: Promise })
+
+	// creates an empty object to store precomputed data
+	linker.precomputed_data = {}
+
+	// initializes empty variables
+	linker.development_firstload_url = ''
+
+	// creates config objects
+	linker.config = {}
+	linker.config.secret = {}
+
+	// creates flags object
+	linker.flags = {}
+
+	// creates global cms data object
+	linker.cms_data = {}
+	linker.cms_data.global = {}
+
+	return linker
 }
 
-// stores templating engine for possible future replacement
-// promised handlebars allows for asynchronous calls inside helpers
-linker.templating_engine = require('promised-handlebars')(require('handlebars'), { Promise: Promise })
+// will require the exposed modules one by one and return an object with them
+enduro_linker.prototype.expose_enduro_api = function () {
 
-// creates an empty object to store precomputed data
-linker.precomputed_data = {}
+	enduro.api = {}
 
-// initializes empty variables
-linker.development_firstload_url = ''
+	for (link in api_links) {
+		enduro.api[link] = require(enduro.enduro_path + api_links[link])
+	}
+}
 
-module.exports = linker
+module.exports = new enduro_linker()

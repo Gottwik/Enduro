@@ -10,9 +10,9 @@ var fs = require('fs')
 var path = require('path')
 
 // local dependencies
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var babel = require(global.ENDURO_FOLDER + '/libs/babel/babel')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var babel = require(global.enduro.enduro_path + '/libs/babel/babel')
 
 // Goes through the pages and renders them
 pregenerator.prototype.pregenerate = function () {
@@ -30,11 +30,11 @@ var pregenerators = []
 pregenerators['settings'] = function () {
 	return new Promise(function (resolve, reject) {
 
-		var settings_template_path = path.join(ENDURO_FOLDER, 'support_files', 'admin_settings_css.hbs')
-		var css_settings_destination_file_path = path.join(CMD_FOLDER, '_src', '_prebuilt', '_settings.css')
+		var settings_template_path = path.join(enduro.enduro_path, 'support_files', 'admin_settings_css.hbs')
+		var css_settings_destination_file_path = path.join(enduro.project_path, '_src', '_prebuilt', '_settings.css')
 
 		// just resolve if settings are not present
-		if (!__data.global.settings) {
+		if (!enduro.cms_data.global.settings) {
 			return resolve()
 		}
 
@@ -45,7 +45,7 @@ pregenerators['settings'] = function () {
 			}
 
 			var template = enduro.templating_engine.compile(raw_template)
-			template(__data.global.settings)
+			template(enduro.cms_data.global.settings)
 				.then((rendered_css_file) => {
 					flat_helpers.ensure_directory_existence(css_settings_destination_file_path)
 						.then(() => {
@@ -62,7 +62,7 @@ pregenerators['settings'] = function () {
 pregenerators['cultures'] = function () {
 
 	return new Promise(function (resolve, reject) {
-		var cultures_json_destionation_path = path.join(CMD_FOLDER, '_src', '_prebuilt', '_cultures.json')
+		var cultures_json_destionation_path = path.join(enduro.project_path, '_src', '_prebuilt', '_cultures.json')
 		var cultures = {}
 		babel.get_cultures()
 			.then((fetched_cultures) => {

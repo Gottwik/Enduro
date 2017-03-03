@@ -5,18 +5,18 @@ var rewire = require('rewire')
 var path = require('path')
 
 // local dependencies
-var enduro = require(ENDURO_FOLDER + '/index')
-var babel = require(global.ENDURO_FOLDER + '/libs/babel/babel')
+var local_enduro = require('../index')
+var babel = require(global.enduro.enduro_path + '/libs/babel/babel')
 
 // rewired dependencies
-var internal_babel = rewire(global.ENDURO_FOLDER + '/libs/babel/babel')
+var internal_babel = rewire(global.enduro.enduro_path + '/libs/babel/babel')
 
 describe('Babel - registering cultures', function () {
 
 	before(function (done) {
-		enduro.run(['create', 'babel_test'])
+		local_enduro.run(['create', 'babel_test'])
 			.then(() => {
-				CMD_FOLDER = path.join(process.cwd(), 'testfolder', 'babel_test')
+				enduro.project_path = path.join(process.cwd(), 'testfolder', 'babel_test')
 				done()
 			}, (err) => {
 				done(new Error(err))
@@ -54,7 +54,7 @@ describe('Babel - registering cultures', function () {
 	})
 
 	it('should add cultures correctly by cli', function (done) {
-		enduro.run(['addculture', 'fr', 'es'])
+		local_enduro.run(['addculture', 'fr', 'es'])
 			.then(() => {
 				return babel.get_cultures()
 			})
@@ -72,7 +72,7 @@ describe('Babel - registering cultures', function () {
 
 	// navigate back to testfolder
 	after(function () {
-		global.CMD_FOLDER = process.cwd() + '/testfolder'
+		enduro.project_path = process.cwd() + '/testfolder'
 	})
 })
 

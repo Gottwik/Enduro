@@ -1,7 +1,7 @@
 var expect = require('chai').expect
 
-var enduro = require('../index')
-var abstractor = require(ENDURO_FOLDER + '/libs/abstractor/abstractor')
+var local_enduro = require('../index')
+var abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
 var path = require('path')
 
 describe('Abstractor', function () {
@@ -9,9 +9,9 @@ describe('Abstractor', function () {
 	before(function (done) {
 
 		var test_project_name = 'abstractor_testfolder'
-		enduro.run(['create', test_project_name, 'test'])
+		local_enduro.run(['create', test_project_name, 'test'])
 			.then(() => {
-				CMD_FOLDER = path.join(process.cwd(), 'testfolder', test_project_name)
+				enduro.project_path = path.join(process.cwd(), 'testfolder', test_project_name)
 				done()
 			}, (err) => {
 				done(new Error(err))
@@ -21,13 +21,13 @@ describe('Abstractor', function () {
 	it('should register all the abstractors', function () {
 		return abstractor.init()
 			.then(() => {
-				expect(abstractors).to.include.keys('empty_init')
+				expect(enduro.precomputed_data.abstractors).to.include.keys('empty_init')
 			})
 	})
 
 	// navigate back to testfolder
 	after(function () {
-		global.CMD_FOLDER = path.join(process.cwd(), '/testfolder')
+		enduro.project_path = path.join(process.cwd(), '/testfolder')
 	})
 })
 

@@ -7,8 +7,8 @@
 var api_call = function () {}
 
 // local dependencies
-var pagelist_generator = require(ENDURO_FOLDER + '/libs/build_tools/pagelist_generator')
-var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
+var pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')
+var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

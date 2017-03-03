@@ -1,6 +1,8 @@
 // vendor dependencies
 var expect = require('chai').expect
 
+var local_enduro = require('../../index')
+
 describe('Times helper', function () {
 
 	it('should repeat character inside times helper', function () {

@@ -7,7 +7,7 @@
 var api_call = function () {}
 
 // Local dependencies
-var trollhunter = require(ENDURO_FOLDER + '/libs/trollhunter')
+var trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

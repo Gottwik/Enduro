@@ -1,6 +1,8 @@
 // vendor dependencies
 var expect = require('chai').expect
 
+var local_enduro = require('../../index')
+
 describe('Multiply helper', function () {
 
 	it('should multiply two numbers', function () {

@@ -2,7 +2,8 @@
 var expect = require('chai').expect
 
 // local dependencies
-var admin_rights = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_rights')
+var local_enduro = require('../../index')
+var admin_rights = require(enduro.enduro_path + '/libs/admin_utilities/admin_rights')
 
 describe('Admin rights', function () {
 

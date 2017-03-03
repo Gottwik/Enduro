@@ -14,10 +14,10 @@ var path = require('path')
 var fs = require('fs')
 
 // local dependencies
-var flat_helpers = require(ENDURO_FOLDER + '/libs/flat_db/flat_helpers')
-var admin_sessions = require(ENDURO_FOLDER + '/libs/admin_utilities/admin_sessions')
-var logger = require(ENDURO_FOLDER + '/libs/logger')
-var temper = require(ENDURO_FOLDER + '/libs/temper/temper')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+var logger = require(enduro.enduro_path + '/libs/logger')
+var temper = require(enduro.enduro_path + '/libs/temper/temper')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
@@ -52,7 +52,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 			.then((temp_page_in_raw_html) => {
 				var temp_filename = Math.random().toString(36).substring(7)
 				var temp_destination_url = path.join('t', temp_filename)
-				var temp_destination_path = path.join(CMD_FOLDER, '_src', temp_destination_url + '.html')
+				var temp_destination_path = path.join(enduro.project_path, '_src', temp_destination_url + '.html')
 				flat_helpers.ensure_directory_existence(temp_destination_path)
 					.then(() => {
 						fs.writeFile(temp_destination_path, temp_page_in_raw_html, function () {

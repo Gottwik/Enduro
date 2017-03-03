@@ -178,10 +178,4 @@ function run (args, flags) {
 		})
 }
 
-function server_stop (cb) {
-	gulp.start('browser_sync_stop')
-	enduro_server.stop(cb)
-}
-
 exports.run = run
-exports.server_stop = server_stop

@@ -20,6 +20,7 @@ var action_links = {
 	'render': '/libs/actions/render',
 	'developer_start': '/libs/actions/developer_start',
 	'silent': '/libs/actions/silent',
+	'stop_server': '/libs/actions/stop_server',
 }
 
 

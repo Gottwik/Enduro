@@ -1,6 +1,6 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	render
-// *	renders all the static files - no server started
+// * 	developer start
+// *	initializes developer start with browsersync
 // * ———————————————————————————————————————————————————————— * //
 
 var developer_start_action = function () {}
@@ -13,7 +13,7 @@ var enduro_server = require(enduro.enduro_path + '/server')
 var gulp = require(enduro.enduro_path + '/gulpfile')
 var logger = require(enduro.enduro_path + '/libs/logger')
 
-developer_start_action.prototype.action = function (callback, dont_do_juice_pull) {
+developer_start_action.prototype.action = function () {
 	return new Promise(function (resolve, reject) {
 		// clears the global data
 		global_data.clear()

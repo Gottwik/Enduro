@@ -49,7 +49,7 @@ describe('Pregeneration', function () {
 
 	// navigate back to testfolder
 	after(function (done) {
-		local_enduro.server_stop(() => {
+		enduro.actions.stop_server(() => {
 			enduro.project_path  = process.cwd() + '/testfolder'
 			done()
 		})

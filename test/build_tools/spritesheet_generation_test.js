@@ -3,26 +3,16 @@ var expect = require('chai').expect
 var path = require('path')
 
 // local dependencies
-var local_enduro = require('../../index')
+var local_enduro = require('../../index').quick_init()
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
-describe('Sass build tool', function () {
+describe('Spritesheet build tool', function () {
 
-	// Create a new project
-	before(function (done) {
-		var test_project_name = 'spritesheet_generation_testfolder'
-
-		local_enduro.run(['create', test_project_name, 'test'])
+	before(function () {
+		return test_utilities.before(local_enduro, 'spritesheet_generation_testfolder')
 			.then(() => {
-				// navigate inside new project
-				enduro.project_path  = path.join(enduro.project_path, test_project_name)
-				local_enduro.run(['start'])
-					.then(() => {
-						done()
-					})
-			}, () => {
-				done(new Error('Failed to create new project'))
+				return enduro.actions.render()
 			})
 	})
 
@@ -32,12 +22,8 @@ describe('Sass build tool', function () {
 		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, '_src', 'assets', 'spriteicons', 'spritesheet@2x.png'))).to.be.ok
 	})
 
-	// navigate back to testfolder
-	after(function (done) {
-		enduro.actions.stop_server(() => {
-			enduro.project_path  = process.cwd() + '/testfolder'
-			done()
-		})
+	after(function () {
+		return test_utilities.after()
 	})
 })
 

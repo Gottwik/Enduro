@@ -7,13 +7,21 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-enduro.templating_engine.registerHelper('default', function (name, defaultValue, options) {
+var helper = function () {}
 
-	if (typeof options === 'undefined') {
-		defaultValue = ''
-	}
+helper.prototype.register = function () {
 
-	return typeof name !== 'undefined'
-		? name
-		: defaultValue
-})
+	enduro.templating_engine.registerHelper('default', function (name, defaultValue, options) {
+
+		if (typeof options === 'undefined') {
+			defaultValue = ''
+		}
+
+		return typeof name !== 'undefined'
+			? name
+			: defaultValue
+	})
+
+}
+
+module.exports = new helper()

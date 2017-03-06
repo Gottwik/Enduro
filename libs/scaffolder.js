@@ -30,10 +30,14 @@ var DEFAULT_SCAFFOLDING_NAME = 'minimalistic'
 scaffolder.prototype.scaffold = function (project_name, scaffolding_name) {
 	return new Promise(function (resolve, reject) {
 
+		if (!project_name) {
+			return reject()
+		}
+
 		var scaffolding_path = get_scaffolding_path_by_name(scaffolding_name)
 
 		if (scaffolding_path == -1) {
-			reject()
+			return reject()
 		}
 
 		// Destination directory

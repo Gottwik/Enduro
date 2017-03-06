@@ -12,8 +12,15 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-var stringify_object = require('stringify-object')
+var helper = function () {}
 
-enduro.templating_engine.registerHelper('js_cms', function (context_object) {
-	return stringify_object(context_object, {indent: '	', singleQuotes: true})
-})
+helper.prototype.register = function () {
+
+	var stringify_object = require('stringify-object')
+
+	enduro.templating_engine.registerHelper('js_cms', function (context_object) {
+		return stringify_object(context_object, {indent: '	', singleQuotes: true})
+	})
+}
+
+module.exports = new helper()

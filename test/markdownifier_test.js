@@ -1,20 +1,15 @@
 var expect = require('chai').expect
 
-var local_enduro = require('../index')
+var local_enduro = require('../index').quick_init()
 var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
+var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('markdownifier', function () {
 
-	before(function (done) {
-		local_enduro.run(['create', 'markdownifier_test'])
+	before(function () {
+		return test_utilities.before(local_enduro, 'markdownifier_test', 'minimalistic')
 			.then(() => {
-				enduro.project_path = process.cwd() + '/testfolder/markdownifier_test'
-				markdownifier.precompute()
-					.then(() => {
-						done()
-					})
-			}, (err) => {
-				done(new Error(err))
+				return enduro.actions.render()
 			})
 	})
 
@@ -33,6 +28,10 @@ describe('markdownifier', function () {
 				expect(JSON.stringify(test_output)).to.equal(JSON.stringify(expected_output))
 			})
 
+	})
+
+	after(function () {
+		return test_utilities.after()
 	})
 
 })

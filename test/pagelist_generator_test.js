@@ -1,20 +1,15 @@
 var expect = require('chai').expect
 var gulp = require('gulp')
 
-var local_enduro = require('../index')
+var local_enduro = require('../index').quick_init()
 var pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('Page list generation', function () {
 
-	before(function (done) {
-		local_enduro.run(['create', 'pagelist_generator_test', 'test'])
-			.then(() => {
-				enduro.project_path = process.cwd() + '/testfolder/pagelist_generator_test'
-				done()
-			}, (err) => {
-				done(new Error(err))
-			})
+	before(function () {
+		return test_utilities.before(local_enduro, 'pagelist_generator_test')
 	})
 
 	it('should generate cmslist', function (done) {
@@ -43,9 +38,8 @@ describe('Page list generation', function () {
 			})
 	})
 
-	// navigate back to testfolder
 	after(function () {
-		enduro.project_path = process.cwd() + '/testfolder'
+		return test_utilities.after()
 	})
 
 })

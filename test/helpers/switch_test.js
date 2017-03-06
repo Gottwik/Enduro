@@ -1,9 +1,14 @@
 // vendor dependencies
 var expect = require('chai').expect
 
-var local_enduro = require('../../index')
+var local_enduro = require('../../index').quick_init()
+var helper_handler = require(enduro.enduro_path + '/libs/helper_handler')
 
 describe('Switch helper', function () {
+
+	before(() => {
+		return helper_handler.read_helpers()
+	})
 
 	it('should output default(last) value if no context is provided', function () {
 		expect(enduro.templating_engine.compileSync('{{switch small "a"}}')()).to.equal('a')

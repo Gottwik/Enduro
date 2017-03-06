@@ -13,10 +13,11 @@ var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 var TEST_FOLDER_PATH = path.join(process.cwd(), 'testfolder')
 
 test_utilities.prototype.before = function (local_enduro, project_name, scaffolding) {
+	var self = this
 
 	scaffolding = scaffolding || 'test'
 
-	return flat_helpers.delete_folder(TEST_FOLDER_PATH)
+	return self.delete_testfolder()
 		.then(() => {
 			return local_enduro.init()
 		})
@@ -31,10 +32,15 @@ test_utilities.prototype.before = function (local_enduro, project_name, scaffold
 		.then(() => {
 			enduro.project_path = path.join(enduro.project_path, project_name)
 		})
+		.then(() => {
+			return local_enduro.init(enduro.project_path)
+		})
 }
 
 test_utilities.prototype.after = function () {
-	return flat_helpers.delete_folder(TEST_FOLDER_PATH)
+	var self = this
+
+	return self.delete_testfolder()
 		.then(() => {
 			enduro.project_path = process.cwd()
 		})
@@ -64,6 +70,10 @@ test_utilities.prototype.request_file = function (url) {
 		}
 
 	})
+}
+
+test_utilities.prototype.delete_testfolder = function () {
+	return flat_helpers.delete_folder(TEST_FOLDER_PATH)
 }
 
 module.exports = new test_utilities()

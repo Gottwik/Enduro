@@ -3,29 +3,27 @@ var expect = require('chai').expect
 var path = require('path')
 
 // local dependencies
-var local_enduro = require('../index')
+var local_enduro = require('../index').quick_init()
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var test_utilities = require('./libs/test_utilities')
 
 describe('Enduro project creation', function () {
 
 	before(() => {
-		return local_enduro.init()
+		return test_utilities.delete_testfolder()
+			.then(() => {
+				return flat_helpers.ensure_directory_existence(path.join(enduro.project_path, 'testfolder', 'a'))
+			})
+			.then(() => {
+				return local_enduro.init('testfolder')
+			})
 			.then(() => {
 				enduro.actions.silent()
 			})
 	})
 
-	it('should do nothing if malformed arguments are provided', function (done) {
-		local_enduro.run(['someweirdargument'])
-			.then(() => {
-				done(new Error('Failes to detect malformed argument'))
-			}, () => {
-				done()
-			})
-	})
-
 	it('should not create new project if no project name is provided', function (done) {
-		local_enduro.run(['create'])
+		enduro.actions.create()
 			.then(() => {
 				done(new Error('Failed to detect missing arguments'))
 			}, () => {
@@ -34,16 +32,7 @@ describe('Enduro project creation', function () {
 	})
 
 	it('should be able to create a new project', function (done) {
-		local_enduro.run(['create', 'testproject_creation'])
-			.then(() => {
-				done()
-			}, (err) => {
-				done(new Error(err))
-			})
-	})
-
-	it('should be able to create a new project even with extra useless parameters', function (done) {
-		local_enduro.run(['create', 'testproject_creation_useless', 'test', '123'])
+		enduro.actions.create('testproject_creation')
 			.then(() => {
 				done()
 			}, (err) => {
@@ -52,7 +41,7 @@ describe('Enduro project creation', function () {
 	})
 
 	it('should fail if non-existent scaffolding is provided', function (done) {
-		local_enduro.run(['create', 'testproject_creation_useless', 'nonexistent scaffolding'])
+		enduro.actions.create('testproject_creation', 'nonexistend_scaffolding')
 			.then(() => {
 				done(new Error(err))
 			}, () => {
@@ -61,7 +50,7 @@ describe('Enduro project creation', function () {
 	})
 
 	it('should not create another project with the same name', function (done) {
-		local_enduro.run(['create', 'testproject_creation'])
+		enduro.actions.create('testproject_creation')
 			.then(() => {
 				done(new Error('Failed to detect a project with the same name'))
 			}, () => {
@@ -87,12 +76,17 @@ describe('Enduro project creation', function () {
 	})
 
 	it('should be able to create a new project with defined scaffolding', function (done) {
-		local_enduro.run(['create', 'custom_scaffolding', 'test'])
+		enduro.actions.create('custom_scaffolding', 'test')
+
 			.then(() => {
 				expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, 'custom_scaffolding', 'app', 'markdown_rules', 'test_markdown_rule.js'))).to.equal(true)
 				done()
 			}, (err) => {
 				done(new Error(err))
 			})
+	})
+
+	after(function () {
+		return test_utilities.after()
 	})
 })

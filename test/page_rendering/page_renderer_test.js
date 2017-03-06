@@ -3,28 +3,20 @@ var expect = require('chai').expect
 var rewire = require('rewire')
 
 // local dependencies
-var local_enduro = require('../../index')
+var local_enduro = require('../../index').quick_init()
 var page_renderer = require(enduro.enduro_path + '/libs/page_rendering/page_renderer')
+var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+
 
 // rewired dependencies
 var internal_page_renderer = rewire(enduro.enduro_path + '/libs/page_rendering/page_renderer')
 
 describe('page rendering', function () {
 
-	// create a new project
-	before(function (done) {
-		return local_enduro.init()
+	before(function () {
+		return test_utilities.before(local_enduro, 'testproject_page_rendering', 'minimalistic')
 			.then(() => {
-				enduro.actions.silent()
-
-				return local_enduro.run(['create', 'testproject_page_rendering'])
-			})
-			.then(() => {
-				// navigate inside new project
-				enduro.project_path = enduro.project_path + '/testproject_page_rendering'
-				done()
-			}, () => {
-				done(new Error('Failed to create new project'))
+				return enduro.actions.render()
 			})
 	})
 
@@ -44,9 +36,8 @@ describe('page rendering', function () {
 			})
 	})
 
-	// navigate back to testfolder
 	after(function () {
-		enduro.project_path = process.cwd() + '/testfolder'
+		return test_utilities.after()
 	})
 
 })

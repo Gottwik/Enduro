@@ -10,9 +10,16 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-enduro.templating_engine.registerHelper('json', function (filename, options) {
-	var fs = require('fs')
-	var contents = JSON.parse(fs.readFileSync(enduro.project_path + filename, 'utf8'))
+var helper = function () {}
 
-	return options.fn(contents)
-})
+helper.prototype.register = function () {
+
+	enduro.templating_engine.registerHelper('json', function (filename, options) {
+		var fs = require('fs')
+		var contents = JSON.parse(fs.readFileSync(enduro.project_path + filename, 'utf8'))
+
+		return options.fn(contents)
+	})
+}
+
+module.exports = new helper()

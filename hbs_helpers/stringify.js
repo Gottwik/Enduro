@@ -10,6 +10,13 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-enduro.templating_engine.registerHelper('stringify', function (context) {
-	return JSON.stringify(context)
-})
+var helper = function () {}
+
+helper.prototype.register = function () {
+
+	enduro.templating_engine.registerHelper('stringify', function (context) {
+		return JSON.stringify(context)
+	})
+}
+
+module.exports = new helper()

@@ -6,25 +6,32 @@
 // *	{{partial 'partial name'}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-enduro.templating_engine.registerHelper('partial', function (name, context, options) {
+var helper = function () {}
 
-	if (!options) {
-		options = context
-		context = this
-	}
+helper.prototype.register = function () {
 
-	// Get the partial with the given name. This is a string.
-	var partial = enduro.templating_engine.partials[name]
+	enduro.templating_engine.registerHelper('partial', function (name, context, options) {
 
-	// Return empty string if the partial is not defined
-	if (!partial) return ''
+		if (!options) {
+			options = context
+			context = this
+		}
 
-	// build up context
-	context.global = options.data.root.global
+		// Get the partial with the given name. This is a string.
+		var partial = enduro.templating_engine.partials[name]
 
-	// Compile and call the partial with context
-	return (typeof partial == 'function')
-		? new enduro.templating_engine.SafeString(partial(context))
-		: new enduro.templating_engine.SafeString(enduro.templating_engine.compile(partial)(context))
+		// Return empty string if the partial is not defined
+		if (!partial) return ''
 
-})
+		// build up context
+		context.global = options.data.root.global
+
+		// Compile and call the partial with context
+		return (typeof partial == 'function')
+			? new enduro.templating_engine.SafeString(partial(context))
+			: new enduro.templating_engine.SafeString(enduro.templating_engine.compile(partial)(context))
+
+	})
+}
+
+module.exports = new helper()

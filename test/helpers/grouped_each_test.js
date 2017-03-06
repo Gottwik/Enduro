@@ -1,9 +1,14 @@
 // vendor dependencies
 var expect = require('chai').expect
 
-var local_enduro = require('../../index')
+var local_enduro = require('../../index').quick_init()
+var helper_handler = require(enduro.enduro_path + '/libs/helper_handler')
 
 describe('Grouped_each helper', function () {
+
+	before(() => {
+		return helper_handler.read_helpers()
+	})
 
 	it('render empty string if no context is provided', function () {
 		expect(enduro.templating_engine.compileSync('{{#grouped_each}}aaa{{/grouped_each}}')()).to.be.empty

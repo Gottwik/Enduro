@@ -6,14 +6,21 @@
 // *	{{ternary this 'was true' 'was false'}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-enduro.templating_engine.registerHelper('ternary', function (condition, value_if_true, value_if_false) {
+var helper = function () {}
 
-	// if no false is provided
-	if (typeof value_if_false === 'object') {
-		value_if_false = ''
-	}
+helper.prototype.register = function () {
 
-	return condition
-		? value_if_true
-		: value_if_false
-})
+	enduro.templating_engine.registerHelper('ternary', function (condition, value_if_true, value_if_false) {
+
+		// if no false is provided
+		if (typeof value_if_false === 'object') {
+			value_if_false = ''
+		}
+
+		return condition
+			? value_if_true
+			: value_if_false
+	})
+}
+
+module.exports = new helper()

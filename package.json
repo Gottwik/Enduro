@@ -59,7 +59,7 @@
   },
   "scripts": {
     "test": "mocha --recursive --bail",
-    "test_offline": "mocha --recursive --bail --grep online_test -i"
+    "to": "mocha --recursive --bail --grep online_test -i"
   },
   "bin": {
     "enduro": "./cli.js"

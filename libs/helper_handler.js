@@ -29,7 +29,7 @@ helper_handler.prototype.read_helpers = function () {
 			async.each(files, function (file, callback) {
 				var fileReg = file.match(/([^\\/]+)\.([^\\/]+)$/)
 				var filename = fileReg[1]
-				require(file)
+				require(file).register()
 				logger.twolog('helper ' + filename, 'registered', 'enduro_render_events')
 				callback()
 			}, function () {

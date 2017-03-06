@@ -30,8 +30,10 @@ var action_links = {
 enduro_linker.prototype.init_enduro_linked_configuration = function (project_path, enduro_path) {
 	var linker = {}
 
-	// paths for project and enduro
+	// paths for project
 	linker.project_path = project_path
+
+	// path to enduro (taken from where)
 	linker.enduro_path = enduro_path
 
 	// stores templating engine for possible future replacement

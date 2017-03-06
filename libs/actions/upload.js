@@ -1,16 +1,11 @@
 // * ———————————————————————————————————————————————————————— * //
-// *    htmlescape helper
-// *	Usage:
-// *		{{htmlescape 'www.example.com?p=escape spaces here'}}
-// *
+// * 	enduro.actions.upload
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
 
-helper.prototype.register = function () {
+var action = function () {}
 
-	enduro.templating_engine.registerHelper('uriencode', function (url) {
-		return encodeURI(url)
-	})
+action.prototype.action = function (url) {
+	return require(enduro.enduro_path + '/libs/cli_tools/cli_upload').cli_upload(url)
 }
 
-module.exports = new helper()
+module.exports = new action()

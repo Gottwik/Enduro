@@ -1,16 +1,14 @@
 var expect = require('chai').expect
 
-var local_enduro = require('../index')
+var local_enduro = require('../index').quick_init()
+var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('Global data handler', function () {
 
-	before(function (done) {
-		local_enduro.run(['create', 'global_data_test'])
+	before(function () {
+		return test_utilities.before(local_enduro, 'global_data_testfolder', 'minimalistic')
 			.then(() => {
-				enduro.project_path = process.cwd() + '/testfolder/global_data_test'
-				done()
-			}, (err) => {
-				done(new Error(err))
+				return enduro.actions.render()
 			})
 	})
 
@@ -19,8 +17,7 @@ describe('Global data handler', function () {
 		expect(enduro.cms_data).to.have.deep.property('global.settings.admin_background_image')
 	})
 
-	// navigate back to testfolder
 	after(function () {
-		enduro.project_path  = process.cwd() + '/testfolder'
+		return test_utilities.after()
 	})
 })

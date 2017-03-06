@@ -13,6 +13,9 @@ var gulp = require(enduro.enduro_path + '/gulpfile')
 var logger = require(enduro.enduro_path + '/libs/logger')
 
 action.prototype.action = function (config) {
+
+	config = config || {}
+
 	return new Promise(function (resolve, reject) {
 		// clears the global data
 		global_data.clear()

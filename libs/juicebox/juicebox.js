@@ -133,9 +133,7 @@ juicebox.prototype.force_pack = function (user) {
 	})
 }
 
-juicebox.prototype.diff = function (args) {
-
-	args = args || []
+juicebox.prototype.diff = function (version_hash, file) {
 
 	// will store the specified juicebox hash
 	var juicebox_hash_to_diff
@@ -144,12 +142,11 @@ juicebox.prototype.diff = function (args) {
 		.then((juice) => {
 
 			// if user provided specified version
-			if (args.length) {
-				juicebox_hash_to_diff = get_juicebox_hash_by_timestamp(args[0])
+			if (version_hash) {
+				juicebox_hash_to_diff = get_juicebox_hash_by_timestamp(version_hash)
 			} else {
 				juicebox_hash_to_diff = juice.latest.hash
 			}
-			args.shift()
 
 			return get_juicebox_by_name(juicebox_hash_to_diff + EXTENSION)
 		})
@@ -157,8 +154,8 @@ juicebox.prototype.diff = function (args) {
 			return spill_the_juice(specified_juicebox, path.join('juicebox', 'staging', juicebox_hash_to_diff))
 		})
 		.then(() => {
-			if (args.length) {
-				return juice_helpers.diff_file_with_cms(juicebox_hash_to_diff, args[0])
+			if (file) {
+				return juice_helpers.diff_file_with_cms(juicebox_hash_to_diff, file)
 			} else {
 				return juice_helpers.diff_folder_with_cms(path.join('juicebox', 'staging', juicebox_hash_to_diff, 'cms'))
 			}

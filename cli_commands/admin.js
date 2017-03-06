@@ -5,7 +5,8 @@ module.exports = {
 	desc: 'handles admin users',
 	builder: function (yargs) {
 		return yargs
-		.commandDir('admin_commands')
+			.usage('enduro admin <command>')
+			.commandDir('admin_commands')
 	},
 	handler: function () {}
 }

@@ -43,17 +43,17 @@ trollhunter.prototype.login = function (req) {
 // *	@param {array} args - args[0] stores the desired passphrase
 // *	@return {Promise} - Promise with no content. Resolve if password setup was successfull
 // * ———————————————————————————————————————————————————————— * //
-trollhunter.prototype.set_passphrase = function (args) {
+trollhunter.prototype.set_passphrase = function (plain_passphrase) {
 	return new Promise(function (resolve, reject) {
 
 		// No passphrase given
-		if (!args.length) {
+		if (!plain_passphrase) {
 			reject('No passphrase provided')
 			return logger.err('\nProvide an passphrase \n\n\t$ enduro secure catthrewupagain\n')
 		}
 
 		// Stores the passphrase
-		var passphrase = passwordHash.generate(args[0])
+		var passphrase = passwordHash.generate(plain_passphrase)
 
 		fs.writeFile(enduro.project_path + '/' + SECURE_FILE, passphrase, function (err) {
 			if (err) {
@@ -75,11 +75,12 @@ trollhunter.prototype.verify_passphrase = function (passphrase) {
 	return new Promise(function (resolve, reject) {
 
 		if (!passphrase) {
-			reject('no passphrase provided')
+			return reject('no passphrase provided')
 		}
 		// Reads the security file
 		fs.readFile(enduro.project_path + '/' + SECURE_FILE, function read (err, data) {
 			if (err) { return logger.err(err) }
+
 
 			// Compares the hashed passphrase, sets session flag and resolves if successful
 			if (passwordHash.verify(passphrase, data.toString())) {

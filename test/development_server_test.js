@@ -12,6 +12,7 @@ describe('Development server', function () {
 			.then(() => {
 				return enduro.actions.developer_start({ norefresh: true })
 			})
+			.delay(150)
 	})
 
 	it('should serve something on port 3000', function (done) {

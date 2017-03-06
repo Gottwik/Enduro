@@ -14,7 +14,7 @@ describe('Enduro security', function () {
 	})
 
 	it('won\'t do nothing if no passphrase is provided', function (done) {
-		return trollhunter.set_passphrase()
+		trollhunter.set_passphrase()
 			.then(() => {
 				done(new Error('Failed to detect missing passphrase'))
 			}, () => {
@@ -23,7 +23,7 @@ describe('Enduro security', function () {
 	})
 
 	it('should create a passphrase file when enduro is secured', function (done) {
-		return trollhunter.set_passphrase('testphrase')
+		trollhunter.set_passphrase('testphrase')
 			.then(() => {
 				done()
 			}, () => {
@@ -62,7 +62,7 @@ describe('Enduro security', function () {
 			})
 	})
 
-	// after(function () {
-	// 	return test_utilities.after()
-	// })
+	after(function () {
+		return test_utilities.after()
+	})
 })

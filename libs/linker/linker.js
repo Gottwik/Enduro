@@ -5,6 +5,8 @@
 
 // vendor depencies
 var Promise = require('bluebird')
+var glob = require('glob-promise')
+var path = require('path')
 
 var enduro_linker = function () {}
 
@@ -71,9 +73,14 @@ enduro_linker.prototype.expose_enduro_actions = function () {
 
 	enduro.actions = {}
 
-	for (action_link in action_links) {
-		enduro.actions[action_link] = require(enduro.enduro_path + action_links[action_link]).action
-	}
+	return glob(enduro.enduro_path + '/libs/actions/*.js')
+		.then((action_paths) => {
+			for (action_path of action_paths) {
+				var action_name = path.basename(action_path, '.js')
+				enduro.actions[action_name] = require(action_path).action
+			}
+		})
+
 }
 
 // will expose all the enduro.js contextless actions

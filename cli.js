@@ -1,9 +1,24 @@
 #!/usr/bin/env node
-require('yargs')
-  .commandDir('cli_commands')
-  .demandCommand()
-  .help()
-  .argv
+
+global.program = require('yargs')
+	.options({
+		'force': {
+			alias: 'f',
+			describe: 'force',
+			global: true,
+		},
+		'norefresh': {
+			alias: 'n',
+			describe: 'norefresh',
+			global: true,
+		},
+	})
+	.commandDir('cli_commands')
+	.version(require('./package.json').version)
+	.help()
+	.alias('help', 'h')
+	.wrap(120)
+	.argv
 
 // #!/usr/bin/env node
 

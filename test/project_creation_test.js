@@ -6,10 +6,14 @@ var path = require('path')
 var local_enduro = require('../index')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
-// Remove logging
-enduro.actions.silent()
-
 describe('Enduro project creation', function () {
+
+	before(() => {
+		return local_enduro.init()
+			.then(() => {
+				enduro.actions.silent()
+			})
+	})
 
 	it('should do nothing if malformed arguments are provided', function (done) {
 		local_enduro.run(['someweirdargument'])

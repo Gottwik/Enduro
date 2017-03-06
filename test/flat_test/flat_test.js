@@ -7,17 +7,16 @@ var local_enduro = require('../../index')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
-enduro.actions.silent()
-
 describe('flat db data access', function () {
 
-	before(function (done) {
-		local_enduro.run(['create', 'testfolder_flat_test'])
+	before(function () {
+		return local_enduro.init()
+			.then(() => {
+				enduro.actions.silent()
+				return local_enduro.run(['create', 'testfolder_flat_test'])
+			})
 			.then(() => {
 				enduro.project_path = process.cwd() + '/testfolder/testfolder_flat_test'
-				done()
-			}, (err) => {
-				done(new Error(err))
 			})
 	})
 

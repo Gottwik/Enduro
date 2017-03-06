@@ -9,14 +9,16 @@ var page_renderer = require(enduro.enduro_path + '/libs/page_rendering/page_rend
 // rewired dependencies
 var internal_page_renderer = rewire(enduro.enduro_path + '/libs/page_rendering/page_renderer')
 
-// Remove logging
-enduro.actions.silent()
-
 describe('page rendering', function () {
 
 	// create a new project
 	before(function (done) {
-		local_enduro.run(['create', 'testproject_page_rendering'])
+		return local_enduro.init()
+			.then(() => {
+				enduro.actions.silent()
+
+				return local_enduro.run(['create', 'testproject_page_rendering'])
+			})
 			.then(() => {
 				// navigate inside new project
 				enduro.project_path = enduro.project_path + '/testproject_page_rendering'

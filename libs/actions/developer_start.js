@@ -1,6 +1,5 @@
 // * ———————————————————————————————————————————————————————— * //
 // * 	developer start
-// *	initializes developer start with browsersync
 // * ———————————————————————————————————————————————————————— * //
 
 var developer_start_action = function () {}

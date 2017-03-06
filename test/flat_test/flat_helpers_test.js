@@ -8,9 +8,14 @@ var path = require('path')
 var local_enduro = require('../../index')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
-enduro.actions.silent()
-
 describe('flat helpers', function () {
+
+	before(() => {
+		return local_enduro.init()
+			.then(() => {
+				enduro.actions.silent()
+			})
+	})
 
 	it('should detect an existing file', function () {
 		expect(flat_helpers.file_exists_sync(process.cwd() + '/index.js')).to.equal(true)

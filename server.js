@@ -56,6 +56,8 @@ enduro_server.prototype.run = function (server_setup) {
 	// stores current enduro_server instance
 	var self = this
 
+	server_setup = server_setup || {}
+
 	return new Promise(function (resolve, reject) {
 		// 5000 or server's port
 		app.set('port', (process.env.PORT || PRODUCTION_SERVER_PORT))

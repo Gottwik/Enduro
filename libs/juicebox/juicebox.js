@@ -43,8 +43,8 @@ juicebox.prototype.pack = function (user) {
 // * ———————————————————————————————————————————————————————— * //
 juicebox.prototype.pull = function (force) {
 
-	// if juicebox is not enabled
-	if (!enduro.config.variables.juicebox_enabled) {
+	// if juicebox is not enabled or disabled by flags
+	if (!enduro.config.variables.juicebox_enabled || enduro.flags.nojuice) {
 		return Promise.resolve()
 	}
 
@@ -95,7 +95,8 @@ juicebox.prototype.force_pack = function (user) {
 		user = user || 'developer'
 
 		// Skip juicing if juicing is not enabled(most likely s3 keys are missing)
-		if (!enduro.config.variables.juicebox_enabled) {
+		// or disabled by flags
+		if (!enduro.config.variables.juicebox_enabled || enduro.flags.nojuice) {
 			return resolve()
 		}
 

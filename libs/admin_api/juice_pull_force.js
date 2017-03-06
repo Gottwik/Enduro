@@ -17,7 +17,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 
 	admin_sessions.get_user_by_session(sid)
 		.then((user) => {
-			return juicebox.pull(false, true)
+			return juicebox.pull(false)
 		})
 		.then(() => {
 			enduro_server.enduro_refresh(() => {

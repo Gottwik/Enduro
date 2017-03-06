@@ -25,7 +25,7 @@ action.prototype.action = function (callback, dont_do_juice_pull) {
 	return Promise.resolve()
 		.then(() => {
 			if (!dont_do_juice_pull && !enduro.flags.nojuice) {
-				return juicebox.pull(juicebox.is_juicebox_enabled())
+				return juicebox.pull(false)
 			} else {
 				return new Promise.resolve()
 			}

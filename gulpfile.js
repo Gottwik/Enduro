@@ -1,3 +1,5 @@
+
+var Promise = require('bluebird')
 var gulp = require('gulp')
 var watch = require('gulp-watch')
 var browser_sync = require('browser-sync').create()
@@ -43,7 +45,7 @@ gulp.task('browser_sync_norefresh', function () {
 })
 
 gulp.task('browser_sync_stop', [], function () {
-	browser_sync.exit()
+	return browser_sync.exit()
 })
 
 function browsersync_start (norefresh) {
@@ -205,6 +207,13 @@ gulp.task('production', [sass_handler, 'hbs_templates', assets_copier, 'hbs_help
 gulp.task('default', [assets_copier_watch, 'browser_sync'])
 gulp.task('default_norefresh', [assets_copier_watch, 'browser_sync_norefresh'])
 
+gulp.start_promised = function (task_name) {
+	return new Promise(function (resolve, reject) {
+		gulp.start(task_name, () => {
+			resolve()
+		})
+	})
+}
 
 // Export gulp to enable access for enduro
 module.exports = gulp

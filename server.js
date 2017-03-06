@@ -134,8 +134,12 @@ enduro_server.prototype.run = function (server_setup) {
 	})
 }
 
-enduro_server.prototype.stop = function (cb) {
-	enduro.server.close(cb)
+enduro_server.prototype.stop = function () {
+	return new Promise(function (resolve, reject) {
+		enduro.server.close(() => {
+			resolve()
+		})
+	})
 }
 
 // placehodler refresh function - this function is being replaced by parent

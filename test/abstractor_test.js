@@ -1,5 +1,7 @@
+// vendor dependencies
 var expect = require('chai').expect
 
+// local dependencies
 var local_enduro = require('../index').quick_init()
 var abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
 var test_utilities = require('./libs/test_utilities')
@@ -17,7 +19,6 @@ describe('Abstractor', function () {
 			})
 	})
 
-	// navigate back to testfolder
 	after(function () {
 		return test_utilities.after()
 	})

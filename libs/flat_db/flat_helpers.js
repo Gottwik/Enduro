@@ -10,6 +10,7 @@ var Promise = require('bluebird')
 var fs = require('fs')
 var mkdirp = require('mkdirp')
 var path = require('path')
+var rimraf = require('rimraf')
 
 // local dependencies
 var logger = require(enduro.enduro_path + '/libs/logger')
@@ -69,6 +70,14 @@ flat_helpers.prototype.get_filename_from_url = function (file_path) {
 
 flat_helpers.prototype.is_local = function (file_path) {
 	return file_path.indexOf('http') == -1 && file_path.indexOf('.com') == -1
+}
+
+flat_helpers.prototype.delete_folder = function (absolute_path) {
+	return new Promise(function (resolve, reject) {
+		rimraf(absolute_path, () => {
+			resolve()
+		})
+	})
 }
 
 function ensure_directory_existence (file_path) {

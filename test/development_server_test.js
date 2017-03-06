@@ -1,22 +1,16 @@
 var expect = require('chai').expect
 var request = require('request')
 
-var local_enduro = require('../index')
+var local_enduro = require('../index').quick_init()
+var test_utilities = require('./libs/test_utilities')
 
 describe('Development server', function () {
+	this.timeout(5000)
 
-	// Create a new project
-	before(function (done) {
-		local_enduro.run(['create', 'testproject_server'])
+	before(function () {
+		return test_utilities.before(local_enduro, 'devserver', 'minimalistic')
 			.then(() => {
-				// navigate inside new project
-				enduro.project_path  = enduro.project_path + '/testproject_server'
-				local_enduro.run([], ['nr'])
-					.then(() => {
-						setTimeout(done, 150)
-					})
-			}, () => {
-				done(new Error('Failed to create new project'))
+				return enduro.actions.developer_start({ norefresh: true })
 			})
 	})
 
@@ -50,12 +44,11 @@ describe('Development server', function () {
 		})
 	})
 
-	// navigate back to testfolder
-	after(function (done) {
-		enduro.actions.stop_server(() => {
-			enduro.project_path  = process.cwd() + '/testfolder'
-			done()
-		})
+	after(function () {
+		return enduro.actions.stop_server()
+			.then(() => {
+				return test_utilities.after()
+			})
 	})
 
 })

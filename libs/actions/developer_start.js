@@ -2,7 +2,7 @@
 // * 	developer start
 // * ———————————————————————————————————————————————————————— * //
 
-var developer_start_action = function () {}
+var action = function () {}
 
 var Promise = require('bluebird')
 
@@ -12,7 +12,7 @@ var enduro_server = require(enduro.enduro_path + '/server')
 var gulp = require(enduro.enduro_path + '/gulpfile')
 var logger = require(enduro.enduro_path + '/libs/logger')
 
-developer_start_action.prototype.action = function () {
+action.prototype.action = function (config) {
 	return new Promise(function (resolve, reject) {
 		// clears the global data
 		global_data.clear()
@@ -26,7 +26,7 @@ developer_start_action.prototype.action = function () {
 		enduro.actions.render(() => {
 			logger.timestamp('Render finished', 'enduro_events')
 
-			gulp.start(enduro.flags.norefresh ? 'default_norefresh' : 'default', () => {
+			gulp.start(config.norefresh || enduro.flags.norefresh ? 'default_norefresh' : 'default', () => {
 				if (!enduro.flags.noadmin && !prevent_double_callback) {
 					prevent_double_callback = true
 					logger.timestamp('production server starting', 'enduro_events')
@@ -43,4 +43,4 @@ developer_start_action.prototype.action = function () {
 }
 
 
-module.exports = new developer_start_action()
+module.exports = new action()

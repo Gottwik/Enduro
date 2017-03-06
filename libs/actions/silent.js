@@ -3,14 +3,14 @@
 // *	removes all logging
 // * ———————————————————————————————————————————————————————— * //
 
-var silent_action = function () {}
+var action = function () {}
 
 var Promise = require('bluebird')
 
 var logger = require(enduro.enduro_path + '/libs/logger')
 
 
-silent_action.prototype.action = function () {
+action.prototype.action = function () {
 
 	logger.silent()
 
@@ -19,4 +19,4 @@ silent_action.prototype.action = function () {
 }
 
 
-module.exports = new silent_action()
+module.exports = new action()

@@ -3,7 +3,7 @@
 // *	renders all the static files - no server started
 // * ———————————————————————————————————————————————————————— * //
 
-var render_action = function () {}
+var action = function () {}
 
 var Promise = require('bluebird')
 
@@ -19,7 +19,7 @@ var abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
 var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
 var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
 
-render_action.prototype.action = function (callback, dont_do_juice_pull) {
+action.prototype.action = function (callback, dont_do_juice_pull) {
 
 	logger.init('Enduro', 'enduro_render_events')
 	return Promise.resolve()
@@ -77,4 +77,4 @@ render_action.prototype.action = function (callback, dont_do_juice_pull) {
 }
 
 
-module.exports = new render_action()
+module.exports = new action()

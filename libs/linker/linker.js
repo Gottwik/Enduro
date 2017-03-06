@@ -76,4 +76,9 @@ enduro_linker.prototype.expose_enduro_actions = function () {
 	}
 }
 
+// will expose all the enduro.js contextless actions
+enduro_linker.prototype.read_config = function () {
+	return require(enduro.enduro_path + '/libs/configuration/enduro_configurator').read_config()
+}
+
 module.exports = new enduro_linker()

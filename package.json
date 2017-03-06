@@ -8,7 +8,6 @@
     "bluebird": "^3.1.5",
     "browser-sync": "^2.11.1",
     "chalk": "^1.1.1",
-    "commander": "^2.9.0",
     "connect-multiparty": "^2.0.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.7.1",
@@ -56,7 +55,8 @@
     "s3": "^4.4.0",
     "stringify-object": "^3.1.0",
     "tar": "^2.2.1",
-    "urldecode": "^1.0.1"
+    "urldecode": "^1.0.1",
+    "yargs": "^7.0.1"
   },
   "scripts": {
     "test": "mocha --recursive --bail",

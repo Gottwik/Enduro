@@ -20,9 +20,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 			return juicebox.pull(false)
 		})
 		.then(() => {
-			enduro_server.enduro_refresh(() => {
-				return Promise.resolve()
-			})
+			return enduro.actions.render()
 		})
 		.then(() => {
 			return juicebox.diff()

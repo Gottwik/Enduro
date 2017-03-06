@@ -67,9 +67,10 @@ enduro_server.prototype.run = function (server_setup) {
 		enduro.server = app.listen(app.get('port'), function () {
 			logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
 			if (!server_setup.development_mode && !enduro.flags.nocompile) {
-				self.enduro_init(() => {
-					resolve()
-				})
+				enduro.actions.render()
+					.then(() => {
+						resolve()
+					})
 			} else {
 				resolve()
 			}
@@ -87,9 +88,10 @@ enduro_server.prototype.run = function (server_setup) {
 
 		// handle for executing enduro refresh from client
 		app.get('/admin_api_refresh', function (req, res) {
-			self.enduro_refresh(function () {
-				res.send({success: true, message: 'enduro refreshed successfully'})
-			})
+			enduro.actions.render()
+				.then(() => {
+					res.send({ success: true, message: 'enduro refreshed successfully' })
+				})
 		})
 
 
@@ -139,24 +141,6 @@ enduro_server.prototype.stop = function () {
 		enduro.server.close(() => {
 			resolve()
 		})
-	})
-}
-
-// placehodler refresh function - this function is being replaced by parent
-enduro_server.prototype.enduro_refresh = function (cb) {
-	logger.log('refreshing production server', true, 'enduro_render_events')
-	enduro.actions.render(function () {
-		cb()
-	}, true)
-}
-
-
-// placehodler refresh function - this function is being replaced by parent
-enduro_server.prototype.enduro_init = function (cb) {
-	logger.log('initializing production server', true, 'enduro_render_events')
-
-	enduro.actions.render(function () {
-		cb()
 	})
 }
 

@@ -255,7 +255,6 @@ function get_juicebox_hash_by_timestamp (timestamp) {
 }
 
 function get_juicebox_by_name (juicebox_name) {
-
 	var source_path = remote_handler.get_remote_url('juicebox/' + juicebox_name)
 	var destination_path = path.join(enduro.project_path, 'juicebox', juicebox_name)
 
@@ -264,7 +263,7 @@ function get_juicebox_by_name (juicebox_name) {
 	}
 
 	return new Promise(function (resolve, reject) {
-		var juicebox_read_stream = remote_handler.request_stream(source)
+		var juicebox_read_stream = remote_handler.request_stream(source_path)
 
 		juicebox_read_stream
 			.on('error', function (error) {

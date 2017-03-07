@@ -21,7 +21,7 @@ var UPLOADS_FOLDER = 'remote'
 filesystem.prototype.upload = function (filename, path_to_file) {
 	return new Promise(function (resolve, reject) {
 		var destination_path = path.join(enduro.project_path, UPLOADS_FOLDER, filename)
-		var destination_url = path.join(UPLOADS_FOLDER, filename)
+		var destination_url = '/' + UPLOADS_FOLDER + '/' + filename
 
 		flat_helpers.ensure_directory_existence(destination_path)
 			.then(() => {

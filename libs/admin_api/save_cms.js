@@ -60,7 +60,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 			.then(() => {
 				return juicebox.pack(requesting_user.username)
 			}, () => { throw new Error() })
-			.then((data) => {
+			.then(() => {
 
 				// re-renders enduro - essential to publishing the change
 				return enduro.actions.render()
@@ -71,7 +71,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 					enduro.flags.temporary_nocmswatch = false
 
 					// send the response early to cut down on publish time
-					res.send(data)
+					res.send()
 			}, () => {})
 	})
 

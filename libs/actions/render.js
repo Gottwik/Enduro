@@ -31,6 +31,7 @@ action.prototype.action = function (callback, dont_do_juice_pull) {
 			}
 		})
 		.then(() => {
+			console.log('global loading')
 			return global_data.get_global_data()
 		})
 		.then(() => {

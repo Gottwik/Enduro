@@ -5,9 +5,10 @@
 var enduro_configurator = function () {}
 
 // vendor dependencies
-var fs = require('fs')
+var Promise = require('bluebird')
 var extend = require('extend')
 var path = require('path')
+var fs = Promise.promisifyAll(require('fs-extra'))
 
 // local dependencies
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
@@ -44,32 +45,66 @@ enduro_configurator.prototype.read_config = function () {
 }
 
 function read_config_file (config_file, default_config) {
-	return new Promise(function (resolve, reject) {
 
-		// check if file exists
-		if (!flat_helpers.file_exists_sync(config_file)) {
+	// check if file exists
+	if (!flat_helpers.file_exists_sync(config_file)) {
 
-			// uses default config if no configuration is specified
-			enduro.config = extend(true, enduro.config, default_config)
-			resolve()
-		} else {
+		// uses default config if no configuration is specified
+		enduro.config = extend(true, enduro.config, default_config)
+		return new Promise.resolve()
+	} else {
 
-			// Reads the configuration file
-			fs.readFile(config_file, function read (err, data) {
-				if (err) {
-					logger.err_block(err)
-					return reject()
-				}
-
+		// Reads the configuration file
+		return fs.readFileAsync(config_file)
+			.then((data) => {
 				// Parses json file
 				local_config = JSON.parse(data)
+
 				// Extend loaded file with default configuration
 				enduro.config = extend(true, enduro.config, default_config, local_config)
-
-				resolve()
 			})
-		}
-	})
+	}
+}
+
+enduro_configurator.prototype.set_config = function (new_setup) {
+
+	secret_setup = { secret: new_setup.secret }
+	delete new_setup.secret
+
+	// stores config paths
+	var config_path = path.join(enduro.project_path, 'enduro.json')
+	var secret_config_path = path.join(enduro.project_path, 'enduro_secret.json')
+
+	// extends public config variable
+	extend(true, enduro.config, new_setup)
+
+	// extends and saves public config file
+	var extend_public_config = fs.readJsonAsync(config_path)
+		.then((data) => {
+			extend(true, data, new_setup)
+			return data
+		}, () => {
+			return new_setup
+		})
+		.then((config) => {
+			return fs.outputJsonAsync(config_path, config)
+		})
+
+	var extend_secret_config = fs.readJsonAsync(secret_config_path)
+		.then((data) => {
+			extend(true, data, secret_setup)
+			return data
+		}, () => {
+			return secret_setup
+		})
+		.then((config) => {
+			return fs.outputJsonAsync(secret_config_path, config)
+		})
+
+	return Promise.all([
+		extend_public_config,
+		extend_secret_config
+	])
 }
 
 module.exports = new enduro_configurator()

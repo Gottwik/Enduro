@@ -8,6 +8,7 @@ describe('Global data handler', function () {
 	before(function () {
 		return test_utilities.before(local_enduro, 'global_data_testfolder', 'minimalistic')
 			.then(() => {
+				console.log('rendering')
 				return enduro.actions.render()
 			})
 	})

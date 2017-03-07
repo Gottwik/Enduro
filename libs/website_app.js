@@ -24,7 +24,11 @@ website_api.prototype.forward = function (app, server) {
 
 		// forward the app to local enduro app
 		try {
-			require(LOCAL_APP_FILE).init(app, server)
+			enduro.website_app_init = () => {
+				delete require.cache[LOCAL_APP_FILE]
+				require(LOCAL_APP_FILE).init(app, server)
+			}
+			enduro.website_app_init()
 		} catch (e) {
 			console.log(e)
 		}

@@ -6,6 +6,7 @@ var action = function () {}
 
 var Promise = require('bluebird')
 var extend = require('extend')
+var nodemon = require('nodemon')
 
 var global_data = require(enduro.enduro_path + '/libs/global_data')
 var log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
@@ -16,6 +17,21 @@ var logger = require(enduro.enduro_path + '/libs/logger')
 action.prototype.action = function (config) {
 
 	config = config || {}
+
+	nodemon({
+		ignore: ['/cms/*', '/_src/*'],
+		script: enduro.project_path + '/app/app.js',
+		ext: 'js'
+	})
+
+	nodemon.on('start', function () {
+		console.log('App has started')
+	}).on('quit', function () {
+		console.log('App has quit')
+	}).on('restart', function (files) {
+		console.log('App restarted due to: ', files)
+		enduro.website_app_init()
+	})
 
 	extend(true, enduro.flags, config)
 	return new Promise(function (resolve, reject) {

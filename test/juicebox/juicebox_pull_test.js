@@ -34,11 +34,33 @@ describe('Juicebox pull', function () {
 	it('should not create more files if pull is called again, but should create staging folder', function () {
 		return juicebox.pull()
 			.then(() => {
-				var files = glob.sync(path.join(enduro.project_path, 'juicebox', '*'))
+				var files = glob.sync(path.join(enduro.project_path, 'juicebox', '*')).map((file) => {
+					return file.match(/juicebox_pull_testfolder\/juicebox\/(.*)$/)[1]
+				})
 
-				expect(files[2]).to.contain('staging')
+				expect(files).to.contain('staging')
 				expect(files).to.have.length.of(3)
 			})
+	})
+
+	it('should not create more files if pull is called the third time', function () {
+		return juicebox.pull()
+			.then(() => {
+				var files = glob.sync(path.join(enduro.project_path, 'juicebox', '*')).map((file) => {
+					return file.match(/juicebox_pull_testfolder\/juicebox\/(.*)$/)[1]
+				})
+
+				expect(files).to.contain('staging')
+				expect(files).to.have.length.of(3)
+			})
+	})
+
+	it('should have extracted a cms folder into staging', function () {
+
+		var staging_folder = path.join(enduro.project_path, 'juicebox', 'staging')
+
+		var files = glob.sync(path.join(staging_folder, '**/*'))
+		expect(files).to.have.length.to.be.above(5)
 	})
 
 

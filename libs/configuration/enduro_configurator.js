@@ -36,7 +36,6 @@ enduro_configurator.prototype.read_config = function () {
 
 		// will enable juicebox as soon as user inputs s3 keys
 		if (enduro.config.variables.s3_enabled) {
-			enduro.config.juicebox_enabled = true
 			enduro.config.filesystem = 's3'
 		}
 

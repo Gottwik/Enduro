@@ -20,12 +20,24 @@ describe('Juicebox pull', function () {
 
 	it('should create fresh folder on first pull', function () {
 		return juicebox.pull()
+			.then((hash) => {
+				var files = glob.sync(path.join(enduro.project_path, 'juicebox', '*')).map((file) => {
+					return file.match(/juicebox_pull_testfolder\/juicebox\/(.*)$/)[1]
+				})
+
+				expect(files).to.have.length.of(2)
+				expect(files).to.contain(hash + '.tar.gz')
+				expect(files).to.contain('juice.json')
+			})
+	})
+
+	it('should not create more files if pull is called again, but should create staging folder', function () {
+		return juicebox.pull()
 			.then(() => {
 				var files = glob.sync(path.join(enduro.project_path, 'juicebox', '*'))
 
-				expect(files).to.have.length.of(2)
-				expect(files[0]).to.contain('.tar.gz')
-				expect(files[1]).to.contain('juicebox/juice.json')
+				expect(files[2]).to.contain('staging')
+				expect(files).to.have.length.of(3)
 			})
 	})
 

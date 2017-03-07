@@ -52,9 +52,12 @@ juicebox.prototype.pull = function (force) {
 
 	logger.init('Juice pull')
 
+	var pull_juice
+
 	if (enduro.flags.force || force) {
 		return get_latest_juice()
 			.then((juice) => {
+				pull_juice = juice
 				return get_juicebox_by_name(juice.latest.hash + EXTENSION)
 			}, err)
 			.then((latest_juicebox) => {
@@ -65,11 +68,9 @@ juicebox.prototype.pull = function (force) {
 			})
 			.then(() => {
 				logger.end()
-				return Promise.resolve()
+				return Promise.resolve(pull_juice.latest.hash)
 			})
 	} else {
-		var pull_juice
-
 		return get_latest_juice()
 			.then((juice) => {
 				pull_juice = juice
@@ -77,7 +78,7 @@ juicebox.prototype.pull = function (force) {
 			}, err)
 
 			.then((latest_juicebox) => {
-				return spill_the_juice(latest_juicebox, path.join('juicebox', 'staging', pull_juice.latest.hash))
+				return spill_the_juice(latest_juicebox, path.join(enduro.project_path, 'juicebox', 'staging', pull_juice.latest.hash))
 			}, () => {
 				// latest juicebox does not exist
 				return self.force_pack('enduro.js')
@@ -92,7 +93,7 @@ juicebox.prototype.pull = function (force) {
 
 			.then(() => {
 				logger.end()
-				return Promise.resolve()
+				return Promise.resolve(pull_juice.latest.hash)
 			})
 	}
 }
@@ -267,7 +268,6 @@ function get_juicebox_by_name (juicebox_name) {
 
 		juicebox_read_stream
 			.on('error', function (error) {
-				console.log(error)
 				return reject()
 			})
 

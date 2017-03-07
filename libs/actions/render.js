@@ -19,7 +19,7 @@ var abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
 var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
 var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
 
-action.prototype.action = function (callback, dont_do_juice_pull) {
+action.prototype.action = function (dont_do_juice_pull) {
 
 	logger.init('Enduro', 'enduro_render_events')
 	console.log('render init')
@@ -74,9 +74,6 @@ action.prototype.action = function (callback, dont_do_juice_pull) {
 		})
 		.then(() => {
 			logger.end('enduro_render_events')
-			if (callback) {
-				callback()
-			}
 		})
 }
 

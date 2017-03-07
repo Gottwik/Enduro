@@ -26,22 +26,24 @@ action.prototype.action = function (config) {
 
 		var prevent_double_callback = false
 
-		enduro.actions.render(() => {
-			logger.timestamp('Render finished', 'enduro_events')
+		enduro.actions.render()
+			.then(() => {
 
-			gulp.start(config.norefresh || enduro.flags.norefresh ? 'default_norefresh' : 'default', () => {
-				if (!enduro.flags.noadmin && !prevent_double_callback) {
-					prevent_double_callback = true
-					logger.timestamp('production server starting', 'enduro_events')
+				logger.timestamp('Render finished', 'enduro_events')
 
-					// start production server in development mode
-					enduro_server.run({ development_mode: true })
+				gulp.start(config.norefresh || enduro.flags.norefresh ? 'default_norefresh' : 'default', () => {
+					if (!enduro.flags.noadmin && !prevent_double_callback) {
+						prevent_double_callback = true
+						logger.timestamp('production server starting', 'enduro_events')
 
-					resolve()
-				}
-				// After everything is done
+						// start production server in development mode
+						enduro_server.run({ development_mode: true })
+
+						resolve()
+					}
+					// After everything is done
+				})
 			})
-		})
 	})
 }
 

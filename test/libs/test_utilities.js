@@ -39,6 +39,7 @@ test_utilities.prototype.before = function (local_enduro, project_name, scaffold
 }
 
 test_utilities.prototype.after = function () {
+	console.log('test over')
 	var self = this
 
 	return self.delete_testfolder()

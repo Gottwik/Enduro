@@ -20,6 +20,7 @@ var default_configuration = {
 		admin_folder: path.join(enduro.project_path, 'node_modules', 'enduro_admin', '_src'),
 		admin_secure_file: '.users',
 		babel_file: 'config/babel',
+		filesystem: 'local'
 	},
 	default_secret_configuration: {}
 }

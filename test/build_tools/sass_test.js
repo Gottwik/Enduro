@@ -21,7 +21,7 @@ describe('Sass build tool', function () {
 	})
 
 	it('should compile simple scss file', function () {
-		return test_utilities.request_file(path.join('_src', 'assets', 'css', 'test.css'))
+		return test_utilities.request_file(path.join(enduro.project_path, '_src', 'assets', 'css', 'test.css'))
 			.then((file_contents) => {
 				expect(file_contents).to.contain('p {')
 					.and.to.contain('color: #f00;')

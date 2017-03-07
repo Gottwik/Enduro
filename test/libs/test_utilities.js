@@ -8,6 +8,7 @@ var fs = require('fs')
 
 // local dependencies
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var remote_handler = require(enduro.enduro_path + '/libs/remote_tools/remote_handler')
 
 // constants
 var TEST_FOLDER_PATH = path.join(process.cwd(), 'testfolder')
@@ -48,28 +49,13 @@ test_utilities.prototype.after = function () {
 
 
 test_utilities.prototype.request_file = function (url) {
-	return new Promise(function (resolve, reject) {
-
-		if (flat_helpers.is_local(url)) {
-			fs.readFile(path.join(enduro.project_path, url), 'utf8', function (err, data) {
-				if (err) {
-					reject('file was not uploaded locally')
-				}
-
-				resolve(data)
-			})
-		} else {
-			request(url, function (err, response, body) {
-
-				if (err) {
-					reject('file was not uploaded to s3')
-				}
-
-				resolve(body)
-			})
-		}
-
-	})
+	return remote_handler.request_file(url)
+		.catch((error) => {
+			return new Promise.reject()
+		})
+		.spread((file_contents, response) => {
+			return file_contents
+		})
 }
 
 test_utilities.prototype.delete_testfolder = function () {

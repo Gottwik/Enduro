@@ -88,6 +88,11 @@ enduro_linker.prototype.expose_enduro_actions = function () {
 // will expose all the enduro.js contextless actions
 enduro_linker.prototype.read_config = function () {
 	return require(enduro.enduro_path + '/libs/configuration/enduro_configurator').read_config()
+		.then(() => {
+
+			// stores filesystem
+			enduro.filesystem = require(path.join(enduro.enduro_path, 'libs', 'remote_tools', 'filesystems', enduro.config.filesystem + '_filesystem.js'))
+		})
 }
 
 module.exports = new enduro_linker()

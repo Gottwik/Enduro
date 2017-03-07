@@ -12,7 +12,6 @@ describe('Add helper', function () {
 
 	// no add helper
 	it('should parse simple template successfully', function () {
-				console.log('<<<<')
 		expect(enduro.templating_engine.compileSync('<a>aa<a>')()).to.equal('<a>aa<a>')
 	})
 

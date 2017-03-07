@@ -7,6 +7,7 @@ var enduro_configurator = function () {}
 // vendor dependencies
 var fs = require('fs')
 var extend = require('extend')
+var path = require('path')
 
 // local dependencies
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
@@ -32,7 +33,13 @@ enduro_configurator.prototype.read_config = function () {
 		enduro.config.variables.S3_SECRET = (enduro.config.secret && enduro.config.secret.s3 && enduro.config.secret.s3.S3_SECRET) || process.env.S3_SECRET
 
 		enduro.config.variables.s3_enabled = (enduro.config.project_name && enduro.config.variables.S3_KEY && enduro.config.variables.S3_SECRET)
-		enduro.config.variables.juicebox_enabled = enduro.config.variables.s3_enabled && enduro.config.juicebox_enabled && !enduro.flags.nojuice
+
+		// will enable juicebox as soon as user inputs s3 keys
+		if (enduro.config.variables.s3_enabled) {
+			enduro.config.juicebox_enabled = true
+			enduro.config.filesystem = 's3'
+		}
+
 		return Promise.resolve()
 	})
 }

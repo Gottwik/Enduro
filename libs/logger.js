@@ -40,7 +40,7 @@ var logtags_config = {
 logger.prototype.init = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	message = message || 'ENDURO'
-	log('\n' + chalk('┌' + ('~—' + message + '—~').cpad(FRAME_WIDTH - 2, '—') + '┐'))
+	log('\n' + chalk('┌' + cpad(('~—' + message + '—~'), FRAME_WIDTH - 2, '—') + '┐'))
 }
 
 // * │ I have something to tell you                             │ * //
@@ -106,7 +106,7 @@ logger.prototype.err_block = function (message, logtag) {
 logger.prototype.err_blockStart = function (message, logtag) {
 	if (!pass_tagcheck(logtag)) { return }
 	log('\n')
-	log(chalk.red((' ' + message + ' ').cpad(FRAME_WIDTH, '▼')))
+	log(chalk.red(cpad(' ' + message + ' ', FRAME_WIDTH, '▼')))
 }
 
 // * │ Something went wrong                                     │ * //
@@ -199,16 +199,14 @@ function get_timestamp () {
 
 	t = date.getTime()
 
-	return (date.getHours().toString().lpad(2) + ':' + date.getMinutes().toString().lpad(2) + ':' + date.getSeconds().toString().lpad(2) + ' | ' + ('+' + Math.round((diff) / 10) / 100).toString().lpad(8, ' '))
+	return (lpad(date.getHours().toString(), 2) + ':' + lpad(date.getMinutes().toString(), 2) + ':' + lpad(date.getSeconds().toString(), 2) + ' | ' + ('+' + lpad(Math.round((diff) / 10) / 100).toString(), 8, ' '))
 }
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	helper functions
 // * ———————————————————————————————————————————————————————— * //
 
-// pads from left
-String.prototype.lpad = function (len, c) {
-	var s = this
+function lpad (s, len, c) {
 	c = c || '0'
 
 	while (s.length < len) {
@@ -224,9 +222,9 @@ function rpad (text, length) {
 }
 
 // Pads and aligns the string with specified character to center
-String.prototype.cpad = function (length, char) {
-	var prev = Math.floor((length - this.length) / 2)
-	return rep(prev, char) + this + rep(length - prev - this.length, char)
+function cpad (s, length, char) {
+	var prev = Math.floor((length - s.length) / 2)
+	return rep(prev, char) + s + rep(length - prev - s.length, char)
 }
 
 // Returns string of length @len consisting of characters @char

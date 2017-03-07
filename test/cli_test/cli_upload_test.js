@@ -75,7 +75,7 @@ describe('cli upload with local filesystem', function () {
 	it('should upload a file', function (done) {
 		enduro.actions.upload('http://www.endurojs.com/assets/img/test/upload.test')
 			.then((destination_url) => {
-				return test_utilities.request_file(path.join(enduro.project_path, destination_url))
+				return test_utilities.request_file(destination_url)
 
 			}, () => {
 				done(new Error('uploading failed'))
@@ -89,7 +89,7 @@ describe('cli upload with local filesystem', function () {
 	it('should upload a file even if it has parameters in url', function (done) {
 		enduro.actions.upload('http://www.endurojs.com/assets/img/test/upload.test?test=1')
 			.then((destination_url) => {
-				return test_utilities.request_file(path.join(enduro.project_path, destination_url))
+				return test_utilities.request_file(destination_url)
 			}, () => {
 				done(new Error('uploading failed'))
 			})

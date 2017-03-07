@@ -30,8 +30,9 @@ enduro_configurator.prototype.read_config = function () {
 	])
 	.then(() => {
 		enduro.config.variables = {}
-		enduro.config.variables.S3_KEY = (enduro.config.secret && enduro.config.secret.s3 && enduro.config.secret.s3.S3_KEY) || process.env.S3_KEY
-		enduro.config.variables.S3_SECRET = (enduro.config.secret && enduro.config.secret.s3 && enduro.config.secret.s3.S3_SECRET) || process.env.S3_SECRET
+		enduro.config.variables.has_s3_setup = enduro.config.secret && enduro.config.secret.s3
+		enduro.config.variables.S3_KEY = (enduro.config.variables.has_s3_setup && enduro.config.secret.s3.S3_KEY) || process.env.S3_KEY
+		enduro.config.variables.S3_SECRET = (enduro.config.variables.has_s3_setup && enduro.config.secret.s3.S3_SECRET) || process.env.S3_SECRET
 
 		enduro.config.variables.s3_enabled = (enduro.config.project_name && enduro.config.variables.S3_KEY && enduro.config.variables.S3_SECRET)
 
@@ -79,32 +80,26 @@ enduro_configurator.prototype.set_config = function (new_setup) {
 	extend(true, enduro.config, new_setup)
 
 	// extends and saves public config file
-	var extend_public_config = fs.readJsonAsync(config_path)
-		.then((data) => {
-			extend(true, data, new_setup)
-			return data
-		}, () => {
-			return new_setup
-		})
-		.then((config) => {
-			return fs.outputJsonAsync(config_path, config)
-		})
-
-	var extend_secret_config = fs.readJsonAsync(secret_config_path)
-		.then((data) => {
-			extend(true, data, secret_setup)
-			return data
-		}, () => {
-			return secret_setup
-		})
-		.then((config) => {
-			return fs.outputJsonAsync(secret_config_path, config)
-		})
+	var extend_public_config = extend_config(config_path, new_setup)
+	var extend_secret_config = extend_config(secret_config_path, secret_setup)
 
 	return Promise.all([
 		extend_public_config,
 		extend_secret_config
 	])
+}
+
+function extend_config (path, setup) {
+	return fs.readJsonAsync(path)
+		.then((data) => {
+			extend(true, data, setup)
+			return data
+		}, () => {
+			return setup
+		})
+		.then((config) => {
+			return fs.outputJsonAsync(path, config)
+		})
 }
 
 module.exports = new enduro_configurator()

@@ -58,7 +58,7 @@
     "yargs": "^7.0.1"
   },
   "scripts": {
-    "test": "mocha test --bail --recursive --grep \"Global data handler\"",
+    "test": "mocha --recursive --bail",
     "to": "mocha --recursive --bail --grep online_test -i"
   },
   "bin": {

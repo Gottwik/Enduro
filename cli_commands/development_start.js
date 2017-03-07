@@ -5,11 +5,15 @@ module.exports = {
 	builder: {
 		'norefresh': {
 			alias: 'r',
-			describe: 'no-refresh',
+			describe: 'won\'t open browser on enduro start-up',
 		},
 		'nojuice': {
 			alias: 'j',
-			describe: 'no-juice',
+			describe: 'turns juicebox off',
+		},
+		'nowatch': {
+			alias: 'w',
+			describe: 'will not watch for file changes',
 		}
 	},
 	handler: function (cli_arguments) {

@@ -22,19 +22,15 @@ var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
 action.prototype.action = function (dont_do_juice_pull) {
 
 	logger.init('Enduro', 'enduro_render_events')
-	console.log('render init')
 	return Promise.resolve()
 		.then(() => {
 			if (!dont_do_juice_pull && !enduro.flags.nojuice) {
-				console.log('juice pull')
 				return juicebox.pull(false)
 			} else {
-				console.log('no juice pull')
 				return new Promise.resolve()
 			}
 		})
 		.then(() => {
-			console.log('global loading')
 			return global_data.get_global_data()
 		})
 		.then(() => {

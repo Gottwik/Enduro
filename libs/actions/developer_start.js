@@ -5,6 +5,7 @@
 var action = function () {}
 
 var Promise = require('bluebird')
+var extend = require('extend')
 
 var global_data = require(enduro.enduro_path + '/libs/global_data')
 var log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
@@ -16,6 +17,7 @@ action.prototype.action = function (config) {
 
 	config = config || {}
 
+	extend(true, enduro.flags, config)
 	return new Promise(function (resolve, reject) {
 		// clears the global data
 		global_data.clear()
@@ -31,7 +33,7 @@ action.prototype.action = function (config) {
 
 				logger.timestamp('Render finished', 'enduro_events')
 
-				gulp.start(config.norefresh || enduro.flags.norefresh ? 'default_norefresh' : 'default', () => {
+				gulp.start(enduro.flags.norefresh ? 'default_norefresh' : 'default', () => {
 					if (!enduro.flags.noadmin && !prevent_double_callback) {
 						prevent_double_callback = true
 						logger.timestamp('production server starting', 'enduro_events')

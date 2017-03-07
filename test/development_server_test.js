@@ -10,7 +10,7 @@ describe('Development server', function () {
 	before(function () {
 		return test_utilities.before(local_enduro, 'devserver', 'minimalistic')
 			.then(() => {
-				return enduro.actions.developer_start({ norefresh: true })
+				return enduro.actions.developer_start({ norefresh: true, nowatch: true })
 			})
 			.delay(150)
 	})

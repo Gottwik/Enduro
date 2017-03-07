@@ -28,11 +28,7 @@ var sprite_icons = require(enduro.enduro_path + '/libs/build_tools/sprite_icons'
 
 gulp.enduro_refresh = function (callback) {
 	logger.log('Refresh', true, 'enduro_render_events')
-	enduro.actions.render(true)
-		.then(() => {
-			callback()
-		})
-
+	return enduro.actions.render(true)
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -102,31 +98,38 @@ function browsersync_start (norefresh) {
 		}
 	})
 
-	// Watch for sass
-	watch([
-		enduro.project_path + '/assets/css/**/*',
-		enduro.project_path + '/assets/fonticons/*',
-		'!' + enduro.project_path + '/assets/css/sprites/*'],
-		() => { gulp.start(sass_handler) })
+	// nowatch flag is used when testing development server
+	// the watch kindof stayed in memory and screwed up all other tests
+	if (!enduro.flags.nowatch) {
 
-	watch([enduro.project_path + '/assets/hbs_helpers/**/*'], () => { gulp.start('hbs_helpers') })		// Watch for local handlebars helpers
-	watch([enduro.project_path + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })				// Watch for png icons
-	watch([enduro.project_path + '/assets/fonticons/*.svg'], () => {
-		gulp.start('iconfont')
-		gulp.enduro_refresh(() => {})
-	})			// Watch for font icon
-	watch([enduro.project_path + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
+		// Watch for sass
+		watch([
+			enduro.project_path + '/assets/css/**/*',
+			enduro.project_path + '/assets/fonticons/*',
+			'!' + enduro.project_path + '/assets/css/sprites/*'],
+			() => { gulp.start(sass_handler) })
 
-	// Watch for enduro changes
-	watch([enduro.project_path + '/pages/**/*.hbs', enduro.project_path + '/components/**/*.hbs', enduro.project_path + '/cms/**/*.js'], function () {
+		watch([enduro.project_path + '/assets/hbs_helpers/**/*'], () => { gulp.start('hbs_helpers') })		// Watch for local handlebars helpers
+		watch([enduro.project_path + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })				// Watch for png icons
+		watch([enduro.project_path + '/assets/fonticons/*.svg'], () => {
+			gulp.start('iconfont')
+			gulp.enduro_refresh()
+		})			// Watch for font icon
+		watch([enduro.project_path + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })			// Watch for hbs templates
 
-		// don't do anything if nocmswatch flag is set
-		if (!enduro.flags.nocmswatch && !enduro.flags.temporary_nocmswatch) {
-			gulp.enduro_refresh(() => {
-				browser_sync.reload()
-			})
-		}
-	})
+		// Watch for enduro changes
+		watch([enduro.project_path + '/pages/**/*.hbs', enduro.project_path + '/components/**/*.hbs', enduro.project_path + '/cms/**/*.js'], function () {
+
+			// don't do anything if nocmswatch flag is set
+			if (!enduro.flags.nocmswatch && !enduro.flags.temporary_nocmswatch) {
+				console.log('>>>>>>>>>>>>><<<<<<<<<<<<<<')
+				gulp.enduro_refresh()
+					.then(() => {
+						browser_sync.reload()
+					})
+			}
+		})
+	}
 }
 
 // * ———————————————————————————————————————————————————————— * //

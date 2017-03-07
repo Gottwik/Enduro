@@ -49,7 +49,6 @@ juicebox.prototype.pull = function (force) {
 	if (!enduro.config.juicebox_enabled || enduro.flags.nojuice) {
 		return Promise.resolve()
 	}
-	console.log('juice pull')
 
 	logger.init('Juice pull')
 

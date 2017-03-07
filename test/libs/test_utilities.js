@@ -32,14 +32,11 @@ test_utilities.prototype.before = function (local_enduro, project_name, scaffold
 		})
 		.then(() => {
 			enduro.project_path = path.join(enduro.project_path, project_name)
-		})
-		.then(() => {
 			return local_enduro.init(enduro.project_path)
 		})
 }
 
 test_utilities.prototype.after = function () {
-	console.log('test over')
 	var self = this
 
 	return self.delete_testfolder()

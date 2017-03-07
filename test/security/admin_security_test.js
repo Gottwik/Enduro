@@ -3,24 +3,20 @@ var expect = require('chai').expect
 var rewire = require('rewire')
 
 // local dependencies
-var local_enduro = require('../../index')
+var local_enduro = require('../../index').quick_init()
 var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 var admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
+var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 // rewired
 var internal_admin_security = rewire(enduro.enduro_path + '/libs/admin_utilities/admin_security')
 
 describe('Admin security', function () {
 
-	// create a new project
-	before(function (done) {
-		local_enduro.run(['create', 'admin_security'])
+	before(function () {
+		return test_utilities.before(local_enduro, 'admin_security', 'minimalistic')
 			.then(() => {
-				// navigate inside new project
-				enduro.project_path = enduro.project_path + '/admin_security'
-				done()
-			}, () => {
-				done(new Error('Failed to create new project'))
+				return enduro.actions.render()
 			})
 	})
 
@@ -33,7 +29,7 @@ describe('Admin security', function () {
 	})
 
 	it('should add root admin successfully', function (done) {
-		local_enduro.run(['addadmin'])
+		admin_security.add_admin()
 			.then(() => {
 				return flat.load('.users')
 			}, () => {
@@ -52,7 +48,7 @@ describe('Admin security', function () {
 	})
 
 	it('should add admin with custom name successfully', function (done) {
-		local_enduro.run(['addadmin', 'gottwik', '123'])
+		admin_security.add_admin('gottwik', '123')
 			.then(() => {
 				return flat.load('.users')
 			}, () => {
@@ -71,7 +67,7 @@ describe('Admin security', function () {
 	})
 
 	it('should not be possible to add user with an already existing username', function (done) {
-		local_enduro.run(['addadmin', 'gottwik', '123'])
+		admin_security.add_admin('gottwik', '123')
 			.then(() => {
 				done(new Error())
 			}, () => {
@@ -177,8 +173,7 @@ describe('Admin security', function () {
 			})
 	})
 
-	// navigate back to testfolder
 	after(function () {
-		enduro.project_path = process.cwd() + '/testfolder'
+		return test_utilities.after()
 	})
 })

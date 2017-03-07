@@ -1,31 +1,23 @@
 // vendor dependencies
 var expect = require('chai').expect
-var local_enduro = require('../index')
 var path = require('path')
 var fs = require('fs')
 
 // local dependencies
+var local_enduro = require('../index').quick_init()
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var babel = require(enduro.enduro_path + '/libs/babel/babel')
+var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('Pregeneration', function () {
 
-	// Create a new project
-	before(function (done) {
-		this.timeout(5000)
-		local_enduro.run(['create', 'testproject_pregeneration'])
+	before(function () {
+		return test_utilities.before(local_enduro, 'testproject_pregeneration')
 			.then(() => {
-				// navigate inside new project
-				enduro.project_path  = path.join(enduro.project_path, 'testproject_pregeneration')
-				return local_enduro.run(['addculture', 'fr', 'es'])
-
-			}, () => {
-				done(new Error('Failed to create new project'))
+				return babel.add_culture(['fr', 'es'])
 			})
 			.then(() => {
-				local_enduro.run(['start'], [])
-					.then(() => {
-						done()
-					})
+				return enduro.actions.render()
 			})
 	})
 
@@ -47,12 +39,8 @@ describe('Pregeneration', function () {
 		expect(flat_helpers.file_exists_sync(cultures_json_filepath)).to.be.ok
 	})
 
-	// navigate back to testfolder
-	after(function (done) {
-		local_enduro.server_stop(() => {
-			enduro.project_path  = process.cwd() + '/testfolder'
-			done()
-		})
+	after(function () {
+		return test_utilities.after()
 	})
 
 })

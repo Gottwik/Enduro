@@ -5,47 +5,19 @@ var async = require('async')
 var _ = require('lodash')
 
 // local dependencies
-var local_enduro = require('../../index')
+var local_enduro = require('../../index').quick_init()
 var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
+var test_utilities = require('../libs/test_utilities')
 
 describe('A/B testing', function () {
 
-	// Create a new project
-	before(function (done) {
-		this.timeout(3000)
-		var ab_testing_foldername = 'testproject_abtesting'
-		local_enduro.run(['create', ab_testing_foldername, 'test'])
+	before(function () {
+		return test_utilities.before(local_enduro, 'abtest')
 			.then(() => {
-				// navigate inside new project
-				enduro.project_path = enduro.project_path + '/' + ab_testing_foldername
-				local_enduro.run(['start'], [])
-					.then(() => {
-						done()
-					})
-			}, () => {
-				done(new Error('Failed to create new project'))
+				return enduro.actions.start()
 			})
 	})
 
-	// list looks like this
-	//	{
-	//		index: [
-	//			{
-	//				page: 'index'
-	//			}, {
-	//				page: 'index@ab'
-	//			}, {
-	//				page: 'index@bb'
-	//			}
-	//		],
-	//		test: [
-	//			{
-	//				page: 'test'
-	//	 		}, {
-	//		 		page: 'test@bigbutton'
-	//	 		}
-	//		]
-	// }
 	it('should make a a/b list', function () {
 		return ab_tester.get_ab_list()
 			.then((ab_testing_list) => {
@@ -70,12 +42,11 @@ describe('A/B testing', function () {
 		})
 	})
 
-	// navigate back to testfolder
-	after(function (done) {
-		local_enduro.server_stop(() => {
-			enduro.project_path = process.cwd() + '/testfolder'
-			done()
-		})
+	after(function () {
+		return enduro.actions.stop_server()
+			.then(() => {
+				return test_utilities.after()
+			})
 	})
 
 })

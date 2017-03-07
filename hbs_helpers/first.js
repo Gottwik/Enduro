@@ -7,6 +7,13 @@
 // *			<p>First person's age is: {{age}}</p>
 // *		{{/first}}
 // * ———————————————————————————————————————————————————————— * //
-enduro.templating_engine.registerHelper('first', function (array, options) {
-	return options.fn(array[Object.keys(array)[0]])
-})
+var helper = function () {}
+
+helper.prototype.register = function () {
+
+	enduro.templating_engine.registerHelper('first', function (array, options) {
+		return options.fn(array[Object.keys(array)[0]])
+	})
+}
+
+module.exports = new helper()

@@ -8,16 +8,23 @@
 // *	{{/list}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-enduro.templating_engine.registerHelper('list', function () {
+var helper = function () {}
 
-	// block is the last argument
-	var block = arguments[arguments.length - 1]
+helper.prototype.register = function () {
 
-	var accum = ''
-	for (var i = 0; i < arguments.length - 1; i++) {
-		accum += block.fn(arguments[i])
-	}
+	enduro.templating_engine.registerHelper('list', function () {
 
-	// returns the built string
-	return accum
-})
+		// block is the last argument
+		var block = arguments[arguments.length - 1]
+
+		var accum = ''
+		for (var i = 0; i < arguments.length - 1; i++) {
+			accum += block.fn(arguments[i])
+		}
+
+		// returns the built string
+		return accum
+	})
+}
+
+module.exports = new helper()

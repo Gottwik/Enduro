@@ -151,7 +151,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 		.then(() => {
 			logger.loading('starting enduro')
 			logger.silent()
-			return enduro_index.run(['start'], [])
+			return enduro.actions.start()
 
 		}, theme_error)
 

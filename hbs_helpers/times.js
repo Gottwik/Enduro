@@ -8,33 +8,40 @@
 // *	{{/times}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-enduro.templating_engine.registerHelper('times', function (iterations, upperrange, block) {
+var helper = function () {}
 
-	// will store the final accumulated html
-	var accum = ''
+helper.prototype.register = function () {
 
-	// if upperrange is not provided
-	if (typeof upperrange !== 'number') {
-		block = upperrange
-	} else {
-		// if upperrange is provided, picks randomly from range
-		iterations = Math.round(Math.random() * (upperrange - iterations) + iterations)
-	}
+	enduro.templating_engine.registerHelper('times', function (iterations, upperrange, block) {
 
-	for (var i = 0; i < iterations; ++i) {
+		// will store the final accumulated html
+		var accum = ''
 
-		// Sets is_first variable to context
-		i == 0
-			? this.is_first = true
-			: this.is_first = false
+		// if upperrange is not provided
+		if (typeof upperrange !== 'number') {
+			block = upperrange
+		} else {
+			// if upperrange is provided, picks randomly from range
+			iterations = Math.round(Math.random() * (upperrange - iterations) + iterations)
+		}
 
-		// Sets index to context
-		this.times_index = i
+		for (var i = 0; i < iterations; ++i) {
 
-		// Renders block context and adds it to the accumulated context
-		accum += block.fn(this)
-	}
+			// Sets is_first variable to context
+			i == 0
+				? this.is_first = true
+				: this.is_first = false
 
-	// return accumulated html
-	return accum
-})
+			// Sets index to context
+			this.times_index = i
+
+			// Renders block context and adds it to the accumulated context
+			accum += block.fn(this)
+		}
+
+		// return accumulated html
+		return accum
+	})
+}
+
+module.exports = new helper()

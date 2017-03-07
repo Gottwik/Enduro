@@ -1,24 +1,17 @@
 var expect = require('chai').expect
 var request = require('request')
 
-var local_enduro = require('../../index')
+var local_enduro = require('../../index').quick_init()
+var test_utilities = require('../libs/test_utilities')
 
 describe('admin api', function () {
 
 	var sid
 
-	// create a new project
-	before(function (done) {
-		local_enduro.run(['create', 'testproject_admin_api', 'test'])
+	before(function () {
+		return test_utilities.before(local_enduro, 'admin_api')
 			.then(() => {
-				// navigate inside new project
-				enduro.project_path = enduro.project_path + '/testproject_admin_api'
-				local_enduro.run(['start'], [])
-					.then(() => {
-						done()
-					})
-			}, () => {
-				done(new Error('Failed to create new project'))
+				return enduro.actions.start()
 			})
 	})
 
@@ -71,12 +64,11 @@ describe('admin api', function () {
 		})
 	})
 
-	// navigate back to testfolder
-	after(function (done) {
-		local_enduro.server_stop(() => {
-			enduro.project_path  = process.cwd() + '/testfolder'
-			done()
-		})
+	after(function () {
+		return enduro.actions.stop_server()
+			.then(() => {
+				return test_utilities.after()
+			})
 	})
 
 })

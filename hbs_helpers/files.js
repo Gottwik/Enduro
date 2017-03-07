@@ -7,16 +7,23 @@
 // *		<p>Image: {{this}}</p>
 // *	{{/files}}
 // * ———————————————————————————————————————————————————————— * //
-enduro.templating_engine.registerHelper('files', function (path, block) {
-	var glob = require('glob')
+var helper = function () {}
 
-	var files = glob.sync(enduro.project_path + path + '/**/*.*')
+helper.prototype.register = function () {
 
-	var output = files.map((file) => {
-		return file.replace(new RegExp('.*' + path), '')
-	}).reduce((prev, next) => {
-		return prev + block.fn(next)
-	}, '')
+	enduro.templating_engine.registerHelper('files', function (path, block) {
+		var glob = require('glob')
 
-	return output
-})
+		var files = glob.sync(enduro.project_path + path + '/**/*.*')
+
+		var output = files.map((file) => {
+			return file.replace(new RegExp('.*' + path), '')
+		}).reduce((prev, next) => {
+			return prev + block.fn(next)
+		}, '')
+
+		return output
+	})
+}
+
+module.exports = new helper()

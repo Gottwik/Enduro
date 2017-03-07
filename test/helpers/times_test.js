@@ -1,9 +1,14 @@
 // vendor dependencies
 var expect = require('chai').expect
 
-var local_enduro = require('../../index')
+var local_enduro = require('../../index').quick_init()
+var helper_handler = require(enduro.enduro_path + '/libs/helper_handler')
 
 describe('Times helper', function () {
+
+	before(() => {
+		return helper_handler.read_helpers()
+	})
 
 	it('should repeat character inside times helper', function () {
 		enduro.templating_engine.compile('{{#times 3}}a{{/times}}')()

@@ -121,7 +121,6 @@ page_renderer.prototype.render_file_by_template_path_extend_context = function (
 
 	var template_path = get_absolute_template_path_by_context_path(context_path)
 	var culture = enduro.config.cultures[0]
-
 	return flat.load(context_path)
 		.then((context) => {
 			extend(true, context, extended_context)

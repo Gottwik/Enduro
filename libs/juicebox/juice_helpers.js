@@ -60,7 +60,6 @@ juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {
 
 juice_helpers.prototype.spill_newer = function (folder) {
 	return new Promise(function (resolve, reject) {
-
 		if (!flat_helpers.dir_exists_sync(folder)) {
 			return resolve()
 		}

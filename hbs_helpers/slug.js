@@ -7,13 +7,20 @@
 // *	will return this-link
 // * ———————————————————————————————————————————————————————— * //
 
-var format_service = require(enduro.enduro_path + '/libs/services/format_service')
+var helper = function () {}
 
-enduro.templating_engine.registerHelper('slug', function (text) {
+helper.prototype.register = function () {
 
-	if (!text) {
-		return ''
-	}
+	var format_service = require(enduro.enduro_path + '/libs/services/format_service')
 
-	return format_service.slug(text)
-})
+	enduro.templating_engine.registerHelper('slug', function (text) {
+
+		if (!text) {
+			return ''
+		}
+
+		return format_service.slug(text)
+	})
+}
+
+module.exports = new helper()

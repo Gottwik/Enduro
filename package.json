@@ -1,6 +1,6 @@
 {
   "name": "enduro",
-  "version": "1.3.0",
+  "version": "1.4.1",
   "description": "Minimalistic, lean & mean static page generator / cms",
   "main": "index.js",
   "dependencies": {
@@ -49,17 +49,17 @@
     "request": "^2.72.0",
     "request-promise": "^4.1.1",
     "require-from-string": "^1.1.0",
-    "requirejs": "^2.1.22",
     "rewire": "^2.5.1",
     "rimraf": "^2.5.2",
     "s3": "^4.4.0",
     "stringify-object": "^3.1.0",
     "tar": "^2.2.1",
-    "urldecode": "^1.0.1"
+    "urldecode": "^1.0.1",
+    "yargs": "^7.0.1"
   },
   "scripts": {
     "test": "mocha --recursive --bail",
-    "test_offline": "mocha --recursive --bail --grep online_test -i"
+    "to": "mocha --recursive --bail --grep online_test -i"
   },
   "bin": {
     "enduro": "./cli.js"

@@ -7,74 +7,62 @@ var remote_handler = function () {}
 // vendor dependencies
 var Promise = require('bluebird')
 var s3 = require('s3')
+var path = require('path')
+var request = require('request')
 
 // local dependencies
 var logger = require(enduro.enduro_path + '/libs/logger')
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var fs = require('fs')
 
-remote_handler.prototype.upload_to_s3_by_file = function (file, timestamp) {
+remote_handler.prototype.upload_to_filesystem_by_file = function (file, timestamp) {
+
+	// apply timestamp to file's name if it is requested by timestamp parameter
 	var filename = timestamp ? timestamp_filename(file.name) : file.name
-	return s3_upload('direct_uploads/' + filename, file.path)
+
+	return enduro.filesystem.upload('direct_uploads/' + filename, file.path)
 }
 
-remote_handler.prototype.upload_to_s3_by_filepath = function (filename, filepath) {
-	return s3_upload(filename, filepath)
+remote_handler.prototype.upload_to_filesystem_by_filepath = function (filename, path_to_file) {
+	return enduro.filesystem.upload(filename, path_to_file)
 }
 
 remote_handler.prototype.get_remote_url = function (filename) {
-	return get_remote_url(filename)
+	return enduro.filesystem.get_remote_url(filename)
 }
 
-function timestamp_filename (filename) {
-	return (new Date() / 1e3 | 0) + '_' + filename
-}
-
-function s3_upload (filename, filepath) {
-	// logger.timestamp('Uploading file to s3','file_uploading')
+remote_handler.prototype.request_file = function (url) {
 	return new Promise(function (resolve, reject) {
+		if (flat_helpers.is_local(url)) {
+			fs.readFile(url, 'utf8', function (err, data) {
+				if (err) {
+					return reject()
+				}
+				resolve([data, { statusCode: 200 }])
+			})
+		} else {
+			request(url, function (err, response, body) {
 
-		var destination_url = get_remote_url(filename)
-
-		var client = s3.createClient({
-			s3Options: {
-				accessKeyId: enduro.config.variables.S3_KEY,
-				secretAccessKey: enduro.config.variables.S3_SECRET,
-				region: enduro.config.s3.region || 'us-west-1',
-				//endpoint: 'cloudhsm.eu-central-1.amazonaws.com',
-				// sslEnabled: false
-				// any other options are passed to new AWS.S3()
-				// See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Config.html#constructor-property
-			},
-		})
-
-		var params = {
-			localFile: filepath,
-			s3Params: {
-				Bucket: enduro.config.s3.bucket,
-				Key: filename,
-				// other options suwpported by putObject, except Body and ContentLength.
-				// See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
-			},
+				if (err) {
+					return reject()
+				}
+				resolve([body, response])
+			})
 		}
-		var uploader = client.uploadFile(params)
-
-		uploader.on('error', function (err) {
-			console.error('unable to upload:', err.stack)
-		})
-
-		uploader.on('progress', function () {
-			// console.log('progress', uploader.progressMd5Amount, uploader.progressAmount, uploader.progressTotal)
-		})
-
-		uploader.on('end', function () {
-			logger.timestamp('File uploaded successfully: ' + destination_url)
-			return resolve(destination_url)
-		})
 
 	})
 }
 
-function get_remote_url (filename) {
-	return 'https://s3-' + (enduro.config.s3.region || 'us-west-1') + '.amazonaws.com/' + enduro.config.s3.bucket + '/' + filename
+remote_handler.prototype.request_stream = function (url) {
+	if (flat_helpers.is_local(url)) {
+		return fs.createReadStream(url)
+	} else {
+		return request(url)
+	}
+}
+
+function timestamp_filename (filename) {
+	return (new Date() / 1e3 | 0) + '_' + filename
 }
 
 module.exports = new remote_handler()

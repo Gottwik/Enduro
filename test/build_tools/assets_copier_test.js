@@ -3,25 +3,17 @@ var expect = require('chai').expect
 var path = require('path')
 
 // local dependencies
-var local_enduro = require('../../index')
+var local_enduro = require('../../index').quick_init()
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var test_utilities = require('../libs/test_utilities')
 
 describe('Static assets copier', function () {
 
-	// Create a new project
-	before(function (done) {
-		var test_project_name = 'asset_copier_testfolder'
 
-		local_enduro.run(['create', test_project_name])
+	before(function () {
+		return test_utilities.before(local_enduro, 'asset_copier_testfolder')
 			.then(() => {
-				// navigate inside new project
-				enduro.project_path  = path.join(enduro.project_path, test_project_name)
-				local_enduro.run(['start'])
-					.then(() => {
-						done()
-					})
-			}, () => {
-				done(new Error('Failed to create new project'))
+				return enduro.actions.start()
 			})
 	})
 
@@ -42,11 +34,11 @@ describe('Static assets copier', function () {
 	})
 
 	// navigate back to testfolder
-	after(function (done) {
-		local_enduro.server_stop(() => {
-			enduro.project_path  = process.cwd() + '/testfolder'
-			done()
-		})
+	after(function () {
+		return enduro.actions.stop_server()
+			.then(() => {
+				return test_utilities.after()
+			})
 	})
 })
 

@@ -1,3 +1,5 @@
+
+var Promise = require('bluebird')
 var gulp = require('gulp')
 var watch = require('gulp-watch')
 var browser_sync = require('browser-sync').create()
@@ -24,12 +26,11 @@ var assets_copier_watch = require(enduro.enduro_path + '/libs/build_tools/assets
 var sass_handler = require(enduro.enduro_path + '/libs/build_tools/sass_handler').init(gulp, browser_sync)
 var sprite_icons = require(enduro.enduro_path + '/libs/build_tools/sprite_icons').init(gulp, browser_sync)
 
-gulp.set_refresh = function (callback) {
-	gulp.enduro_refresh = callback
-}
-
-gulp.enduro_refresh = function () {
-	logger.err('refresh not defined')
+gulp.enduro_refresh = function (callback) {
+	logger.log('Refresh', true, 'enduro_render_events')
+	enduro.actions.render(function () {
+		callback()
+	}, true)
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -44,7 +45,7 @@ gulp.task('browser_sync_norefresh', function () {
 })
 
 gulp.task('browser_sync_stop', [], function () {
-	browser_sync.exit()
+	return browser_sync.exit()
 })
 
 function browsersync_start (norefresh) {
@@ -206,6 +207,13 @@ gulp.task('production', [sass_handler, 'hbs_templates', assets_copier, 'hbs_help
 gulp.task('default', [assets_copier_watch, 'browser_sync'])
 gulp.task('default_norefresh', [assets_copier_watch, 'browser_sync_norefresh'])
 
+gulp.start_promised = function (task_name) {
+	return new Promise(function (resolve, reject) {
+		gulp.start(task_name, () => {
+			resolve()
+		})
+	})
+}
 
 // Export gulp to enable access for enduro
 module.exports = gulp

@@ -39,9 +39,6 @@ app.use(cookieParser())
 
 app.use(cors())
 
-// stores  server as global variable
-var server
-
 // add enduro.js header
 app.use(function (req, res, next) {
 	res.header('X-Powered-By', 'enduro.js')
@@ -59,25 +56,28 @@ enduro_server.prototype.run = function (server_setup) {
 	// stores current enduro_server instance
 	var self = this
 
+	server_setup = server_setup || {}
+
 	return new Promise(function (resolve, reject) {
 		// 5000 or server's port
 		app.set('port', (process.env.PORT || PRODUCTION_SERVER_PORT))
 
 
 		// starts listening to request on specified port
-		server = app.listen(app.get('port'), function () {
+		enduro.server = app.listen(app.get('port'), function () {
 			logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
 			if (!server_setup.development_mode && !enduro.flags.nocompile) {
-				self.enduro_init(() => {
-					resolve()
-				})
+				enduro.actions.render()
+					.then(() => {
+						resolve()
+					})
 			} else {
 				resolve()
 			}
 		})
 
 		// forward the app and server to running enduro application
-		website_app.forward(app, server)
+		website_app.forward(app, enduro.server)
 
 		logger.timestamp('heroku-debug - admin folder: ' + enduro.config.admin_folder, 'heroku_debug')
 
@@ -85,12 +85,14 @@ enduro_server.prototype.run = function (server_setup) {
 		app.use('/admin', express.static(enduro.config.admin_folder))
 		app.use('/assets', express.static(enduro.project_path + '/_src/assets'))
 		app.use('/_prebuilt', express.static(enduro.project_path + '/_src/_prebuilt'))
+		app.use('/remote', express.static(enduro.project_path + '/remote'))
 
 		// handle for executing enduro refresh from client
 		app.get('/admin_api_refresh', function (req, res) {
-			self.enduro_refresh(function () {
-				res.send({success: true, message: 'enduro refreshed successfully'})
-			})
+			enduro.actions.render()
+				.then(() => {
+					res.send({ success: true, message: 'enduro refreshed successfully' })
+				})
 		})
 
 
@@ -135,28 +137,12 @@ enduro_server.prototype.run = function (server_setup) {
 	})
 }
 
-enduro_server.prototype.stop = function (cb) {
-	server.close(cb)
-}
-
-// sets enduro_refresh function from parent
-enduro_server.prototype.set_refresh = function (callback) {
-	this.enduro_refresh = callback
-}
-
-// placehodler refresh function - this function is being replaced by parent
-enduro_server.prototype.enduro_refresh = function (cb) {
-	cb()
-}
-
-// sets enduro_refresh function from parent
-enduro_server.prototype.set_init = function (callback) {
-	this.enduro_init = callback
-}
-
-// placehodler refresh function - this function is being replaced by parent
-enduro_server.prototype.enduro_init = function (cb) {
-	cb()
+enduro_server.prototype.stop = function () {
+	return new Promise(function (resolve, reject) {
+		enduro.server.close(() => {
+			resolve()
+		})
+	})
 }
 
 module.exports = new enduro_server()

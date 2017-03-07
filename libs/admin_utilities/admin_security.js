@@ -151,8 +151,6 @@ admin_security.prototype.add_admin = function (username, password, tags) {
 				logger.tablog(username, true)
 				logger.log('Password:', false)
 				logger.tablog(password, true)
-				logger.line()
-				logger.log('Don\'t forget to change password!', false)
 				logger.end()
 				resolve()
 			})

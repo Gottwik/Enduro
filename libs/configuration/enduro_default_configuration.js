@@ -16,10 +16,11 @@ var default_configuration = {
 		project_name: 'Enduro project',
 		project_slug: 'en',
 		render_templates: true,
-		juicebox_enabled: true,
+		juicebox_enabled: false,
 		admin_folder: path.join(enduro.project_path, 'node_modules', 'enduro_admin', '_src'),
 		admin_secure_file: '.users',
 		babel_file: 'config/babel',
+		filesystem: 'local'
 	},
 	default_secret_configuration: {}
 }

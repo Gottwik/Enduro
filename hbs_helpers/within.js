@@ -10,6 +10,13 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-enduro.templating_engine.registerHelper('within', function (array, key, options) {
-	return options.fn(array[key])
-})
+var helper = function () {}
+
+helper.prototype.register = function () {
+
+	enduro.templating_engine.registerHelper('within', function (array, key, options) {
+		return options.fn(array[key])
+	})
+}
+
+module.exports = new helper()

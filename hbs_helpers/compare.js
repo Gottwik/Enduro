@@ -6,8 +6,16 @@
 // *	{{Compare age 20 'this dude is exactly 20 years old' 'he's not 20 years old}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-enduro.templating_engine.registerHelper('compare', function (variable1, variable2, value_if_true, value_if_false) {
-	return variable1 == variable2
-		? value_if_true
-		: value_if_false
-})
+var helper = function () {}
+
+helper.prototype.register = function () {
+
+	enduro.templating_engine.registerHelper('compare', function (variable1, variable2, value_if_true, value_if_false) {
+		return variable1 == variable2
+			? value_if_true
+			: value_if_false
+	})
+
+}
+
+module.exports = new helper()

@@ -10,13 +10,20 @@
 // *
 // *
 // * ———————————————————————————————————————————————————————— * //
-enduro.templating_engine.registerHelper('add', function () {
 
-	if (arguments.length <= 1) {
-		return ''
-	}
+var helper = function () {}
 
-	return Array.prototype.slice.call(arguments).slice(0, -1).reduce(function (prev, next) {
-		return prev + next
+helper.prototype.register = function () {
+	enduro.templating_engine.registerHelper('add', function () {
+
+		if (arguments.length <= 1) {
+			return ''
+		}
+
+		return Array.prototype.slice.call(arguments).slice(0, -1).reduce(function (prev, next) {
+			return prev + next
+		})
 	})
-})
+}
+
+module.exports = new helper()

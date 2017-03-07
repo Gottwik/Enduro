@@ -23,26 +23,21 @@ var DEFAULT_SCAFFOLDING_NAME = 'minimalistic'
 // * 	scaffold
 // *
 // *	copies required files into new project
-// *	@param {array} args - args[0] - desired name of the new project, args[1] - scaffolding name
+// *	@param {string} project_name
+// *	@param {string} scaffolder_name - defines which scaffolding to choose
 // *	@return {Promise} - promise with no content. resolve if login was successfull
 // * ———————————————————————————————————————————————————————— * //
-scaffolder.prototype.scaffold = function (args) {
+scaffolder.prototype.scaffold = function (project_name, scaffolding_name) {
 	return new Promise(function (resolve, reject) {
 
-		// No project name given
-		if (!args.length) {
-			logger.err('\nProvide project name as \n\n\t$ enduro create projectname\n')
-			return reject('no project name was specified')
+		if (!project_name) {
+			return reject()
 		}
 
-
-		// Stores project name
-		var project_name = args[0]
-
-		var scaffolding_path = get_scaffolding_path_by_name(args[1])
+		var scaffolding_path = get_scaffolding_path_by_name(scaffolding_name)
 
 		if (scaffolding_path == -1) {
-			reject()
+			return reject()
 		}
 
 		// Destination directory
@@ -56,7 +51,7 @@ scaffolder.prototype.scaffold = function (args) {
 		log_clusters.log('creating_project', {project_name: project_name})
 
 		// Copy files - Without overwriting existing files
-		ncp(scaffolding_path, scaffolding_destination, {clobber: false}, function (err) {
+		ncp(scaffolding_path, scaffolding_destination, { clobber: false }, function (err) {
 			if (err) {
 				// Something went wrong with the copying
 				reject('creating new files failed')

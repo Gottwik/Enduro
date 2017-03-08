@@ -1,6 +1,6 @@
 // * ———————————————————————————————————————————————————————— * //
 // * 	remote handler
-// *	uploads files to s3
+// *	uploads files to local storage
 // * ———————————————————————————————————————————————————————— * //
 var filesystem = function () {}
 
@@ -11,7 +11,6 @@ var fs = require('fs')
 
 // local dependencies
 var logger = require(enduro.enduro_path + '/libs/logger')
-var remote_handler = require(enduro.enduro_path + '/libs/remote_tools/remote_handler')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 // constants
@@ -38,7 +37,6 @@ filesystem.prototype.upload = function (filename, path_to_file) {
 			})
 	})
 }
-
 
 filesystem.prototype.get_remote_url = function (path_to_file) {
 	return path.join(enduro.project_path, UPLOADS_FOLDER, path_to_file)

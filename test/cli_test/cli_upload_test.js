@@ -1,12 +1,9 @@
 // vendor dependencies
 var expect = require('chai').expect
-var path = require('path')
 
 // local dependencies
 var local_enduro = require('../../index').quick_init()
 var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
-
-// only test if s3 is enabled
 
 describe('[online_test] cli upload', function () {
 	this.timeout(5000)

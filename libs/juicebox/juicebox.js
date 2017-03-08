@@ -104,8 +104,7 @@ juicebox.prototype.force_pack = function (user) {
 		// sets user to developer if juicing is caused by console
 		user = user || 'developer'
 
-		// Skip juicing if juicing is not enabled(most likely s3 keys are missing)
-		// or disabled by flags
+		// skip juicing if juicing is not enabled or disabled by flags
 		if (!enduro.config.juicebox_enabled || enduro.flags.nojuice) {
 			return resolve()
 		}

@@ -9,10 +9,10 @@ var logger = require(enduro.enduro_path + '/libs/logger')
 
 module.exports = {
 	command: 'juicebox',
-	desc: 'sets up aws s3 as enduro.js filesystem',
+	desc: 'turns juicebox off and on',
 	builder: () => {
 		return yargs
-			.usage('enduro juice s3')
+			.usage('enduro juice juicebox')
 	},
 	handler: function (cli_arguments) {
 		logger.init('setting up juicebox')

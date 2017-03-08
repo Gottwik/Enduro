@@ -1,17 +1,14 @@
 // * ———————————————————————————————————————————————————————— * //
 // * 	remote handler
-// *	uploads files to s3
+// *	uploads files to filesystem
 // * ———————————————————————————————————————————————————————— * //
 var remote_handler = function () {}
 
 // vendor dependencies
 var Promise = require('bluebird')
-var s3 = require('s3')
-var path = require('path')
 var request = require('request')
 
 // local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 var fs = require('fs')
 

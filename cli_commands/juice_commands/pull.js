@@ -6,6 +6,12 @@ module.exports = {
 	builder: () => {
 		return yargs
 			.usage('enduro juice pull')
+			.options({
+				'force': {
+					alias: 'f',
+					describe: 'will not pull before pack, overriding whatever is in juicebar',
+				},
+			})
 	},
 	handler: function (cli_arguments) {
 		var enduro_instance = require('../../index')

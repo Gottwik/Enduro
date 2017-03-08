@@ -41,7 +41,7 @@ enduro_configurator.prototype.read_config = function () {
 			enduro.config.filesystem = 's3'
 		}
 
-		return Promise.resolve()
+		return Promise.resolve(enduro.config)
 	})
 }
 

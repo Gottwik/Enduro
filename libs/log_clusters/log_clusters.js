@@ -55,4 +55,15 @@ clusters['nonexistent_bucket'] = (context) => {
 	logger.err_blockEnd()
 }
 
+clusters['extraction_failed'] = (context) => {
+	logger.err_blockStart('juice extraction failed')
+	logger.err('There is something wrong with the last juice archive')
+	logger.err(' ')
+	logger.err('Run:')
+	logger.err('\t$ enduro juice pack -f')
+	logger.err(' ')
+	logger.err('To repair the issue')
+	logger.err_blockEnd()
+}
+
 module.exports = new log_clusters()

@@ -28,7 +28,6 @@ var EXTENSION = '.tar.gz'
 juicebox.prototype.pack = function (user) {
 	var self = this
 
-
 	return self.pull()
 		.then(() => {
 			return self.force_pack(user)
@@ -222,11 +221,7 @@ function get_latest_juice () {
 			throw new Error('latest juice does not exist')
 		})
 		.spread((body, response) => {
-			if (response.statusCode != 200) { reject('couldnt read juice file') }
 
-			var juicefile_in_json
-
-			// check if we got xml or json - xml means there is something wrong
 			if (body.indexOf('<?xml') + 1 && body.indexOf('<Error>') + 1) {
 
 				// juicefile doesn't exist yet - let's create a new juicefile
@@ -236,13 +231,14 @@ function get_latest_juice () {
 				// bucket was not created
 				} else if (body.indexOf('NoSuchBucket') + 1) {
 					log_clusters.log('nonexistent_bucket')
-
-					process.exit()
 				}
-
-			} else {
-				juicefile_in_json = JSON.parse(body)
+				process.exit()
 			}
+
+			if (response.statusCode != 200) { reject('couldnt read juice file') }
+
+			// check if we got xml or json - xml means there is something wrong
+			var juicefile_in_json = JSON.parse(body)
 
 			return write_juicefile(juicefile_in_json)
 		})
@@ -267,7 +263,7 @@ function get_juicebox_by_name (juicebox_name) {
 		var juicebox_read_stream = remote_handler.request_stream(source_path)
 
 		juicebox_read_stream
-			.on('error', function (error) {
+			.on('error', () => {
 				return reject()
 			})
 
@@ -300,10 +296,10 @@ function spill_the_juice (juicebox_name, destination) {
 
 				fs.createReadStream(tarball)
 					.pipe(zlib.Unzip())
-					.pipe(tar_extract)
 					.on('error', function () {
-						console.log('asd')
+						log_clusters.log('extraction_failed')
 					})
+					.pipe(tar_extract)
 
 				tar_extract.on('finish', () => {
 					resolve()

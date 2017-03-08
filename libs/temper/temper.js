@@ -17,7 +17,7 @@ temper.prototype.render = function (filename, context) {
 	// use empty object if no context is provided
 	context = context || {}
 
-	context = extend(true, context, {absolute_prefix: '../'})
+	context = extend(true, context, { absolute_prefix: '../' })
 
 	return abstractor.abstract_context(context)
 		.then((context) => {

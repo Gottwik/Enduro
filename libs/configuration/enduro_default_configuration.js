@@ -12,7 +12,7 @@ var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 // main config object
 var default_configuration = {
-    default_configuration: {
+	default_configuration: {
 		project_name: 'Enduro project',
 		project_slug: 'en',
 		render_templates: true,
@@ -20,7 +20,8 @@ var default_configuration = {
 		admin_folder: path.join(enduro.project_path, 'node_modules', 'enduro_admin', '_src'),
 		admin_secure_file: '.users',
 		babel_file: 'config/babel',
-		filesystem: 'local'
+		filesystem: 'local',
+		port: 5000
 	},
 	default_secret_configuration: {}
 }

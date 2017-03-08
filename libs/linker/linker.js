@@ -18,14 +18,6 @@ var api_links = {
 	'logger': '/libs/logger',
 }
 
-var action_links = {
-	'render': '/libs/actions/render',
-	'developer_start': '/libs/actions/developer_start',
-	'silent': '/libs/actions/silent',
-	'stop_server': '/libs/actions/stop_server',
-}
-
-
 // will initialize shared variables that will represent state and configuration
 enduro_linker.prototype.init_enduro_linked_configuration = function (project_path, enduro_path) {
 	var linker = {}

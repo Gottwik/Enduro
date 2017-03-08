@@ -2,13 +2,13 @@ module.exports = {
 	command: 'start',
 	desc: 'starts production server',
 	builder: {
-		'norefresh': {
-			alias: 'r',
-			describe: 'no-refresh',
-		},
 		'nojuice': {
 			alias: 'j',
 			describe: 'no-juice',
+		},
+		'port': {
+			alias: 'p',
+			describe: 'sets the production port'
 		}
 	},
 	handler: function (cli_arguments) {

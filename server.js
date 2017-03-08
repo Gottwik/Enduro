@@ -23,9 +23,6 @@ var trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
 var logger = require(enduro.enduro_path + '/libs/logger')
 var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
 
-// constants
-var PRODUCTION_SERVER_PORT = 5000
-
 // initialization of the sessions
 app.set('trust proxy', 1)
 app.use(session({
@@ -59,13 +56,13 @@ enduro_server.prototype.run = function (server_setup) {
 	server_setup = server_setup || {}
 
 	return new Promise(function (resolve, reject) {
-		// 5000 or server's port
-		app.set('port', (process.env.PORT || PRODUCTION_SERVER_PORT))
 
+		// overrides the port by system environment variable
+		enduro.config.port = process.env.PORT || enduro.flags.port || enduro.config.port
 
 		// starts listening to request on specified port
-		enduro.server = app.listen(app.get('port'), function () {
-			logger.timestamp('Production server started at port ' + PRODUCTION_SERVER_PORT, 'enduro_events')
+		enduro.server = app.listen(enduro.config.port, function () {
+			logger.timestamp('Production server started at port ' + enduro.config.port, 'enduro_events')
 			if (!server_setup.development_mode && !enduro.flags.nocompile) {
 				enduro.actions.render()
 					.then(() => {
@@ -95,7 +92,6 @@ enduro_server.prototype.run = function (server_setup) {
 				})
 		})
 
-
 		// handle for all admin api calls
 		app.all('/admin_api/*', multiparty_middleware, function (req, res) {
 			admin_api.call(req, res, self)
@@ -111,9 +107,7 @@ enduro_server.prototype.run = function (server_setup) {
 				trollhunter.login(req)
 					.then(() => {
 
-						// var requested_url = req.url.length > 1 ? req.url.substring(0, req.url.indexOf('?')) : '/'
 						var requested_url = req.url
-						// console.log(req.url)
 
 						// serves index.html when empty or culture-only url is provided
 						if (requested_url.length <= 1 || (requested_url.split('/')[1] && enduro.config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2)) {

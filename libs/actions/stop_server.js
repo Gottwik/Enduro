@@ -1,12 +1,9 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	stop server
+// * 	enduro.actions.stop_server
 // * ———————————————————————————————————————————————————————— * //
 
 var action = function () {}
 
-var Promise = require('bluebird')
-
-var logger = require(enduro.enduro_path + '/libs/logger')
 var enduro_server = require(enduro.enduro_path + '/server')
 var gulp = require(enduro.enduro_path + '/gulpfile')
 
@@ -16,6 +13,5 @@ action.prototype.action = function () {
 			return enduro_server.stop()
 		})
 }
-
 
 module.exports = new action()

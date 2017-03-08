@@ -1,5 +1,3 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: 'admin <command>',
 	desc: 'handles admin users',

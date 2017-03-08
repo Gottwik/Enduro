@@ -1,5 +1,5 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	developer start
+// * 	enduro.actions.developer_start
 // * ———————————————————————————————————————————————————————— * //
 
 var action = function () {}
@@ -48,6 +48,5 @@ action.prototype.action = function (config) {
 			})
 	})
 }
-
 
 module.exports = new action()

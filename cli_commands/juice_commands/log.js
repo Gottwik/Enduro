@@ -1,9 +1,7 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: ['log', 'l'],
 	desc: 'shows edit history',
-	builder: () => {
+	builder: (yargs) => {
 		return yargs
 			.alias('l')
 			.usage('enduro juice log')

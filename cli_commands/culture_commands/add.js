@@ -1,9 +1,7 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: 'add <cultures..>',
 	desc: 'adds one or more culture',
-	builder: () => {
+	builder: (yargs) => {
 		return yargs
 			.usage('enduro culture add <cultures..>')
 			.example('enduro culture add en de fr es')

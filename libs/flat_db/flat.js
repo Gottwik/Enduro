@@ -15,6 +15,7 @@ var _ = require('lodash')
 
 // local dependencies
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Save cms file
@@ -83,7 +84,12 @@ flat.prototype.load = function (filename) {
 				raw_context_data = raw_context_data.toString().substring(raw_context_data.indexOf('{'))
 
 				// convert the string-based javascript into an object
-				var flatObj = require_from_string('module.exports = ' + raw_context_data)
+				var flatObj = {}
+				try {
+					flatObj = require_from_string('module.exports = ' + raw_context_data)
+				} catch (e) {
+					log_clusters.log('malformed_context_file', filename)
+				}
 
 				resolve(flatObj)
 			})

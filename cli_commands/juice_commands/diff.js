@@ -1,9 +1,7 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: 'diff [version_hash] [file]',
 	desc: 'displays diff with remotely stored file',
-	builder: () => {
+	builder: (yargs) => {
 		return yargs
 			.usage('enduro juice diff [version_hash] [file]')
 			.example('enduro juice diff')

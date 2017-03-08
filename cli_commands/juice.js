@@ -1,5 +1,3 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: ['juice <command>', 'j'],
 	desc: 'handles versioning',

@@ -66,4 +66,8 @@ clusters['extraction_failed'] = (context) => {
 	logger.err_blockEnd()
 }
 
+clusters['malformed_context_file'] = (context) => {
+	logger.err('malformed_context_file: ' + context)
+}
+
 module.exports = new log_clusters()

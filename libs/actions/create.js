@@ -4,9 +4,6 @@
 
 var action = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-
 action.prototype.action = function (project_name, scaffolding_name) {
 	var scaffolder = require(enduro.enduro_path + '/libs/scaffolder')
 	return scaffolder.scaffold(project_name, scaffolding_name)

@@ -1,6 +1,5 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	render
-// *	renders all the static files - no server started
+// * 	enduro.actions.render
 // * ———————————————————————————————————————————————————————— * //
 
 var action = function () {}
@@ -72,6 +71,5 @@ action.prototype.action = function (dont_do_juice_pull) {
 			logger.end('enduro_render_events')
 		})
 }
-
 
 module.exports = new action()

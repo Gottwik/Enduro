@@ -1,5 +1,4 @@
 // global dependencies
-var yargs = require('yargs')
 var inquirer = require('inquirer')
 
 // local dependencies
@@ -10,7 +9,7 @@ var logger = require(enduro.enduro_path + '/libs/logger')
 module.exports = {
 	command: 'juicebox',
 	desc: 'turns juicebox off and on',
-	builder: () => {
+	builder: (yargs) => {
 		return yargs
 			.usage('enduro juice juicebox')
 	},

@@ -8,7 +8,8 @@ module.exports = {
 		},
 		'port': {
 			alias: 'p',
-			describe: 'sets the production port'
+			describe: 'sets the production port',
+			default: 5000,
 		}
 	},
 	handler: function (cli_arguments) {

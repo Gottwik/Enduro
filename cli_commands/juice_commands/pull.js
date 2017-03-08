@@ -1,9 +1,7 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: 'pull',
 	desc: 'downloads remote content and merges with local',
-	builder: () => {
+	builder: (yargs) => {
 		return yargs
 			.usage('enduro juice pull')
 			.options({

@@ -1,9 +1,7 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: 'pack',
 	desc: 'uploads local content to remote',
-	builder: () => {
+	builder: (yargs) => {
 		return yargs
 			.usage('enduro juice pack')
 			.options({

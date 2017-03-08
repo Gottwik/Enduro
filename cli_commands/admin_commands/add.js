@@ -1,9 +1,7 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: 'add <username> <password>',
 	desc: 'adds one admin user',
-	builder: () => {
+	builder: (yargs) => {
 		return yargs
 			.usage('enduro admin add <username> <password>')
 	},

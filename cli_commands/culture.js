@@ -1,5 +1,3 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: 'culture <command>',
 	desc: 'handles cultures',

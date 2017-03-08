@@ -1,5 +1,3 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: ['setup <command>', 's'],
 	desc: 'handles versioning',

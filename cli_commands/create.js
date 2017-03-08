@@ -1,9 +1,7 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: 'create <project_name> [scaffolding_name]',
 	desc: 'creates new enduro.js project',
-	builder: () => {
+	builder: (yargs) => {
 		return yargs
 			.usage('enduro create <project_name>')
 			.example('enduro create my_cool_project')

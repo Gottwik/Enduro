@@ -1,9 +1,7 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: 'upload <url>',
 	desc: 'uploads file to enduro.js file storage',
-	builder: () => {
+	builder: (yargs) => {
 		return yargs
 			.usage('enduro create <url>')
 			.example('enduro create www.example.com/bunny.jpg')

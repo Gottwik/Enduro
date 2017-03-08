@@ -1,9 +1,7 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: 'theme <theme_name>',
 	desc: 'uploads file to enduro.js file storage',
-	builder: () => {
+	builder: (yargs) => {
 		return yargs
 			.usage('enduro theme <theme_name>')
 			.example('enduro theme mirror')

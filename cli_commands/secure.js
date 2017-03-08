@@ -1,9 +1,7 @@
-var yargs = require('yargs')
-
 module.exports = {
 	command: 'secure <passphrase>',
 	desc: 'secures website against random visits',
-	builder: () => {
+	builder: (yargs) => {
 		return yargs
 			.usage('enduro secure <passphrase>')
 			.example('enduro secure mypassword')

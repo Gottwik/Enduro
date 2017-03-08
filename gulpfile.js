@@ -15,7 +15,6 @@ var flatten = require('gulp-flatten')
 var concat = require('gulp-concat')
 var filterBy = require('gulp-filter-by')
 var wrap = require('gulp-wrap')
-var path = require('path')
 
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
@@ -101,7 +100,6 @@ function browsersync_start (norefresh) {
 	// nowatch flag is used when testing development server
 	// the watch kindof stayed in memory and screwed up all other tests
 	if (!enduro.flags.nowatch) {
-
 		// Watch for sass
 		watch([
 			enduro.project_path + '/assets/css/**/*',
@@ -119,10 +117,8 @@ function browsersync_start (norefresh) {
 
 		// Watch for enduro changes
 		watch([enduro.project_path + '/pages/**/*.hbs', enduro.project_path + '/components/**/*.hbs', enduro.project_path + '/cms/**/*.js'], function () {
-
 			// don't do anything if nocmswatch flag is set
 			if (!enduro.flags.nocmswatch && !enduro.flags.temporary_nocmswatch) {
-				console.log('>>>>>>>>>>>>><<<<<<<<<<<<<<')
 				gulp.enduro_refresh()
 					.then(() => {
 						browser_sync.reload()

@@ -199,7 +199,7 @@ function get_timestamp () {
 
 	t = date.getTime()
 
-	return (lpad(date.getHours().toString(), 2) + ':' + lpad(date.getMinutes().toString(), 2) + ':' + lpad(date.getSeconds().toString(), 2) + ' | ' + ('+' + lpad(Math.round((diff) / 10) / 100).toString(), 8, ' '))
+	return (lpad(date.getHours().toString(), 2) + ':' + lpad(date.getMinutes().toString(), 2) + ':' + lpad(date.getSeconds().toString(), 2) + ' | ' + ('+' + lpad((Math.round((diff) / 10) / 100).toString(), 8, ' ')))
 }
 
 // * ———————————————————————————————————————————————————————— * //

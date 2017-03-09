@@ -67,8 +67,8 @@ api_call.prototype.call = function (req, res, enduro_server) {
 
 			}, () => { throw new Error() })
 			.then(() => {
-					// enable cmswatch again
-					enduro.flags.temporary_nocmswatch = false
+					// // enable cmswatch again
+					// enduro.flags.temporary_nocmswatch = false
 
 					// send the response early to cut down on publish time
 					res.send()

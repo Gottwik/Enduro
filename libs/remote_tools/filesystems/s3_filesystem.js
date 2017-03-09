@@ -53,7 +53,7 @@ filesystem.prototype.upload = function (filename, path_to_file) {
 
 filesystem.prototype.get_remote_url = function (filename, juicebox) {
 	if (enduro.config.s3.cloudfront && !juicebox) {
-		return enduro.config.s3.cloudfront + '/' + filename
+		return 'https://' + enduro.config.s3.cloudfront + '/' + filename
 	} else {
 		return 'https://s3-' + (enduro.config.s3.region || 'us-west-1') + '.amazonaws.com/' + enduro.config.s3.bucket + '/' + filename
 	}

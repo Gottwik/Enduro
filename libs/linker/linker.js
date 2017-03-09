@@ -83,7 +83,22 @@ enduro_linker.prototype.read_config = function () {
 		.then(() => {
 
 			// stores filesystem
-			enduro.filesystem = require(path.join(enduro.enduro_path, 'libs', 'remote_tools', 'filesystems', enduro.config.filesystem + '_filesystem.js'))
+			try {
+				enduro.filesystem = require(path.join(enduro.enduro_path, 'libs', 'remote_tools', 'filesystems', enduro.config.filesystem + '_filesystem.js'))
+			} catch (e) {
+				if (e.code == 'MODULE_NOT_FOUND') {
+					try {
+						enduro.filesystem = require(path.join(enduro.project_path, 'node_modules', enduro.config.filesystem))
+					} catch (e) {
+						console.log(e)
+						if (e.code == 'MODULE_NOT_FOUND') {
+							console.log('module `' + enduro.config.filesystem + '` not found. Did you install it?')
+							process.exit()
+						}
+					}
+				}
+			}
+			enduro.filesystem.init()
 		})
 }
 

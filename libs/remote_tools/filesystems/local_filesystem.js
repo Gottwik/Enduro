@@ -1,5 +1,4 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	remote handler
 // *	uploads files to local storage
 // * ———————————————————————————————————————————————————————— * //
 var filesystem = function () {}
@@ -15,6 +14,10 @@ var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 // constants
 var UPLOADS_FOLDER = 'remote'
+
+filesystem.prototype.init = function () {
+	// no init required
+}
 
 // basically copies the file
 filesystem.prototype.upload = function (filename, path_to_file) {

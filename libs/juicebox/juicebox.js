@@ -150,7 +150,6 @@ juicebox.prototype.diff = function (version_hash, file) {
 
 	return get_latest_juice()
 		.then((juice) => {
-
 			// if user provided specified version
 			if (version_hash) {
 				juicebox_hash_to_diff = get_juicebox_hash_by_timestamp(version_hash)
@@ -162,6 +161,8 @@ juicebox.prototype.diff = function (version_hash, file) {
 		})
 		.then((specified_juicebox) => {
 			return spill_the_juice(specified_juicebox, path.join('juicebox', 'staging', juicebox_hash_to_diff))
+		}, (e) => {
+			logger.err(e)
 		})
 		.then(() => {
 			if (file) {
@@ -215,7 +216,7 @@ function write_juicefile (juice) {
 }
 
 function get_latest_juice () {
-	return remote_handler.request_file(remote_handler.get_remote_url('juicebox/juice.json'))
+	return remote_handler.request_file(remote_handler.get_remote_url('juicebox/juice.json', true))
 		.catch(() => {
 			throw new Error('latest juice does not exist')
 		})
@@ -251,7 +252,7 @@ function get_juicebox_hash_by_timestamp (timestamp) {
 }
 
 function get_juicebox_by_name (juicebox_name) {
-	var source_path = remote_handler.get_remote_url('juicebox/' + juicebox_name)
+	var source_path = remote_handler.get_remote_url('juicebox/' + juicebox_name, true)
 	var destination_path = path.join(enduro.project_path, 'juicebox', juicebox_name)
 
 	if (source_path == destination_path) {

@@ -11,6 +11,10 @@ var s3 = require('s3')
 // local dependencies
 var logger = require(enduro.enduro_path + '/libs/logger')
 
+filesystem.prototype.init = function () {
+	// no init required
+}
+
 filesystem.prototype.upload = function (filename, path_to_file) {
 	var self = this
 
@@ -47,8 +51,12 @@ filesystem.prototype.upload = function (filename, path_to_file) {
 	})
 }
 
-filesystem.prototype.get_remote_url = function (filename) {
-	return 'https://s3-' + (enduro.config.s3.region || 'us-west-1') + '.amazonaws.com/' + enduro.config.s3.bucket + '/' + filename
+filesystem.prototype.get_remote_url = function (filename, juicebox) {
+	if (enduro.config.s3.cloudfront && !juicebox) {
+		return enduro.config.s3.cloudfront + '/' + filename
+	} else {
+		return 'https://s3-' + (enduro.config.s3.region || 'us-west-1') + '.amazonaws.com/' + enduro.config.s3.bucket + '/' + filename
+	}
 }
 
 module.exports = new filesystem()

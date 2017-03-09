@@ -24,8 +24,8 @@ remote_handler.prototype.upload_to_filesystem_by_filepath = function (filename, 
 	return enduro.filesystem.upload(filename, path_to_file)
 }
 
-remote_handler.prototype.get_remote_url = function (filename) {
-	return enduro.filesystem.get_remote_url(filename)
+remote_handler.prototype.get_remote_url = function (filename, juicebox) {
+	return enduro.filesystem.get_remote_url(filename, juicebox)
 }
 
 remote_handler.prototype.request_file = function (url) {

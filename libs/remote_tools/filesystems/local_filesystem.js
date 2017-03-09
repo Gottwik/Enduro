@@ -26,7 +26,7 @@ filesystem.prototype.upload = function (filename, path_to_file) {
 		var destination_src_path = path.join(enduro.project_path, '_src', UPLOADS_FOLDER, filename)
 		var destination_url = '/' + UPLOADS_FOLDER + '/' + filename
 
-		flat_helpers.ensure_directory_existence(destination_path)
+		flat_helpers.ensure_directory_existence(destination_path, destination_src_path)
 			.then(() => {
 				var read_stream = fs.createReadStream(path_to_file)
 

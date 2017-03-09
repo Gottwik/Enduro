@@ -1,9 +1,10 @@
 // * ———————————————————————————————————————————————————————— * //
 // * 	get globalizer options
+// *	will return array of options that the current globalizer path leads to and will return sibling globalizer paths. This is useful for the globalizer control.
 // *
 // * 	admin api endpoint admin_api/get_globalizer_options
 // *	@param {string} sid - session id stored in cookie on client
-// *	@param {string} globalizer path - path in global object
+// *	@param {string} globalizer_string - path to the global object
 // *	@return {response} - success boolean and array with options
 // * ———————————————————————————————————————————————————————— * //
 var api_call = function () {}
@@ -20,7 +21,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 
 	// checks if all required parameters had been received
 	if (!sid || !globalizer_string) {
-		res.send({success: false})
+		res.send({ success: false })
 		return
 	}
 

@@ -7,14 +7,12 @@ var filesystem = function () {}
 // vendor dependencies
 var Promise = require('bluebird')
 var s3 = require('s3')
-var path = require('path')
 
 // local dependencies
 var logger = require(enduro.enduro_path + '/libs/logger')
 
 filesystem.prototype.upload = function (filename, path_to_file) {
 	var self = this
-
 
 	return new Promise(function (resolve, reject) {
 
@@ -48,7 +46,6 @@ filesystem.prototype.upload = function (filename, path_to_file) {
 
 	})
 }
-
 
 filesystem.prototype.get_remote_url = function (filename) {
 	return 'https://s3-' + (enduro.config.s3.region || 'us-west-1') + '.amazonaws.com/' + enduro.config.s3.bucket + '/' + filename

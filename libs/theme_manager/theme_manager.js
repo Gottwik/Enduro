@@ -8,7 +8,6 @@ var theme_manager = function () {}
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 var logger = require(enduro.enduro_path + '/libs/logger')
-var enduro_index = require(enduro.enduro_path + '/index')
 var admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
 var format_service = require(enduro.enduro_path + '/libs/services/format_service')
 
@@ -111,7 +110,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 					loaded: false,
 					progress: false,
 					loglevel: 'error',
-				}, function (err) {
+				}, () => {
 					var npm_dependencies = _.chain(fetched_package.dependencies)
 						.omit('enduro')
 						.toPairs()
@@ -121,6 +120,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 						.value()
 
 					npm.commands.install(theme_progress_variables.answers.project_name, npm_dependencies, function (err, data) {
+						if (err) { console.log(error) }
 
 						// replace console.log
 						console.log = log_temp

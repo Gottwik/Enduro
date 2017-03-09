@@ -37,7 +37,8 @@ module.exports = {
 				message: 'select s3 region',
 				type: 'list',
 				default: 'eu-west-1',
-				choices: ['us-east-1',
+				choices: [
+					'us-east-1',
 					'us-east-2',
 					'us-west-1',
 					'us-west-2',
@@ -45,7 +46,6 @@ module.exports = {
 					'ap-southeast-1',
 					'ap-southeast-2',
 					'ap-northeast-1',
-					'eu-central-1',
 					'eu-west-1',
 					'eu-west-2'
 				],

@@ -23,12 +23,14 @@ filesystem.prototype.init = function () {
 filesystem.prototype.upload = function (filename, path_to_file) {
 	return new Promise(function (resolve, reject) {
 		var destination_path = path.join(enduro.project_path, UPLOADS_FOLDER, filename)
+		var destination_src_path = path.join(enduro.project_path, '_src', UPLOADS_FOLDER, filename)
 		var destination_url = '/' + UPLOADS_FOLDER + '/' + filename
 
 		flat_helpers.ensure_directory_existence(destination_path)
 			.then(() => {
 				var read_stream = fs.createReadStream(path_to_file)
 
+				read_stream.pipe(fs.createWriteStream(destination_src_path))
 				read_stream.pipe(fs.createWriteStream(destination_path))
 					.on('close', function (err) {
 						if (err) {

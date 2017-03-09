@@ -10,8 +10,7 @@ var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 var logger = require(enduro.enduro_path + '/libs/logger')
 
 // defines locations that have static files
-var STATIC_LOCATIONS = ['assets/js', 'assets/img', 'assets/vendor', 'assets/fonts', 'assets/admin_extensions']
-
+var STATIC_LOCATIONS = ['assets/js', 'assets/img', 'assets/vendor', 'assets/fonts', 'assets/admin_extensions', 'remote']
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	assets_copier

@@ -118,7 +118,9 @@ function browsersync_start (norefresh) {
 		// Watch for enduro changes
 		watch([enduro.project_path + '/pages/**/*.hbs', enduro.project_path + '/components/**/*.hbs', enduro.project_path + '/cms/**/*.js'], function () {
 			// don't do anything if nocmswatch flag is set
-			if (!enduro.flags.nocmswatch && !enduro.flags.temporary_nocmswatch) {
+
+			// if (!enduro.flags.nocmswatch && !enduro.flags.temporary_nocmswatch) {
+			if (!enduro.flags.nocmswatch) {
 				gulp.enduro_refresh()
 					.then(() => {
 						browser_sync.reload()

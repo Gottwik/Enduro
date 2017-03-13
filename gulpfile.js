@@ -126,7 +126,9 @@ function browsersync_start (norefresh) {
 						browser_sync.reload()
 					})
 			} else {
-				browser_sync.reload()
+				setTimeout(() => {
+					browser_sync.reload()
+				}, 500)
 			}
 			enduro.flags.temporary_nocmswatch = false
 		})

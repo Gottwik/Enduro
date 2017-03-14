@@ -25,7 +25,7 @@ event_hooks.prototype.execute_hook = function (hook_name) {
 		spawn(enduro.config.events[hook_name], [], function (err, stdout, stderr) {
 			if (err) { logger.err(err) } // handled error
 
-			console.log(stdout) // pipes output from child event
+			process.stdout.write(stdout) // pipes output from child event
 			resolve()
 		})
 	})

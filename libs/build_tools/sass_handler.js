@@ -7,7 +7,6 @@ var autoprefixer = require('gulp-autoprefixer')
 // local dependencies
 var logger = require(enduro.enduro_path + '/libs/logger')
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Sass Task
 // *	Processes assets/css/main.scss file

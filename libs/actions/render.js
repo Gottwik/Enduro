@@ -17,6 +17,7 @@ var pregenerator = require(enduro.enduro_path + '/libs/pregenerator/pregenerator
 var abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
 var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
 var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
+var event_hooks = require(enduro.enduro_path + '/libs/external_links/event_hooks')
 
 action.prototype.action = function (dont_do_juice_pull) {
 
@@ -66,6 +67,9 @@ action.prototype.action = function (dont_do_juice_pull) {
 					resolve()
 				})
 			})
+		})
+		.then(() => {
+			return event_hooks.execute_hook('post_update')
 		})
 		.then(() => {
 			logger.end('enduro_render_events')

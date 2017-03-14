@@ -5,7 +5,7 @@
 // *
 // *	possible events:
 // *		post_update - fires upon any update to the _src folder
-// * ———————————————————————————————————————————————————————— * //
+// * —————————————————————————————————————————s——————————————— * //
 var event_hooks = function () {}
 
 // vendor dependencies
@@ -20,7 +20,6 @@ event_hooks.prototype.execute_hook = function (hook_name) {
 	if (!enduro.config.events || !(hook_name in enduro.config.events)) {
 		return new Promise.resolve()
 	}
-	console.log('hook', hook_name)
 
 	return new Promise(function (resolve, reject) {
 		spawn(enduro.config.events[hook_name], [], function (err, stdout, stderr) {

@@ -6,7 +6,6 @@ var glob = require('glob')
 // local dependencies
 var local_enduro = require('../../index').quick_init()
 var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
 
 describe('Juicebox pull', function () {
@@ -25,7 +24,7 @@ describe('Juicebox pull', function () {
 					return file.match(/juicebox_pull_testfolder\/juicebox\/(.*)$/)[1]
 				})
 
-				expect(files).to.have.length.of(2)
+				expect(files).to.have.length.above(2)
 				expect(files).to.contain(hash + '.tar.gz')
 				expect(files).to.contain('juice.json')
 			})
@@ -62,7 +61,6 @@ describe('Juicebox pull', function () {
 		var files = glob.sync(path.join(staging_folder, '**/*'))
 		expect(files).to.have.length.to.be.above(5)
 	})
-
 
 	after(function () {
 		return test_utilities.after()

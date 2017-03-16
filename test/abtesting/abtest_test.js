@@ -10,6 +10,7 @@ var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
 var test_utilities = require('../libs/test_utilities')
 
 describe('A/B testing', function () {
+	this.timeout(7000)
 
 	before(function () {
 		return test_utilities.before(local_enduro, 'abtest')

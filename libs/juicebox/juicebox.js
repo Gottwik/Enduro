@@ -12,7 +12,6 @@ var tar = require('tar')
 var zlib = require('zlib')
 var path = require('path')
 var fs = require('fs')
-var request = require('request')
 var rimraf = require('rimraf')
 
 // local dependencies

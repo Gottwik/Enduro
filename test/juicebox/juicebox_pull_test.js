@@ -24,7 +24,7 @@ describe('Juicebox pull', function () {
 					return file.match(/juicebox_pull_testfolder\/juicebox\/(.*)$/)[1]
 				})
 
-				expect(files).to.have.length.above(2)
+				expect(files).to.have.length.above(1)
 				expect(files).to.contain(hash + '.tar.gz')
 				expect(files).to.contain('juice.json')
 			})

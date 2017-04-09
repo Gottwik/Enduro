@@ -45,6 +45,15 @@ clusters['project_created'] = (context) => {
 	logger.end()
 }
 
+clusters['bucket_access_denied'] = (context) => {
+	logger.err_blockStart('Bucket permissions not set')
+	logger.err('Bucket ' + enduro.config.s3.bucket + '\' permissions not set')
+	logger.err(' ')
+	logger.err('Please go to your aws console and make the bucket public')
+	logger.err('http://www.endurojs.com/docs/using-s3-as-filesystem#don-t-forget-to-set-bucket-s-permissions')
+	logger.err_blockEnd()
+}
+
 clusters['nonexistent_bucket'] = (context) => {
 	logger.err_blockStart('Bucket does not exist')
 	logger.err('Bucket ' + enduro.config.s3.bucket + ' does not exist')

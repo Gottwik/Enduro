@@ -1,7 +1,6 @@
 // * ———————————————————————————————————————————————————————— * //
 // * 	juicebox
-// *	deals with lack of persistent storage
-// *	TODO: juicefiles are public. maybe not the best idea
+// *	deals with lack of persistent storage plus adds backup and versioning
 // * ———————————————————————————————————————————————————————— * //
 var juicebox = function () {}
 
@@ -225,8 +224,7 @@ function get_latest_juice () {
 
 				// juicefile doesn't exist yet - let's create a new juicefile
 				if (body.indexOf('AccessDenied') + 1) {
-					juicefile_in_json = get_new_juicefile()
-
+					log_clusters.log('bucket_access_denied')
 				// bucket was not created
 				} else if (body.indexOf('NoSuchBucket') + 1) {
 					log_clusters.log('nonexistent_bucket')

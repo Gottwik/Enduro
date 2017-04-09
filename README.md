@@ -1,5 +1,7 @@
 # enduro.js
 
+[![Join the chat at https://gitter.im/Enduro-js/Lobby](https://badges.gitter.im/Enduro-js/Lobby.svg)](https://gitter.im/Enduro-js/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![npm version](https://badge.fury.io/js/enduro.svg)](https://badge.fury.io/js/enduro)
 [![npm](https://img.shields.io/npm/dm/enduro.svg?maxAge=2592000)](https://www.npmjs.com/package/enduro)
 [![Build Status](https://travis-ci.org/Gottwik/Enduro.svg?branch=master)](https://travis-ci.org/Gottwik/Enduro)

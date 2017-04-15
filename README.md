@@ -29,7 +29,7 @@ Complete, structured documentation is available here [http://www.endurojs.com/do
 1. Go in the newly created folder by running `cd myproject`.
 1. Start enduro in development mode by running simply `enduro`. Browser window should open with the website running.
 1. Done!
-2. Also, **Admin** interface is accessible at `localhost:5000`. Add admin user by running `enduro addadmin username password`.
+2. Also, **Admin** interface is accessible at `localhost:5000`. Add admin user by running `enduro admin add username password`.
 
 # Developing enduro
 I welcome you to develop enduro.js. Follow these guides to get you started quickly:

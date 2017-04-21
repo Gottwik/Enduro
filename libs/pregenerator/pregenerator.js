@@ -31,7 +31,7 @@ pregenerators['settings'] = function () {
 	return new Promise(function (resolve, reject) {
 
 		var settings_template_path = path.join(enduro.enduro_path, 'support_files', 'admin_settings_css.hbs')
-		var css_settings_destination_file_path = path.join(enduro.project_path, '_src', '_prebuilt', '_settings.css')
+		var css_settings_destination_file_path = path.join(enduro.project_path, enduro.config.build_folder, '_prebuilt', '_settings.css')
 
 		// just resolve if settings are not present
 		if (!enduro.cms_data.global.settings) {
@@ -62,7 +62,7 @@ pregenerators['settings'] = function () {
 pregenerators['cultures'] = function () {
 
 	return new Promise(function (resolve, reject) {
-		var cultures_json_destionation_path = path.join(enduro.project_path, '_src', '_prebuilt', '_cultures.json')
+		var cultures_json_destionation_path = path.join(enduro.project_path, enduro.config.build_folder, '_prebuilt', '_cultures.json')
 		var cultures = {}
 		babel.get_cultures()
 			.then((fetched_cultures) => {

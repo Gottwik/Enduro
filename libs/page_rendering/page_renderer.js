@@ -24,7 +24,7 @@ var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
 // *	@param {string} template_path - context - path to .hbs template file. absolute path
 // *	@param {string} context_path - context - path to context file, relative to /cms filder
 // *	@param {string} culture - context - culture name. destination path gets prefixed by culture
-// *	@param {string} dest_path - path to where the rendered .html file should be saved, relative to /_src folder.
+// *	@param {string} dest_path - path to where the rendered .html file should be saved, relative to /build folder.
 // *	@return {promise} -  empty payload
 // * ———————————————————————————————————————————————————————— * //
 page_renderer.prototype.render_file = function (template_path, context_path, culture, dest_path) {
@@ -44,10 +44,10 @@ page_renderer.prototype.render_file = function (template_path, context_path, cul
 			})
 			.then((output) => {
 				// Makes sure the target directory exists
-				flat_helpers.ensure_directory_existence(path.join(enduro.project_path, '_src', destination_path))
+				flat_helpers.ensure_directory_existence(path.join(enduro.project_path, enduro.config.build_folder, destination_path))
 					.then(function () {
 						// Attempts to export the template_path
-						fs.writeFile(path.join(enduro.project_path, '_src', destination_path + '.html'), output, function (err) {
+						fs.writeFile(path.join(enduro.project_path, enduro.config.build_folder, destination_path + '.html'), output, function (err) {
 							if (err) { return logger.err_block(err) }
 
 							logger.twolog('page ' + destination_path, 'created', 'enduro_render_events')

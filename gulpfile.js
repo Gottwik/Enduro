@@ -50,7 +50,7 @@ function browsersync_start (norefresh) {
 	logger.timestamp('browsersync started', 'enduro_events')
 	browser_sync.init({
 		server: {
-			baseDir: enduro.project_path + '/_src',
+			baseDir: enduro.project_path + '/' + enduro.config.build_folder,
 			middleware: function (req, res, next) {
 
 				if (req.url.slice(-1) == '/') {
@@ -155,7 +155,7 @@ gulp.task('iconfont', function (cb) {
 		.pipe(iconfontCss({
 			fontName: enduro.config.project_slug + '_icons',
 			path: 'assets/fonticons/icons_template.scss',
-			targetPath: '../../../_src/_prebuilt/icons.scss',
+			targetPath: '../../../' + enduro.config.build_folder + '/_prebuilt/icons.scss',
 			fontPath: '/assets/iconfont/',
 		}))
 		.pipe(iconfont({
@@ -171,14 +171,14 @@ gulp.task('iconfont', function (cb) {
 				glyph.unicode = glyph.unicode[0].charCodeAt(0).toString(16)
 				return glyph
 			})
-			var icon_json_file_path = enduro.project_path + '/_src/_prebuilt/icons.json'
+			var icon_json_file_path = enduro.project_path + '/' + enduro.config.build_folder + '/_prebuilt/icons.json'
 			flat_helpers.ensure_directory_existence(icon_json_file_path)
 				.then(() => {
 					fs.writeFileSync(icon_json_file_path, JSON.stringify(glyphs))
 					cb()
 				})
 		})
-		.pipe(gulp.dest('_src/assets/iconfont/'))
+		.pipe(gulp.dest(enduro.config.build_folder + '/assets/iconfont/'))
 })
 
 // * ———————————————————————————————————————————————————————— * //
@@ -192,7 +192,7 @@ gulp.task('hbs_templates', function () {
 		}))
 		.pipe(defineModule('amd'))
 		.pipe(flatten())
-		.pipe(gulp.dest(enduro.project_path + '/_src/assets/hbs_templates'))
+		.pipe(gulp.dest(enduro.project_path + '/' + enduro.config.build_folder + '/assets/hbs_templates'))
 })
 
 // * ———————————————————————————————————————————————————————— * //
@@ -205,7 +205,7 @@ gulp.task('hbs_helpers', function () {
 		}))
 		.pipe(concat('hbs_helpers.js'))
 		.pipe(wrap('define([],function() { return function(enduro.templating_engine) { \n\n<%= contents %>\n\n }})'))
-		.pipe(gulp.dest(enduro.project_path + '/_src/assets/hbs_helpers/'))
+		.pipe(gulp.dest(enduro.project_path + '/' + enduro.config.build_folder + '/assets/hbs_helpers/'))
 })
 
 // * ———————————————————————————————————————————————————————— * //

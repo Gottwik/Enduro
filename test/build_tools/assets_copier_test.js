@@ -18,19 +18,19 @@ describe('Static assets copier', function () {
 	})
 
 	it('should have copied all images files', function () {
-		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, '_src', 'assets', 'img', 'imagesgohere.txt'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'assets', 'img', 'imagesgohere.txt'))).to.be.ok
 	})
 
 	it('should have copied all fonts files', function () {
-		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, '_src', 'assets', 'fonts', 'fontsgohere.txt'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'assets', 'fonts', 'fontsgohere.txt'))).to.be.ok
 	})
 
 	it('should have copied all javascript files', function () {
-		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, '_src', 'assets', 'js', 'main.js'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'assets', 'js', 'main.js'))).to.be.ok
 	})
 
 	it('should have copied all admin_extensions files', function () {
-		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, '_src', 'assets', 'admin_extensions', 'sample_extension.js'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'assets', 'admin_extensions', 'sample_extension.js'))).to.be.ok
 	})
 
 	// navigate back to testfolder

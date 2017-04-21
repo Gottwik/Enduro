@@ -180,7 +180,7 @@ pagelist_generator.prototype.get_cms_list = function () {
 // *	@return {promise} - promise with cmslist
 // * ———————————————————————————————————————————————————————— * //
 pagelist_generator.prototype.get_pregenerated_pagelist_path = function () {
-	return path.join(enduro.project_path, '_src', '_prebuilt', 'cmslist.json')
+	return path.join(enduro.project_path, enduro.config.build_folder, '_prebuilt', 'cmslist.json')
 }
 
 module.exports = new pagelist_generator()

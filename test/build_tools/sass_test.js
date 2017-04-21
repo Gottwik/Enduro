@@ -17,11 +17,11 @@ describe('Sass build tool', function () {
 	})
 
 	it('should create css file for every scss file in root assets/css folder', function () {
-		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, '_src', 'assets', 'css', 'test.css'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'assets', 'css', 'test.css'))).to.be.ok
 	})
 
 	it('should compile simple scss file', function () {
-		return test_utilities.request_file(path.join('_src', 'assets', 'css', 'test.css'))
+		return test_utilities.request_file(path.join(enduro.config.build_folder, 'assets', 'css', 'test.css'))
 			.then((file_contents) => {
 				expect(file_contents).to.contain('p {')
 					.and.to.contain('color: #f00;')

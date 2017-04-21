@@ -23,7 +23,7 @@ filesystem.prototype.init = function () {
 filesystem.prototype.upload = function (filename, path_to_file) {
 	return new Promise(function (resolve, reject) {
 		var destination_path = path.join(enduro.project_path, UPLOADS_FOLDER, filename)
-		var destination_src_path = path.join(enduro.project_path, '_src', UPLOADS_FOLDER, filename)
+		var destination_src_path = path.join(enduro.project_path, enduro.config.build_folder, UPLOADS_FOLDER, filename)
 		var destination_url = '/' + UPLOADS_FOLDER + '/' + filename
 
 		flat_helpers.ensure_directory_existence(destination_path, destination_src_path)

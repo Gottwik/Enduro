@@ -17,10 +17,11 @@ var default_configuration = {
 		project_slug: 'en',
 		render_templates: true,
 		juicebox_enabled: false,
-		admin_folder: path.join(enduro.project_path, 'node_modules', 'enduro_admin', '_src'),
+		admin_folder: path.join(enduro.project_path, 'node_modules', 'enduro_admin', 'build'),
 		admin_secure_file: '.users',
 		babel_file: 'config/babel',
 		filesystem: 'local',
+		build_folder: 'build',
 		port: 5000
 	},
 	default_secret_configuration: {}
@@ -30,7 +31,7 @@ var default_configuration = {
 // checks if admin folder exists in local node_modules and change it to enduro's if it doesn't
 // this is useful if enduro is installed globally, otherwise npm install would be needed to get the admin
 if (!flat_helpers.dir_exists_sync(default_configuration.default_configuration.admin_folder)) {
-	default_configuration.default_configuration.admin_folder = path.join(enduro.enduro_path, 'node_modules', 'enduro_admin', '_src')
+	default_configuration.default_configuration.admin_folder = path.join(enduro.enduro_path, 'node_modules', 'enduro_admin', 'build')
 }
 
 module.exports = default_configuration

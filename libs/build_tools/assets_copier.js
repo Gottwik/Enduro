@@ -14,7 +14,7 @@ var STATIC_LOCATIONS = ['assets/js', 'assets/img', 'assets/vendor', 'assets/font
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	assets_copier
-// *	copies static assets such as images and fonts to _src folder
+// *	copies static assets such as images and fonts to the build folder
 // * ———————————————————————————————————————————————————————— * //
 var assets_copier = function () {}
 
@@ -42,8 +42,7 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 
 			// stores from and to paths
 			var copy_from = path.join(enduro.project_path, STATIC_LOCATIONS[s])
-			var copy_to = path.join(enduro.project_path, '_src', STATIC_LOCATIONS[s])
-
+			var copy_to = path.join(enduro.project_path, enduro.config.build_folder, STATIC_LOCATIONS[s])
 			// watch_for_static_change(copy_from, copy_to, browser_sync)
 
 			// adds copy promise to the list
@@ -70,7 +69,7 @@ assets_copier.prototype.watch = function (gulp, browser_sync) {
 
 			// stores from and to paths
 			var copy_from = path.join(enduro.project_path, STATIC_LOCATIONS[s])
-			var copy_to = path.join(enduro.project_path, '_src', STATIC_LOCATIONS[s])
+			var copy_to = path.join(enduro.project_path, enduro.config.build_folder, STATIC_LOCATIONS[s])
 
 			watch_for_static_change(copy_from, copy_to, browser_sync)
 

@@ -78,10 +78,10 @@ enduro_server.prototype.run = function (server_setup) {
 
 		logger.timestamp('heroku-debug - admin folder: ' + enduro.config.admin_folder, 'heroku_debug')
 
-		// serve static files from /_src folder
+		// serve static files from /build folder
 		app.use('/admin', express.static(enduro.config.admin_folder))
-		app.use('/assets', express.static(enduro.project_path + '/_src/assets'))
-		app.use('/_prebuilt', express.static(enduro.project_path + '/_src/_prebuilt'))
+		app.use('/assets', express.static(enduro.project_path + '/' + enduro.config.build_folder + '/assets'))
+		app.use('/_prebuilt', express.static(enduro.project_path + '/' + enduro.config.build_folder + '/_prebuilt'))
 		app.use('/remote', express.static(enduro.project_path + '/remote'))
 
 		// handle for executing enduro refresh from client
@@ -122,7 +122,7 @@ enduro_server.prototype.run = function (server_setup) {
 					})
 					.then((requested_url) => {
 						// serves the requested file
-						res.sendFile(enduro.project_path + '/_src' + requested_url + '.html')
+						res.sendFile(enduro.project_path + '/' + enduro.config.build_folder + requested_url + '.html')
 					}, () => {
 						res.sendFile(enduro.config.admin_folder + '/enduro_login.html')
 					})

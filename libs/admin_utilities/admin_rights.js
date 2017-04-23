@@ -4,8 +4,6 @@
 // * 	activities = ['read', 'write', 'temp', 'delete']
 // * 	users = ['', 'demo']
 // *
-// *
-// *
 // * ———————————————————————————————————————————————————————— * //
 var admin_rights = function () {}
 

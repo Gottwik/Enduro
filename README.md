@@ -1,5 +1,6 @@
 # enduro.js
 
+[![Join the chat at https://gitter.im/Enduro-js/Lobby](https://badges.gitter.im/Enduro-js/Lobby.svg)](https://gitter.im/Enduro-js/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![npm version](https://badge.fury.io/js/enduro.svg)](https://badge.fury.io/js/enduro)
 [![npm](https://img.shields.io/npm/dm/enduro.svg?maxAge=2592000)](https://www.npmjs.com/package/enduro)
 [![Build Status](https://travis-ci.org/Gottwik/Enduro.svg?branch=master)](https://travis-ci.org/Gottwik/Enduro)
@@ -28,7 +29,7 @@ Complete, structured documentation is available here [http://www.endurojs.com/do
 1. Go in the newly created folder by running `cd myproject`.
 1. Start enduro in development mode by running simply `enduro`. Browser window should open with the website running.
 1. Done!
-2. Also, **Admin** interface is accessible at `localhost:5000`. Add admin user by running `enduro addadmin username password`.
+2. Also, **Admin** interface is accessible at `localhost:5000`. Add admin user by running `enduro admin add username password`.
 
 # Developing enduro
 I welcome you to develop enduro.js. Follow these guides to get you started quickly:

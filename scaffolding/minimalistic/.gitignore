@@ -1,4 +1,4 @@
-/build/*
+/_generated/*
 /assets/vendor
 /node_modules
 /assets/css/sprites

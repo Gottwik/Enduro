@@ -9,6 +9,7 @@ var path = require('path')
 
 // local dependencies
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var enduro_local_admin_path = path.join(enduro.project_path, 'node_modules', 'enduro_admin');
 
 // main config object
 var default_configuration = {
@@ -17,7 +18,7 @@ var default_configuration = {
 		project_slug: 'en',
 		render_templates: true,
 		juicebox_enabled: false,
-		admin_folder: path.join(enduro.project_path, 'node_modules', 'enduro_admin', 'build'),
+		admin_folder: path.join(enduro_local_admin_path, 'build'),
 		admin_secure_file: '.users',
 		babel_file: 'config/babel',
 		filesystem: 'local',
@@ -31,7 +32,15 @@ var default_configuration = {
 // checks if admin folder exists in local node_modules and change it to enduro's if it doesn't
 // this is useful if enduro is installed globally, otherwise npm install would be needed to get the admin
 if (!flat_helpers.dir_exists_sync(default_configuration.default_configuration.admin_folder)) {
-	default_configuration.default_configuration.admin_folder = path.join(enduro.enduro_path, 'node_modules', 'enduro_admin', 'build')
+	var enduro_global_admin_path = path.join(enduro.enduro_path, 'node_modules', 'enduro_admin');
+	// First check the old naming convention
+	if (flat_helpers.dir_exists_sync(path.join(enduro_local_admin_path, '_src'))) {
+		default_configuration.default_configuration.admin_folder = path.join(enduro_local_admin_path, '_src');	
+	} else if (flat_helpers.dir_exists_sync(path.join(enduro_global_admin_path, 'build'))){
+		default_configuration.default_configuration.admin_folder = path.join(enduro_global_admin_path, 'build');
+	} else {
+		default_configuration.default_configuration.admin_folder = path.join(enduro_global_admin_path, '_src');
+	}
 }
 
 module.exports = default_configuration

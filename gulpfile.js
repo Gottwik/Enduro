@@ -102,7 +102,7 @@ function browsersync_start (norefresh) {
 	// the watch kindof stayed in memory and screwed up all other tests
 	if (!enduro.flags.nowatch) {
 
-		// Watch for sass
+		// Watch for sass or less changes
 		watch([
 			enduro.project_path + '/assets/css/**/*',
 			enduro.project_path + '/assets/fonticons/*',

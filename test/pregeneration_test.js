@@ -23,7 +23,7 @@ describe('Pregeneration', function () {
 
 	it('_settings.css should be pregenerated', function (done) {
 
-		var settings_css_filepath = path.join(enduro.project_path, '_src', '_prebuilt', '_settings.css')
+		var settings_css_filepath = path.join(enduro.project_path, enduro.config.build_folder, '_prebuilt', '_settings.css')
 		expect(flat_helpers.file_exists_sync(settings_css_filepath)).to.be.ok
 
 		fs.readFile(settings_css_filepath, 'utf8', function (err, data) {
@@ -35,7 +35,7 @@ describe('Pregeneration', function () {
 	})
 
 	it('_cultures.json should be pregenerated', function () {
-		var cultures_json_filepath = path.join(enduro.project_path, '_src', '_prebuilt', '_cultures.json')
+		var cultures_json_filepath = path.join(enduro.project_path, enduro.config.build_folder, '_prebuilt', '_cultures.json')
 		expect(flat_helpers.file_exists_sync(cultures_json_filepath)).to.be.ok
 	})
 

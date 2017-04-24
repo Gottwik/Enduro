@@ -17,9 +17,9 @@ describe('Spritesheet build tool', function () {
 	})
 
 	it('should create css file for every scss file in root assets/css folder', function () {
-		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, '_src', '_prebuilt', 'sprites.scss'))).to.be.ok
-		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, '_src', 'assets', 'spriteicons', 'spritesheet.png'))).to.be.ok
-		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, '_src', 'assets', 'spriteicons', 'spritesheet@2x.png'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, '_prebuilt', 'sprites.scss'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'assets', 'spriteicons', 'spritesheet.png'))).to.be.ok
+		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'assets', 'spriteicons', 'spritesheet@2x.png'))).to.be.ok
 	})
 
 	after(function () {

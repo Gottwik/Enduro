@@ -22,12 +22,12 @@ sprite_icons.prototype.init = function (gulp, browser_sync) {
 
 		return gulp.src(enduro.project_path + '/assets/spriteicons/*.png')
 			.pipe(spritesmith({
-				imgName: '_src/assets/spriteicons/spritesheet.png',
-				cssName: '_src/_prebuilt/sprites.scss',
+				imgName: enduro.config.build_folder + '/assets/spriteicons/spritesheet.png',
+				cssName: enduro.config.build_folder + '/_prebuilt/sprites.scss',
 				padding: 3,
 				cssTemplate: path.join(enduro.enduro_path, 'support_files', 'sprite_generator.handlebars'),
 				retinaSrcFilter: [path.join(enduro.project_path, 'assets/spriteicons/*@2x.png')],
-				retinaImgName: '_src/assets/spriteicons/spritesheet@2x.png',
+				retinaImgName: enduro.config.build_folder + '/assets/spriteicons/spritesheet@2x.png',
 			}))
 			.pipe(gulp.dest(enduro.project_path))
 

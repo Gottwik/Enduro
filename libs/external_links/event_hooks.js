@@ -4,7 +4,7 @@
 // *	triggered by enduro
 // *
 // *	possible events:
-// *		post_update - fires upon any update to the _src folder
+// *		post_update - fires upon any update to the build folder
 // * —————————————————————————————————————————s——————————————— * //
 var event_hooks = function () {}
 

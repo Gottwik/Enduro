@@ -40,7 +40,7 @@ sass_handler.prototype.init = function (gulp, browser_sync) {
 				cascade: false,
 			}))
 			.pipe(sourcemaps.write())
-			.pipe(gulp.dest(enduro.project_path + '/_src/assets/css'))
+			.pipe(gulp.dest(enduro.project_path + '/' + enduro.config.build_folder + '/assets/css'))
 			.pipe(browser_sync.stream())
 			.on('end', () => {
 				logger.timestamp('Sass compiling finished', 'enduro_events')

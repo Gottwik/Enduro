@@ -43,7 +43,7 @@
     "multi-glob": "^1.0.1",
     "ncp": "^2.0.0",
     "npm": "^4.2.0",
-    "opn": "^4.0.2",
+    "opn": "^5.0.0",
     "password-hash": "^1.2.2",
     "promised-handlebars": "git+https://github.com/Gottwik/promised-handlebars.git",
     "request": "^2.72.0",

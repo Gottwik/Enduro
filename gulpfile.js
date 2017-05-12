@@ -23,7 +23,7 @@ var event_hooks = require(enduro.enduro_path + '/libs/external_links/event_hooks
 var pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator').init(gulp)
 var assets_copier = require(enduro.enduro_path + '/libs/build_tools/assets_copier').init(gulp, browser_sync)
 var assets_copier_watch = require(enduro.enduro_path + '/libs/build_tools/assets_copier').watch(gulp, browser_sync)
-var sass_handler = require(enduro.enduro_path + '/libs/build_tools/sass_handler').init(gulp, browser_sync)
+var css_handler = require(enduro.enduro_path + '/libs/build_tools/css_handler').init(gulp, browser_sync)
 var sprite_icons = require(enduro.enduro_path + '/libs/build_tools/sprite_icons').init(gulp, browser_sync)
 
 gulp.enduro_refresh = function (callback) {
@@ -102,13 +102,13 @@ function browsersync_start (norefresh) {
 	// the watch kindof stayed in memory and screwed up all other tests
 	if (!enduro.flags.nowatch) {
 
-		// Watch for sass
+		// Watch for sass or less changes
 		watch([
 			enduro.project_path + '/assets/css/**/*',
 			enduro.project_path + '/assets/fonticons/*',
 			'!' + enduro.project_path + '/assets/css/sprites/*'],
 			() => {
-				gulp.start(sass_handler, () => {
+				gulp.start(css_handler, () => {
 					event_hooks.execute_hook('post_update')
 				})
 			})
@@ -117,7 +117,7 @@ function browsersync_start (norefresh) {
 		watch([enduro.project_path + '/assets/hbs_helpers/**/*'], () => { gulp.start('hbs_helpers') })
 
 		// Watch for png icons
-		watch([enduro.project_path + '/assets/spriteicons/*.png'], () => { gulp.start('sass') })
+		watch([enduro.project_path + '/assets/spriteicons/*.png'], () => { gulp.start(css_handler) })
 
 		// Watch for font icon
 		watch([enduro.project_path + '/assets/fonticons/*.svg'], () => {
@@ -218,7 +218,7 @@ gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 // * 	Production Task
 // *	No browser_sync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', [sass_handler, 'hbs_templates', assets_copier, 'hbs_helpers'])
+gulp.task('production', [css_handler, 'hbs_templates', assets_copier, 'hbs_helpers'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task

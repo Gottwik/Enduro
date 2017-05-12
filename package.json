@@ -80,7 +80,9 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "coveralls": "^2.11.8",
+    "gulp-less": "^3.3.0",
     "istanbul": "^0.4.2",
+    "less-plugin-autoprefix": "^1.5.1",
     "mocha": "^3.0.2",
     "mocha-lcov-reporter": "^1.2.0"
   },

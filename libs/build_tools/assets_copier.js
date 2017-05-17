@@ -23,7 +23,7 @@ var assets_copier = function () {}
 // *
 // * 	registeres copying task
 // *	@param {object} gulp - gulp to register the task into
-// *	@return {} - will call an empty callback
+// *	@return {string} - name of the gulp task
 // * ———————————————————————————————————————————————————————— * //
 assets_copier.prototype.init = function (gulp, browser_sync) {
 	var self = this
@@ -37,18 +37,12 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 		// will store promises
 		var copy_actions = []
 
-		// goes through all the static locations
-		for (s in STATIC_LOCATIONS) {
+		self.get_copy_from_and_copy_to_pairs()
+			.map((pair) => {
+				copy_actions.push(copy_if_exist(pair.copy_from, pair.copy_to))
+			})
 
-			// stores from and to paths
-			var copy_from = path.join(enduro.project_path, STATIC_LOCATIONS[s])
-			var copy_to = path.join(enduro.project_path, enduro.config.build_folder, STATIC_LOCATIONS[s])
-			// watch_for_static_change(copy_from, copy_to, browser_sync)
-
-			// adds copy promise to the list
-			copy_actions.push(copy_if_exist(copy_from, copy_to))
-		}
-
+		// also copy /assets/root into the generated root folder
 		copy_actions.push(self.copy_to_root_folder())
 
 		// execute callback when all promises are resolved
@@ -59,6 +53,14 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 	return assets_copier_name
 }
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	watch
+// *
+// * 	starts to watch for changes in the assets folders
+// *	@param {object} gulp - gulp to register the task into
+// *	@param {object} browser_sync - browser_sync object to refresh the browser on file update
+// *	@return {string} - name of the gulp task
+// * ———————————————————————————————————————————————————————— * //
 assets_copier.prototype.watch = function (gulp, browser_sync) {
 
 	var assets_copier_watch_name = 'assets_copier_watch'
@@ -66,23 +68,34 @@ assets_copier.prototype.watch = function (gulp, browser_sync) {
 	// registers task to provided gulp
 	gulp.task(assets_copier_watch_name, function () {
 
-		// goes through all the static locations
-		for (s in STATIC_LOCATIONS) {
-
-			// stores from and to paths
-			var copy_from = path.join(enduro.project_path, STATIC_LOCATIONS[s])
-			var copy_to = path.join(enduro.project_path, enduro.config.build_folder, STATIC_LOCATIONS[s])
-
-			watch_for_static_change(copy_from, copy_to, browser_sync)
-
-		}
+		self.get_copy_from_and_copy_to_pairs()
+			.map((pair) => {
+				watch_for_static_change(pair.copy_from, pair.copy_to, browser_sync)
+			})
 	})
 
 	return assets_copier_watch_name
 }
 
 // * ———————————————————————————————————————————————————————— * //
+// * 	get_copy_from_and_copy_to_pairs
+// *
+// *	will generate absolute paths to both source and destination
+// *	static assets folders
+// * ———————————————————————————————————————————————————————— * //
+assets_copier.prototype.get_copy_from_and_copy_to_pairs = () => {
+	return STATIC_LOCATIONS
+		.map((static_location) => {
+			return {
+				copy_from: path.join(enduro.project_path, static_location),
+				copy_to: path.join(enduro.project_path, enduro.config.build_folder, static_location)
+			}
+		})
+}
+
+// * ———————————————————————————————————————————————————————— * //
 // * 	copy_root_folder
+// *
 // *	will copy files from /assets/root to /_generated root folder
 // *	this is useful for robots.txt or other files that just
 // *	have to be served from the root folder

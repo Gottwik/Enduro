@@ -45,14 +45,13 @@ test_utilities.prototype.after = function () {
 		})
 }
 
-
 test_utilities.prototype.request_file = function (url) {
 	if (flat_helpers.is_local(url)) {
 		url = path.join(enduro.project_path, url)
 	}
 	return remote_handler.request_file(url)
 		.catch((error) => {
-			return new Promise.reject()
+			return new Promise.reject(error)
 		})
 		.spread((file_contents, response) => {
 			return file_contents

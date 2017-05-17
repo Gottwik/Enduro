@@ -1,11 +1,11 @@
 // vendor dependencies
-var less = require('gulp-less');
-var sourcemaps = require('gulp-sourcemaps');
-var LessAutoPrefix = require('less-plugin-autoprefix');
-var autoprefixer = new LessAutoPrefix({ browsers: [ 'last 5 versions' ] });
+var less = require('gulp-less')
+var sourcemaps = require('gulp-sourcemaps')
+var LessAutoPrefix = require('less-plugin-autoprefix')
+var autoprefixer = new LessAutoPrefix({ browsers: [ 'last 5 versions' ] })
 
 // local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger');
+var logger = require(enduro.enduro_path + '/libs/logger')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Less Task
@@ -19,12 +19,12 @@ var less_handler = function () {}
 less_handler.prototype.init = function (gulp, browser_sync) {
 
 	// stores task name
-	var less_handler_task_name = 'less';
+	var less_handler_task_name = 'less'
 
 	// registeres task to provided gulp
 	gulp.task(less_handler_task_name, function () {
 
-		logger.timestamp('Less compiling started', 'enduro_events');
+		logger.timestamp('Less compiling started', 'enduro_events')
 
 		return gulp.src(enduro.project_path + '/assets/css/*.less')
 			.pipe(sourcemaps.init())
@@ -43,10 +43,10 @@ less_handler.prototype.init = function (gulp, browser_sync) {
 			.pipe(browser_sync.stream())
 			.on('end', () => {
 				logger.timestamp('Less compiling finished', 'enduro_events')
-			});
-	});
+			})
+	})
 
-	return less_handler_task_name;
+	return less_handler_task_name
 }
 
-module.exports = new less_handler();
+module.exports = new less_handler()

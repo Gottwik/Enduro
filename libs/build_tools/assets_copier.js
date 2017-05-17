@@ -26,13 +26,13 @@ var assets_copier = function () {}
 // *	@return {} - will call an empty callback
 // * ———————————————————————————————————————————————————————— * //
 assets_copier.prototype.init = function (gulp, browser_sync) {
+	var self = this
 
 	// stores task name
 	var assets_copier_name = 'assets_copier'
 
 	// registeres task to provided gulp
 	gulp.task(assets_copier_name, function () {
-
 
 		// will store promises
 		var copy_actions = []
@@ -49,6 +49,8 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 			copy_actions.push(copy_if_exist(copy_from, copy_to))
 		}
 
+		copy_actions.push(self.copy_to_root_folder())
+
 		// execute callback when all promises are resolved
 		return Promise.all(copy_actions)
 
@@ -61,7 +63,7 @@ assets_copier.prototype.watch = function (gulp, browser_sync) {
 
 	var assets_copier_watch_name = 'assets_copier_watch'
 
-	// registeres task to provided gulp
+	// registers task to provided gulp
 	gulp.task(assets_copier_watch_name, function () {
 
 		// goes through all the static locations
@@ -79,7 +81,28 @@ assets_copier.prototype.watch = function (gulp, browser_sync) {
 	return assets_copier_watch_name
 }
 
-// helper function that copies directory if it exists
+// * ———————————————————————————————————————————————————————— * //
+// * 	copy_root_folder
+// *	will copy files from /assets/root to /_generated root folder
+// *	this is useful for robots.txt or other files that just
+// *	have to be served from the root folder
+// * ———————————————————————————————————————————————————————— * //
+assets_copier.prototype.copy_to_root_folder = () => {
+	// stores from and to paths
+	var copy_from = path.join(enduro.project_path, 'assets', 'root')
+	var copy_to = path.join(enduro.project_path, enduro.config.build_folder)
+
+	return copy_if_exist(copy_from, copy_to)
+}
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	copy_if_exist
+// *
+// * 	helper function that copies directory if it exists
+// *	@param {string} copy_from - path of the folder to be copied
+// *	@param {string} copy_to - destination path for the folder to be copied into
+// *	@return {Promise} - resolved if copied successfully
+// * ———————————————————————————————————————————————————————— * //
 function copy_if_exist (copy_from, copy_to) {
 	return flat_helpers.dir_exists(copy_from)
 		.then(() => {

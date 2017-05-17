@@ -51,7 +51,11 @@ page_queue_generator.prototype.generate_pagelist = function () {
 						page_to_render.culture = enduro.config.cultures[c]
 
 						// destination path
-						page_to_render.destination_path = page_to_render.context_file
+						if (page_to_render.context_file.endsWith('index')) {
+							page_to_render.destination_path = page_to_render.context_file;
+						} else {
+							page_to_render.destination_path = page_to_render.context_file + '/index';
+						}
 
 						// true if page is generator
 						page_to_render.generator = flat.is_generator(page_to_render.context_file)

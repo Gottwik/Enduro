@@ -16,7 +16,8 @@ remote_handler.prototype.upload_to_filesystem_by_file = function (file, timestam
 
 	// apply timestamp to file's name if it is requested by timestamp parameter
 	var filename = timestamp ? timestamp_filename(file.name) : file.name
-
+	// normalize filename (ascii only, no whitespace)
+	filename = filename.replace(/[^\x00-\x7F]|\ /ig, '')
 	return enduro.filesystem.upload('direct_uploads/' + filename, file.path)
 }
 

@@ -109,9 +109,13 @@ enduro_server.prototype.run = function (server_setup) {
 
 						var requested_url = req.url
 
+						let a = requested_url.split('/').filter(x => x.length);
 						// serves index.html when empty or culture-only url is provided
-						if (requested_url.length <= 1 || (requested_url.split('/')[1] && enduro.config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2)) {
-							requested_url += requested_url.slice(-1) == '/' ? 'index' : '/index'
+						if (requested_url.length <= 1 || 
+							(requested_url.split('/')[1] && enduro.config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2) ||
+							a[a.length - 1].indexOf('.') === -1
+							) {
+							requested_url += requested_url.slice(-1) === '/' ? 'index' : '/index'
 						}
 
 						// applies ab testing

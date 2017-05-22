@@ -4,7 +4,7 @@
   "description": "Minimalistic, lean & mean static page generator / cms",
   "main": "index.js",
   "dependencies": {
-    "async": "^2.0.0-rc.2",
+    "async": "2.4.0",
     "bluebird": "^3.1.5",
     "browser-sync": "^2.11.1",
     "chalk": "^1.1.1",

@@ -62,18 +62,18 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 // *	@return {string} - name of the gulp task
 // * ———————————————————————————————————————————————————————— * //
 assets_copier.prototype.watch = function (gulp, browser_sync) {
+	var self = this
 
 	var assets_copier_watch_name = 'assets_copier_watch'
 
 	// registers task to provided gulp
 	gulp.task(assets_copier_watch_name, function () {
-
 		self.get_copy_from_and_copy_to_pairs()
 			.map((pair) => {
 				watch_for_static_change(pair.copy_from, pair.copy_to, browser_sync)
 			})
+		return Promise.resolve()
 	})
-
 	return assets_copier_watch_name
 }
 

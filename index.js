@@ -4,7 +4,6 @@
 // * ———————————————————————————————————————————————————————— * //
 
 // vendor dependencies
-var path = require('path')
 var Promise = require('bluebird')
 
 var linker = require('./libs/linker/linker')
@@ -19,7 +18,6 @@ enduro_instance.prototype.quick_init = function () {
 
 	return this
 }
-
 
 enduro_instance.prototype.init = function (project_path) {
 
@@ -36,6 +34,5 @@ enduro_instance.prototype.init = function (project_path) {
 		linker.read_config()
 	])
 }
-
 
 module.exports = new enduro_instance()

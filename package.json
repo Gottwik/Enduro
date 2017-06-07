@@ -36,7 +36,7 @@
     "gulp-wrap": "^0.13.0",
     "gulp.spritesmith": "^6.2.0",
     "handlebars": "^4.0.5",
-    "inquirer": "^3.0.1",
+    "inquirer": "3.0.6",
     "lodash": "^4.15.0",
     "mkdirp": "^0.5.1",
     "moment": "^2.13.0",

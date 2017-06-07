@@ -19,6 +19,20 @@ Enduro is minimalistic, lean & mean, node.js cms. See more at [enduro.js website
 ## Documentation
 Complete, structured documentation is available here [http://www.endurojs.com/docs](http://www.endurojs.com/docs)
 
+### CSS Pre-processors
+
+Instead of using SASS, you can use the LESS pre-processor instead. To do this, set a `less` object in your config file. This consists of a `paths` array which is the same as one defined here: http://lesscss.org/#using-less
+
+``` json
+{
+    "less": {
+        "paths": []
+    }
+}
+```
+
+Once that is set, simply add a `.less` file in your `assets/css` folder.
+
 ## Getting started
 
 ![enduro create](http://i.imgur.com/DtxhA7z.gif)

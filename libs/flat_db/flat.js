@@ -162,13 +162,14 @@ flat.prototype.is_generator = function (flat_object_path) {
 // *	@return {string} - returns relative url to the file
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.url_from_filename = function (flat_object_path) {
-
 	if (flat_object_path == 'index') {
 		return ''
 	}
 
 	if (this.is_generator(flat_object_path)) {
-		return flat_object_path.split('/').slice(1).join('/')
+		var temp_path = flat_object_path.split('/').slice(1);
+		temp_path.push('index');
+		return temp_path.join('/');
 	}
 
 	return flat_object_path

@@ -1,6 +1,6 @@
 {
   "name": "enduro",
-  "version": "1.4.16",
+  "version": "1.4.18",
   "description": "Minimalistic, lean & mean static page generator / cms",
   "main": "index.js",
   "dependencies": {
@@ -16,11 +16,11 @@
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "extend": "^3.0.0",
-    "fs-extra": "^2.0.0",
+    "fs-extra": "^3.0.0",
     "fstream": "^1.0.10",
     "glob": "^7.0.3",
     "glob-promise": "^3.1.0",
-    "gulp": "^3.9.0",
+    "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.6.0",
     "gulp-define-module": "^0.1.4",
@@ -42,8 +42,8 @@
     "moment": "^2.13.0",
     "multi-glob": "^1.0.1",
     "ncp": "^2.0.0",
-    "npm": "^4.2.0",
     "opn": "^5.0.0",
+    "npm": "^5.0.3",
     "password-hash": "^1.2.2",
     "promised-handlebars": "git+https://github.com/Gottwik/promised-handlebars.git",
     "request": "^2.72.0",
@@ -80,7 +80,9 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "coveralls": "^2.11.8",
+    "gulp-less": "^3.3.0",
     "istanbul": "^0.4.2",
+    "less-plugin-autoprefix": "^1.5.1",
     "mocha": "^3.0.2",
     "mocha-lcov-reporter": "^1.2.0"
   },

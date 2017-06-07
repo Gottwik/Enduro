@@ -9,7 +9,6 @@ var test_utilities = require('../libs/test_utilities')
 
 describe('Static assets copier', function () {
 
-
 	before(function () {
 		return test_utilities.before(local_enduro, 'asset_copier_testfolder')
 			.then(() => {
@@ -33,6 +32,10 @@ describe('Static assets copier', function () {
 		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'assets', 'admin_extensions', 'sample_extension.js'))).to.be.ok
 	})
 
+	it('should have copied files to root', function () {
+		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'test.txt'))).to.be.ok
+	})
+
 	// navigate back to testfolder
 	after(function () {
 		return enduro.actions.stop_server()
@@ -41,4 +44,3 @@ describe('Static assets copier', function () {
 			})
 	})
 })
-

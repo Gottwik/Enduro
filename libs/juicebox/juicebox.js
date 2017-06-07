@@ -228,6 +228,8 @@ function get_latest_juice () {
 				// bucket was not created
 				} else if (body.indexOf('NoSuchBucket') + 1) {
 					log_clusters.log('nonexistent_bucket')
+				} else {
+					console.log(body)
 				}
 				process.exit()
 			}

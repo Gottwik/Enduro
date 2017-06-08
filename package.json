@@ -56,7 +56,8 @@
     "tar": "^2.2.1",
     "urldecode": "^1.0.1",
     "yargs": "^8.0.1",
-    "gulp-less": "^3.3.0"
+    "gulp-less": "^3.3.0",
+    "less-plugin-autoprefix": "^1.5.1"
   },
   "scripts": {
     "test": "mocha --recursive --bail",
@@ -82,7 +83,6 @@
     "chai": "^3.5.0",
     "coveralls": "^2.11.8",
     "istanbul": "^0.4.2",
-    "less-plugin-autoprefix": "^1.5.1",
     "mocha": "^3.0.2",
     "mocha-lcov-reporter": "^1.2.0"
   },

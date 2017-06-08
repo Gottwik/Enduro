@@ -12,7 +12,7 @@ var global_data = require(enduro.enduro_path + '/libs/global_data')
 var helper_handler = require(enduro.enduro_path + '/libs/helper_handler')
 var components_handler = require(enduro.enduro_path + '/libs/components_handler')
 var enduro_render = require(enduro.enduro_path + '/libs/enduro_render')
-var gulp = require(enduro.enduro_path + '/gulpfile')
+var gulp_tasks = require(enduro.enduro_path + '/libs/build_tools/gulp_tasks')
 var pregenerator = require(enduro.enduro_path + '/libs/pregenerator/pregenerator')
 var abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
 var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
@@ -53,7 +53,7 @@ action.prototype.action = function (dont_do_juice_pull) {
 		})
 		.then(() => {
 			return new Promise(function (resolve, reject) {
-				return gulp.start('preproduction', () => {
+				return gulp_tasks.start('preproduction', () => {
 					resolve()
 				})
 			})
@@ -63,7 +63,7 @@ action.prototype.action = function (dont_do_juice_pull) {
 		})
 		.then(() => {
 			return new Promise(function (resolve, reject) {
-				return gulp.start('production', () => {
+				return gulp_tasks.start('production', () => {
 					resolve()
 				})
 			})

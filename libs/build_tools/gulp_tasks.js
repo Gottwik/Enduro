@@ -1,3 +1,7 @@
+// * ———————————————————————————————————————————————————————— * //
+// *	gulp tasks
+// *	defines gulp tasks
+// * ———————————————————————————————————————————————————————— * //
 
 // vendor dependencies
 var Promise = require('bluebird')

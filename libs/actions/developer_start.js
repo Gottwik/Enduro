@@ -9,8 +9,8 @@ var extend = require('extend')
 
 var global_data = require(enduro.enduro_path + '/libs/global_data')
 var log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
-var enduro_server = require(enduro.enduro_path + '/server')
-var gulp = require(enduro.enduro_path + '/gulpfile')
+var enduro_server = require(enduro.enduro_path + '/libs/enduro_server/enduro_server')
+var gulp_tasks = require(enduro.enduro_path + '/libs/build_tools/gulp_tasks')
 var logger = require(enduro.enduro_path + '/libs/logger')
 
 action.prototype.action = function (config) {
@@ -33,7 +33,7 @@ action.prototype.action = function (config) {
 
 				logger.timestamp('Render finished', 'enduro_events')
 
-				gulp.start(enduro.flags.norefresh ? 'default_norefresh' : 'default', () => {
+				gulp_tasks.start(enduro.flags.norefresh ? 'default_norefresh' : 'default', () => {
 					if (!enduro.flags.noadmin && !prevent_double_callback) {
 						prevent_double_callback = true
 						logger.timestamp('production server starting', 'enduro_events')

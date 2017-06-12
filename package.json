@@ -90,6 +90,6 @@
     "url": "https://github.com/Gottwik/Enduro/issues"
   },
   "engines": {
-    "node": ">= 4"
+    "node": ">= 6"
   }
 }

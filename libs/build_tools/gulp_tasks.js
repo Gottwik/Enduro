@@ -71,7 +71,7 @@ function browsersync_start (norefresh) {
 
 				// serve files without html
 				if (!(req.url.indexOf('.') + 1) && req.url.length > 3) {
-					req.url += '.html'
+					req.url += '/index.html'
 				}
 
 				// patch to enable development of admin ui in enduro

@@ -1,6 +1,5 @@
 module.exports = {
-	command: 'dev',
-	aliases: ['*'],
+	command: ['dev', 'd'],
 	desc: 'starts development server',
 	builder: {
 		'norefresh': {

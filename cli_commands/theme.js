@@ -1,5 +1,5 @@
 module.exports = {
-	command: 'theme <theme_name>',
+	command: 'theme [theme_name]',
 	desc: 'uploads file to enduro.js file storage',
 	builder: (yargs) => {
 		return yargs

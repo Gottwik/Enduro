@@ -6,7 +6,7 @@ var path = require('path')
 var request = require('request-promise')
 
 // local dependencies
-var local_enduro = require('../../index')
+var local_enduro = require('../../index').quick_init()
 var babel = require(enduro.enduro_path + '/libs/babel/babel')
 var theme_manager = require(enduro.enduro_path + '/libs/theme_manager/theme_manager')
 
@@ -19,7 +19,6 @@ describe('[online_test] Theme manager server endpoints', function () {
 	it('should fetch list of all themes', function () {
 		return theme_manager.get_all_themes()
 			.then((theme_list) => {
-				theme_list = JSON.parse(theme_list)
 				expect(theme_list).to.be.an('array')
 			})
 	})

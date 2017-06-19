@@ -188,6 +188,9 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 // * ———————————————————————————————————————————————————————— * //
 theme_manager.prototype.get_all_themes = function () {
 	return request(theme_manager_api_routes.get_all_themes)
+		.then((all_themes_as_string) => {
+			return JSON.parse(all_themes_as_string)
+		})
 }
 
 // * ———————————————————————————————————————————————————————— * //
@@ -198,13 +201,26 @@ theme_manager.prototype.get_all_themes = function () {
 // *	@return {Promise} - promise with theme info as context
 // * ———————————————————————————————————————————————————————— * //
 theme_manager.prototype.fetch_theme_info_by_name = function (theme_name, options) {
+	const self = this
 
 	// list all themes and exit if specified theme is not found
 	if (!theme_name) {
-		logger.log('you have to specify theme name. Try:')
-		logger.tablog('$ enduro theme mirror')
-		logger.end()
-		return Promise.reject()
+
+		return self.get_all_themes()
+			.then((all_themes) => {
+				return inquirer.prompt([
+					{
+						name: 'theme_name',
+						message: 'choose a theme',
+						type: 'list',
+						default: 'mirror',
+						choices: all_themes.map((theme) => { return theme.name }),
+					},
+				])
+			})
+			.then((theme) => {
+				return self.fetch_theme_info_by_name(theme.theme_name)
+			})
 	}
 
 	logger.loading('getting info for \'' + theme_name + '\' theme')

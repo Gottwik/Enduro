@@ -104,7 +104,11 @@ ab_tester.prototype.get_ab_tested_filepath = function (url, req, res) {
 					res.cookie('enduro_ab_' + url, picked_variation, { maxAge: 900000, httpOnly: true })
 				}
 
-				resolve('/' + picked_variation.page)
+				if (picked_variation.page == 'index') {
+					resolve('/index')
+				} else {
+					resolve('/' + picked_variation.page + '/index')
+				}
 			})
 	})
 }

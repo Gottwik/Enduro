@@ -1,6 +1,6 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	Kiska Logger
-// *	Enables nicer console logging for enduro
+// * 	logger
+// *	enables nicer console logging for enduro
 // * ———————————————————————————————————————————————————————— * //
 var logger = function () {}
 

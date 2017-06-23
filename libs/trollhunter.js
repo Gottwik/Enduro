@@ -1,5 +1,5 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	kiska guard
+// * 	trollhunter
 // *
 // *	provides simple security to protect the site against se crawling
 // *	uses sessions to store logged in flag

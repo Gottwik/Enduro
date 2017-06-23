@@ -102,7 +102,7 @@ describe('Globalizer - api endpoints', function () {
 						url: 'http://localhost:5000/admin_api/get_globalizer_options',
 						qs: {
 							sid: sid,
-							globalizer_string: '@@global.fake_nesting.toys.mindstorms'
+							globalizer_string: '@@global.fake_nesting.toys.mindstorms',
 						}
 					})
 			})
@@ -113,6 +113,28 @@ describe('Globalizer - api endpoints', function () {
 					.to.have.lengthOf(2)
 					.to.include('@@global.fake_nesting.toys.mindstorms')
 					.to.include('@@global.fake_nesting.toys.duplo')
+			})
+	})
+
+	it('should provide globalizer options by local globalizer string', function () {
+		return test_utilities.get_sid()
+			.then((sid) => {
+				return request({
+						url: 'http://localhost:5000/admin_api/get_globalizer_options',
+						qs: {
+							sid: sid,
+							globalizer_string: '@@local_fake_options.car',
+							page_path: '/index',
+						}
+					})
+			})
+			.then((globalizer_options) => {
+				globalizer_options = JSON.parse(globalizer_options)
+				expect(globalizer_options)
+					.to.be.an('array')
+					.to.have.lengthOf(2)
+					.to.include('@@local_fake_options.car')
+					.to.include('@@local_fake_options.tram')
 			})
 	})
 

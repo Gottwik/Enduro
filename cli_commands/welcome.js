@@ -25,6 +25,9 @@ module.exports = {
 			logger.log('Project finished?')
 			logger.tablog('run ' + chalk.green('$ enduro start') + ' to start production mode', true)
 
+			logger.log('Documentation?')
+			logger.tablog('Sure: ' + chalk.green('www.endurojs.com/docs'))
+
 			logger.end()
 			// unknown command
 		} else {

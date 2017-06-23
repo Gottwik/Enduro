@@ -4,7 +4,7 @@ var request = require('request')
 var test_utilities = require('./libs/test_utilities')
 
 describe('Production server', function () {
-
+	this.timeout(7000)
 	before(function () {
 		return test_utilities.before(local_enduro, 'testproject_productionserver', 'minimalistic')
 			.then(() => {

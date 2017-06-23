@@ -3,7 +3,7 @@ var test_utilities = function () {}
 // vendor dependencies
 var Promise = require('bluebird')
 var path = require('path')
-var request = require('request')
+var request = require('request-promise')
 var fs = require('fs')
 
 // local dependencies
@@ -60,6 +60,21 @@ test_utilities.prototype.request_file = function (url) {
 
 test_utilities.prototype.delete_testfolder = function () {
 	return flat_helpers.delete_folder(TEST_FOLDER_PATH)
+}
+
+test_utilities.prototype.get_sid = function () {
+	return request({
+			url: 'http://localhost:5000/admin_api/login_by_password',
+			qs: { username: 'gottwik', password: '123' }
+		})
+		.then((body) => {
+			var res = JSON.parse(body)
+			if (res && res.success) {
+				return res.sid
+			} else {
+				return null
+			}			
+		})
 }
 
 module.exports = new test_utilities()

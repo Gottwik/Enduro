@@ -22,7 +22,7 @@ var logtags_config = {
 	nice_dev_init: true,
 	enduro_events: true,
 	enduro_render_events: false,
-	admin_api_calls: true,
+	admin_api_calls: false,
 	admin_login: false,
 	file_uploading: true,
 	render_debug: true,

@@ -6,6 +6,7 @@
 var globalizer_handler = function () {}
 
 // local dependencies
+var globalizer_helpers = require(enduro.enduro_path + '/libs/globalizer/globalizer_helpers')
 
 // decides whether control object is a globalizer
 function is_globalizer (content_object) {
@@ -21,7 +22,7 @@ function is_shallow (content_object) {
 function globalize (context, root_context) {
 
 	// can't globalizer if context is not an object(string, true/false)
-	if (typeof (context) != 'object') {
+	if (typeof context != 'object') {
 		return
 	}
 
@@ -33,9 +34,7 @@ function globalize (context, root_context) {
 		if (typeof context[key] !== 'function' && is_globalizer(context[key])) {
 
 			// fetches the context behind the link
-			var routed_context = context[key].substring(2).split('.').reduce((prev, next) => {
-				return prev[next]
-			}, root_context)
+			var routed_context = globalizer_helpers.route_context(root_context, context[key])
 
 			// replaces the globalizer string with the fetched object
 			context[key] = routed_context

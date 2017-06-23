@@ -87,24 +87,29 @@ describe('Globalizer - globalization', function () {
 
 describe('Globalizer - api endpoints', function () {
 
+	var sid
+
 	this.timeout(7000)
 	before(function () {
 		return test_utilities.before(local_enduro, 'globalizer_api_test')
 			.then(() => {
 				return enduro.actions.start()
 			})
+			.then(() => {
+				return test_utilities.get_sid()
+			})
+			.then((fetched_sid) => {
+				sid = fetched_sid
+			})
 	})
 
 	it('should provide globalizer options on calling admin_api/get_globalizer_options', function () {
-		return test_utilities.get_sid()
-			.then((sid) => {
-				return request({
-						url: 'http://localhost:5000/admin_api/get_globalizer_options',
-						qs: {
-							sid: sid,
-							globalizer_string: '@@global.fake_nesting.toys.mindstorms',
-						}
-					})
+		return request({
+				url: 'http://localhost:5000/admin_api/get_globalizer_options',
+				qs: {
+					sid: sid,
+					globalizer_string: '@@global.fake_nesting.toys.mindstorms',
+				}
 			})
 			.then((globalizer_options) => {
 				globalizer_options = JSON.parse(globalizer_options)
@@ -117,16 +122,13 @@ describe('Globalizer - api endpoints', function () {
 	})
 
 	it('should provide globalizer options by local globalizer string', function () {
-		return test_utilities.get_sid()
-			.then((sid) => {
-				return request({
-						url: 'http://localhost:5000/admin_api/get_globalizer_options',
-						qs: {
-							sid: sid,
-							globalizer_string: '@@local_fake_options.car',
-							page_path: '/index',
-						}
-					})
+		return request({
+				url: 'http://localhost:5000/admin_api/get_globalizer_options',
+				qs: {
+					sid: sid,
+					globalizer_string: '@@local_fake_options.car',
+					page_path: '/index',
+				}
 			})
 			.then((globalizer_options) => {
 				globalizer_options = JSON.parse(globalizer_options)
@@ -135,6 +137,23 @@ describe('Globalizer - api endpoints', function () {
 					.to.have.lengthOf(2)
 					.to.include('@@local_fake_options.car')
 					.to.include('@@local_fake_options.tram')
+			})
+	})
+
+	it('should provide globalized context by local globalizer string', function () {
+		return request({
+				url: 'http://localhost:5000/admin_api/get_globalized_context',
+				qs: {
+					sid: sid,
+					globalizer_string: '@@local_fake_options.car',
+					page_path: '/index',
+				}
+			})
+			.then((globalizer_options) => {
+				globalizer_options = JSON.parse(globalizer_options)
+
+				expect(globalizer_options).to.be.an('object')
+				expect(globalizer_options.price).to.equal(10)
 			})
 	})
 

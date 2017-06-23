@@ -19,7 +19,8 @@ admin_api.prototype.call = function (req, res, enduro_server) {
 	try {
 		require('./admin_api/' + api_name).call(req, res, enduro_server)
 	} catch (e) {
-		res.send({success: false, message: 'api endpoint does not exist'})
+		console.log(e)
+		res.send({success: false, message: 'api endpoint error'})
 	}
 }
 

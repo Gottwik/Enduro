@@ -14,6 +14,7 @@ var api_call = function () {}
 // local dependencies
 var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
 var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+var globalizer_helpers = require(enduro.enduro_path + '/libs/globalizer/globalizer_helpers')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
@@ -29,30 +30,21 @@ api_call.prototype.call = function (req, res, enduro_server) {
 		return
 	}
 
+	const globalizer_chain = globalizer_string
+		.substring(2)
+		.split('.')
+
 	admin_sessions.get_user_by_session(sid)
 		.then((user) => {
 
-			// clean up string in case there is globalizer handle in front
-			globalizer_string = globalizer_string.replace('@@', '').replace('!@', '')
-
-			var output = globalizer_string.split('.').reduce((prev, next) => {
-				parent = prev
-				return prev[next]
-			}, enduro.cms_data)
-
-			if (!output && page_path) {
+			if (page_path && globalizer_chain[0] != 'global') {
 				return flat.load(page_path)
-					.then((page_context) => {
-						output = globalizer_string.split('.').reduce((prev, next) => {
-							parent = prev
-							return prev[next]
-						}, page_context)
-
-						res.send(output)
-					})
 			} else {
-				res.send(output)
+				return enduro.cms_data
 			}
+		})
+		.then((context_to_search_against) => {
+			res.send(globalizer_helpers.route_context(context_to_search_against, globalizer_string))
 		})
 }
 

@@ -4,13 +4,14 @@ var Promise = require('bluebird')
 var fs = Promise.promisifyAll(require('fs-extra'))
 var path = require('path')
 var watch = require('gulp-watch')
+var _ = require('lodash')
 
 // local dependencies
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 var logger = require(enduro.enduro_path + '/libs/logger')
 
 // defines locations that have static files
-var STATIC_LOCATIONS = ['assets/js', 'assets/img', 'assets/vendor', 'assets/fonts', 'assets/admin_extensions', 'remote']
+var static_locations_to_watch = ['assets/js', 'assets/img', 'assets/vendor', 'assets/fonts', 'assets/admin_extensions', 'remote']
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	assets_copier
@@ -33,6 +34,11 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 
 	// registeres task to provided gulp
 	gulp.task(assets_copier_name, function () {
+
+		// check if remote should be watched
+		if (enduro.flags.noremotewatch) {
+			_.pull(static_locations_to_watch, 'remote')
+		}
 
 		// will store promises
 		var copy_actions = []
@@ -84,7 +90,7 @@ assets_copier.prototype.watch = function (gulp, browser_sync) {
 // *	static assets folders
 // * ———————————————————————————————————————————————————————— * //
 assets_copier.prototype.get_copy_from_and_copy_to_pairs = () => {
-	return STATIC_LOCATIONS
+	return static_locations_to_watch
 		.map((static_location) => {
 			return {
 				copy_from: path.join(enduro.project_path, static_location),

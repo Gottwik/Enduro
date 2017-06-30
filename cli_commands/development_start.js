@@ -13,6 +13,9 @@ module.exports = {
 		'nowatch': {
 			alias: 'w',
 			describe: 'will not watch for file changes',
+		},
+		'noremotewatch': {
+			describe: 'will not watch /remote directory',
 		}
 	},
 	handler: function (cli_arguments) {

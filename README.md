@@ -11,6 +11,8 @@
 
 Enduro is minimalistic, lean & mean, node.js cms. See more at [enduro.js website](http://www.endurojs.com/)
 
+**Other repositories:** Enduro • [samples](https://github.com/Gottwik/enduro_samples) • [Enduro admin](https://github.com/Gottwik/enduro_admin) • [endurojs.com site](https://github.com/Gottwik/enduro_website)
+
 ![enduro admin](http://i.imgur.com/3TdMJlY.jpg)
 ![enduro admin](http://i.imgur.com/4PHp7me.jpg)
 ![enduro admin](http://i.imgur.com/4OheTyl.jpg)

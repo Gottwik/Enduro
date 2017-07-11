@@ -120,7 +120,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 						.value()
 
 					npm.commands.install(theme_progress_variables.answers.project_name, npm_dependencies, function (err, data) {
-						if (err) { console.log(error) }
+						if (err) { console.log(err) }
 
 						// replace console.log
 						console.log = log_temp

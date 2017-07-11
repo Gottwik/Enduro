@@ -235,7 +235,7 @@ describe('flat db object feature detection', function () {
 		expect(flat.url_from_filename('index')).to.be.equal('')
 		expect(flat.url_from_filename('gallery')).to.be.equal('gallery')
 		expect(flat.url_from_filename('gallery/lego')).to.be.equal('gallery/lego')
-		expect(flat.url_from_filename('generators/blog/blog_entry')).to.be.equal('blog/blog_entry/index')
+		expect(flat.url_from_filename('generators/blog/blog_entry')).to.be.equal('blog/blog_entry')
 	})
 
 	it('should detect a generator', () => {

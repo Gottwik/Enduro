@@ -168,7 +168,6 @@ flat.prototype.url_from_filename = function (flat_object_path) {
 
 	if (this.is_generator(flat_object_path)) {
 		var temp_path = flat_object_path.split('/').slice(1);
-		temp_path.push('index');
 		return temp_path.join('/');
 	}
 

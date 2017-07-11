@@ -1,6 +1,6 @@
 {
   "name": "enduro",
-  "version": "1.4.25",
+  "version": "1.4.26",
   "description": "Minimalistic, lean & mean static page generator / cms",
   "main": "index.js",
   "dependencies": {

@@ -31,7 +31,7 @@ scaffolder.prototype.scaffold = function (project_name, scaffolding_name) {
 	return new Promise(function (resolve, reject) {
 
 		if (!project_name) {
-			return reject()
+			return reject({ message: 'missing project name' })
 		}
 
 		var scaffolding_path = get_scaffolding_path_by_name(scaffolding_name)

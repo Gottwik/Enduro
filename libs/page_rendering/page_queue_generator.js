@@ -89,26 +89,25 @@ page_queue_generator.prototype.add_generator_pages = function (pages_to_render, 
 
 	// fetch all context files from folder of the same name as the template name
 	return glob(path.join(enduro.project_path, 'cms', page_context.context_file, '**/*.js'))
-	.then((files) => {
+		.then((files) => {
 
-		// iterate found context files and add them to the provided list
-		for (f in files) {
+			// iterate found context files and add them to the provided list
+			for (f in files) {
 
-			// clone the generator object
-			context_clone = JSON.parse(JSON.stringify(page_context))
+				// clone the generator object
+				context_clone = JSON.parse(JSON.stringify(page_context))
 
-			// path to new context file
-			context_clone.context_file = flat.get_cms_filename_from_fullpath(files[f])
+				// path to new context file
+				context_clone.context_file = flat.get_cms_filename_from_fullpath(files[f])
 
-			// sets new destination path, removing the /generator from the path
-			context_clone.destination_path =
-			context_clone.destination_path = flat.url_from_filename(context_clone.context_file)
+				// sets new destination path, removing the /generator from the path
+				context_clone.destination_path = flat.filepath_from_filename(context_clone.context_file)
 
-			// push to provided page list
-			pages_to_render.push(context_clone)
-		}
+				// push to provided page list
+				pages_to_render.push(context_clone)
+			}
 
-	})
+		})
 }
 
 page_queue_generator.prototype.get_all_pages = function () {

@@ -231,11 +231,18 @@ describe('flat db object feature detection', function () {
 		expect(flat.is_deletable('index/generators')).to.be.false
 	})
 
-	it('should covert flat object path into a valid url', () => {
+	it('should convert flat object path into a valid url', () => {
 		expect(flat.url_from_filename('index')).to.be.equal('')
 		expect(flat.url_from_filename('gallery')).to.be.equal('gallery')
 		expect(flat.url_from_filename('gallery/lego')).to.be.equal('gallery/lego')
 		expect(flat.url_from_filename('generators/blog/blog_entry')).to.be.equal('blog/blog_entry')
+	})
+
+	it('should convert flat object path into a valid file path', () => {
+		expect(flat.filepath_from_filename('index')).to.be.equal('index')
+		expect(flat.filepath_from_filename('gallery')).to.be.equal('gallery/index')
+		expect(flat.filepath_from_filename('gallery/lego')).to.be.equal('gallery/lego/index')
+		expect(flat.filepath_from_filename('generators/blog/blog_entry')).to.be.equal('blog/blog_entry/index')
 	})
 
 	it('should detect a generator', () => {

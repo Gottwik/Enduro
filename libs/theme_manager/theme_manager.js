@@ -5,22 +5,24 @@
 var theme_manager = function () {}
 
 // local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
-var logger = require(enduro.enduro_path + '/libs/logger')
-var admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
-var format_service = require(enduro.enduro_path + '/libs/services/format_service')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+const logger = require(enduro.enduro_path + '/libs/logger')
+const admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
+const format_service = require(enduro.enduro_path + '/libs/services/format_service')
+const enduro_instance = require(enduro.enduro_path + '/index')
 
 // vendor dependencies
-var Promise = require('bluebird')
-var request = require('request-promise')
-var zlib = require('zlib')
-var tar = require('tar')
-var inquirer = require('inquirer')
-var fs = Promise.promisifyAll(require('fs-extra'))
-var npm = require('npm')
-var opn = require('opn')
-var _ = require('lodash')
+const Promise = require('bluebird')
+const request = require('request-promise')
+const zlib = require('zlib')
+const tar = require('tar')
+const inquirer = require('inquirer')
+const fs = Promise.promisifyAll(require('fs-extra'))
+const npm = require('npm')
+const opn = require('opn')
+const _ = require('lodash')
+const path = require('path')
 
 var theme_manager_api_routes = {
 	get_theme_by_name: 'http://www.endurojs.com/theme_manager/get_theme_by_name',
@@ -120,7 +122,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 						.value()
 
 					npm.commands.install(theme_progress_variables.answers.project_name, npm_dependencies, function (err, data) {
-						if (err) { console.log(err) }
+						if (err) { console.log(error) }
 
 						// replace console.log
 						console.log = log_temp
@@ -151,8 +153,12 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 		.then(() => {
 			logger.loading('starting enduro')
 			logger.silent()
-			return enduro.actions.start()
+			return enduro_instance.init(path.join(process.cwd(), theme_progress_variables.answers.project_name))
 
+		}, theme_error)
+
+		.then(() => {
+			return enduro.actions.start()
 		}, theme_error)
 
 		.then(() => {

@@ -17,6 +17,7 @@ var flatten = require('gulp-flatten')
 var concat = require('gulp-concat')
 var filterBy = require('gulp-filter-by')
 var wrap = require('gulp-wrap')
+var path = require('path')
 
 // local dependencies
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
@@ -107,10 +108,12 @@ function browsersync_start (norefresh) {
 	if (!enduro.flags.nowatch) {
 
 		// Watch for sass or less changes
-		watch([
-			enduro.project_path + '/assets/css/**/*',
-			enduro.project_path + '/assets/fonticons/*',
-			'!' + enduro.project_path + '/assets/css/sprites/*'],
+		watch(
+			[
+				enduro.project_path + '/assets/css/**/*',
+				enduro.project_path + '/assets/fonticons/*',
+				'!' + enduro.project_path + '/assets/css/sprites/*'
+			],
 			() => {
 				gulp.start(css_handler, () => {
 					event_hooks.execute_hook('post_update')
@@ -158,7 +161,7 @@ gulp.task('iconfont', function (cb) {
 	return gulp.src([enduro.project_path + '/assets/fonticons/*.svg'])
 		.pipe(iconfontCss({
 			fontName: enduro.config.project_slug + '_icons',
-			path: 'assets/fonticons/icons_template.scss',
+			path: enduro.project_path + '/assets/fonticons/icons_template.scss',
 			targetPath: '../../../' + enduro.config.build_folder + '/_prebuilt/icons.scss',
 			fontPath: '/assets/iconfont/',
 		}))
@@ -182,7 +185,7 @@ gulp.task('iconfont', function (cb) {
 					cb()
 				})
 		})
-		.pipe(gulp.dest(enduro.config.build_folder + '/assets/iconfont/'))
+		.pipe(gulp.dest(path.relative(process.cwd(), enduro.project_path) + '/' + enduro.config.build_folder + '/assets/iconfont/'))
 })
 
 // * ———————————————————————————————————————————————————————— * //

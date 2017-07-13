@@ -132,7 +132,7 @@ flat.prototype.flat_object_exists = function (flat_object_path) {
 // *	@param {object} context_to_update - object to be merged with current context
 // *	@return {object} - returns merged object
 // * ———————————————————————————————————————————————————————— * //
-flat.prototype.update = function (flat_object_path, context_to_update) {
+flat.prototype.upsert = function (flat_object_path, context_to_update) {
 	var self = this
 
 	return self.load(flat_object_path)

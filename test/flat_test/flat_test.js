@@ -56,7 +56,7 @@ describe('flat db data access', function () {
 	it('should be able to update a file with non-conflicting context', () => {
 		return flat.save('update_test_object', { old_key: 'old_value' })
 			.then(() => {
-				return flat.update('update_test_object', { new_key: 'new_value' })
+				return flat.upsert('update_test_object', { new_key: 'new_value' })
 			})
 			.then(() => {
 				return flat.load('update_test_object')
@@ -73,7 +73,7 @@ describe('flat db data access', function () {
 	it('should be able to update a file with conflicting context, overwriting the previous context value', () => {
 		return flat.save('update_test_object', { old_key: 'old_value' })
 			.then(() => {
-				return flat.update('update_test_object', { old_key: 'new_value' })
+				return flat.upsert('update_test_object', { old_key: 'new_value' })
 			})
 			.then(() => {
 				return flat.load('update_test_object')
@@ -88,7 +88,7 @@ describe('flat db data access', function () {
 	it('should be able to add an item to array using the update functionality', () => {
 		return flat.save('update_test_object', { list: [1, 2] })
 			.then(() => {
-				return flat.update('update_test_object', { list: [3] })
+				return flat.upsert('update_test_object', { list: [3] })
 			})
 			.then(() => {
 				return flat.load('update_test_object')
@@ -102,7 +102,7 @@ describe('flat db data access', function () {
 	it('should keep old object if extending with an empty object', () => {
 		return flat.save('update_test_object', { old_key: 'old_value' })
 			.then(() => {
-				return flat.update('update_test_object', {})
+				return flat.upsert('update_test_object', {})
 			})
 			.then(() => {
 				return flat.load('update_test_object')
@@ -115,7 +115,7 @@ describe('flat db data access', function () {
 	it('should replace value with a nested object', () => {
 		return flat.save('update_test_object', { parent: { child: { old_key: 'old_value' } } })
 			.then(() => {
-				return flat.update('update_test_object', { parent: { child: { old_key: 'new_value' } } })
+				return flat.upsert('update_test_object', { parent: { child: { old_key: 'new_value' } } })
 			})
 			.then(() => {
 				return flat.load('update_test_object')
@@ -147,7 +147,7 @@ describe('flat db data access', function () {
 
 		return flat.save('update_test_object', old_context)
 			.then(() => {
-				return flat.update('update_test_object', updating_context)
+				return flat.upsert('update_test_object', updating_context)
 			})
 			.then(() => {
 				return flat.load('update_test_object')
@@ -195,7 +195,7 @@ describe('flat db data access', function () {
 
 		return flat.save('update_test_object', old_context)
 			.then(() => {
-				return flat.update('update_test_object', updating_context)
+				return flat.upsert('update_test_object', updating_context)
 			})
 			.then(() => {
 				return flat.load('update_test_object')

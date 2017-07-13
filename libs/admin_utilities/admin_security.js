@@ -142,7 +142,7 @@ admin_security.prototype.add_admin = function (username, password, tags) {
 				salt_and_hash(logincontext)
 				timestamp(logincontext)
 
-				return flat.update(enduro.config.admin_secure_file, {users: [logincontext]})
+				return flat.upsert(enduro.config.admin_secure_file, {users: [logincontext]})
 			})
 			.then(() => {
 				// Let the user know the project was created successfully

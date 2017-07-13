@@ -308,7 +308,7 @@ theme_manager.prototype.list_themes = function (themes) {
 // *	@return {promise} - empty promise
 // * ———————————————————————————————————————————————————————— * //
 theme_manager.prototype.clean_fresh_theme = function () {
-	return flat.update('.settings', { settings: { login_message: '' }})
+	return flat.upsert('.settings', { settings: { login_message: '' }})
 		.then(() => {
 			return admin_security.remove_all_users()
 		})

@@ -42,7 +42,7 @@ babel_handler.prototype.get_cultures = function () {
 
 // adds culture to culture array in cms folder
 babel_handler.prototype.add_culture = function (cultures) {
-	return flat.update(enduro.config.babel_file, { cultures: cultures })
+	return flat.upsert(enduro.config.babel_file, { cultures: cultures })
 }
 
 function culturize (context, culture) {

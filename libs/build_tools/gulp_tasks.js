@@ -66,7 +66,7 @@ function browsersync_start (norefresh) {
 				var splitted_url = req.url.split('/')
 
 				if (splitted_url.length == 2 && enduro.config.cultures.indexOf(splitted_url[1]) + 1) {
-					req.url += 'index.html'
+					req.url += '/index.html'
 					return next()
 				}
 
@@ -91,7 +91,6 @@ function browsersync_start (norefresh) {
 		logLevel: 'silent',
 		notify: false,
 		logPrefix: 'Enduro',
-		startPath: enduro.development_firstload_url,
 		open: !norefresh,
 		snippetOptions: {
 			rule: {

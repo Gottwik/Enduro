@@ -88,6 +88,7 @@ flat.prototype.load = function (filename) {
 				try {
 					flatObj = require_from_string('module.exports = ' + raw_context_data)
 				} catch (e) {
+					console.log(e)
 					log_clusters.log('malformed_context_file', filename)
 				}
 

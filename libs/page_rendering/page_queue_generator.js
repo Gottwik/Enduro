@@ -10,7 +10,6 @@ var glob = require('glob-promise')
 var path = require('path')
 
 // local dependencies
-var babel = require(enduro.enduro_path + '/libs/babel/babel')
 var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
 // Renders individual files
@@ -21,15 +20,7 @@ page_queue_generator.prototype.generate_pagelist = function () {
 	return new Promise(function (resolve, reject) {
 
 		// Reads the culture config file and gets cultures and sets them to the global enduro.config.cultures variable
-		babel.get_cultures()
-			.then((cultures) => {
-
-				// save current cultures
-				enduro.config.cultures = cultures
-
-				// gets all the pages
-				return self.get_all_pages()
-			})
+		self.get_all_pages()
 			.then((files) => {
 
 				var all_pages_to_render = []

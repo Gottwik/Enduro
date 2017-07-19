@@ -2,47 +2,23 @@
 // * 	babel
 // *	handles multilingual support
 // * ———————————————————————————————————————————————————————— * //
-var babel_handler = function () {}
+var babel = function () {}
 
 // vendor dependencies
-var Promise = require('bluebird')
-var fs = require('fs')
-var require_from_string = require('require-from-string')
+var _ = require('lodash')
 
 // local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
-
-// gets list of all cultures
-babel_handler.prototype.get_cultures = function () {
-	return new Promise(function (resolve, reject) {
-		var babel_absolute_path = flat.get_full_path_to_flat_object(enduro.config.babel_file)
-		// check if file exists. return empty object if not
-		if (!flat_helpers.file_exists_sync(babel_absolute_path)) {
-			return resolve([''])
-		}
-		fs.readFile(babel_absolute_path, function (err, data) {
-			if (err) { return reject() }
-
-			// check if file is empty. return empty object if so
-			if (data == '') {
-				return resolve([''])
-			}
-			var cultures_datafile = require_from_string('module.exports = ' + data)
-
-			// set first culture as starting path
-			enduro.development_firstload_url = cultures_datafile.cultures[0] + '/'
-
-			cultures_datafile.cultures.push('')
-
-			return resolve(cultures_datafile.cultures)
-		})
-	})
-}
+var enduro_configurator = require(enduro.enduro_path + '/libs/configuration/enduro_configurator')
 
 // adds culture to culture array in cms folder
-babel_handler.prototype.add_culture = function (cultures) {
-	return flat.upsert(enduro.config.babel_file, { cultures: cultures })
+babel.prototype.add_culture = function (cultures) {
+	enduro.config.cultures = enduro.config.cultures.concat(cultures)
+
+	// by default there exists an empty culture that generates files as if there was no culture
+	// we get rid of this culture once some cultures are added
+	var cultures_to_save = _.pull(enduro.config.cultures, '')
+
+	enduro_configurator.set_config({ cultures: cultures_to_save })
 }
 
 function culturize (context, culture) {
@@ -83,8 +59,8 @@ function get_cultural_key (key, culture) {
 }
 
 // Culturalize context
-babel_handler.prototype.culturalize = function (context, culture) {
+babel.prototype.culturalize = function (context, culture) {
 	return culturize(context, culture)
 }
 
-module.exports = new babel_handler()
+module.exports = new babel()

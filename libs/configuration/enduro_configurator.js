@@ -28,21 +28,27 @@ enduro_configurator.prototype.read_config = function () {
 		read_config_file(CONFIG_PATH, default_configuration.default_configuration),
 		read_config_file(SECRET_CONFIG_PATH, default_configuration.default_secret_configuration)
 	])
-	.then(() => {
-		enduro.config.variables = {}
-		enduro.config.variables.has_s3_setup = enduro.config.secret && enduro.config.secret.s3
-		enduro.config.variables.S3_KEY = (enduro.config.variables.has_s3_setup && enduro.config.secret.s3.S3_KEY) || process.env.S3_KEY
-		enduro.config.variables.S3_SECRET = (enduro.config.variables.has_s3_setup && enduro.config.secret.s3.S3_SECRET) || process.env.S3_SECRET
+		.then(() => {
 
-		enduro.config.variables.s3_enabled = (enduro.config.project_name && enduro.config.variables.S3_KEY && enduro.config.variables.S3_SECRET)
+			// abstract/edit the just read configuration
 
-		// will enable juicebox as soon as user inputs s3 keys
-		if (enduro.config.variables.s3_enabled) {
-			enduro.config.filesystem = 's3'
-		}
+			enduro.config.variables = {}
+			enduro.config.variables.has_s3_setup = enduro.config.secret && enduro.config.secret.s3
+			enduro.config.variables.S3_KEY = (enduro.config.variables.has_s3_setup && enduro.config.secret.s3.S3_KEY) || process.env.S3_KEY
+			enduro.config.variables.S3_SECRET = (enduro.config.variables.has_s3_setup && enduro.config.secret.s3.S3_SECRET) || process.env.S3_SECRET
 
-		return Promise.resolve(enduro.config)
-	})
+			enduro.config.variables.s3_enabled = (enduro.config.project_name && enduro.config.variables.S3_KEY && enduro.config.variables.S3_SECRET)
+
+			// will enable juicebox as soon as user inputs s3 keys
+			if (enduro.config.variables.s3_enabled) {
+				enduro.config.filesystem = 's3'
+			}
+
+			// add empty culture that will always render the pages without any culture in the primary culture
+			enduro.config.cultures.push('')
+
+			return Promise.resolve(enduro.config)
+		})
 }
 
 function read_config_file (config_file, default_config) {
@@ -67,6 +73,7 @@ function read_config_file (config_file, default_config) {
 	}
 }
 
+// this will extend current enduro.json config file with updated context
 enduro_configurator.prototype.set_config = function (new_setup) {
 
 	secret_setup = { secret: new_setup.secret }
@@ -98,7 +105,7 @@ function extend_config (path, setup) {
 			return setup
 		})
 		.then((config) => {
-			return fs.outputJsonAsync(path, config)
+			return fs.outputJsonAsync(path, config, { spaces: '\t' })
 		})
 }
 

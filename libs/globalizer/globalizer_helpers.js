@@ -28,7 +28,14 @@ globalizer_handler.prototype.route_context = function (context, globalizer_strin
 		.substring(2)
 		.split('.')
 		.reduce((prev, next) => {
-			if (typeof prev === 'object' && next in prev) {
+			if (Array.isArray(prev)) {
+				for (i in prev) {
+					if (prev[i][Object.keys(prev[i])[0]] == next) {
+						return prev[i]
+					}
+				}
+				return ''
+			} else if (typeof prev === 'object' && next in prev) {
 				return prev[next]
 			} else {
 				// key not found in object

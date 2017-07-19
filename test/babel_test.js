@@ -2,7 +2,6 @@
 // vendor dependencies
 var expect = require('chai').expect
 var rewire = require('rewire')
-var path = require('path')
 
 // local dependencies
 var local_enduro = require('../index')
@@ -18,34 +17,25 @@ describe('Babel - registering cultures', function () {
 		return test_utilities.before(local_enduro, 'babel_test')
 	})
 
-	it('should read the empty cultures correctly', function (done) {
-		babel.get_cultures()
-			.then((cultures) => {
-				expect(cultures).to.exist
-				expect(cultures).to.be.a('array')
-				expect(cultures).not.to.be.empty
-				expect(cultures[0]).to.equal('')
-				done()
-			}, () => {
-				done(new Error('Failed to load cultures'))
-			})
+	it('should read the empty cultures correctly', function () {
+		var cultures = enduro.config.cultures
+
+		expect(cultures).to.exist
+		expect(cultures).to.be.a('array')
+		expect(cultures).not.to.be.empty
+		expect(cultures[0]).to.equal('')
 	})
 
-	it('should add cultures correctly', function (done) {
+	it('should add cultures correctly', function () {
 		babel.add_culture(['en', 'de'])
-			.then(() => {
-				return babel.get_cultures()
-			}, () => {
-				done(new Error('Failed to load cultures'))
-			})
-			.then((cultures) => {
-				expect(cultures).to.exist
-				expect(cultures).to.be.a('array')
-				expect(cultures).not.to.be.empty
-				expect(cultures).to.include('en')
-				expect(cultures).to.include('de')
-				done()
-			})
+
+		var cultures = enduro.config.cultures
+
+		expect(cultures).to.exist
+		expect(cultures).to.be.a('array')
+		expect(cultures).not.to.be.empty
+		expect(cultures).to.include('en')
+		expect(cultures).to.include('de')
 	})
 
 	after(function () {

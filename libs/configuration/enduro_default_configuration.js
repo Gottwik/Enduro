@@ -9,7 +9,7 @@ var path = require('path')
 
 // local dependencies
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var enduro_local_admin_path = path.join(enduro.project_path, 'node_modules', 'enduro_admin');
+var enduro_local_admin_path = path.join(enduro.project_path, 'node_modules', 'enduro_admin')
 
 // main config object
 var default_configuration = {
@@ -20,10 +20,10 @@ var default_configuration = {
 		juicebox_enabled: false,
 		admin_folder: path.join(enduro_local_admin_path, '_generated'),
 		admin_secure_file: '.users',
-		babel_file: 'config/babel',
 		filesystem: 'local',
 		build_folder: '_generated',
-		port: 5000
+		port: 5000,
+		cultures: [],
 	},
 	default_secret_configuration: {}
 }

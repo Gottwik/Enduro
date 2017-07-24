@@ -128,7 +128,7 @@ enduro_server.prototype.run = function (server_setup) {
 						// serves the requested file
 						res.sendFile(enduro.project_path + '/' + enduro.config.build_folder + requested_url + '.html')
 					}, () => {
-						res.sendFile(enduro.config.admin_folder + '/enduro_login.html')
+						res.sendFile(enduro.config.admin_folder + '/enduro_login/index.html')
 					})
 			}
 		})

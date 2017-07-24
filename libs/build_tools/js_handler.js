@@ -1,8 +1,11 @@
 // vendor dependencies
 var babel = require('gulp-babel')
 var sourcemaps = require('gulp-sourcemaps')
+var Promise = require('bluebird')
+var fs = Promise.promisifyAll(require('fs-extra'))
 
 // local dependencies
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 var logger = require(enduro.enduro_path + '/libs/logger')
 // * ———————————————————————————————————————————————————————— * //
 // * 	JS Task
@@ -39,6 +42,12 @@ js_handler.prototype.init = function (gulp, browser_sync) {
 				})
 		} else {
 			logger.timestamp('js compiling not enabled, add babel options to enduro.json to enable')
+			var copy_from = enduro.project_path + '/assets/js'
+			var copy_to = enduro.project_path + '/' + enduro.config.build_folder + '/assets/js'
+			return flat_helpers.dir_exists(copy_from)
+				.then(() => {
+					return fs.copyAsync(copy_from, copy_to, { overwrite: true })
+				}, () => {})
 		}
 	})
 

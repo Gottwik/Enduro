@@ -81,6 +81,7 @@
   "homepage": "www.endurojs.com",
   "license": "MIT",
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "chai": "^3.5.0",
     "coveralls": "^2.11.8",
     "istanbul": "^0.4.2",

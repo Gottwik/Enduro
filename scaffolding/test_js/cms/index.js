@@ -1,0 +1,4 @@
+{
+	greeting: "you!",
+	superlative: "nice",
+}

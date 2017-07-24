@@ -1,0 +1,12 @@
+{
+	"project_name": "enduro test project",
+	"project_slug": "etp",
+	"s3": {
+		"bucket": "enduro.test",
+		"region": "eu-west-1"
+	},
+	"juicebox_enabled": false,
+	"babel": {
+		"presets": ["es2015"]
+	}
+}

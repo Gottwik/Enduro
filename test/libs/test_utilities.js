@@ -32,7 +32,7 @@ test_utilities.prototype.before = function (local_enduro, project_name, scaffold
 		})
 		.then(() => {
 			enduro.project_path = path.join(enduro.project_path, project_name)
-			return local_enduro.init(enduro.project_path)
+			return local_enduro.init({ project_path: enduro.project_path })
 		})
 }
 

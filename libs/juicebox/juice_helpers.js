@@ -24,7 +24,7 @@ juice_helpers.prototype.diff_folder_with_cms = function (folder) {
 	// juice path
 	var path2 = path.join(enduro.project_path, folder)
 
-	return juice_diff.diff(path1, path2)
+	return juice_diff.print_out_diff(path1, path2)
 }
 
 juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {

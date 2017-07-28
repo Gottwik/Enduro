@@ -37,6 +37,11 @@ flat.prototype.save = function (filename, contents) {
 
 		var flatObj = require_from_string('module.exports = ' + JSON.stringify(contents))
 
+		// add meta data (only if meta is enabled - currently juicebox)
+		if (enduro.config.meta_context_enabled) {
+			prettyString = add_meta_context(flatObj)
+		}
+
 		// formats js file so it can be edited by hand later
 		var prettyString = stringify_object(flatObj, {indent: '	', singleQuotes: true})
 
@@ -55,10 +60,11 @@ flat.prototype.save = function (filename, contents) {
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Load cms file
-// *	@param {String} filename - Path to file without extension, relative to /cms folder
+// *	@param {string} filename - Path to file without extension, relative to /cms folder
+// *	@param {bool} is_full_absolute_path - if true, filename is handled as absolute path
 // *	@return {Promise} - Promise returning an object
 // * ———————————————————————————————————————————————————————— * //
-flat.prototype.load = function (filename) {
+flat.prototype.load = function (filename, is_full_absolute_path) {
 	var self = this
 
 	return new Promise(function (resolve, reject) {
@@ -66,7 +72,13 @@ flat.prototype.load = function (filename) {
 		// url decode filename
 		filename = decode(filename)
 
-		var fullpath_to_cms_file = self.get_full_path_to_flat_object(filename)
+		var fullpath_to_cms_file
+		if (is_full_absolute_path) {
+			fullpath_to_cms_file = filename
+		} else {
+			fullpath_to_cms_file = self.get_full_path_to_flat_object(filename)
+
+		}
 
 		// check if file exists. return empty object if not
 		if (!flat_helpers.file_exists_sync(fullpath_to_cms_file)) {
@@ -220,6 +232,12 @@ flat.prototype.has_page_associated = function (flat_object_path) {
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.is_deletable = function (filename) {
 	return this.is_generator(filename)
+}
+
+// will add unix timestamp to the top of the file for juicebox to be able to decide which file is newer
+function add_meta_context (context) {
+	context.meta = {}
+	context.meta.last_edited = Math.floor(Date.now() / 1000)
 }
 
 module.exports = new flat()

@@ -43,7 +43,7 @@ juicebox.prototype.pull = function (force) {
 	var self = this
 
 	// if juicebox is not enabled or disabled by flags
-	if (!enduro.config.juicebox_enabled || enduro.flags.nojuice) {
+	if (!enduro.config.juicebox_enabled) {
 		return Promise.resolve()
 	}
 
@@ -221,6 +221,7 @@ function get_latest_juice () {
 		.spread((body, response) => {
 
 			if (body.indexOf('<?xml') + 1 && body.indexOf('<Error>') + 1) {
+				console.log(body)
 
 				// juicefile doesn't exist yet - let's create a new juicefile
 				if (body.indexOf('AccessDenied') + 1) {

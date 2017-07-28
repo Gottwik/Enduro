@@ -19,7 +19,7 @@ var api_links = {
 }
 
 // will initialize shared variables that will represent state and configuration
-enduro_linker.prototype.init_enduro_linked_configuration = function (project_path, enduro_path) {
+enduro_linker.prototype.init_enduro_linked_configuration = function (project_path, enduro_path, flags) {
 	var linker = {}
 
 	// paths for project
@@ -43,7 +43,7 @@ enduro_linker.prototype.init_enduro_linked_configuration = function (project_pat
 	linker.config.secret = {}
 
 	// creates flags object
-	linker.flags = {}
+	linker.flags = flags || {}
 
 	// creates global cms data object
 	linker.cms_data = {}

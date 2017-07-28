@@ -15,7 +15,7 @@ describe('Enduro project creation', function () {
 				return flat_helpers.ensure_directory_existence(path.join(enduro.project_path, 'testfolder', 'a'))
 			})
 			.then(() => {
-				return local_enduro.init('testfolder')
+				return local_enduro.init({ project_path: 'testfolder' })
 			})
 			.then(() => {
 				enduro.actions.silent()

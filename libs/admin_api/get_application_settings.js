@@ -1,5 +1,6 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	check juicebox enabledget_application_settings————————————————————————————————————————————————————— * //
+// * 	check juicebox enabledget_application_settings
+// * ———————————————————————————————————————————————————————— * //
 var api_call = function () {}
 
 // local dependencies

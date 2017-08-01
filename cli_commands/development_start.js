@@ -16,7 +16,11 @@ module.exports = {
 		},
 		'noremotewatch': {
 			describe: 'will not watch /remote directory',
-		}
+		},
+		'nocontentwatch': {
+			alias: 'c',
+			describe: 'will not watch for changes of content/cms files',
+		},
 	},
 	handler: function (cli_arguments) {
 		var enduro_instance = require('../index')

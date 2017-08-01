@@ -73,7 +73,7 @@ test_utilities.prototype.get_sid = function () {
 				return res.sid
 			} else {
 				return null
-			}			
+			}
 		})
 }
 

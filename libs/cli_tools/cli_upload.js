@@ -20,7 +20,6 @@ var file_uploader = require(enduro.enduro_path + '/libs/admin_utilities/file_upl
 // * ———————————————————————————————————————————————————————— * //
 cli_upload.prototype.cli_upload = function (file_url) {
 	if (!file_url) {
-
 		logger.err('File url not specified\nUsage: $ enduro upload http://yourdomain.com/yourimage.png')
 		return Promise.reject()
 	}

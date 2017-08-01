@@ -135,21 +135,24 @@ function browsersync_start (norefresh) {
 		watch([enduro.project_path + '/components/**/*.hbs'], () => { gulp.start('hbs_templates') })
 
 		// Watch for enduro changes
-		watch([enduro.project_path + '/pages/**/*.hbs', enduro.project_path + '/components/**/*.hbs', enduro.project_path + '/cms/**/*.js'], function () {
+		if (!enduro.flags.nocontentwatch) {
 
-			// don't do anything if nocmswatch flag is set
-			if (!enduro.flags.nocmswatch && !enduro.flags.temporary_nocmswatch) {
-				gulp.enduro_refresh()
-					.then(() => {
+			watch([enduro.project_path + '/pages/**/*.hbs', enduro.project_path + '/components/**/*.hbs', enduro.project_path + '/cms/**/*.js'], function () {
+
+				// don't do anything if nocmswatch flag is set
+				if (!enduro.flags.nocmswatch && !enduro.flags.temporary_nocmswatch) {
+					gulp.enduro_refresh()
+						.then(() => {
+							browser_sync.reload()
+						})
+				} else {
+					setTimeout(() => {
 						browser_sync.reload()
-					})
-			} else {
-				setTimeout(() => {
-					browser_sync.reload()
-				}, 500)
-			}
-			enduro.flags.temporary_nocmswatch = false
-		})
+					}, 500)
+				}
+				enduro.flags.temporary_nocmswatch = false
+			})
+		}
 	}
 }
 

@@ -114,7 +114,7 @@ enduro_server.prototype.run = function (server_setup) {
 						if (requested_url.length <= 1 ||
 							(requested_url.split('/')[1] && enduro.config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2) ||
 							a[a.length - 1].indexOf('.') === -1
-							) {
+						) {
 							requested_url += requested_url.slice(-1) === '/' ? 'index' : '/index'
 						}
 
@@ -128,10 +128,19 @@ enduro_server.prototype.run = function (server_setup) {
 						// serves the requested file
 						res.sendFile(enduro.project_path + '/' + enduro.config.build_folder + requested_url + '.html')
 					}, () => {
-						res.sendFile(enduro.config.admin_folder + '/enduro_login.html')
+						res.sendFile(enduro.config.admin_folder + '/enduro_login/index.html')
 					})
 			}
 		})
+
+		// socket io to come soon
+		// // setup socket io
+		// var io = require('socket.io')(enduro.server)
+		// io.on('connection', function (socket) {
+		// 	setInterval(() => {
+		// 		socket.emit('news', { hello: 'world' })
+		// 	}, 200)
+		// })
 	})
 }
 

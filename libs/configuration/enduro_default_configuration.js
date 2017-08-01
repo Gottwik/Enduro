@@ -33,14 +33,7 @@ var default_configuration = {
 // this is useful if enduro is installed globally, otherwise npm install would be needed to get the admin
 if (!flat_helpers.dir_exists_sync(default_configuration.default_configuration.admin_folder)) {
 	var enduro_global_admin_path = path.join(enduro.enduro_path, 'node_modules', 'enduro_admin')
-	// First check the old naming convention
-	if (flat_helpers.dir_exists_sync(path.join(enduro_local_admin_path, '_src'))) {
-		default_configuration.default_configuration.admin_folder = path.join(enduro_local_admin_path, '_src')
-	} else if (flat_helpers.dir_exists_sync(path.join(enduro_global_admin_path, '_generated'))){
-		default_configuration.default_configuration.admin_folder = path.join(enduro_global_admin_path, '_generated')
-	} else {
-		default_configuration.default_configuration.admin_folder = path.join(enduro_global_admin_path, '_src')
-	}
+	default_configuration.default_configuration.admin_folder = path.join(enduro_global_admin_path, '_generated')
 }
 
 module.exports = default_configuration

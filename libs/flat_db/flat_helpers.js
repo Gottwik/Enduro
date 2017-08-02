@@ -22,6 +22,23 @@ flat_helpers.prototype.file_exists_sync = function (file_path) {
 	} catch (err) { return false }
 }
 
+// Checks if file exists
+flat_helpers.prototype.file_exists = function (file_path) {
+	return new Promise(function (resolve, reject) {
+		fs.stat(file_path, (err, stat) => {
+			if (err) {
+				reject()
+			}
+
+			if (stat.isFile()) {
+				resolve()
+			} else {
+				reject()
+			}
+		})
+	})
+}
+
 // Checks if directory exists
 flat_helpers.prototype.dir_exists_sync = function (file_path) {
 	try {
@@ -47,10 +64,21 @@ flat_helpers.prototype.dir_exists = function (file_path) {
 
 // Creates all subdirectories neccessary to create the file in file_path
 flat_helpers.prototype.ensure_directory_existence = function () {
+
+	// just resolve if no arguments passed
 	if (!arguments.length) {
 		return Promise.resolve()
 	}
-	file_paths = Array.prototype.slice.call(arguments).map((file_path) => { return file_path.split(path.sep).slice(0, -1).join(path.sep) })
+	file_paths = Array.prototype.slice.call(arguments).map((file_path) => {
+		const paths_last_part = file_path.split(path.sep).slice(-1)[0]
+
+		// if the last part look like a file - has dot in it - omit it from creating, create just the directory it is supposed be in
+		if (paths_last_part.indexOf('.') != -1) {
+			return file_path.split(path.sep).slice(0, -1).join(path.sep)
+		} else {
+			return file_path
+		}
+	})
 	return Promise.all(file_paths.map((file_path) => { return ensure_directory_existence(file_path) }))
 }
 

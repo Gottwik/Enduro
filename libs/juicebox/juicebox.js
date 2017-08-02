@@ -6,12 +6,10 @@ var juicebox = function () {}
 
 // vendor dependencies
 var Promise = require('bluebird')
-var fstream = require('fstream')
 var tar = require('tar')
-var zlib = require('zlib')
 var path = require('path')
 var fs = require('fs')
-var rimraf = require('rimraf')
+var rimraf = Promise.promisify(require('rimraf'))
 
 // local dependencies
 var logger = require(enduro.enduro_path + '/libs/logger')
@@ -188,16 +186,25 @@ juicebox.prototype.is_juicebox_enabled = function () {
 }
 
 function write_juicebox (juicebox_name) {
-	return new Promise(function (resolve, reject) {
-		fstream.Reader({ 'path': path.join(enduro.project_path, 'cms'), 'type': 'Directory' })
-			.pipe(tar.Pack())
-			.pipe(zlib.Gzip())
-			.pipe(fstream.Writer({ 'path': path.join(enduro.project_path, 'juicebox', juicebox_name) })
-				.on('close', function () {
-					resolve()
-				})
-			)
-	})
+
+	return tar.create({
+		gzip: true,
+		file: path.join(enduro.project_path, 'juicebox', juicebox_name),
+		cwd: enduro.project_path
+	},
+	[ 'cms' ]
+	)
+
+	// return new Promise(function (resolve, reject) {
+	// 	fstream.Reader({ 'path': path.join(enduro.project_path, 'cms'), 'type': 'Directory' })
+	// 		.pipe(tar.x())
+	// 		.pipe(zlib.Gzip())
+	// 		.pipe(fstream.Writer({ 'path': path.join(enduro.project_path, 'juicebox', juicebox_name) })
+	// 			.on('close', function () {
+	// 				resolve()
+	// 			})
+	// 		)
+	// })
 }
 
 function write_juicefile (juice) {
@@ -268,10 +275,10 @@ function get_juicebox_by_name (juicebox_name) {
 			})
 
 		juicebox_read_stream.pipe(fs.createWriteStream(destination_path)
-				.on('close', function () {
-					resolve(juicebox_name)
-				})
-			)
+			.on('close', function () {
+				resolve(juicebox_name)
+			})
+		)
 	})
 }
 
@@ -279,34 +286,27 @@ function spill_the_juice (juicebox_name, destination) {
 	// default destination is the project's root (juicebox has cms folder)
 	destination = destination || path.join(enduro.project_path)
 
-	return new Promise(function (resolve, reject) {
-		// delete the folder if it exists
-		rimraf(path.join(destination, 'cms'), function () {
+	// yea, we need the juicebox name
+	if (!juicebox_name) {
+		return Promise.resolve()
+	}
 
-			if (!juicebox_name || juicebox_name == '0000.tar.gz') {
-				return resolve()
-			}
+	const tarball_location = path.join(enduro.project_path, 'juicebox', juicebox_name)
 
-			var tarball = path.join(enduro.project_path, 'juicebox', juicebox_name)
-
-			if (flat_helpers.file_exists_sync(tarball)) {
-				var tar_extract = tar.Extract({
-					path: destination,
-				})
-
-				fs.createReadStream(tarball)
-					.pipe(zlib.Unzip())
-					.on('error', function () {
-						log_clusters.log('extraction_failed')
-					})
-					.pipe(tar_extract)
-
-				tar_extract.on('finish', () => {
-					resolve()
-				})
-			}
+	// delete the folder if it exists
+	return rimraf(path.join(destination, 'cms'))
+		.then(() => {
+			return flat_helpers.file_exists(tarball_location)
 		})
-	})
+		.then(() => {
+			return flat_helpers.ensure_directory_existence(destination)
+		})
+		.then(() => {
+			return tar.extract({
+				file: tarball_location,
+				cwd: destination,
+			})
+		})
 }
 
 // provides default context of a fresh juicefile
@@ -326,7 +326,7 @@ function get_new_juicefile () {
 
 // handles errors
 function err (err) {
-	throw new Error('abort promise chain')
+	throw new Error('abort promise chain', err)
 }
 
 module.exports = new juicebox()

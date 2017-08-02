@@ -56,12 +56,21 @@ describe('flat helpers', function () {
 
 	it('should create all neccessary subdirectories if given multiple paths', function () {
 		return flat_helpers.ensure_directory_existence(
-				path.join(process.cwd(), 'test_folder', 'subfolder1', 'test.js'),
-				path.join(process.cwd(), 'test_folder', 'subfolder2', 'test.js')
-			)
+			path.join(process.cwd(), 'test_folder', 'subfolder1', 'test.js'),
+			path.join(process.cwd(), 'test_folder', 'subfolder2', 'test.js')
+		)
 			.then(function () {
 				expect(flat_helpers.dir_exists_sync(process.cwd() + '/test_folder/subfolder1')).to.equal(true)
 				expect(flat_helpers.dir_exists_sync(process.cwd() + '/test_folder/subfolder2')).to.equal(true)
+			}, function () {
+				expect(true).to.equal(false)
+			})
+	})
+
+	it('should create all neccessary subdirectories if only directory is provided', function () {
+		return flat_helpers.ensure_directory_existence(path.join(process.cwd(), 'test_folder', 'another_subfolder'))
+			.then(function () {
+				expect(flat_helpers.dir_exists_sync(path.join(process.cwd(), 'test_folder', 'another_subfolder'))).to.equal(true)
 			}, function () {
 				expect(true).to.equal(false)
 			})

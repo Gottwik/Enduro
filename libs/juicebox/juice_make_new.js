@@ -7,7 +7,7 @@
 var juice_make_new = function () {}
 
 // vendor dependencies
-var Promise = require('bluebird')
+const Promise = require('bluebird')
 
 // local dependencies
 const pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')

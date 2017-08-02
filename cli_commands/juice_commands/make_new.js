@@ -10,12 +10,12 @@ module.exports = {
 			.usage('enduro juice make_new')
 	},
 	handler: function (cli_arguments) {
-		var enduro_instance = require('../../index')
+		const enduro_instance = require('../../index')
 
 		enduro_instance.init()
 			.then(() => {
 
-				var juice_make_new = require(enduro.enduro_path + '/libs/juicebox/juice_make_new')
+				const juice_make_new = require(enduro.enduro_path + '/libs/juicebox/juice_make_new')
 				return juice_make_new.make_new()
 			})
 	}

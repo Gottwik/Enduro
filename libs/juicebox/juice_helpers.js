@@ -120,7 +120,7 @@ juice_helpers.prototype.nice_log = function (juice, maxrows) {
 // *	log_record
 // * 	logs one record
 // *
-// *	@param record {object} - object with a record. {hash:'', user: '', timestamp: ''}
+// *	@param record {object} - object with a record. { hash:'', user: '', timestamp: '' }
 // *	returns nothing - just logs out stuff
 // * ———————————————————————————————————————————————————————— * //
 function log_record (record) {

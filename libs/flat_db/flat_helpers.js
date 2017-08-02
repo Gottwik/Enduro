@@ -70,14 +70,7 @@ flat_helpers.prototype.ensure_directory_existence = function () {
 		return Promise.resolve()
 	}
 	file_paths = Array.prototype.slice.call(arguments).map((file_path) => {
-		const paths_last_part = file_path.split(path.sep).slice(-1)[0]
-
-		// if the last part look like a file - has dot in it - omit it from creating, create just the directory it is supposed be in
-		if (paths_last_part.indexOf('.') != -1) {
-			return file_path.split(path.sep).slice(0, -1).join(path.sep)
-		} else {
-			return file_path
-		}
+		return file_path.split(path.sep).slice(0, -1).join(path.sep)
 	})
 	return Promise.all(file_paths.map((file_path) => { return ensure_directory_existence(file_path) }))
 }
@@ -106,6 +99,18 @@ flat_helpers.prototype.delete_folder = function (absolute_path) {
 			resolve()
 		})
 	})
+}
+
+// will add unix timestamp to the top of the file for juicebox to be able to decide which file is newer
+flat_helpers.prototype.add_meta_context = function (context) {
+	const self = this
+
+	context.meta = {}
+	context.meta.last_edited = self.get_current_timestamp()
+}
+
+flat_helpers.prototype.get_current_timestamp = function () {
+	return Math.floor(Date.now() / 1000)
 }
 
 function ensure_directory_existence (file_path) {

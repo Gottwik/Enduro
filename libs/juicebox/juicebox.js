@@ -287,7 +287,7 @@ function spill_the_juice (juicebox_name, destination) {
 			return flat_helpers.file_exists(tarball_location)
 		})
 		.then(() => {
-			return flat_helpers.ensure_directory_existence(destination)
+			return flat_helpers.ensure_directory_existence(path.join(destination, 'fake.txt'))
 		})
 		.then(() => {
 			return tar.extract({

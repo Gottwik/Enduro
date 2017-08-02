@@ -4,7 +4,7 @@
 // * ———————————————————————————————————————————————————————— * //
 var flat = function () {}
 
-// Vendor dependencies
+// vendor dependencies
 var Promise = require('bluebird')
 var fs = require('fs')
 var require_from_string = require('require-from-string')
@@ -39,7 +39,7 @@ flat.prototype.save = function (filename, contents) {
 
 		// add meta data (only if meta is enabled - currently juicebox)
 		if (enduro.config.meta_context_enabled) {
-			prettyString = add_meta_context(flatObj)
+			prettyString = flat_helpers.add_meta_context(flatObj)
 		}
 
 		// formats js file so it can be edited by hand later
@@ -92,8 +92,15 @@ flat.prototype.load = function (filename, is_full_absolute_path) {
 					return resolve({})
 				}
 
-				// strip whatever is before the first curly brace
-				raw_context_data = raw_context_data.toString().substring(raw_context_data.indexOf('{'))
+				// strip whitespace
+				raw_context_data = raw_context_data.toString().trim()
+
+				// wraps content in curly braces if it isn't already wrapped
+				// the file will still be saved with braces but might help some people if
+				// they forget to include the braces
+				if (raw_context_data[0] != '{') {
+					raw_context_data = '{' + raw_context_data + '}'
+				}
 
 				// convert the string-based javascript into an object
 				var flatObj = {}
@@ -232,12 +239,6 @@ flat.prototype.has_page_associated = function (flat_object_path) {
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.is_deletable = function (filename) {
 	return this.is_generator(filename)
-}
-
-// will add unix timestamp to the top of the file for juicebox to be able to decide which file is newer
-function add_meta_context (context) {
-	context.meta = {}
-	context.meta.last_edited = Math.floor(Date.now() / 1000)
 }
 
 module.exports = new flat()

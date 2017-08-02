@@ -67,15 +67,6 @@ describe('flat helpers', function () {
 			})
 	})
 
-	it('should create all neccessary subdirectories if only directory is provided', function () {
-		return flat_helpers.ensure_directory_existence(path.join(process.cwd(), 'test_folder', 'another_subfolder'))
-			.then(function () {
-				expect(flat_helpers.dir_exists_sync(path.join(process.cwd(), 'test_folder', 'another_subfolder'))).to.equal(true)
-			}, function () {
-				expect(true).to.equal(false)
-			})
-	})
-
 	it('should delete all test folders', function () {
 		rimraf(process.cwd() + '/test_folder', function () {
 			expect(flat_helpers.dir_exists_sync(process.cwd() + '/test_folder')).to.equal(false)

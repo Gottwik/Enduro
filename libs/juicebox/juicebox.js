@@ -186,7 +186,6 @@ juicebox.prototype.is_juicebox_enabled = function () {
 }
 
 function write_juicebox (juicebox_name) {
-
 	return tar.create({
 		gzip: true,
 		file: path.join(enduro.project_path, 'juicebox', juicebox_name),
@@ -194,17 +193,6 @@ function write_juicebox (juicebox_name) {
 	},
 	[ 'cms' ]
 	)
-
-	// return new Promise(function (resolve, reject) {
-	// 	fstream.Reader({ 'path': path.join(enduro.project_path, 'cms'), 'type': 'Directory' })
-	// 		.pipe(tar.x())
-	// 		.pipe(zlib.Gzip())
-	// 		.pipe(fstream.Writer({ 'path': path.join(enduro.project_path, 'juicebox', juicebox_name) })
-	// 			.on('close', function () {
-	// 				resolve()
-	// 			})
-	// 		)
-	// })
 }
 
 function write_juicefile (juice) {

@@ -1,0 +1,43 @@
+// vendor dependencies
+var expect = require('chai').expect
+var path = require('path')
+
+// local dependencies
+var local_enduro = require('../../index').quick_init()
+var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+
+describe('Stylus build tool', function () {
+
+	before(function () {
+		return test_utilities.before(local_enduro, 'stylus_testfolder', 'test_stylus')
+			.then(() => {
+				return enduro.actions.render()
+			})
+	})
+
+	it('should create css file for every styl file in root assets/css folder', function () {
+		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'assets', 'css', 'test.css'))).to.be.ok
+	})
+
+	it('should compile simple stylus file', function () {
+		return test_utilities.request_file(path.join(enduro.config.build_folder, 'assets', 'css', 'test.css'))
+			.then((file_contents) => {
+				expect(file_contents).to.contain('p {')
+					.and.to.contain('color: #e00;')
+			})
+	})
+
+	it('should use autoprefixer', function () {
+		return test_utilities.request_file(path.join(enduro.config.build_folder, 'assets', 'css', 'test.css'))
+			.then((file_contents) => {
+				expect(file_contents).to.contain('display: -ms-flexbox;')
+					.and.to.contain('display: -webkit-flex;')
+			})
+	})
+
+	after(function () {
+		return test_utilities.after()
+	})
+})
+

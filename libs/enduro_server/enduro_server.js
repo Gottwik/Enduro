@@ -58,7 +58,7 @@ enduro_server.prototype.run = function (server_setup) {
 	return new Promise(function (resolve, reject) {
 
 		// overrides the port by system environment variable
-		enduro.config.port = process.env.PORT || enduro.flags.port || enduro.config.port
+		enduro.config.port = process.env.PORT || enduro.flags.port || enduro.config.port || 5000
 
 		// starts listening to request on specified port
 		enduro.server = app.listen(enduro.config.port, function () {

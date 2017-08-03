@@ -11,7 +11,7 @@ var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 describe('flat db data access', function () {
 
 	before(function () {
-		return test_utilities.before(local_enduro, 'testfolder_flat_test', 'minimalistic')
+		return test_utilities.before(local_enduro, 'testfolder_flat_test', 'test')
 	})
 
 	it('should detect an existing flat object', function () {
@@ -202,6 +202,14 @@ describe('flat db data access', function () {
 			})
 			.then((update_test_object_context) => {
 				expect(update_test_object_context).to.deep.equal(expected_merged_context)
+			})
+	})
+
+	it('should load cms file that is not wrapped in curly braces', function () {
+		return flat.load('non_braced_content')
+			.then((non_braced_content) => {
+				expect(non_braced_content).to.be.an('object')
+				expect(non_braced_content).to.have.property('toys')
 			})
 	})
 

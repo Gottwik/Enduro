@@ -11,7 +11,6 @@ var http = require('http')
 
 // local dependencies
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var logger = require(enduro.enduro_path + '/libs/logger')
 var remote_handler = require(enduro.enduro_path + '/libs/remote_tools/remote_handler')
 
 file_uploader.prototype.upload = function (file) {

@@ -1,8 +1,8 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	refresh
+// * 	juice push
 // *
 // * 	endpoint: /admin_api/refresh
-// *	pulls and re-renders project
+// *	pushes and re-renders project
 // * ———————————————————————————————————————————————————————— * //
 var api_call = function () {}
 
@@ -17,7 +17,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 
 	admin_sessions.get_user_by_session(sid)
 		.then((user) => {
-			return juicebox.pull(false)
+			return juicebox.pack(user.username)
 		}, () => {
 			throw new Error()
 		})

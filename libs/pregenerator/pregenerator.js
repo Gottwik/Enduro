@@ -12,7 +12,6 @@ var path = require('path')
 // local dependencies
 var logger = require(enduro.enduro_path + '/libs/logger')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var babel = require(global.enduro.enduro_path + '/libs/babel/babel')
 
 // Goes through the pages and renders them
 pregenerator.prototype.pregenerate = function () {

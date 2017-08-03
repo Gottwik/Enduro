@@ -11,6 +11,7 @@ var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
 describe('Juicebox pull', function () {
 
 	before(function () {
+		this.timeout(8000)
 		return test_utilities.before(local_enduro, 'juicebox_pull_testfolder')
 			.then(() => {
 				enduro.config.juicebox_enabled = true
@@ -66,4 +67,3 @@ describe('Juicebox pull', function () {
 		return test_utilities.after()
 	})
 })
-

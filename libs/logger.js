@@ -240,7 +240,12 @@ function rep (len, char) {
 }
 
 function clear_ansi_style (text) {
-	return text.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '')
+	if (typeof text === 'string') {
+		return text.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '')
+	} else {
+		console.log(text)
+		return ''
+	}
 }
 
 module.exports = new logger()

@@ -32,7 +32,7 @@ test_utilities.prototype.before = function (local_enduro, project_name, scaffold
 		})
 		.then(() => {
 			enduro.project_path = path.join(enduro.project_path, project_name)
-			return local_enduro.init(enduro.project_path)
+			return local_enduro.init({ project_path: enduro.project_path })
 		})
 }
 
@@ -64,16 +64,16 @@ test_utilities.prototype.delete_testfolder = function () {
 
 test_utilities.prototype.get_sid = function () {
 	return request({
-			url: 'http://localhost:5000/admin_api/login_by_password',
-			qs: { username: 'gottwik', password: '123' }
-		})
+		url: 'http://localhost:5000/admin_api/login_by_password',
+		qs: { username: 'gottwik', password: '123' }
+	})
 		.then((body) => {
 			var res = JSON.parse(body)
 			if (res && res.success) {
 				return res.sid
 			} else {
 				return null
-			}			
+			}
 		})
 }
 

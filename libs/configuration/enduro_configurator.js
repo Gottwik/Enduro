@@ -39,7 +39,18 @@ enduro_configurator.prototype.read_config = function () {
 
 			enduro.config.variables.s3_enabled = (enduro.config.project_name && enduro.config.variables.S3_KEY && enduro.config.variables.S3_SECRET)
 
-			// will enable juicebox as soon as user inputs s3 keys
+			// disable juicebox if there is nojuice flag
+			if (enduro.flags.nojuice) {
+				enduro.config.juicebox_enabled = false
+			}
+
+			// force enable meta context in cms files if juicebox is juicebox_enabled
+			// juicebox is dependant on having time edited in the meta
+			if (enduro.config.juicebox_enabled) {
+				enduro.config.meta_context_enabled = true
+			}
+
+			// preselect s3 as remote filesystem once aws keys are inputted
 			if (enduro.config.variables.s3_enabled) {
 				enduro.config.filesystem = 's3'
 			}

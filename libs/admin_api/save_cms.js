@@ -39,7 +39,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 			return logger.err('parameters not provided')
 		}
 
-		var requesting_user
+		// var requesting_user
 
 		admin_sessions.get_user_by_session(sid)
 			.then((user) => {
@@ -48,7 +48,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 					throw new Error()
 				}
 
-				requesting_user = user
+				// requesting_user = user
 
 				// disable watching for cms files to prevent double rendering
 				enduro.flags.temporary_nocmswatch = true
@@ -57,9 +57,10 @@ api_call.prototype.call = function (req, res, enduro_server) {
 				res.sendStatus(401)
 				throw new Error()
 			})
-			.then(() => {
-				return juicebox.pack(requesting_user.username)
-			}, () => { throw new Error() })
+			// removed juicebox pack from saving cms
+			// .then(() => {
+			// 	return juicebox.pack(requesting_user.username)
+			// }, () => { throw new Error() })
 			.then(() => {
 
 				// re-renders enduro - essential to publishing the change
@@ -67,11 +68,11 @@ api_call.prototype.call = function (req, res, enduro_server) {
 
 			}, () => { throw new Error() })
 			.then(() => {
-					// // enable cmswatch again
-					// enduro.flags.temporary_nocmswatch = false
+				// // enable cmswatch again
+				// enduro.flags.temporary_nocmswatch = false
 
-					// send the response early to cut down on publish time
-					res.send()
+				// send the response early to cut down on publish time
+				res.send()
 			}, () => {})
 	})
 

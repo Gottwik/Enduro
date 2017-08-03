@@ -4,7 +4,7 @@
 // * ———————————————————————————————————————————————————————— * //
 var flat = function () {}
 
-// Vendor dependencies
+// vendor dependencies
 var Promise = require('bluebird')
 var fs = require('fs')
 var require_from_string = require('require-from-string')
@@ -37,6 +37,11 @@ flat.prototype.save = function (filename, contents) {
 
 		var flatObj = require_from_string('module.exports = ' + JSON.stringify(contents))
 
+		// add meta data (only if meta is enabled - currently juicebox)
+		if (enduro.config.meta_context_enabled) {
+			prettyString = flat_helpers.add_meta_context(flatObj)
+		}
+
 		// formats js file so it can be edited by hand later
 		var prettyString = stringify_object(flatObj, {indent: '	', singleQuotes: true})
 
@@ -55,10 +60,11 @@ flat.prototype.save = function (filename, contents) {
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Load cms file
-// *	@param {String} filename - Path to file without extension, relative to /cms folder
+// *	@param {string} filename - Path to file without extension, relative to /cms folder
+// *	@param {bool} is_full_absolute_path - if true, filename is handled as absolute path
 // *	@return {Promise} - Promise returning an object
 // * ———————————————————————————————————————————————————————— * //
-flat.prototype.load = function (filename) {
+flat.prototype.load = function (filename, is_full_absolute_path) {
 	var self = this
 
 	return new Promise(function (resolve, reject) {
@@ -66,7 +72,13 @@ flat.prototype.load = function (filename) {
 		// url decode filename
 		filename = decode(filename)
 
-		var fullpath_to_cms_file = self.get_full_path_to_flat_object(filename)
+		var fullpath_to_cms_file
+		if (is_full_absolute_path) {
+			fullpath_to_cms_file = filename
+		} else {
+			fullpath_to_cms_file = self.get_full_path_to_flat_object(filename)
+
+		}
 
 		// check if file exists. return empty object if not
 		if (!flat_helpers.file_exists_sync(fullpath_to_cms_file)) {
@@ -80,8 +92,15 @@ flat.prototype.load = function (filename) {
 					return resolve({})
 				}
 
-				// strip whatever is before the first curly brace
-				raw_context_data = raw_context_data.toString().substring(raw_context_data.indexOf('{'))
+				// strip whitespace
+				raw_context_data = raw_context_data.toString().trim()
+
+				// wraps content in curly braces if it isn't already wrapped
+				// the file will still be saved with braces but might help some people if
+				// they forget to include the braces
+				if (raw_context_data[0] != '{') {
+					raw_context_data = '{' + raw_context_data + '}'
+				}
 
 				// convert the string-based javascript into an object
 				var flatObj = {}

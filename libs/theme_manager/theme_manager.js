@@ -153,7 +153,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 		.then(() => {
 			logger.loading('starting enduro')
 			logger.silent()
-			return enduro_instance.init(path.join(process.cwd(), theme_progress_variables.answers.project_name))
+			return enduro_instance.init({ project_path: path.join(process.cwd(), theme_progress_variables.answers.project_name) })
 
 		}, theme_error)
 

@@ -53,6 +53,15 @@ Instead of using SASS, you can use the LESS pre-processor instead. To do this, s
 
 Once that is set, simply add a `.less` file in your `assets/css` folder.
 
+For STYLUS (http://stylus-lang.com/) support simple set `stylus` to true in your config file:
+
+``` json
+{
+    "stylus": true
+}
+```
+now all `.styl` files in your `assets/css` folder are used to generate the css.
+
 ## Getting started
 
 ![enduro create](http://i.imgur.com/DtxhA7z.gif)

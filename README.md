@@ -21,6 +21,24 @@ Enduro is minimalistic, lean & mean, node.js cms. See more at [enduro.js website
 ## Documentation
 Complete, structured documentation is available here [http://www.endurojs.com/docs](http://www.endurojs.com/docs)
 
+### JS Transpilers
+
+If you'd like to transpile your static js assets (under `assets/js/`) you can do so. Simply, set a `babel` object in your config file. This uses the same babel config specified here: https://babeljs.io/docs/usage/api/#options
+
+``` json
+{
+    "babel": {
+        "presets": ["es2015"]
+    }
+}
+```
+
+Remember also to add whatever preset you'd like to use using npm:
+
+```
+npm install --save-dev babel-preset-es2015
+```
+
 ### CSS Pre-processors
 
 Instead of using SASS, you can use the LESS pre-processor instead. To do this, set a `less` object in your config file. This consists of a `paths` array which is the same as one defined here: http://lesscss.org/#using-less

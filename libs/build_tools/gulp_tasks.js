@@ -28,6 +28,7 @@ var event_hooks = require(enduro.enduro_path + '/libs/external_links/event_hooks
 var pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator').init(gulp)
 var assets_copier = require(enduro.enduro_path + '/libs/build_tools/assets_copier').init(gulp, browser_sync)
 var assets_copier_watch = require(enduro.enduro_path + '/libs/build_tools/assets_copier').watch(gulp, browser_sync)
+var js_handler = require(enduro.enduro_path + '/libs/build_tools/js_handler').init(gulp, browser_sync)
 var css_handler = require(enduro.enduro_path + '/libs/build_tools/css_handler').init(gulp, browser_sync)
 var sprite_icons = require(enduro.enduro_path + '/libs/build_tools/sprite_icons').init(gulp, browser_sync)
 
@@ -105,6 +106,9 @@ function browsersync_start (norefresh) {
 	// nowatch flag is used when testing development server
 	// the watch kindof stayed in memory and screwed up all other tests
 	if (!enduro.flags.nowatch) {
+
+		// Watch for any js changes
+		watch([enduro.project_path + '/assets/js/*.js'], () => { gulp.start(js_handler) })
 
 		// Watch for sass or less changes
 		watch(
@@ -227,7 +231,7 @@ gulp.task('preproduction', ['iconfont', 'png_sprites', pagelist_generator])
 // * 	Production Task
 // *	No browser_sync, no watching for anything
 // * ———————————————————————————————————————————————————————— * //
-gulp.task('production', [css_handler, 'hbs_templates', assets_copier, 'hbs_helpers'])
+gulp.task('production', [js_handler, css_handler, 'hbs_templates', assets_copier, 'hbs_helpers'])
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Default Task

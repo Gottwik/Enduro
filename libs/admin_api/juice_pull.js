@@ -1,7 +1,7 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	refresh
+// * 	juice_pull
 // *
-// * 	endpoint: /admin_api/refresh
+// * 	endpoint: /admin_api/juice_pull
 // *	pulls and re-renders project
 // * ———————————————————————————————————————————————————————— * //
 var api_call = function () {}

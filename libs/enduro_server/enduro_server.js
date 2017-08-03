@@ -133,14 +133,9 @@ enduro_server.prototype.run = function (server_setup) {
 			}
 		})
 
-		// socket io to come soon
-		// // setup socket io
-		// var io = require('socket.io')(enduro.server)
-		// io.on('connection', function (socket) {
-		// 	setInterval(() => {
-		// 		socket.emit('news', { hello: 'world' })
-		// 	}, 200)
-		// })
+		// init socket and store everybody in global enduro.sockets
+		var io = require('socket.io')(enduro.server)
+		enduro.sockets = io.sockets
 	})
 }
 

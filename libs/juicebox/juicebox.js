@@ -176,10 +176,6 @@ juicebox.prototype.log = function (nojuice) {
 		})
 }
 
-juicebox.prototype.juicebox_enabled = function () {
-	return enduro.config.juicebox_enabled && !enduro.flags.nojuice
-}
-
 juicebox.prototype.is_juicebox_enabled = function () {
 	var juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
 	return !flat_helpers.file_exists_sync(juicefile_path)

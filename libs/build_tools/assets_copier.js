@@ -102,7 +102,7 @@ assets_copier.prototype.get_copy_from_and_copy_to_pairs = () => {
 // * ———————————————————————————————————————————————————————— * //
 // * 	copy_root_folder
 // *
-// *	will copy files from /assets/root to /_generated root folder
+// *	will copy files from `/assets/root` to `/_generated`'s root folder
 // *	this is useful for robots.txt or other files that just
 // *	have to be served from the root folder
 // * ———————————————————————————————————————————————————————— * //
@@ -133,12 +133,15 @@ function copy_if_exist (copy_from, copy_to) {
 function watch_for_static_change (copy_from, copy_to, browser_sync) {
 	if (!enduro.flags.nowatch) {
 		watch([copy_from + '/**/*'], () => {
-			fs.copyAsync(copy_from, copy_to, { overwrite: true })
-				.then(() => {
-					browser_sync.reload()
-				}, (err) => {
-					logger.err(err)
-				})
+			if (!enduro.flags.temporary_nostaticwatch) {
+				fs.copyAsync(copy_from, copy_to, { overwrite: true })
+					.then(() => {
+						browser_sync.reload()
+					}, (err) => {
+						console.log('something went wrong with copying files', copy_from, copy_to)
+						logger.err(err)
+					})
+			}
 		})
 	}
 }

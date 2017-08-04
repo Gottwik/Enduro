@@ -5,17 +5,17 @@
 var flat = function () {}
 
 // vendor dependencies
-var Promise = require('bluebird')
-var fs = require('fs')
-var require_from_string = require('require-from-string')
-var decode = require('urldecode')
-var stringify_object = require('stringify-object')
-var path = require('path')
-var _ = require('lodash')
+const Promise = require('bluebird')
+const fs = require('fs')
+const require_from_string = require('require-from-string')
+const decode = require('urldecode')
+const stringify_object = require('stringify-object')
+const path = require('path')
+const _ = require('lodash')
 
 // local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Save cms file
@@ -24,7 +24,7 @@ var log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters
 // *	@return {Promise} - Promise with no content. Resolve if saved successfully, reject otherwise
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.save = function (filename, contents) {
-	var self = this
+	const self = this
 
 	return new Promise(function (resolve, reject) {
 		// TODO: maybe the file could be backed up somewhere before overwriting
@@ -33,17 +33,17 @@ flat.prototype.save = function (filename, contents) {
 		// url decode filename
 		filename = decode(filename)
 
-		var fullpath_to_cms_file = self.get_full_path_to_flat_object(filename)
+		const fullpath_to_cms_file = self.get_full_path_to_flat_object(filename)
 
-		var flatObj = require_from_string('module.exports = ' + JSON.stringify(contents))
+		const flatObj = require_from_string('module.exports = ' + JSON.stringify(contents))
 
 		// add meta data (only if meta is enabled - currently juicebox)
 		if (enduro.config.meta_context_enabled) {
-			prettyString = flat_helpers.add_meta_context(flatObj)
+			flat_helpers.add_meta_context(flatObj)
 		}
 
 		// formats js file so it can be edited by hand later
-		var prettyString = stringify_object(flatObj, {indent: '	', singleQuotes: true})
+		const prettyString = stringify_object(flatObj, {indent: '	', singleQuotes: true})
 
 		// save cms file
 		flat_helpers.ensure_directory_existence(fullpath_to_cms_file)
@@ -65,7 +65,7 @@ flat.prototype.save = function (filename, contents) {
 // *	@return {Promise} - Promise returning an object
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.load = function (filename, is_full_absolute_path) {
-	var self = this
+	const self = this
 
 	return new Promise(function (resolve, reject) {
 
@@ -141,7 +141,7 @@ flat.prototype.get_cms_filename_from_fullpath = (full_path) => {
 // *	@return {boolean} - returns true if specified file exists
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.flat_object_exists = function (flat_object_path) {
-	var self = this
+	const self = this
 	return flat_helpers.file_exists_sync(self.get_full_path_to_flat_object(flat_object_path))
 }
 
@@ -153,7 +153,7 @@ flat.prototype.flat_object_exists = function (flat_object_path) {
 // *	@return {object} - returns merged object
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.upsert = function (flat_object_path, context_to_update) {
-	var self = this
+	const self = this
 
 	return self.load(flat_object_path)
 		.then((current_context) => {

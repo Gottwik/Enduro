@@ -26,7 +26,7 @@ describe('[online_test] Theme manager server endpoints', function () {
 	it('should fetch info for the \'mirror\' theme', function () {
 		return theme_manager.fetch_theme_info_by_name('mirror', { stealth: true })
 			.then((theme_info) => {
-				expect(theme_info).to.be.an.object
+				expect(theme_info).to.be.an('object')
 				expect(theme_info.name).to.equal('mirror')
 			})
 	})

@@ -55,7 +55,7 @@ describe('Globalizer - globalization', function () {
 
 		expect(test_context.also_cars)
 			.to.be.a('array')
-			.to.have.length.of(3)
+			.to.have.lengthOf(3)
 	})
 
 	it('should provide empty string when globalizer is not found', function () {

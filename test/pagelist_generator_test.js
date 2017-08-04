@@ -17,8 +17,8 @@ describe('Page list generation', function () {
 			.then((cmslist) => {
 				expect(cmslist).to.have.property('flat')
 				expect(cmslist).to.have.property('structured')
-				expect(cmslist).to.have.deep.property('structured.testgenerator.folder', true)
-				expect(cmslist['flat']).to.have.length.of.at.least(3)
+				expect(cmslist).to.have.deep.nested.property('structured.testgenerator.folder', true)
+				expect(cmslist['flat']).to.have.lengthOf.at.least(3)
 				done()
 			})
 	})

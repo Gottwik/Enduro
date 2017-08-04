@@ -39,7 +39,7 @@ describe('Juicebox pull', function () {
 				})
 
 				expect(files).to.contain('staging')
-				expect(files).to.have.length.of(3)
+				expect(files).to.have.lengthOf(3)
 			})
 	})
 
@@ -51,7 +51,7 @@ describe('Juicebox pull', function () {
 				})
 
 				expect(files).to.contain('staging')
-				expect(files).to.have.length.of(3)
+				expect(files).to.have.lengthOf(3)
 			})
 	})
 
@@ -60,7 +60,7 @@ describe('Juicebox pull', function () {
 		var staging_folder = path.join(enduro.project_path, 'juicebox', 'staging')
 
 		var files = glob.sync(path.join(staging_folder, '**/*'))
-		expect(files).to.have.length.to.be.above(5)
+		expect(files).to.have.lengthOf.above(5)
 	})
 
 	after(function () {

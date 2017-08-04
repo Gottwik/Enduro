@@ -38,7 +38,7 @@ describe('Times helper', function () {
 	it('should be able to nest times helper', function () {
 		enduro.templating_engine.compile('{{#times 5}}{{#times 5}}a{{/times}}{{/times}}')()
 			.then((compiled_output) => {
-				expect(compiled_output).to.have.length.of(25)
+				expect(compiled_output).to.have.lengthOf(25)
 			})
 	})
 

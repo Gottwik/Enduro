@@ -5,7 +5,9 @@ var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('Global data handler', function () {
 
+
 	before(function () {
+		this.timeout(5000)
 		return test_utilities.before(local_enduro, 'global_data_testfolder', 'minimalistic')
 			.then(() => {
 				return enduro.actions.render()
@@ -14,7 +16,7 @@ describe('Global data handler', function () {
 
 	it('should read some global data', function () {
 		expect(enduro.cms_data).to.include.keys('global')
-		expect(enduro.cms_data).to.have.deep.property('global.settings.admin_background_image')
+		expect(enduro.cms_data).to.have.deep.nested.property('global.settings.admin_background_image')
 	})
 
 	after(function () {

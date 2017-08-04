@@ -144,7 +144,7 @@ describe('Admin security', function () {
 	})
 
 	it('should not be possible to hash and salt if either parameters are missing', function () {
-		expect(internal_admin_security.__get__('salt_and_hash')()).to.be.empty
+		expect(internal_admin_security.__get__('salt_and_hash')()).to.be.undefined
 	})
 
 	it('should be able to remove all users', () => {

@@ -8,7 +8,7 @@ var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 var juice_make_new = require(enduro.enduro_path + '/libs/juicebox/juice_make_new')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
-describe('`Juicebox make new`', function () {
+describe('Juicebox make new', function () {
 
 	before(function () {
 		return test_utilities.before(local_enduro, 'juicebox_make_new_testfolder')

@@ -268,33 +268,15 @@ theme_manager.prototype.download_and_extract_theme_by_gz_link = function (gz_lin
 			strip: 1,
 		})
 
-		// console.log(tar_extract, typeof tar_extract)
-
 		tar_extract.on('close', function () {
 			logger.loaded()
 			global.enduro.project_path = process.cwd() + '/' + project_name
 			resolve()
 		})
 
-			// .then(() => {
-			// 	console.log('qwfq')
-			// 	// resolve when extracting is finished
-			// 	logger.loaded()
-			// 	global.enduro.project_path = process.cwd() + '/' + project_name
-			// 	resolve()
-			// }, () => {
-			// 	console.log('rejecteeed')
-			// })
-
 		// downloads and extracts
 		request(gz_link)
 			.pipe(tar_extract)
-			// .on('finish', function () {
-			// 	console.log('asdaswg')
-			// 	logger.loaded()
-			// 	global.enduro.project_path = process.cwd() + '/' + project_name
-			// 	resolve()
-			// })
 
 	})
 }

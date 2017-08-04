@@ -36,12 +36,14 @@ enduro_instance.prototype.quick_init = function () {
 // *	- read and stores project-specific configuration
 // *	@return {Promise} - resolves after enduro is ready to start
 // * ———————————————————————————————————————————————————————— * //
-enduro_instance.prototype.init = function (project_path) {
+enduro_instance.prototype.init = function (settings) {
 
-	const new_project_path = project_path || process.cwd()
+	settings = settings || {}
+
+	const new_project_path = settings.project_path || process.cwd()
 
 	// exposes enduro api, state, variables and configuration as public variable
-	global.enduro = linker.init_enduro_linked_configuration(new_project_path, __dirname)
+	global.enduro = linker.init_enduro_linked_configuration(new_project_path, __dirname, settings.flags)
 
 	// exposes enduro's api libraries and action functions
 	linker.expose_enduro_api()

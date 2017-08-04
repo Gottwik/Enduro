@@ -12,7 +12,6 @@ var path = require('path')
 // local dependencies
 var logger = require(enduro.enduro_path + '/libs/logger')
 var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var babel = require(global.enduro.enduro_path + '/libs/babel/babel')
 
 // Goes through the pages and renders them
 pregenerator.prototype.pregenerate = function () {
@@ -63,14 +62,9 @@ pregenerators['cultures'] = function () {
 
 	return new Promise(function (resolve, reject) {
 		var cultures_json_destionation_path = path.join(enduro.project_path, enduro.config.build_folder, '_prebuilt', '_cultures.json')
-		var cultures = {}
-		babel.get_cultures()
-			.then((fetched_cultures) => {
-				cultures = fetched_cultures
-				return flat_helpers.ensure_directory_existence(cultures_json_destionation_path)
-			})
+		flat_helpers.ensure_directory_existence(cultures_json_destionation_path)
 			.then(() => {
-				fs.writeFile(cultures_json_destionation_path, JSON.stringify(cultures), function (err) {
+				fs.writeFile(cultures_json_destionation_path, JSON.stringify(enduro.config.cultures), function (err) {
 					if (err) {
 						logger.err(err)
 					}

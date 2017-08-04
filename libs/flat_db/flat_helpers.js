@@ -22,6 +22,23 @@ flat_helpers.prototype.file_exists_sync = function (file_path) {
 	} catch (err) { return false }
 }
 
+// Checks if file exists
+flat_helpers.prototype.file_exists = function (file_path) {
+	return new Promise(function (resolve, reject) {
+		fs.stat(file_path, (err, stat) => {
+			if (err) {
+				reject()
+			}
+
+			if (stat.isFile()) {
+				resolve()
+			} else {
+				reject()
+			}
+		})
+	})
+}
+
 // Checks if directory exists
 flat_helpers.prototype.dir_exists_sync = function (file_path) {
 	try {
@@ -47,10 +64,14 @@ flat_helpers.prototype.dir_exists = function (file_path) {
 
 // Creates all subdirectories neccessary to create the file in file_path
 flat_helpers.prototype.ensure_directory_existence = function () {
+
+	// just resolve if no arguments passed
 	if (!arguments.length) {
 		return Promise.resolve()
 	}
-	file_paths = Array.prototype.slice.call(arguments).map((file_path) => { return file_path.split(path.sep).slice(0, -1).join(path.sep) })
+	file_paths = Array.prototype.slice.call(arguments).map((file_path) => {
+		return file_path.split(path.sep).slice(0, -1).join(path.sep)
+	})
 	return Promise.all(file_paths.map((file_path) => { return ensure_directory_existence(file_path) }))
 }
 
@@ -78,6 +99,18 @@ flat_helpers.prototype.delete_folder = function (absolute_path) {
 			resolve()
 		})
 	})
+}
+
+// will add unix timestamp to the top of the file for juicebox to be able to decide which file is newer
+flat_helpers.prototype.add_meta_context = function (context) {
+	const self = this
+
+	context.meta = {}
+	context.meta.last_edited = self.get_current_timestamp()
+}
+
+flat_helpers.prototype.get_current_timestamp = function () {
+	return Math.floor(Date.now() / 1000)
 }
 
 function ensure_directory_existence (file_path) {

@@ -1,10 +1,10 @@
 // * ———————————————————————————————————————————————————————— * //
-// * 	check juicebox enabled
+// * 	juice_pull
+// *
+// * 	endpoint: /admin_api/juice_pull
+// *	pulls and re-renders project
 // * ———————————————————————————————————————————————————————— * //
 var api_call = function () {}
-
-// vendor dependencies
-var Promise = require('bluebird')
 
 // local dependencies
 var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')

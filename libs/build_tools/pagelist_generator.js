@@ -63,7 +63,7 @@ pagelist_generator.prototype.init = function (gulp) {
 pagelist_generator.prototype.generate_cms_list = function () {
 	return new Promise(function (resolve, reject) {
 		glob(enduro.project_path + '/cms/**/*.js', function (err, files) {
-			if (err) { console.log(err) }
+			if (err) { console.log('failed to generate cms list', err) }
 
 			var pagelist = {}
 			var flat_pagelist = []

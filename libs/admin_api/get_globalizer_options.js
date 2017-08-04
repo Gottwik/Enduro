@@ -46,6 +46,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 		return
 	}
 
+	// just globalizer string exploded into an array
 	const globalizer_chain = globalizer_string
 		.substring(2)
 		.split('.')

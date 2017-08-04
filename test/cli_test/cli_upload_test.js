@@ -25,7 +25,6 @@ describe('[online_test] cli upload', function () {
 		enduro.actions.upload('http://www.endurojs.com/assets/img/test/upload.test')
 			.then((destination_url) => {
 				return test_utilities.request_file(destination_url)
-
 			}, () => {
 				done(new Error('uploading failed'))
 			})

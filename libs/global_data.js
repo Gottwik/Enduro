@@ -67,8 +67,8 @@ global_data.prototype.get_global_data = function () {
 
 // clears the global data
 global_data.prototype.clear = function () {
-	cms_data = {}
-	cms_data.global = {}
+	enduro.cms_data = {}
+	enduro.cms_data.global = {}
 }
 
 module.exports = new global_data()

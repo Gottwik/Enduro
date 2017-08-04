@@ -58,7 +58,7 @@ enduro_server.prototype.run = function (server_setup) {
 	return new Promise(function (resolve, reject) {
 
 		// overrides the port by system environment variable
-		enduro.config.port = process.env.PORT || enduro.flags.port || enduro.config.port
+		enduro.config.port = process.env.PORT || enduro.flags.port || enduro.config.port || 5000
 
 		// starts listening to request on specified port
 		enduro.server = app.listen(enduro.config.port, function () {
@@ -114,7 +114,7 @@ enduro_server.prototype.run = function (server_setup) {
 						if (requested_url.length <= 1 ||
 							(requested_url.split('/')[1] && enduro.config.cultures.indexOf(requested_url.split('/')[1]) + 1 && requested_url.split('/').length <= 2) ||
 							a[a.length - 1].indexOf('.') === -1
-							) {
+						) {
 							requested_url += requested_url.slice(-1) === '/' ? 'index' : '/index'
 						}
 
@@ -128,10 +128,14 @@ enduro_server.prototype.run = function (server_setup) {
 						// serves the requested file
 						res.sendFile(enduro.project_path + '/' + enduro.config.build_folder + requested_url + '.html')
 					}, () => {
-						res.sendFile(enduro.config.admin_folder + '/enduro_login.html')
+						res.sendFile(enduro.config.admin_folder + '/enduro_login/index.html')
 					})
 			}
 		})
+
+		// init socket and store everybody in global enduro.sockets
+		var io = require('socket.io')(enduro.server)
+		enduro.sockets = io.sockets
 	})
 }
 

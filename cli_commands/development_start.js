@@ -16,14 +16,17 @@ module.exports = {
 		},
 		'noremotewatch': {
 			describe: 'will not watch /remote directory',
-		}
+		},
+		'nocontentwatch': {
+			alias: 'c',
+			describe: 'will not watch for changes of content/cms files',
+		},
 	},
 	handler: function (cli_arguments) {
 		var enduro_instance = require('../index')
-		
-		enduro_instance.init()
+
+		enduro_instance.init({ flags: cli_arguments })
 			.then(() => {
-				enduro.flags = cli_arguments
 				enduro.actions.developer_start()
 			})
 	}

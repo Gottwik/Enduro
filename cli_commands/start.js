@@ -9,8 +9,7 @@ module.exports = {
 		},
 		'port': {
 			alias: 'p',
-			describe: 'sets the production port',
-			default: 5000,
+			describe: 'sets the production port'
 		},
 		'path': {
 			describe: 'set the path to the enduro.js project',

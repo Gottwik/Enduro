@@ -263,22 +263,39 @@ theme_manager.prototype.download_and_extract_theme_by_gz_link = function (gz_lin
 	return new Promise(function (resolve, reject) {
 
 		// tar settings - strip will omit the root folder of the gzip archive
-		var tar_extract = tar.Extract({
-			path: './' + project_name,
+		var tar_extract = tar.extract({
+			cwd: './' + project_name,
 			strip: 1,
 		})
 
-		// downloads and extracts
-		request(gz_link)
-			.pipe(zlib.createUnzip())
-			.pipe(tar_extract)
+		// console.log(tar_extract, typeof tar_extract)
 
-		// resolve when extracting is finished
-		tar_extract.on('finish', () => {
+		tar_extract.on('close', function () {
 			logger.loaded()
 			global.enduro.project_path = process.cwd() + '/' + project_name
 			resolve()
 		})
+
+			// .then(() => {
+			// 	console.log('qwfq')
+			// 	// resolve when extracting is finished
+			// 	logger.loaded()
+			// 	global.enduro.project_path = process.cwd() + '/' + project_name
+			// 	resolve()
+			// }, () => {
+			// 	console.log('rejecteeed')
+			// })
+
+		// downloads and extracts
+		request(gz_link)
+			.pipe(tar_extract)
+			// .on('finish', function () {
+			// 	console.log('asdaswg')
+			// 	logger.loaded()
+			// 	global.enduro.project_path = process.cwd() + '/' + project_name
+			// 	resolve()
+			// })
+
 	})
 }
 

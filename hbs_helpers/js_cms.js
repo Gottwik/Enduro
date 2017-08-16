@@ -6,8 +6,7 @@
 // *	Usable when passing cms static data to client.
 // *	Usage:
 // *		<script>
-// *			var global = {{{js_cms 'people'}}}
-// *			// global.mike.age is now
+// *			const global = {{{js_cms people}}}
 // *		</script>
 // *
 // * ———————————————————————————————————————————————————————— * //

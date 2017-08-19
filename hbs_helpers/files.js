@@ -34,7 +34,7 @@ helper.prototype.register = function () {
 				relative_path: relative_path,
 				file_name: path.basename(relative_path),
 				file_name_no_extension: path.basename(relative_path, path.extname(relative_path)),
-				depth: relative_path.match(new RegExp(path.sep, 'g')).length - 1
+				depth: relative_path.match(new RegExp('/', 'g')).length - 1
 			}
 
 		// builds processed html

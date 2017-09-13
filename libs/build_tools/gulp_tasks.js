@@ -167,8 +167,8 @@ gulp.task('iconfont', function (cb) {
 	return gulp.src([enduro.project_path + '/assets/fonticons/*.svg'])
 		.pipe(iconfontCss({
 			fontName: enduro.config.project_slug + '_icons',
-			path: enduro.project_path + '/assets/fonticons/icons_template.scss',
-			targetPath: '../../../' + enduro.config.build_folder + '/_prebuilt/icons.scss',
+			path: path.join(enduro.project_path, '/assets/fonticons/icons_template.scss'),
+			targetPath: path.join(enduro.project_path, enduro.config.build_folder, '/_prebuilt/icons.scss'),
 			fontPath: '/assets/iconfont/',
 		}))
 		.pipe(iconfont({
@@ -184,14 +184,14 @@ gulp.task('iconfont', function (cb) {
 				glyph.unicode = glyph.unicode[0].charCodeAt(0).toString(16)
 				return glyph
 			})
-			var icon_json_file_path = enduro.project_path + '/' + enduro.config.build_folder + '/_prebuilt/icons.json'
+			var icon_json_file_path = path.join(enduro.project_path, enduro.config.build_folder, '/_prebuilt/icons.json')
 			flat_helpers.ensure_directory_existence(icon_json_file_path)
 				.then(() => {
 					fs.writeFileSync(icon_json_file_path, JSON.stringify(glyphs))
 					cb()
 				})
 		})
-		.pipe(gulp.dest(path.relative(process.cwd(), enduro.project_path) + '/' + enduro.config.build_folder + '/assets/iconfont/'))
+		.pipe(gulp.dest(path.join(enduro.project_path, enduro.config.build_folder, '/assets/iconfont/')))
 })
 
 // * ———————————————————————————————————————————————————————— * //

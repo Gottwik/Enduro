@@ -134,23 +134,6 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 		}, theme_error)
 
 		.then(() => {
-			logger.loading('installing bower dependencies')
-			return new Promise(function (resolve, reject) {
-				var bower = require(process.cwd() + '/' + theme_progress_variables.answers.project_name + '/node_modules/bower/lib/index')
-				bower.commands
-					.install(undefined, {
-						silent: true
-					}, {
-						cwd: theme_progress_variables.answers.project_name
-					})
-					.on('end', function (installed) {
-						logger.loaded()
-						resolve()
-					})
-			})
-		}, theme_error)
-
-		.then(() => {
 			logger.loading('starting enduro')
 			logger.silent()
 			return enduro_instance.init({ project_path: path.join(process.cwd(), theme_progress_variables.answers.project_name) })
@@ -170,7 +153,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 			logger.log('your project was created successfully', true)
 			logger.log('to start your project again, just cd')
 			logger.log('into project directory and run', true)
-			logger.tablog('$ enduro', true)
+			logger.tablog('$ enduro dev', true)
 
 			logger.loading('the browser should open soon')
 

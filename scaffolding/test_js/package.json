@@ -4,13 +4,11 @@
 	"description": "",
 	"main": "assets/vendor/enduro/index.js",
 	"scripts": {
-		"postinstall": "node_modules/bower/bin/bower install",
 		"start": "node_modules/.bin/enduro start"
 	},
 	"author": "author goes here",
 	"license": "ISC",
 	"dependencies": {
-		"bower": "^1.7.7",
 		"enduro": "*"
 	},
 	"devDependencies": {

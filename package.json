@@ -116,7 +116,7 @@
     "stringify-object": "^3.1.0",
     "tar": "^3.1.8",
     "urldecode": "^1.0.1",
-    "yargs": "^8.0.2"
+    "yargs": "^9.0.1"
   },
   "description": "Minimalistic, lean & mean static page generator / cms",
   "devDependencies": {

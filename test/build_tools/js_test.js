@@ -20,6 +20,10 @@ describe('Js transpiler build tool', function () {
 		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'assets', 'js', 'main.js'))).to.be.ok
 	})
 
+	it('should create minified js file for every js file in root assets/js folder', function () {
+		expect(flat_helpers.file_exists_sync(path.join(enduro.project_path, enduro.config.build_folder, 'assets', 'js', 'main.min.js'))).to.be.ok
+	})
+
 	it('should compile simple js file', function () {
 		return test_utilities.request_file(path.join(enduro.config.build_folder, 'assets', 'js', 'main.js'))
 			.then((file_contents) => {

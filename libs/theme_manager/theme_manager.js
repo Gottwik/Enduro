@@ -134,23 +134,6 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 		}, theme_error)
 
 		.then(() => {
-			logger.loading('installing bower dependencies')
-			return new Promise(function (resolve, reject) {
-				var bower = require(process.cwd() + '/' + theme_progress_variables.answers.project_name + '/node_modules/bower/lib/index')
-				bower.commands
-					.install(undefined, {
-						silent: true
-					}, {
-						cwd: theme_progress_variables.answers.project_name
-					})
-					.on('end', function (installed) {
-						logger.loaded()
-						resolve()
-					})
-			})
-		}, theme_error)
-
-		.then(() => {
 			logger.loading('starting enduro')
 			logger.silent()
 			return enduro_instance.init({ project_path: path.join(process.cwd(), theme_progress_variables.answers.project_name) })
@@ -170,7 +153,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 			logger.log('your project was created successfully', true)
 			logger.log('to start your project again, just cd')
 			logger.log('into project directory and run', true)
-			logger.tablog('$ enduro', true)
+			logger.tablog('$ enduro dev', true)
 
 			logger.loading('the browser should open soon')
 
@@ -260,25 +243,27 @@ theme_manager.prototype.fetch_theme_info_by_name = function (theme_name, options
 theme_manager.prototype.download_and_extract_theme_by_gz_link = function (gz_link, project_name) {
 	logger.loading('downloading and extracting theme')
 
-	return new Promise(function (resolve, reject) {
+	global.enduro.project_path = enduro.project_path || process.cwd()
 
-		// tar settings - strip will omit the root folder of the gzip archive
-		var tar_extract = tar.extract({
-			cwd: './' + project_name,
-			strip: 1,
+	var extract_destination = path.join(enduro.project_path, project_name)
+	return flat_helpers.ensure_directory_existence(path.join(extract_destination, 'fake.txt'))
+		.then(() => {
+
+			return new Promise(function (resolve, reject) {
+				// downloads and extracts
+				request(gz_link)
+					.pipe(tar.extract({
+						cwd: path.join(enduro.project_path, project_name),
+						strip: 1,
+						strict: 1,
+				}))
+				.on('close', function () {
+					logger.loaded()
+					global.enduro.project_path = path.join(enduro.project_path, project_name)
+					resolve()
+				})
+			})
 		})
-
-		tar_extract.on('close', function () {
-			logger.loaded()
-			global.enduro.project_path = process.cwd() + '/' + project_name
-			resolve()
-		})
-
-		// downloads and extracts
-		request(gz_link)
-			.pipe(tar_extract)
-
-	})
 }
 
 // * ———————————————————————————————————————————————————————— * //

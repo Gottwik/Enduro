@@ -8,5 +8,6 @@
 	"juicebox_enabled": false,
 	"babel": {
 		"presets": ["es2015"]
-	}
+	},
+	"uglify": true
 }

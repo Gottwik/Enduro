@@ -1,6 +1,7 @@
 
 // vendor dependencies
 var expect = require('chai').expect
+var path = require('path')
 
 // local dependencies
 var local_enduro = require('../../index').quick_init()
@@ -248,9 +249,9 @@ describe('flat db object feature detection', function () {
 
 	it('should convert flat object path into a valid file path', () => {
 		expect(flat.filepath_from_filename('index')).to.be.equal('index')
-		expect(flat.filepath_from_filename('gallery')).to.be.equal('gallery/index')
-		expect(flat.filepath_from_filename('gallery/lego')).to.be.equal('gallery/lego/index')
-		expect(flat.filepath_from_filename('generators/blog/blog_entry')).to.be.equal('blog/blog_entry/index')
+		expect(flat.filepath_from_filename('gallery')).to.be.equal(path.join('gallery', 'index'))
+		expect(flat.filepath_from_filename('gallery/lego')).to.be.equal(path.join('gallery', 'lego', 'index'))
+		expect(flat.filepath_from_filename('generators/blog/blog_entry')).to.be.equal(path.join('blog', 'blog_entry', 'index'))
 	})
 
 	it('should detect a generator', () => {

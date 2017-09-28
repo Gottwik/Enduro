@@ -39,10 +39,14 @@ test_utilities.prototype.before = function (local_enduro, project_name, scaffold
 test_utilities.prototype.after = function () {
 	var self = this
 
-	return self.delete_testfolder()
-		.then(() => {
-			enduro.project_path = process.cwd()
-		})
+	// this will delete testfolder and set the path back to project's root for the other tests
+	return Promise.race([
+			self.delete_testfolder()
+				.then(() => {
+					enduro.project_path = process.cwd()
+				}),
+			new Promise.delay(1500)
+		])
 }
 
 test_utilities.prototype.request_file = function (url) {

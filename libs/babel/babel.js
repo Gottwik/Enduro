@@ -28,9 +28,9 @@ function culturize (context, culture) {
 
 	// don't botch arrays into objects
 	if (Array.isArray(context)) {
-		context.forEach((array_item) => {
-			culturize(array_item)
-		})
+		for (var i = 0, l = context.length; i < l; i++) {
+			context[i] = culturize(context[i], culture)
+		}
 		return context
 	}
 

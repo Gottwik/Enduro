@@ -89,7 +89,6 @@
     "urldecode": "^1.0.1",
     "yargs": "^8.0.2"
   },
-  "description": "Minimalistic, lean & mean static page generator / cms",
   "devDependencies": {
     "babel-preset-es2015": "^6.24.1",
     "chai": "^4.0.0",
@@ -116,14 +115,12 @@
     "static page generator"
   ],
   "license": "MIT",
-  "main": "index.js",
   "maintainers": [
     {
       "name": "gottwik",
       "email": "martin@martingottweis.com"
     }
   ],
-  "name": "enduro",
   "optionalDependencies": {},
   "readme": "ERROR: No README data found!",
   "repository": {
@@ -133,6 +130,5 @@
   "scripts": {
     "test": "mocha --recursive --bail",
     "to": "mocha --recursive --bail --grep online_test -i"
-  },
-  "version": "1.4.38"
+  }
 }

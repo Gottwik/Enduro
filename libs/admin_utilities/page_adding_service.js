@@ -31,10 +31,16 @@ page_adding_service.prototype.new_generator_page = function (new_pagename, gener
 // ¯\_(ツ)_/¯
 page_adding_service.prototype.delete_page = function (pagename) {
 	let filePath = enduro.project_path + '/cms/' + pagename + '.js';
-	fs.unlink(filePath, function (err) {
-		if (err) throw err;
-		console.log('File deleted!');
-	});
+	if (fs.existsSync(filePath)) {
+		console.log('File exist!');
+		fs.unlink(filePath, function (err) {
+			if (err) {
+				console.log('Error occurred!');
+			} else {
+				console.log('File' + pagename + '.js was deleted!');			
+			}
+		});
+	}
 }
 
 function get_new_generator_context (generator) {

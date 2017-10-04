@@ -10,6 +10,7 @@ var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 describe('Stylus build tool', function () {
 
 	before(function () {
+		this.timeout(5000);
 		return test_utilities.before(local_enduro, 'stylus_testfolder', 'test_stylus')
 			.then(() => {
 				return enduro.actions.render()
@@ -31,8 +32,9 @@ describe('Stylus build tool', function () {
 	it('should use autoprefixer', function () {
 		return test_utilities.request_file(path.join(enduro.config.build_folder, 'assets', 'css', 'test.css'))
 			.then((file_contents) => {
+
 				expect(file_contents).to.contain('display: -ms-flexbox;')
-					.and.to.contain('display: -webkit-flex;')
+					.and.to.contain('display: -webkit-box;')
 			})
 	})
 

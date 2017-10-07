@@ -113,6 +113,8 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 					progress: false,
 					loglevel: 'error',
 				}, () => {
+					// we get all npm dependencies, but to, speed up, remove enduro, since it's
+					// probably already installed globally
 					var npm_dependencies = _.chain(fetched_package.dependencies)
 						.omit('enduro')
 						.toPairs()
@@ -124,10 +126,19 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 					npm.commands.install(theme_progress_variables.answers.project_name, npm_dependencies, function (err, data) {
 						if (err) { console.log(error) }
 
-						// replace console.log
-						console.log = log_temp
-						logger.loaded()
-						resolve()
+						// trick npm into believeing it's in the theme's folder
+						npm.localPrefix = path.join(process.cwd(), theme_progress_variables.answers.project_name)
+
+						// run postinstall script
+						npm.commands.run(['postinstall'], function (err) {
+							if (err) { console.log(error) }
+
+							// no need to silence npm, enable console.log
+							console.log = log_temp
+							logger.loaded()
+							resolve()
+						})
+
 					})
 				})
 			})

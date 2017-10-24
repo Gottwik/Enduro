@@ -6,6 +6,7 @@ var page_adding_service = function () {}
 // vendor dependencies
 const path = require('path')
 const _ = require('lodash')
+const fs = require('fs')
 
 // local dependencies
 const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
@@ -27,11 +28,19 @@ page_adding_service.prototype.new_generator_page = function (new_pagename, gener
 		})
 }
 
-// yea, this is not really implemented yet ¯\_(ツ)_/¯
+// ¯\_(ツ)_/¯
 page_adding_service.prototype.delete_page = function (pagename) {
-	return new Promise(function (resolve, reject) {
-		resolve()
-	})
+	let filePath = enduro.project_path + '/cms/' + pagename + '.js';
+	if (fs.existsSync(filePath)) {
+		console.log('File exist!');
+		fs.unlink(filePath, function (err) {
+			if (err) {
+				console.log('Error occurred!');
+			} else {
+				console.log('File' + pagename + '.js was deleted!');			
+			}
+		});
+	}
 }
 
 function get_new_generator_context (generator) {

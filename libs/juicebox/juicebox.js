@@ -8,7 +8,7 @@ var juicebox = function () {}
 var Promise = require('bluebird')
 var tar = require('tar')
 var path = require('path')
-var fs = require('fs')
+var fs = Promise.promisifyAll(require('fs-extra'))
 var rimraf = Promise.promisify(require('rimraf'))
 
 // local dependencies
@@ -76,7 +76,11 @@ juicebox.prototype.pull = function (force) {
 				return spill_the_juice(latest_juicebox, path.join(enduro.project_path, 'juicebox', 'staging', pull_juice.latest.hash))
 			}, () => {
 				// latest juicebox does not exist
+				// we will spill the just created juicebox instead so we have the first
 				return self.force_pack('enduro.js')
+					.then(() => {
+						return spill_the_juice(pull_juice.latest.hash + EXTENSION, path.join(enduro.project_path, 'juicebox', 'staging', pull_juice.latest.hash))
+					})
 					.then(() => {
 						throw new Error('abort promise chain')
 					})
@@ -139,6 +143,15 @@ juicebox.prototype.force_pack = function (user) {
 	})
 }
 
+juicebox.prototype.diff_current_to_latest_juicebox = function () {
+	const self = this
+
+	return get_latest_local_juice()
+		.then((latest_local_juicebox_hash) => {
+			return juice_helpers.diff_folder_with_cms(path.join('juicebox', 'staging', latest_local_juicebox_hash, 'cms'))
+		})
+}
+
 juicebox.prototype.diff = function (version_hash, file) {
 
 	// will store the specified juicebox hash
@@ -193,7 +206,7 @@ function write_juicebox (juicebox_name) {
 
 function write_juicefile (juice) {
 	return new Promise(function (resolve, reject) {
-		var destination_juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
+		const destination_juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
 		flat_helpers.ensure_directory_existence(destination_juicefile_path)
 			.then(() => {
 				fs.writeFile(destination_juicefile_path, JSON.stringify(juice), function (err) {
@@ -204,6 +217,12 @@ function write_juicefile (juice) {
 	})
 }
 
+function read_juicefile () {
+	const local_juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
+
+	return fs.readJson(local_juicefile_path)
+}
+
 function get_latest_juice () {
 	return remote_handler.request_file(remote_handler.get_remote_url('juicebox/juice.json', true))
 		.catch(() => {
@@ -212,7 +231,6 @@ function get_latest_juice () {
 		.spread((body, response) => {
 
 			if (body.indexOf('<?xml') + 1 && body.indexOf('<Error>') + 1) {
-				console.log(body)
 
 				// juicefile doesn't exist yet - let's create a new juicefile
 				if (body.indexOf('AccessDenied') + 1) {
@@ -221,7 +239,7 @@ function get_latest_juice () {
 				} else if (body.indexOf('NoSuchBucket') + 1) {
 					log_clusters.log('nonexistent_bucket')
 				} else {
-					console.log(body)
+					logger.raw_err(body)
 				}
 				process.exit()
 			}
@@ -235,6 +253,14 @@ function get_latest_juice () {
 		})
 		.catch(() => {
 			return write_juicefile(get_new_juicefile())
+		})
+}
+
+// gets latest juice from the local juice.json
+function get_latest_local_juice () {
+	return read_juicefile()
+		.then((latest_juicebox_data) => {
+			return latest_juicebox_data.latest.hash
 		})
 }
 

@@ -17,7 +17,10 @@ helper.prototype.register = function () {
 
 	enduro.templating_engine.registerHelper('files', function (path_to_folder, handlebars_context) {
 
-		var path_to_all_files_in_folder = path.join(enduro.project_path, path_to_folder, '**', '*.*')
+		// add path to enduro project to make sure we won't be matching something else in the files' path
+		path_to_folder = path.join(enduro.project_path, path_to_folder)
+
+		var path_to_all_files_in_folder = path.join(path_to_folder, '**', '*.*')
 
 		// get all files with path
 		var files = glob.sync(path_to_all_files_in_folder)

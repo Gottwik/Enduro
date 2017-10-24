@@ -38,8 +38,10 @@ action.prototype.action = function (config) {
 						prevent_double_callback = true
 						logger.timestamp('production server starting', 'enduro_events')
 
-						// start production server in development mode
-						enduro_server.run({ development_mode: true })
+						if (!enduro.flags.noproduction) {
+							// start production server in development mode
+							enduro_server.run({ development_mode: true })
+						}
 
 						resolve()
 					}

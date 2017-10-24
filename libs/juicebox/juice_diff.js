@@ -61,6 +61,17 @@ juice_diff.prototype.diff = function (path1, path2) {
 			return Promise.all(abstract_cms_files)
 		})
 		.then(() => {
+			// let's count all the differences
+			store_compare_result.differences = 0
+			for (var i in store_compare_result.diffSet) {
+				const diff_item = store_compare_result.diffSet[i]
+				if (diff_item.type == 'file' && diff_item.status != 'equal') {
+					store_compare_result.differences++;
+				}
+			}
+			return store_compare_result
+		})
+		.then(() => {
 			return store_compare_result
 		})
 }

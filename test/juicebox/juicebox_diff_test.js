@@ -16,17 +16,27 @@ describe('Juicebox diff', () => {
 		return test_utilities.before(local_enduro, 'juicebox_pull_testfolder')
 			.then(() => {
 				enduro.config.juicebox_enabled = true
+				enduro.config.meta_context_enabled = true
 			})
 			.then(() => {
 				return juicebox.pull()
 			})
-
 	})
 
 	it('diff should say the cms folder is the same as juicebox stored', () => {
 		return juicebox.diff_current_to_latest_juicebox()
 			.then((diff_results) => {
 				expect(diff_results.differencesFiles).to.equal(0);
+			})
+	})
+
+	it('diff should detect changed file', () => {
+		return flat.save('index', { new_content: 'definitely new stuff' })
+			.then(() => {
+				return juicebox.diff_current_to_latest_juicebox()
+			})
+			.then((diff_results) => {
+				expect(diff_results.differences).to.equal(1);
 			})
 	})
 

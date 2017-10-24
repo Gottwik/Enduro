@@ -181,7 +181,7 @@ juicebox.prototype.diff = function (version_hash, file) {
 			if (file) {
 				return juice_helpers.diff_file_with_cms(juicebox_hash_to_diff, file)
 			} else {
-				return juice_helpers.print_out_diff_folder_with_cms(path.join('juicebox', 'staging', juicebox_hash_to_diff, 'cms'))
+				return juice_helpers.get_diff_folder_with_cms(path.join('juicebox', 'staging', juicebox_hash_to_diff, 'cms'))
 			}
 		})
 }

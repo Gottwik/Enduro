@@ -79,7 +79,7 @@
     "promised-handlebars": "git+https://github.com/Gottwik/promised-handlebars.git",
     "request": "^2.72.0",
     "request-promise": "^4.1.1",
-    "require-from-string": "^1.1.0",
+    "require-from-string": "^2.0.0",
     "rewire": "^2.5.1",
     "rimraf": "^2.5.2",
     "s3": "^4.4.0",

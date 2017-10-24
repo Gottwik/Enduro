@@ -1,13 +1,13 @@
 
 // vendor dependencies
-var expect = require('chai').expect
-var path = require('path')
+const expect = require('chai').expect
+const path = require('path')
 
 // local dependencies
-var local_enduro = require('../../index').quick_init()
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+const local_enduro = require('../../index').quick_init()
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('flat db data access', function () {
 
@@ -24,12 +24,12 @@ describe('flat db data access', function () {
 	})
 
 	it('should convert relative path into full path', function () {
-		var full_index_file = flat.get_full_path_to_flat_object('index')
+		const full_index_file = flat.get_full_path_to_flat_object('index')
 		expect(flat_helpers.file_exists_sync(full_index_file)).to.equal(true) // validates the path conversion by checking if the file exists
 	})
 
 	it('should convert absolute path into relative', function () {
-		var full_index_file = flat.get_full_path_to_flat_object('index')
+		const full_index_file = flat.get_full_path_to_flat_object('index')
 		expect(flat.get_cms_filename_from_fullpath(full_index_file)).to.equal('index') // validates the path conversion by checking if the file exists
 	})
 
@@ -128,19 +128,19 @@ describe('flat db data access', function () {
 
 	it('should be able to extend array nested in an object', () => {
 
-		var old_context = {
+		const old_context = {
 			root_object: {
 				list: ['a', 'b', 'c']
 			}
 		}
 
-		var updating_context = {
+		const updating_context = {
 			root_object: {
 				list: ['d'],
 			}
 		}
 
-		var expected_merged_context = {
+		const expected_merged_context = {
 			root_object: {
 				list: ['a', 'b', 'c', 'd'],
 			}
@@ -160,7 +160,7 @@ describe('flat db data access', function () {
 
 	it('should be able to update nested object', () => {
 
-		var old_context = {
+		const old_context = {
 			a: {
 				b: {
 					c: {
@@ -171,7 +171,7 @@ describe('flat db data access', function () {
 			}
 		}
 
-		var updating_context = {
+		const updating_context = {
 			a: {
 				b: {
 					c: {
@@ -182,7 +182,7 @@ describe('flat db data access', function () {
 			}
 		}
 
-		var expected_merged_context = {
+		const expected_merged_context = {
 			a: {
 				b: {
 					c: {

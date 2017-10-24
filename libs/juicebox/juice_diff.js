@@ -20,6 +20,9 @@ const path = require('path')
 const logger = require(enduro.enduro_path + '/libs/logger')
 const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	print out diff
+// * ———————————————————————————————————————————————————————— * //
 juice_diff.prototype.print_out_diff = function (path1, path2) {
 	const self = this
 	logger.init('Juice diff')
@@ -35,7 +38,6 @@ juice_diff.prototype.print_out_diff = function (path1, path2) {
 			})
 			logger.end()
 		})
-
 }
 
 juice_diff.prototype.diff = function (path1, path2) {

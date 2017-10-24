@@ -1,14 +1,15 @@
 // vendor dependencies
-var expect = require('chai').expect
-var path = require('path')
-var glob = require('glob')
+const expect = require('chai').expect
+const path = require('path')
+const glob = require('glob')
 
 // local dependencies
-var local_enduro = require('../../index').quick_init()
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
-var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
+const local_enduro = require('../../index').quick_init()
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+const juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
-describe('Juicebox diff', function () {
+describe('Juicebox diff', () => {
 
 	before(function () {
 		this.timeout(8000)
@@ -22,15 +23,35 @@ describe('Juicebox diff', function () {
 
 	})
 
-	it('diff should say the cms folder is the same as juicebox stored', function () {
-		expect(true).to.be.true;
-		// return juicebox.diff_current_to_latest_juicebox()
-		// 	.then((diff_results) => {
-		// 		console.log(diff_results)
-		// 	})
+	it('diff should say the cms folder is the same as juicebox stored', () => {
+		return juicebox.diff_current_to_latest_juicebox()
+			.then((diff_results) => {
+				expect(diff_results.differencesFiles).to.equal(0);
+			})
 	})
 
-	after(function () {
-		// return test_utilities.after()
+	it('diff should detect one new file', () => {
+		return flat.save('test_object', { test_context: 'inserted' })
+			.then(() => {
+				return juicebox.diff_current_to_latest_juicebox()
+			})
+			.then((diff_results) => {
+				expect(diff_results.differencesFiles).to.equal(1);
+			})
+	})
+
+	it('diff should detect one new folder', () => {
+		return flat.save('new_folder/test_object', { test_context: 'inserted' })
+			.then(() => {
+				return juicebox.diff_current_to_latest_juicebox()
+			})
+			.then((diff_results) => {
+				expect(diff_results.differencesFiles).to.equal(2);
+				expect(diff_results.differencesDirs).to.equal(1);
+			})
+	})
+
+	after(() => {
+		return test_utilities.after()
 	})
 })

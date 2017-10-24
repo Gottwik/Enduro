@@ -5,28 +5,41 @@
 var juice_helpers = function () {}
 
 // vendor dependencies
-var dircompare = require('dir-compare')
-var path = require('path')
-var fs = require('fs-extra')
-var moment = require('moment')
-var glob = require('glob-promise')
+const dircompare = require('dir-compare')
+const path = require('path')
+const fs = require('fs-extra')
+const moment = require('moment')
+const glob = require('glob-promise')
 
 // local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var juice_diff = require(enduro.enduro_path + '/libs/juicebox/juice_diff')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+const logger = require(enduro.enduro_path + '/libs/logger')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const juice_diff = require(enduro.enduro_path + '/libs/juicebox/juice_diff')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
-juice_helpers.prototype.diff_folder_with_cms = function (folder) {
-	// local path
-	var path1 = path.join(enduro.project_path, 'cms')
+// * ———————————————————————————————————————————————————————— * //
+// * 	print out diff folder with cms
+// * ———————————————————————————————————————————————————————— * //
+juice_helpers.prototype.print_out_diff_folder_with_cms = function (folder) {
+	const local_path = path.join(enduro.project_path, 'cms')
+	const juice_path = path.join(enduro.project_path, folder)
 
-	// juice path
-	var path2 = path.join(enduro.project_path, folder)
-
-	return juice_diff.print_out_diff(path1, path2)
+	return juice_diff.print_out_diff(local_path, juice_path)
 }
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	get diff folder with cms
+// * ———————————————————————————————————————————————————————— * //
+juice_helpers.prototype.get_diff_folder_with_cms = function (folder) {
+	const local_path = path.join(enduro.project_path, 'cms')
+	const juice_path = path.join(enduro.project_path, folder)
+
+	return juice_diff.diff(local_path, juice_path)
+}
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	diff file with cms
+// * ———————————————————————————————————————————————————————— * //
 juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {
 	glob(path.join(enduro.project_path, 'juicebox', 'staging', juicebox_hash, '**', file + '.js'))
 		.then((file) => {

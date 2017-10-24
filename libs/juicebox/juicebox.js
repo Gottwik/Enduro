@@ -143,12 +143,16 @@ juicebox.prototype.force_pack = function (user) {
 	})
 }
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	diff current to latest juicebox
+// * 	will compare current cms folder and latest staged juicebox diff
+// * ———————————————————————————————————————————————————————— * //
 juicebox.prototype.diff_current_to_latest_juicebox = function () {
 	const self = this
 
 	return get_latest_local_juice()
 		.then((latest_local_juicebox_hash) => {
-			return juice_helpers.diff_folder_with_cms(path.join('juicebox', 'staging', latest_local_juicebox_hash, 'cms'))
+			return juice_helpers.get_diff_folder_with_cms(path.join('juicebox', 'staging', latest_local_juicebox_hash, 'cms'))
 		})
 }
 
@@ -177,7 +181,7 @@ juicebox.prototype.diff = function (version_hash, file) {
 			if (file) {
 				return juice_helpers.diff_file_with_cms(juicebox_hash_to_diff, file)
 			} else {
-				return juice_helpers.diff_folder_with_cms(path.join('juicebox', 'staging', juicebox_hash_to_diff, 'cms'))
+				return juice_helpers.print_out_diff_folder_with_cms(path.join('juicebox', 'staging', juicebox_hash_to_diff, 'cms'))
 			}
 		})
 }

@@ -65,7 +65,6 @@ juice_diff.prototype.diff = function (path1, path2) {
 			store_compare_result.differences = 0
 			for (var i in store_compare_result.diffSet) {
 				const diff_item = store_compare_result.diffSet[i]
-				console.log(diff_item)
 				if (diff_item.type == 'file' && diff_item.status != 'equal') {
 					store_compare_result.differences++;
 				}
@@ -133,16 +132,6 @@ function figure_out_timestamp (context) {
 function figure_out_status (item) {
 	// if both files don't have meta timestamp compare creation times
 	if (!item.juicetimestamp1 && !item.juicetimestamp2) {
-		// local_newer
-		if (item.date1 > item.date2) {
-			return item.status = 'local_newer'
-		}
-
-		// juice_newer
-		if (item.date1 < item.date2) {
-			return item.status = 'juice_newer'
-		}
-
 		item.status = 'equal'
 	}
 

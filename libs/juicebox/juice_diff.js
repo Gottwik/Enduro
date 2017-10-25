@@ -65,6 +65,7 @@ juice_diff.prototype.diff = function (path1, path2) {
 			store_compare_result.differences = 0
 			for (var i in store_compare_result.diffSet) {
 				const diff_item = store_compare_result.diffSet[i]
+				console.log(diff_item)
 				if (diff_item.type == 'file' && diff_item.status != 'equal') {
 					store_compare_result.differences++;
 				}

@@ -4,14 +4,16 @@
 // * 	admin api endpoint admin_api/get_admin_extensions
 // *	@return {response} - success boolean and array of .js files to be injected to admin
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
 // vendor dependencies
-var glob = require('glob-promise')
-var path = require('path')
+const glob = require('glob-promise')
+const path = require('path')
+
+const brick_handler = require(enduro.enduro_path + '/libs/brick_handler/brick_handler')
 
 // constants
-var extension_path = path.join(enduro.project_path, 'assets', 'admin_extensions', '**', '*.js')
+const extension_path = path.join(enduro.project_path, 'assets', 'admin_extensions', '**', '*.js')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
@@ -20,9 +22,17 @@ api_call.prototype.call = function (req, res, enduro_server) {
 		.then((extensions) => {
 
 			// removes part of absolute path
-			var trimmed_extensions = extensions.map((extension) => { return extension.match(/admin_extensions\/(.*)/)[1] })
+			extensions = extensions.map((extension) => { return extension.match(/admin_extensions\/(.*)/)[1] })
 
-			res.send({success: true, data: trimmed_extensions})
+			// add path prefix for default extensions
+			extensions = extensions.map((extension) => { return '/assets/admin_extensions/' + extension })
+
+			// adds admin js injects by bricks
+			if (enduro.config.brick_admin_injects) {
+				extensions = extensions.concat(enduro.config.brick_admin_injects)
+			}
+
+			res.send({ success: true, data: extensions })
 		}, () => {})
 }
 

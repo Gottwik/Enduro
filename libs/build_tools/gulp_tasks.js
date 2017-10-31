@@ -82,7 +82,7 @@ function browsersync_start (norefresh) {
 					req.url = '/' + req.url.match(static_path_pattern)[1]
 				}
 
-				// server admin/index file on /admin url
+				// serve admin/index file on /admin url
 				if (req.url == '/admin/') { req.url = '/admin/index.html' }
 
 				return next()

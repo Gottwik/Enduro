@@ -26,7 +26,7 @@ describe('Juicebox diff', () => {
 	it('diff should say the cms folder is the same as juicebox stored', () => {
 		return juicebox.diff_current_to_latest_juicebox()
 			.then((diff_results) => {
-				expect(diff_results.differencesFiles).to.equal(0);
+				expect(diff_results.differences).to.equal(0);
 			})
 	})
 

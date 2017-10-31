@@ -5,10 +5,5 @@
 		"bucket": "enduro.sethere",
 		"region": "eu-west-1"
 	},
-	"juicebox_enabled": false,
-	"bricks": {
-		"test_brick": {
-			"test_setting": "Snow"
-		}
-	}
+	"juicebox_enabled": false
 }

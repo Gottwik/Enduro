@@ -22,7 +22,7 @@ const website_app = require(enduro.enduro_path + '/libs/website_app')
 const trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
 const logger = require(enduro.enduro_path + '/libs/logger')
 const ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
-const brick_handler = require(enduro.enduro_path + '/libs/brick_handler/brick_handler')
+const brick_handler = require(enduro.enduro_path + '/libs/bricks/brick_handler')
 
 // initialization of the sessions
 app.set('trust proxy', 1)

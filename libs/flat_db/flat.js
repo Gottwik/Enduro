@@ -2,9 +2,9 @@
 // * 	flatdb custom built for enduro.js
 // * 	handles cms data storage
 // * ———————————————————————————————————————————————————————— * //
-var flat = function () {}
+const flat = function () {}
 
-// vendor dependencies
+// * vendor dependencies
 const Promise = require('bluebird')
 const fs = require('fs')
 const require_from_string = require('require-from-string')
@@ -13,9 +13,11 @@ const stringify_object = require('stringify-object')
 const path = require('path')
 const _ = require('lodash')
 
-// local dependencies
+// * enduro dependencies
 const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 const log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
+const brick_processors = require(enduro.enduro_path + '/libs/bricks/brick_processors')
+
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Save cms file
@@ -103,15 +105,21 @@ flat.prototype.load = function (filename, is_full_absolute_path) {
 				}
 
 				// convert the string-based javascript into an object
-				var flatObj = {}
+				var context = {}
 				try {
-					flatObj = require_from_string('module.exports = ' + raw_context_data)
+					context = require_from_string('module.exports = ' + raw_context_data)
 				} catch (e) {
 					console.log(e)
 					log_clusters.log('malformed_context_file', filename)
 				}
 
-				resolve(flatObj)
+				// brick_processors enable bricks(plugins) to manipulate the context just before
+				// page rendering happens
+				return brick_processors.process('cms_context_processor', context)
+					.then((proccessed_context) => {
+						resolve(proccessed_context)
+					})
+
 			})
 		}
 	})

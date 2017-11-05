@@ -10,7 +10,7 @@ const api_call = function () {}
 const glob = require('glob-promise')
 const path = require('path')
 
-const brick_handler = require(enduro.enduro_path + '/libs/brick_handler/brick_handler')
+const brick_handler = require(enduro.enduro_path + '/libs/bricks/brick_handler')
 
 // constants
 const extension_path = path.join(enduro.project_path, 'assets', 'admin_extensions', '**', '*.js')

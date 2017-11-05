@@ -18,7 +18,7 @@ var abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
 var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
 var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
 var event_hooks = require(enduro.enduro_path + '/libs/external_links/event_hooks')
-var brick_handler = require(enduro.enduro_path + '/libs/brick_handler/brick_handler')
+var brick_handler = require(enduro.enduro_path + '/libs/bricks/brick_handler')
 
 action.prototype.action = function (dont_do_juice_pull) {
 

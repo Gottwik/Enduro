@@ -16,6 +16,8 @@ var api_links = {
 	'flat': '/libs/flat_db/flat',
 	'flat_helpers': '/libs/flat_db/flat_helpers',
 	'logger': '/libs/logger',
+	'brick_processors': '/libs/bricks/brick_processors',
+	'context_modifiers': '/libs/context_tools/context_modifiers',
 }
 
 // will initialize shared variables that will represent state and configuration
@@ -48,6 +50,9 @@ enduro_linker.prototype.init_enduro_linked_configuration = function (project_pat
 	// creates global cms data object
 	linker.cms_data = {}
 	linker.cms_data.global = {}
+
+	// initialize brick_processors
+	linker.brick_processors = []
 
 	return linker
 }

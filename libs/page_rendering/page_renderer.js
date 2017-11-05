@@ -2,21 +2,21 @@
 // * 	enduro render
 // *	renders individual page based on source template, context and culture
 // * ———————————————————————————————————————————————————————— * //
-var page_renderer = function () {}
+const page_renderer = function () {}
 
 // vendor dependencies
-var Promise = require('bluebird')
-var fs = Promise.promisifyAll(require('fs-extra'))
-var extend = require('extend')
-var path = require('path')
+const Promise = require('bluebird')
+const fs = Promise.promisifyAll(require('fs-extra'))
+const extend = require('extend')
+const path = require('path')
 
 // local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var logger = require(enduro.enduro_path + '/libs/logger')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
-var babel = require(enduro.enduro_path + '/libs/babel/babel')
-var globalizer = require(enduro.enduro_path + '/libs/globalizer/globalizer')
-var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const logger = require(enduro.enduro_path + '/libs/logger')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+const babel = require(enduro.enduro_path + '/libs/babel/babel')
+const globalizer = require(enduro.enduro_path + '/libs/globalizer/globalizer')
+const markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	renders individual template with provided context, culture and destination path
@@ -28,12 +28,12 @@ var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
 // *	@return {promise} -  empty payload
 // * ———————————————————————————————————————————————————————— * //
 page_renderer.prototype.render_file = function (template_path, context_path, culture, dest_path) {
-	var self = this
+	const self = this
 
 	return new Promise(function (resolve, reject) {
 
 		// where will the generated page be saved
-		var destination_path = path.join(culture, dest_path)
+		const destination_path = path.join(culture, dest_path)
 
 		flat.load(context_path)
 			.then((context) => {

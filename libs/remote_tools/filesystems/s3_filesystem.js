@@ -35,6 +35,7 @@ filesystem.prototype.upload = function (filename, path_to_file) {
 			s3Params: {
 				Bucket: enduro.config.s3.bucket,
 				Key: filename,
+				ACL: 'public-read',
 			},
 		}
 		var uploader = client.uploadFile(params)

@@ -1,15 +1,15 @@
 // * ———————————————————————————————————————————————————————— * //
 // * 	Enduro Admin Security
 // * ———————————————————————————————————————————————————————— * //
-var admin_security = function () {}
+const admin_security = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var crypto = require('crypto')
+// * vendor dependencies
+const Promise = require('bluebird')
+const crypto = require('crypto')
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	get user by username
@@ -28,7 +28,7 @@ admin_security.prototype.get_user_by_username = function (username) {
 				}
 
 				// find user with specified username
-				var selected_user = raw_userlist.users.filter((user) => {
+				const selected_user = raw_userlist.users.filter((user) => {
 					if (user.username == username) {
 						return user
 					}
@@ -72,7 +72,7 @@ admin_security.prototype.get_all_users = function () {
 // *	@return {promise} - resolves if login successful and returns user
 // * ———————————————————————————————————————————————————————— * //
 admin_security.prototype.login_by_password = function (username, password) {
-	var self = this
+	const self = this
 
 	return new Promise(function (resolve, reject) {
 
@@ -86,7 +86,7 @@ admin_security.prototype.login_by_password = function (username, password) {
 			.then((user) => {
 
 				// hashes password
-				var hashed_input_password = hash(password, user.salt)
+				const hashed_input_password = hash(password, user.salt)
 
 				// compares hashed password with stored hash
 				if (hashed_input_password == user.hash) {
@@ -111,7 +111,7 @@ admin_security.prototype.login_by_password = function (username, password) {
 // *	@return {promise} - resolves/rejects based on if the creation was successful
 // * ———————————————————————————————————————————————————————— * //
 admin_security.prototype.add_admin = function (username, password, tags) {
-	var self = this
+	const self = this
 
 	return new Promise(function (resolve, reject) {
 
@@ -128,7 +128,7 @@ admin_security.prototype.add_admin = function (username, password, tags) {
 			? tags.split(',')
 			: []
 
-		var logincontext = {
+		const logincontext = {
 			username: username,
 			password: password,
 			tags: tags

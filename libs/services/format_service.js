@@ -1,7 +1,7 @@
 // * ———————————————————————————————————————————————————————— * //
 // * 	format service
 // * ———————————————————————————————————————————————————————— * //
-var format_service = function () {}
+const format_service = function () {}
 
 // gets rid of non-word characters and replaces whitespace with a dash
 format_service.prototype.slug = function (input) {

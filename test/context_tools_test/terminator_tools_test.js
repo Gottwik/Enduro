@@ -1,7 +1,7 @@
-// vendor dependencies
+// * vendor dependencies
 const expect = require('chai').expect
 
-// local dependencies
+// * enduro dependencies
 const terminator_tools = require(enduro.enduro_path + '/libs/context_tools/terminator_tools')
 
 describe('terminator tools - get terminator', function () {

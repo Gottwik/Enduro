@@ -3,16 +3,12 @@
 // *
 // *	@return {response} - object with stats about the website
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
-
-// Vendor dependencies
-
-// local dependencies
+const api_call = function () {}
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
 
-	var stats = {}
+	let stats = {}
 
 	stats.enduro_version = '1.0.40'
 

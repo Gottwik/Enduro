@@ -1,13 +1,13 @@
-// vendor dependencies
-var expect = require('chai').expect
-var path = require('path')
-var fs = require('fs')
+// * vendor dependencies
+const expect = require('chai').expect
+const path = require('path')
+const fs = require('fs')
 
-// local dependencies
-var local_enduro = require('../index').quick_init()
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var babel = require(enduro.enduro_path + '/libs/babel/babel')
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+// * enduro dependencies
+const local_enduro = require('../index').quick_init()
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const babel = require(enduro.enduro_path + '/libs/babel/babel')
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('Pregeneration', function () {
 
@@ -23,7 +23,7 @@ describe('Pregeneration', function () {
 
 	it('_settings.css should be pregenerated', function (done) {
 
-		var settings_css_filepath = path.join(enduro.project_path, enduro.config.build_folder, '_prebuilt', '_settings.css')
+		const settings_css_filepath = path.join(enduro.project_path, enduro.config.build_folder, '_prebuilt', '_settings.css')
 		expect(flat_helpers.file_exists_sync(settings_css_filepath)).to.be.ok
 
 		fs.readFile(settings_css_filepath, 'utf8', function (err, data) {
@@ -35,7 +35,7 @@ describe('Pregeneration', function () {
 	})
 
 	it('_cultures.json should be pregenerated', function () {
-		var cultures_json_filepath = path.join(enduro.project_path, enduro.config.build_folder, '_prebuilt', '_cultures.json')
+		const cultures_json_filepath = path.join(enduro.project_path, enduro.config.build_folder, '_prebuilt', '_cultures.json')
 		expect(flat_helpers.file_exists_sync(cultures_json_filepath)).to.be.ok
 	})
 

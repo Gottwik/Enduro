@@ -10,7 +10,7 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 

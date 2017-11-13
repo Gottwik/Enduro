@@ -1,15 +1,15 @@
 
-// vendor dependencies
-var expect = require('chai').expect
-var rewire = require('rewire')
+// * vendor dependencies
+const expect = require('chai').expect
+const rewire = require('rewire')
 
-// local dependencies
-var local_enduro = require('../index')
-var babel = require(global.enduro.enduro_path + '/libs/babel/babel')
-var test_utilities = require('./libs/test_utilities')
+// * enduro dependencies
+const local_enduro = require('../index')
+const babel = require(global.enduro.enduro_path + '/libs/babel/babel')
+const test_utilities = require('./libs/test_utilities')
 
 // rewired dependencies
-var internal_babel = rewire(global.enduro.enduro_path + '/libs/babel/babel')
+const internal_babel = rewire(global.enduro.enduro_path + '/libs/babel/babel')
 
 describe('Babel - registering cultures', function () {
 
@@ -18,7 +18,7 @@ describe('Babel - registering cultures', function () {
 	})
 
 	it('should read the empty cultures correctly', function () {
-		var cultures = enduro.config.cultures
+		const cultures = enduro.config.cultures
 
 		expect(cultures).to.exist
 		expect(cultures).to.be.a('array')
@@ -29,7 +29,7 @@ describe('Babel - registering cultures', function () {
 	it('should add cultures correctly', function () {
 		babel.add_culture(['en', 'de'])
 
-		var cultures = enduro.config.cultures
+		const cultures = enduro.config.cultures
 
 		expect(cultures).to.exist
 		expect(cultures).to.be.a('array')
@@ -45,18 +45,18 @@ describe('Babel - registering cultures', function () {
 
 describe('Babel - culturalizing cms files', function () {
 
-	var test_context = {
+	const test_context = {
 		greeting: 'you',
 		$greeting_de: 'du!',
 		superlative: 'asd'
 	}
 
-	var expected_terminated_context = {
+	const expected_terminated_context = {
 		greeting: 'you',
 		superlative: 'asd'
 	}
 
-	var expected_culturalized_context_de = {
+	const expected_culturalized_context_de = {
 		greeting: 'du!',
 		superlative: 'asd'
 	}

@@ -1,9 +1,9 @@
-// vendor dependencies
-var expect = require('chai').expect
+// * vendor dependencies
+const expect = require('chai').expect
 
-// local dependencies
-var local_enduro = require('../../index')
-var admin_rights = require(enduro.enduro_path + '/libs/admin_utilities/admin_rights')
+// * enduro dependencies
+const local_enduro = require('../../index')
+const admin_rights = require(enduro.enduro_path + '/libs/admin_utilities/admin_rights')
 
 describe('Admin rights', function () {
 

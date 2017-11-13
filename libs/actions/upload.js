@@ -2,7 +2,7 @@
 // * 	enduro.actions.upload
 // * ———————————————————————————————————————————————————————— * //
 
-var action = function () {}
+const action = function () {}
 
 action.prototype.action = function (url) {
 	return require(enduro.enduro_path + '/libs/cli_tools/cli_upload').cli_upload(url)

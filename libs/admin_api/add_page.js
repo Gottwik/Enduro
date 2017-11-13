@@ -4,21 +4,19 @@
 // * 	endpoint: /admin_api/add_page
 // *	adds new generator page
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// vendor dependencies
-
-// local dependencies
-var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
-var page_adding_service = require(enduro.enduro_path + '/libs/admin_utilities/page_adding_service')
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+const page_adding_service = require(enduro.enduro_path + '/libs/admin_utilities/page_adding_service')
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
 
 	// stores page name and generator name
-	var new_pagename = req.query.new_pagename
-	var generator = req.query.generator
+	const new_pagename = req.query.new_pagename
+	const generator = req.query.generator
 
 	logger.timestamp('Trying to create a new page', 'page_manipulation')
 

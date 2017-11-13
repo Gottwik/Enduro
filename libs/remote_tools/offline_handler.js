@@ -3,23 +3,23 @@
 // *	set of tools that enables running enduro website offline
 // *	TODO: developed under time constrain, should be refactored and tested
 // * ———————————————————————————————————————————————————————— * //
-var offline_handler = function () {}
+const offline_handler = function () {}
 
-// Vendor dependencies
-var Promise = require('bluebird')
-var http = require('http')
-var fs = require('fs')
-var path = require('path')
+// * vendor dependencies
+const Promise = require('bluebird')
+const http = require('http')
+const fs = require('fs')
+const path = require('path')
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-var pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
+const pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 offline_handler.prototype.convert_cms_file_to_offline = function (cms_file) {
 
-	var list_of_external_resources_to_download = []
+	let list_of_external_resources_to_download = []
 
 	return flat.load(cms_file)
 		.then((context) => {
@@ -34,7 +34,7 @@ offline_handler.prototype.convert_cms_file_to_offline = function (cms_file) {
 }
 
 offline_handler.prototype.convert_all_to_offline = function () {
-	var self = this
+	const self = this
 
 	pagelist_generator.generate_cms_list()
 		.then((cmslist) => {
@@ -53,7 +53,7 @@ function parse_for_external_links (link) {
 		return [link]
 	}
 
-	var matches = link.match(/(https.*?)"/g)
+	let matches = link.match(/(https.*?)"/g)
 
 	if (matches != null) {
 		matches = matches.map((match) => {
@@ -72,10 +72,10 @@ function download_external_resource (external_link) {
 		// handle https
 		external_link = external_link.replace(/^https/, 'http')
 
-		var new_filename = path.join('assets', 'img', 'offline', external_link.match(/\/([^\/]*)$/)[1])
+		const new_filename = path.join('assets', 'img', 'offline', external_link.match(/\/([^\/]*)$/)[1])
 		flat_helpers.ensure_directory_existence(path.join(enduro.project_path, new_filename))
 			.then(() => {
-				var file = fs.createWriteStream(new_filename)
+				const file = fs.createWriteStream(new_filename)
 				http.get(external_link, function (response) {
 					response.pipe(file)
 					resolve(new_filename)

@@ -12,13 +12,13 @@ module.exports = {
 			})
 	},
 	handler: function (cli_arguments) {
-		var enduro_instance = require('../../index')
+		const enduro_instance = require('../../index')
 
 		enduro_instance.init()
 			.then(() => {
 				enduro.flags = cli_arguments
 
-				var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
+				const juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
 				if (enduro.flags.force) {
 					return juicebox.force_pack()
 				} else {

@@ -2,7 +2,7 @@
 // * 	enduro.actions.install
 // * ———————————————————————————————————————————————————————— * //
 
-var action = function () {}
+const action = function () {}
 
 // * vendor dependencies
 const npm = require('npm')
@@ -11,7 +11,7 @@ const Promise = require('bluebird')
 
 // * enduro dependencies
 const logger = require(enduro.enduro_path + '/libs/logger')
-var enduro_configurator = require(enduro.enduro_path + '/libs/configuration/enduro_configurator')
+const enduro_configurator = require(enduro.enduro_path + '/libs/configuration/enduro_configurator')
 
 action.prototype.action = function (brick_name) {
 
@@ -29,7 +29,7 @@ action.prototype.action = function (brick_name) {
 function install_brick_via_npm (brick_name) {
 	return new Promise(function (resolve, reject) {
 		// workaround to make npm silent
-		var log_temp = console.log
+		const log_temp = console.log
 		console.log = function () {}
 
 		logger.loading('starting npm')

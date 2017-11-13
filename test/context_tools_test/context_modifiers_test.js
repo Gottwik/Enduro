@@ -1,4 +1,4 @@
-// vendor dependencies
+// * vendor dependencies
 const expect = require('chai').expect
 
 // * enduro dependencies

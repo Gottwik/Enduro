@@ -1,10 +1,10 @@
 // global dependencies
-var inquirer = require('inquirer')
+const inquirer = require('inquirer')
 
-// local dependencies
-var enduro_instance = require('../../index').quick_init()
-var enduro_configurator = require(enduro.enduro_path + '/libs/configuration/enduro_configurator')
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const enduro_instance = require('../../index').quick_init()
+const enduro_configurator = require(enduro.enduro_path + '/libs/configuration/enduro_configurator')
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 module.exports = {
 	command: 'juicebox',
@@ -16,7 +16,7 @@ module.exports = {
 	handler: function (cli_arguments) {
 		logger.init('setting up juicebox')
 
-		var turning_on = true
+		let turning_on = true
 
 		enduro_configurator.read_config()
 			.then((config) => {

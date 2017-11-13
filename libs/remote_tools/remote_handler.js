@@ -2,20 +2,20 @@
 // * 	remote handler
 // *	uploads files to filesystem
 // * ———————————————————————————————————————————————————————— * //
-var remote_handler = function () {}
+const remote_handler = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var request = require('request')
+// * vendor dependencies
+const Promise = require('bluebird')
+const request = require('request')
 
-// local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var fs = require('fs')
+// * enduro dependencies
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const fs = require('fs')
 
 remote_handler.prototype.upload_to_filesystem_by_file = function (file, timestamp) {
 
 	// apply timestamp to file's name if it is requested by timestamp parameter
-	var filename = timestamp ? timestamp_filename(file.name) : file.name
+	let filename = timestamp ? timestamp_filename(file.name) : file.name
 	// normalize filename (ascii only, no whitespace)
 	filename = filename.replace(/[^\x00-\x7F]|\ /ig, '')
 	return enduro.filesystem.upload('direct_uploads/' + filename, file.path)

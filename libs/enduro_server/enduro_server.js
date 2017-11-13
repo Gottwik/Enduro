@@ -8,7 +8,7 @@
 // * ———————————————————————————————————————————————————————— * //
 const enduro_server = function () {}
 
-// vendor dependencies
+// * vendor dependencies
 const express = require('express')
 const app = express()
 const session = require('express-session')
@@ -16,7 +16,7 @@ const cors = require('cors')
 const multiparty_middleware = require('connect-multiparty')()
 const cookieParser = require('cookie-parser')
 
-// local dependencies
+// * enduro dependencies
 const admin_api = require(enduro.enduro_path + '/libs/admin_api')
 const website_app = require(enduro.enduro_path + '/libs/website_app')
 const trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
@@ -52,7 +52,7 @@ app.use(function (req, res, next) {
 // * ———————————————————————————————————————————————————————— * //
 enduro_server.prototype.run = function (server_setup) {
 	// stores current enduro_server instance
-	var self = this
+	const self = this
 
 	server_setup = server_setup || {}
 
@@ -109,7 +109,7 @@ enduro_server.prototype.run = function (server_setup) {
 				trollhunter.login(req)
 					.then(() => {
 
-						var requested_url = req.url
+						let requested_url = req.url
 
 						let a = requested_url.split('/').filter(x => x.length)
 						// serves index.html when empty or culture-only url is provided
@@ -136,7 +136,7 @@ enduro_server.prototype.run = function (server_setup) {
 		})
 
 		// init socket and store everybody in global enduro.sockets
-		var io = require('socket.io')(enduro.server)
+		const io = require('socket.io')(enduro.server)
 		enduro.sockets = io.sockets
 	})
 }

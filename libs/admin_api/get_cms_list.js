@@ -4,11 +4,11 @@
 // * 	admin api endpoint admin_api/get_datasetlist
 // *	@return {response} - success boolean and flattened dataset list in an array
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// local dependencies
-var pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')
-var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+// * enduro dependencies
+const pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')
+const admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

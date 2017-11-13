@@ -9,14 +9,14 @@
 // * 		juice_newer
 // *
 // * ———————————————————————————————————————————————————————— * //
-var juice_diff = function () {}
+const juice_diff = function () {}
 
-// vendor dependencies
+// * vendor dependencies
 const dircompare = require('dir-compare')
 const _ = require('lodash')
 const path = require('path')
 
-// local dependencies
+// * enduro dependencies
 const logger = require(enduro.enduro_path + '/libs/logger')
 const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
@@ -42,7 +42,7 @@ juice_diff.prototype.print_out_diff = function (path1, path2) {
 
 juice_diff.prototype.diff = function (path1, path2) {
 
-	var store_compare_result
+	let store_compare_result
 	return dircompare.compare(path1, path2)
 		.then((compare_result) => {
 
@@ -53,7 +53,7 @@ juice_diff.prototype.diff = function (path1, path2) {
 				return (file.name1 == '.DS_Store' || file.name2 == '.DS_Store')
 			})
 
-			var abstract_cms_files = []
+			let abstract_cms_files = []
 			compare_result.diffSet.forEach((item) => {
 				abstract_cms_files.push(abstract_diff_item(item))
 			})
@@ -63,7 +63,7 @@ juice_diff.prototype.diff = function (path1, path2) {
 		.then(() => {
 			// let's count all the differences
 			store_compare_result.differences = 0
-			for (var i in store_compare_result.diffSet) {
+			for (let i in store_compare_result.diffSet) {
 				const diff_item = store_compare_result.diffSet[i]
 				if (diff_item.type == 'file' && diff_item.status != 'equal') {
 					store_compare_result.differences++;
@@ -101,7 +101,7 @@ function abstract_diff_item (item) {
 	item.fullpath1 = path.join(item.path1, item.name1)
 	item.fullpath2 = path.join(item.path2, item.name2)
 
-	var read_both_files_timestamps = []
+	let read_both_files_timestamps = []
 
 	read_both_files_timestamps.push(flat.load(item.fullpath1, true)
 		.then((context) => {

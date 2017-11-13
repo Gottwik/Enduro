@@ -5,16 +5,16 @@
 // * 	users = ['', 'demo']
 // *
 // * ———————————————————————————————————————————————————————— * //
-var admin_rights = function () {}
+const admin_rights = function () {}
 
 // constants
-var rights = {
+const rights = {
 	demo: ['read', 'temp']
 }
 
 admin_rights.prototype.can_user_do_that = function (user, activity) {
 
-	var user_tags = user.tags
+	const user_tags = user.tags
 
 	// if no user is provided we assume it is superuser(simple setup)
 	if (!user_tags) {

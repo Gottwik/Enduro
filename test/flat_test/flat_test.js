@@ -1,9 +1,9 @@
 
-// vendor dependencies
+// * vendor dependencies
 const expect = require('chai').expect
 const path = require('path')
 
-// local dependencies
+// * enduro dependencies
 const local_enduro = require('../../index').quick_init()
 const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 const flat = require(enduro.enduro_path + '/libs/flat_db/flat')

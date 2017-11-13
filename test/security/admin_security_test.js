@@ -1,15 +1,15 @@
-// vendor dependencies
-var expect = require('chai').expect
-var rewire = require('rewire')
+// * vendor dependencies
+const expect = require('chai').expect
+const rewire = require('rewire')
 
-// local dependencies
-var local_enduro = require('../../index').quick_init()
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
-var admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+// * enduro dependencies
+const local_enduro = require('../../index').quick_init()
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+const admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 // rewired
-var internal_admin_security = rewire(enduro.enduro_path + '/libs/admin_utilities/admin_security')
+const internal_admin_security = rewire(enduro.enduro_path + '/libs/admin_utilities/admin_security')
 
 describe('Admin security', function () {
 

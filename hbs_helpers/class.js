@@ -14,11 +14,11 @@
 // *		{{class 'gradient_bottom'}} // will render gradient-bottom
 // *
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 	enduro.templating_engine.registerHelper('class', function () {
-		var context = this
+		const context = this
 
 		// if no argument is provided renders empty string
 		if (arguments.length <= 1) {

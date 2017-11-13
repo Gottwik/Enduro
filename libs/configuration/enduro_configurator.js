@@ -2,17 +2,17 @@
 // * 	project configurator
 // *	reads the configuration file and sets the variables
 // * ———————————————————————————————————————————————————————— * //
-var enduro_configurator = function () {}
+const enduro_configurator = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var extend = require('extend')
-var path = require('path')
-var fs = Promise.promisifyAll(require('fs-extra'))
+// * vendor dependencies
+const Promise = require('bluebird')
+const extend = require('extend')
+const path = require('path')
+const fs = Promise.promisifyAll(require('fs-extra'))
 
-// local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var default_configuration = require(enduro.enduro_path + '/libs/configuration/enduro_default_configuration.js')
+// * enduro dependencies
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const default_configuration = require(enduro.enduro_path + '/libs/configuration/enduro_default_configuration.js')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	read configurtion file
@@ -21,8 +21,8 @@ var default_configuration = require(enduro.enduro_path + '/libs/configuration/en
 // * ———————————————————————————————————————————————————————— * //
 enduro_configurator.prototype.read_config = function () {
 
-	var CONFIG_PATH = enduro.project_path + '/enduro.json'
-	var SECRET_CONFIG_PATH = enduro.project_path + '/enduro_secret.json'
+	const CONFIG_PATH = enduro.project_path + '/enduro.json'
+	const SECRET_CONFIG_PATH = enduro.project_path + '/enduro_secret.json'
 
 	return Promise.all([
 		read_config_file(CONFIG_PATH, default_configuration.default_configuration),
@@ -91,15 +91,15 @@ enduro_configurator.prototype.set_config = function (new_setup) {
 	delete new_setup.secret
 
 	// stores config paths
-	var config_path = path.join(enduro.project_path, 'enduro.json')
-	var secret_config_path = path.join(enduro.project_path, 'enduro_secret.json')
+	const config_path = path.join(enduro.project_path, 'enduro.json')
+	const secret_config_path = path.join(enduro.project_path, 'enduro_secret.json')
 
 	// extends public config variable
 	extend(true, enduro.config, new_setup)
 
 	// extends and saves public config file
-	var extend_public_config = extend_config(config_path, new_setup)
-	var extend_secret_config = extend_config(secret_config_path, secret_setup)
+	const extend_public_config = extend_config(config_path, new_setup)
+	const extend_secret_config = extend_config(secret_config_path, secret_setup)
 
 	return Promise.all([
 		extend_public_config,

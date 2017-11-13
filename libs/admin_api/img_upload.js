@@ -4,13 +4,13 @@
 // * 	simples version adds the
 // *	@return {response} - success boolean
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// local dependencies
-var file_uploader = require(enduro.enduro_path + '/libs/admin_utilities/file_uploader')
-var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
-var logger = require(enduro.enduro_path + '/libs/logger')
-var admin_rights = require(enduro.enduro_path + '/libs/admin_utilities/admin_rights')
+// * enduro dependencies
+const file_uploader = require(enduro.enduro_path + '/libs/admin_utilities/file_uploader')
+const admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+const logger = require(enduro.enduro_path + '/libs/logger')
+const admin_rights = require(enduro.enduro_path + '/libs/admin_utilities/admin_rights')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

@@ -3,10 +3,10 @@
 // *	Minimalistic, lean & mean, node.js cms
 // * ———————————————————————————————————————————————————————— * //
 
-// vendor dependencies
+// * vendor dependencies
 const Promise = require('bluebird')
 
-// local dependencies
+// * enduro dependencies
 const linker = require('./libs/linker/linker')
 
 const enduro_instance = function () {}

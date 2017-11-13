@@ -1,24 +1,24 @@
-// vendor dependencies
-var bulkSass = require('gulp-sass-bulk-import')
-var sass = require('gulp-sass')
-var sourcemaps = require('gulp-sourcemaps')
-var autoprefixer = require('gulp-autoprefixer')
-
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Sass Task
 // *	Processes assets/css/main.scss file
 // *	All other scss files need to be imported in main.scss to get compiled
 // *	Uses bulkSass for @import subfolder/* funcionality
 // * ———————————————————————————————————————————————————————— * //
-var sass_handler = function () {}
+const sass_handler = function () {}
+
+// * vendor dependencies
+const bulkSass = require('gulp-sass-bulk-import')
+const sass = require('gulp-sass')
+const sourcemaps = require('gulp-sourcemaps')
+const autoprefixer = require('gulp-autoprefixer')
+
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 sass_handler.prototype.init = function (gulp, browser_sync) {
 
 	// stores task name
-	var sass_handler_task_name = 'sass'
+	const sass_handler_task_name = 'sass'
 
 	// registeres task to provided gulp
 	gulp.task(sass_handler_task_name, function () {

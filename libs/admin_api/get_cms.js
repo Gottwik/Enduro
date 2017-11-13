@@ -6,19 +6,19 @@
 // *	@param {string} filename - filename of the cms file
 // *	@return {response} - success boolean and requested data file
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// local dependencies
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
-var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
-var format_service = require(enduro.enduro_path + '/libs/services/format_service')
+// * enduro dependencies
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+const admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+const format_service = require(enduro.enduro_path + '/libs/services/format_service')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
 
 	// gets query parameters
-	var sid = req.query.sid
-	var filename = req.query.filename
+	const sid = req.query.sid
+	const filename = req.query.filename
 
 	// checks if all required parameters had been received
 	if (!sid || !filename) {
@@ -35,7 +35,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 		})
 		.then((data) => {
 
-			var context = {}
+			let context = {}
 			context.success = true
 			context.page_name = data.$page_name || filename
 			context.only_page_name = context.page_name.split('/').splice(-1)[0]

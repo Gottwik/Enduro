@@ -1,12 +1,12 @@
-var expect = require('chai').expect
-var request = require('request')
+const expect = require('chai').expect
+const request = require('request')
 
-var local_enduro = require('../../index').quick_init()
-var test_utilities = require('../libs/test_utilities')
+const local_enduro = require('../../index').quick_init()
+const test_utilities = require('../libs/test_utilities')
 
 describe('admin api', function () {
 
-	var sid
+	let sid
 
 	before(function () {
 		return test_utilities.before(local_enduro, 'admin_api')
@@ -18,7 +18,7 @@ describe('admin api', function () {
 	it('should not get token if no session is provided', function (done) {
 		request('http://localhost:5000/admin_api/check_session', function (error, response, body) {
 			if (error) { console.log(error) }
-			var res = JSON.parse(body)
+			const res = JSON.parse(body)
 			expect(res.success).to.be.not.ok
 			done()
 		})
@@ -30,7 +30,7 @@ describe('admin api', function () {
 			qs: {username: 'gottwik', password: '123'}
 		}, function (error, response, body) {
 			if (error) { console.log(error) }
-			var res = JSON.parse(body)
+			const res = JSON.parse(body)
 			expect(res.success).to.be.ok
 			expect(res).to.have.all.keys('success', 'username', 'sid', 'created', 'expires_at')
 			sid = res.sid
@@ -44,7 +44,7 @@ describe('admin api', function () {
 			qs: {sid: sid}
 		}, function (error, response, body) {
 			if (error) { console.log(error) }
-			var res = JSON.parse(body)
+			const res = JSON.parse(body)
 			expect(res.data).to.contain.all.keys('structured', 'flat')
 			done()
 		})
@@ -56,7 +56,7 @@ describe('admin api', function () {
 			qs: {sid: sid}
 		}, function (error, response, body) {
 			if (error) { console.log(error) }
-			var res = JSON.parse(body)
+			const res = JSON.parse(body)
 			expect(res.success).to.be.ok
 			expect(res.data).to.not.be.empty
 			expect(res.data[0]).to.have.string('sample_extension')

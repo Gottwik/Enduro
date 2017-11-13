@@ -2,7 +2,7 @@
 // * 	theme manager
 // *	downloads a theme and extracts it into a new folder
 // * ———————————————————————————————————————————————————————— * //
-var theme_manager = function () {}
+const theme_manager = function () {}
 
 // * vendor dependencies
 const Promise = require('bluebird')
@@ -24,19 +24,19 @@ const admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin
 const format_service = require(enduro.enduro_path + '/libs/services/format_service')
 const enduro_instance = require(enduro.enduro_path + '/index')
 
-var theme_manager_api_routes = {
+const theme_manager_api_routes = {
 	get_theme_by_name: 'http://www.endurojs.com/theme_manager/get_theme_by_name',
 	get_all_themes: 'http://www.endurojs.com/theme_manager/get_all_themes',
 }
 
 // Goes through the pages and renders them
 theme_manager.prototype.create_from_theme = function (theme_name) {
-	var self = this
+	const self = this
 
 	logger.init('Enduro theme service')
 
 	// will store variables for the promise chain
-	var theme_progress_variables = {}
+	let theme_progress_variables = {}
 
 	// get info for the specified theme
 	return self.fetch_theme_info_by_name(theme_name)
@@ -105,7 +105,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 			return new Promise(function (resolve, reject) {
 
 				// workaround to make npm silent
-				var log_temp = console.log
+				const log_temp = console.log
 				console.log = function () {}
 
 				npm.load({
@@ -115,7 +115,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 				}, () => {
 					// we get all npm dependencies, but to, speed up, remove enduro, since it's
 					// probably already installed globally
-					var npm_dependencies = _.chain(fetched_package.dependencies)
+					const npm_dependencies = _.chain(fetched_package.dependencies)
 						.omit('enduro')
 						.toPairs()
 						.map((dependency) => {
@@ -256,7 +256,7 @@ theme_manager.prototype.download_and_extract_theme_by_gz_link = function (gz_lin
 
 	global.enduro.project_path = enduro.project_path || process.cwd()
 
-	var extract_destination = path.join(enduro.project_path, project_name)
+	const extract_destination = path.join(enduro.project_path, project_name)
 	return flat_helpers.ensure_directory_existence(path.join(extract_destination, 'fake.txt'))
 		.then(() => {
 

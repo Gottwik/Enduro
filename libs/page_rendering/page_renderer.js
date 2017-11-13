@@ -4,13 +4,13 @@
 // * ———————————————————————————————————————————————————————— * //
 const page_renderer = function () {}
 
-// vendor dependencies
+// * vendor dependencies
 const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs-extra'))
 const extend = require('extend')
 const path = require('path')
 
-// local dependencies
+// * enduro dependencies
 const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 const logger = require(enduro.enduro_path + '/libs/logger')
 const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
@@ -68,11 +68,11 @@ page_renderer.prototype.render_file = function (template_path, context_path, cul
 page_renderer.prototype.render_file_by_context = function (template_path, context, culture) {
 
 	// extracts the relative path to the template from the absolute path
-	var file_regex_match = template_path.match(/pages(?:\/|\\)(.*)\.([^\\/]+)$/)
-	var filename = file_regex_match[1]
+	const file_regex_match = template_path.match(/pages(?:\/|\\)(.*)\.([^\\/]+)$/)
+	const filename = file_regex_match[1]
 
 	// will store filename and template function
-	var template
+	let template
 
 	// loads the template
 	return fs.readFileAsync(template_path, 'utf8')
@@ -82,7 +82,7 @@ page_renderer.prototype.render_file_by_context = function (template_path, contex
 			template = enduro.templating_engine.compile(raw_template)
 
 			// gets pagename
-			var pagename = template_path.match(/([^\/\\]*)\.[^\.]*$/)[1]
+			const pagename = template_path.match(/([^\/\\]*)\.[^\.]*$/)[1]
 
 			// If global data exists extends the context with it
 			if (typeof enduro.cms_data !== 'undefined') {
@@ -99,7 +99,7 @@ page_renderer.prototype.render_file_by_context = function (template_path, contex
 		})
 		.then(() => {
 			// renders the template with the culturalized context
-			var rendered_page = 'Error processing page'
+			let rendered_page = 'Error processing page'
 			try {
 				rendered_page = template(babel.culturalize(context, culture))
 			} catch (e) {
@@ -116,11 +116,11 @@ page_renderer.prototype.render_file_by_context = function (template_path, contex
 }
 
 page_renderer.prototype.render_file_by_template_path_extend_context = function (context_path, extended_context) {
-	var self = this
+	const self = this
 	extended_context = extended_context || {}
 
-	var template_path = get_absolute_template_path_by_context_path(context_path)
-	var culture = enduro.config.cultures[0]
+	const template_path = get_absolute_template_path_by_context_path(context_path)
+	const culture = enduro.config.cultures[0]
 	return flat.load(context_path)
 		.then((context) => {
 			extend(true, context, extended_context)
@@ -130,11 +130,11 @@ page_renderer.prototype.render_file_by_template_path_extend_context = function (
 }
 
 page_renderer.prototype.render_file_by_template_path_replace_context = function (context_path, context) {
-	var self = this
+	const self = this
 	context = context || {}
 
-	var template_path = get_absolute_template_path_by_context_path(context_path)
-	var culture = enduro.config.cultures[0]
+	const template_path = get_absolute_template_path_by_context_path(context_path)
+	const culture = enduro.config.cultures[0]
 
 	return self.render_file_by_context(template_path, context, culture)
 }
@@ -142,9 +142,9 @@ page_renderer.prototype.render_file_by_template_path_replace_context = function 
 // transforms cms path related to /cms folder to template path related to the /pages folder
 function get_absolute_template_path_by_context_path (context_path) {
 
-	var template_path = context_path
+	let template_path = context_path
 
-	var splitted_filename = context_path.split('/')
+	const splitted_filename = context_path.split('/')
 	if (splitted_filename.indexOf('generators') + 1) {
 		template_path = splitted_filename.slice(0, -1).join('/')
 	}

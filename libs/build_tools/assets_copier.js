@@ -1,23 +1,22 @@
-
-// vendor dependencies
-var Promise = require('bluebird')
-var fs = Promise.promisifyAll(require('fs-extra'))
-var path = require('path')
-var watch = require('gulp-watch')
-var _ = require('lodash')
-
-// local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var logger = require(enduro.enduro_path + '/libs/logger')
-
-// defines locations that have static files
-var static_locations_to_watch = ['assets/img', 'assets/vendor', 'assets/fonts', 'assets/admin_extensions', 'remote']
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	assets_copier
 // *	copies static assets such as images and fonts to the build folder
 // * ———————————————————————————————————————————————————————— * //
-var assets_copier = function () {}
+const assets_copier = function () {}
+
+// * vendor dependencies
+const Promise = require('bluebird')
+const fs = Promise.promisifyAll(require('fs-extra'))
+const path = require('path')
+const watch = require('gulp-watch')
+const _ = require('lodash')
+
+// * enduro dependencies
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const logger = require(enduro.enduro_path + '/libs/logger')
+
+// defines locations that have static files
+const static_locations_to_watch = ['assets/img', 'assets/vendor', 'assets/fonts', 'assets/admin_extensions', 'remote']
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	init
@@ -27,10 +26,10 @@ var assets_copier = function () {}
 // *	@return {string} - name of the gulp task
 // * ———————————————————————————————————————————————————————— * //
 assets_copier.prototype.init = function (gulp, browser_sync) {
-	var self = this
+	const self = this
 
 	// stores task name
-	var assets_copier_name = 'assets_copier'
+	const assets_copier_name = 'assets_copier'
 
 	// registeres task to provided gulp
 	gulp.task(assets_copier_name, function () {
@@ -41,7 +40,7 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 		}
 
 		// will store promises
-		var copy_actions = []
+		const copy_actions = []
 
 		self.get_copy_from_and_copy_to_pairs()
 			.map((pair) => {
@@ -68,9 +67,9 @@ assets_copier.prototype.init = function (gulp, browser_sync) {
 // *	@return {string} - name of the gulp task
 // * ———————————————————————————————————————————————————————— * //
 assets_copier.prototype.watch = function (gulp, browser_sync) {
-	var self = this
+	const self = this
 
-	var assets_copier_watch_name = 'assets_copier_watch'
+	const assets_copier_watch_name = 'assets_copier_watch'
 
 	// registers task to provided gulp
 	gulp.task(assets_copier_watch_name, function () {
@@ -108,8 +107,8 @@ assets_copier.prototype.get_copy_from_and_copy_to_pairs = () => {
 // * ———————————————————————————————————————————————————————— * //
 assets_copier.prototype.copy_to_root_folder = () => {
 	// stores from and to paths
-	var copy_from = path.join(enduro.project_path, 'assets', 'root')
-	var copy_to = path.join(enduro.project_path, enduro.config.build_folder)
+	const copy_from = path.join(enduro.project_path, 'assets', 'root')
+	const copy_to = path.join(enduro.project_path, enduro.config.build_folder)
 
 	return copy_if_exist(copy_from, copy_to)
 }

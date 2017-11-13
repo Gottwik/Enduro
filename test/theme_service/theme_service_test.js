@@ -1,17 +1,17 @@
 
-// vendor dependencies
-var expect = require('chai').expect
-var rewire = require('rewire')
-var path = require('path')
-var request = require('request-promise')
-var glob = require('glob')
+// * vendor dependencies
+const expect = require('chai').expect
+const rewire = require('rewire')
+const path = require('path')
+const request = require('request-promise')
+const glob = require('glob')
 
-// local dependencies
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
-var local_enduro = require('../../index').quick_init()
-var babel = require(enduro.enduro_path + '/libs/babel/babel')
-var theme_manager = require(enduro.enduro_path + '/libs/theme_manager/theme_manager')
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+// * enduro dependencies
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+const local_enduro = require('../../index').quick_init()
+const babel = require(enduro.enduro_path + '/libs/babel/babel')
+const theme_manager = require(enduro.enduro_path + '/libs/theme_manager/theme_manager')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 describe('[online_test] Theme manager server endpoints', function () {
 
@@ -40,12 +40,12 @@ describe('[online_test] Theme manager server endpoints', function () {
 
 	it('should download and extract a theme package', function () {
 		this.timeout(5000)
-		var extract_to_directory = 'theme_extract_test'
+		const extract_to_directory = 'theme_extract_test'
 		global.enduro.project_path = path.join(process.cwd(), 'testfolder')
 
 		return theme_manager.download_and_extract_theme_by_gz_link('https://github.com/Gottwik/enduro_mirror/archive/master.tar.gz', extract_to_directory)
 			.then(() => {
-				var files = glob.sync(path.join(enduro.project_path, '*'))
+				const files = glob.sync(path.join(enduro.project_path, '*'))
 
 				expect(files).to.have.length.above(5)
 			})

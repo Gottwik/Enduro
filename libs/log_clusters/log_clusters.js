@@ -3,12 +3,12 @@
 // *
 // *	defines logging clusters
 // * ———————————————————————————————————————————————————————— * //
-var log_clusters = function () {}
+const log_clusters = function () {}
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
 
-var clusters = []
+let clusters = []
 
 log_clusters.prototype.log = function (cluster, context) {
 	clusters[cluster](context)

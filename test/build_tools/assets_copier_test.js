@@ -1,11 +1,11 @@
-// vendor dependencies
-var expect = require('chai').expect
-var path = require('path')
+// * vendor dependencies
+const expect = require('chai').expect
+const path = require('path')
 
-// local dependencies
-var local_enduro = require('../../index').quick_init()
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var test_utilities = require('../libs/test_utilities')
+// * enduro dependencies
+const local_enduro = require('../../index').quick_init()
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const test_utilities = require('../libs/test_utilities')
 
 describe('Static assets copier', function () {
 

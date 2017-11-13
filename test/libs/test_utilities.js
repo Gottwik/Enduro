@@ -1,20 +1,20 @@
-var test_utilities = function () {}
+const test_utilities = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var path = require('path')
-var request = require('request-promise')
-var fs = require('fs')
+// * vendor dependencies
+const Promise = require('bluebird')
+const path = require('path')
+const request = require('request-promise')
+const fs = require('fs')
 
-// local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var remote_handler = require(enduro.enduro_path + '/libs/remote_tools/remote_handler')
+// * enduro dependencies
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const remote_handler = require(enduro.enduro_path + '/libs/remote_tools/remote_handler')
 
 // constants
-var TEST_FOLDER_PATH = path.join(process.cwd(), 'testfolder')
+const TEST_FOLDER_PATH = path.join(process.cwd(), 'testfolder')
 
 test_utilities.prototype.before = function (local_enduro, project_name, scaffolding) {
-	var self = this
+	const self = this
 
 	scaffolding = scaffolding || 'test'
 
@@ -37,7 +37,7 @@ test_utilities.prototype.before = function (local_enduro, project_name, scaffold
 }
 
 test_utilities.prototype.after = function () {
-	var self = this
+	const self = this
 
 	// this will delete testfolder and set the path back to project's root for the other tests
 	return Promise.race([
@@ -72,7 +72,7 @@ test_utilities.prototype.get_sid = function () {
 		qs: { username: 'gottwik', password: '123' }
 	})
 		.then((body) => {
-			var res = JSON.parse(body)
+			const res = JSON.parse(body)
 			if (res && res.success) {
 				return res.sid
 			} else {

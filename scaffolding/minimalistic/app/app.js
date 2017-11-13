@@ -1,4 +1,4 @@
-var local_app = function () {}
+const local_app = function () {}
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	init

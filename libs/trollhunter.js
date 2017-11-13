@@ -8,19 +8,19 @@
 // *	note that this is not secure, and should be used as fast and simple
 // * 	security during development
 // * ———————————————————————————————————————————————————————— * //
-var trollhunter = function () {}
+const trollhunter = function () {}
 
 // vendor rependencies
-var Promise = require('bluebird')
-var fs = require('fs')
-var passwordHash = require('password-hash')
+const Promise = require('bluebird')
+const fs = require('fs')
+const passwordHash = require('password-hash')
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 // constants
-var SECURE_FILE = '.enduro_secure'
+const SECURE_FILE = '.enduro_secure'
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	login endpoint
@@ -28,7 +28,7 @@ var SECURE_FILE = '.enduro_secure'
 // *	@return {Promise} - Promise with no content. Resolve if login was successfull
 // * ———————————————————————————————————————————————————————— * //
 trollhunter.prototype.login = function (req) {
-	var self = this
+	const self = this
 	return new Promise(function (resolve, reject) {
 
 		typeof req.session.login_flag !== 'undefined'
@@ -53,7 +53,7 @@ trollhunter.prototype.set_passphrase = function (plain_passphrase) {
 		}
 
 		// Stores the passphrase
-		var passphrase = passwordHash.generate(plain_passphrase)
+		const passphrase = passwordHash.generate(plain_passphrase)
 
 		fs.writeFile(enduro.project_path + '/' + SECURE_FILE, passphrase, function (err) {
 			if (err) {

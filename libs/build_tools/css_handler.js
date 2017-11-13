@@ -2,15 +2,15 @@
 // * 	CSS Task
 // *	Decides whether or to use SASS, LESS or STYLUS depending on the config
 // * ———————————————————————————————————————————————————————— * //
-var css_handler = function () {}
+const css_handler = function () {}
 
 css_handler.prototype.init = function (gulp, browser_sync) {
 
 	// stores task name
-	var css_handler_task_name = 'css';
-	var sass_handler = require(enduro.enduro_path + '/libs/build_tools/sass_handler').init(gulp, browser_sync);
-	var less_handler = require(enduro.enduro_path + '/libs/build_tools/less_handler').init(gulp, browser_sync);
-	var stylus_handler = require(enduro.enduro_path + '/libs/build_tools/stylus_handler').init(gulp, browser_sync);
+	const css_handler_task_name = 'css';
+	const sass_handler = require(enduro.enduro_path + '/libs/build_tools/sass_handler').init(gulp, browser_sync);
+	const less_handler = require(enduro.enduro_path + '/libs/build_tools/less_handler').init(gulp, browser_sync);
+	const stylus_handler = require(enduro.enduro_path + '/libs/build_tools/stylus_handler').init(gulp, browser_sync);
 
 	gulp.task(css_handler_task_name, function() {
 		if (enduro.config.less) {

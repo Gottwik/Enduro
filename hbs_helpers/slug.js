@@ -7,11 +7,11 @@
 // *	will return this-link
 // * ———————————————————————————————————————————————————————— * //
 
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 
-	var format_service = require(enduro.enduro_path + '/libs/services/format_service')
+	const format_service = require(enduro.enduro_path + '/libs/services/format_service')
 
 	enduro.templating_engine.registerHelper('slug', function (text) {
 

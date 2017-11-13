@@ -6,13 +6,14 @@
 // * ———————————————————————————————————————————————————————— * //
 const api_call = function () {}
 
-// vendor dependencies
+// * vendor dependencies
 const glob = require('glob-promise')
 const path = require('path')
 
+// * enduro dependencies
 const brick_handler = require(enduro.enduro_path + '/libs/bricks/brick_handler')
 
-// constants
+// * constants
 const extension_path = path.join(enduro.project_path, 'assets', 'admin_extensions', '**', '*.js')
 
 // routed call

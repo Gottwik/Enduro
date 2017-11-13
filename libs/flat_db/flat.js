@@ -74,7 +74,7 @@ flat.prototype.load = function (filename, is_full_absolute_path) {
 		// url decode filename
 		filename = decode(filename)
 
-		var fullpath_to_cms_file
+		let fullpath_to_cms_file
 		if (is_full_absolute_path) {
 			fullpath_to_cms_file = filename
 		} else {
@@ -105,7 +105,7 @@ flat.prototype.load = function (filename, is_full_absolute_path) {
 				}
 
 				// convert the string-based javascript into an object
-				var context = {}
+				let context = {}
 				try {
 					context = require_from_string('module.exports = ' + raw_context_data)
 				} catch (e) {
@@ -165,7 +165,7 @@ flat.prototype.upsert = function (flat_object_path, context_to_update) {
 
 	return self.load(flat_object_path)
 		.then((current_context) => {
-			var merged_context = _.mergeWith(current_context, context_to_update, function (objValue, srcValue) {
+			const merged_context = _.mergeWith(current_context, context_to_update, function (objValue, srcValue) {
 				if (Array.isArray(objValue) && Array.isArray(srcValue)) {
 					return _.union(objValue, srcValue)
 				}
@@ -195,7 +195,7 @@ flat.prototype.url_from_filename = function (flat_object_path) {
 	}
 
 	if (this.is_generator(flat_object_path)) {
-		var temp_path = flat_object_path.split('/').slice(1)
+		const temp_path = flat_object_path.split('/').slice(1)
 		return temp_path.join('/')
 	}
 
@@ -214,7 +214,7 @@ flat.prototype.filepath_from_filename = function (flat_object_path) {
 	}
 
 	if (this.is_generator(flat_object_path)) {
-		var temp_path = flat_object_path.split('/').slice(1)
+		let temp_path = flat_object_path.split('/').slice(1)
 		temp_path.push('index')
 		return path.join(...temp_path)
 	}
@@ -229,7 +229,7 @@ flat.prototype.filepath_from_filename = function (flat_object_path) {
 // *	@return {bool}
 // * ———————————————————————————————————————————————————————— * //
 flat.prototype.has_page_associated = function (flat_object_path) {
-	var first_route_part = flat_object_path.split('/')[0].toLowerCase()
+	const first_route_part = flat_object_path.split('/')[0].toLowerCase()
 
 	// global flat objects does not have a page associated with them
 	if (first_route_part == 'global') {

@@ -1,9 +1,9 @@
-// vendor dependencies
-var expect = require('chai').expect
+// * vendor dependencies
+const expect = require('chai').expect
 
-// local dependencies
-var local_enduro = require('../../index').quick_init()
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+// * enduro dependencies
+const local_enduro = require('../../index').quick_init()
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('[online_test] cli upload', function () {
 	this.timeout(5000)

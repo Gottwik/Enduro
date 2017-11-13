@@ -4,7 +4,7 @@
 // *		{{htmlescape 'www.example.com?p=escape spaces here'}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 

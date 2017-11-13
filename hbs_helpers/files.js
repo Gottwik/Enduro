@@ -7,11 +7,11 @@
 // *		<p>Image: {{this}}</p>
 // *	{{/files}}
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 // vendor dependency
-var glob = require('glob')
-var path = require('path')
+const glob = require('glob')
+const path = require('path')
 
 helper.prototype.register = function () {
 
@@ -20,16 +20,16 @@ helper.prototype.register = function () {
 		// add path to enduro project to make sure we won't be matching something else in the files' path
 		path_to_folder = path.join(enduro.project_path, path_to_folder)
 
-		var path_to_all_files_in_folder = path.join(path_to_folder, '**', '*.*')
+		const path_to_all_files_in_folder = path.join(path_to_folder, '**', '*.*')
 
 		// get all files with path
-		var files = glob.sync(path_to_all_files_in_folder)
+		const files = glob.sync(path_to_all_files_in_folder)
 
 		// get multiple properties from a absolute path
-		var processed_output_html = files.map((file) => {
+		const processed_output_html = files.map((file) => {
 
 			// stores relative path to folder
-			var relative_path = file.replace(new RegExp('.*' + path_to_folder), '')
+			const relative_path = file.replace(new RegExp('.*' + path_to_folder), '')
 
 			// returns object
 			return {

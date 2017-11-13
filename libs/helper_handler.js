@@ -2,20 +2,20 @@
 // * 	helper handler
 // *	reads and registers helpers
 // * ———————————————————————————————————————————————————————— * //
-var helper_handler = function () {}
+const helper_handler = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var async = require('async')
-var glob = require('multi-glob').glob
-var path = require('path')
+// * vendor dependencies
+const Promise = require('bluebird')
+const async = require('async')
+const glob = require('multi-glob').glob
+const path = require('path')
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 // constants
-var flat_helpers_PATH = path.join(__dirname, '..', 'hbs_helpers/**/*.js')
-var PROJECT_HELPERS_PATH = enduro.project_path + '/assets/hbs_helpers/**/*.js'
+const flat_helpers_PATH = path.join(__dirname, '..', 'hbs_helpers/**/*.js')
+const PROJECT_HELPERS_PATH = enduro.project_path + '/assets/hbs_helpers/**/*.js'
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	read helpers
@@ -27,10 +27,10 @@ helper_handler.prototype.read_helpers = function () {
 		glob([flat_helpers_PATH, PROJECT_HELPERS_PATH], function (err, files) {
 			if (err) { return console.log(err) }
 			async.each(files, function (file, callback) {
-				var fileReg = file.match(/([^\\/]+)\.([^\\/]+)$/)
-				var filename = fileReg[1]
+				const fileReg = file.match(/([^\\/]+)\.([^\\/]+)$/)
+				const filename = fileReg[1]
 
-				var helper = require(file)
+				const helper = require(file)
 
 				if (helper.register) {
 					require(file).register()

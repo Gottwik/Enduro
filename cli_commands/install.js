@@ -7,7 +7,7 @@ module.exports = {
 			.example('enduro install enduro_quill')
 	},
 	handler: function (cli_arguments) {
-		var enduro_instance = require('../index').init()
+		const enduro_instance = require('../index').init()
 			.then(() => {
 				return enduro.actions.install(cli_arguments.brick_name)
 			})

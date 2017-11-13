@@ -27,7 +27,7 @@ module.exports = {
 		},
 	},
 	handler: function (cli_arguments) {
-		var enduro_instance = require('../index')
+		const enduro_instance = require('../index')
 
 		enduro_instance.init({ flags: cli_arguments })
 			.then(() => {

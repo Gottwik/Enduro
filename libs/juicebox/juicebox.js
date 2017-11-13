@@ -2,27 +2,27 @@
 // * 	juicebox
 // *	deals with lack of persistent storage plus adds backup and versioning
 // * ———————————————————————————————————————————————————————— * //
-var juicebox = function () {}
+const juicebox = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var tar = require('tar')
-var path = require('path')
-var fs = Promise.promisifyAll(require('fs-extra'))
-var rimraf = Promise.promisify(require('rimraf'))
+// * vendor dependencies
+const Promise = require('bluebird')
+const tar = require('tar')
+const path = require('path')
+const fs = Promise.promisifyAll(require('fs-extra'))
+const rimraf = Promise.promisify(require('rimraf'))
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-var remote_handler = require(enduro.enduro_path + '/libs/remote_tools/remote_handler')
-var juice_helpers = require(enduro.enduro_path + '/libs/juicebox/juice_helpers')
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
+const remote_handler = require(enduro.enduro_path + '/libs/remote_tools/remote_handler')
+const juice_helpers = require(enduro.enduro_path + '/libs/juicebox/juice_helpers')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
 
-var EXTENSION = '.tar.gz'
+const EXTENSION = '.tar.gz'
 
 // packs up the juicebox together with new juice.json
 juicebox.prototype.pack = function (user) {
-	var self = this
+	const self = this
 
 	return self.pull()
 		.then(() => {
@@ -38,7 +38,7 @@ juicebox.prototype.pack = function (user) {
 // *	@return {promise} - no data
 // * ———————————————————————————————————————————————————————— * //
 juicebox.prototype.pull = function (force) {
-	var self = this
+	const self = this
 
 	// if juicebox is not enabled or disabled by flags
 	if (!enduro.config.juicebox_enabled) {
@@ -47,7 +47,7 @@ juicebox.prototype.pull = function (force) {
 
 	logger.init('Juice pull')
 
-	var pull_juice
+	let pull_juice
 
 	if (enduro.flags.force || force) {
 		return get_latest_juice()
@@ -159,7 +159,7 @@ juicebox.prototype.diff_current_to_latest_juicebox = function () {
 juicebox.prototype.diff = function (version_hash, file) {
 
 	// will store the specified juicebox hash
-	var juicebox_hash_to_diff
+	let juicebox_hash_to_diff
 
 	return get_latest_juice()
 		.then((juice) => {
@@ -194,7 +194,7 @@ juicebox.prototype.log = function (nojuice) {
 }
 
 juicebox.prototype.is_juicebox_enabled = function () {
-	var juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
+	const juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
 	return !flat_helpers.file_exists_sync(juicefile_path)
 }
 
@@ -251,7 +251,7 @@ function get_latest_juice () {
 			if (response.statusCode != 200) { reject('couldnt read juice file') }
 
 			// check if we got xml or json - xml means there is something wrong
-			var juicefile_in_json = JSON.parse(body)
+			const juicefile_in_json = JSON.parse(body)
 
 			return write_juicefile(juicefile_in_json)
 		})
@@ -273,15 +273,15 @@ function get_juicebox_hash_by_timestamp (timestamp) {
 }
 
 function get_juicebox_by_name (juicebox_name) {
-	var source_path = remote_handler.get_remote_url('juicebox/' + juicebox_name, true)
-	var destination_path = path.join(enduro.project_path, 'juicebox', juicebox_name)
+	const source_path = remote_handler.get_remote_url('juicebox/' + juicebox_name, true)
+	const destination_path = path.join(enduro.project_path, 'juicebox', juicebox_name)
 
 	if (source_path == destination_path) {
 		return new Promise.resolve(juicebox_name)
 	}
 
 	return new Promise(function (resolve, reject) {
-		var juicebox_read_stream = remote_handler.request_stream(source_path)
+		const juicebox_read_stream = remote_handler.request_stream(source_path)
 
 		juicebox_read_stream
 			.on('error', () => {
@@ -326,7 +326,7 @@ function spill_the_juice (juicebox_name, destination) {
 // provides default context of a fresh juicefile
 function get_new_juicefile () {
 
-	var timestamp = Math.floor(Date.now() / 1000)
+	const timestamp = Math.floor(Date.now() / 1000)
 
 	return {
 		history: [],

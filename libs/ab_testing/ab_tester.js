@@ -2,13 +2,13 @@
 // * 	ab tester
 // *	handles a/b testing
 // * ———————————————————————————————————————————————————————— * //
-var ab_tester = function () {}
+const ab_tester = function () {}
 
-// vendor dependencies
-var _ = require('lodash')
+// * vendor dependencies
+const _ = require('lodash')
 
-// local dependencies
-var page_queue_generator = require(enduro.enduro_path + '/libs/page_rendering/page_queue_generator')
+// * enduro dependencies
+const page_queue_generator = require(enduro.enduro_path + '/libs/page_rendering/page_queue_generator')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	get ab list
@@ -65,7 +65,7 @@ ab_tester.prototype.get_ab_list = function () {
 				// add urls and paths
 				pages[p] = pages[p].map((page) => {
 
-					var file = page.length ? p + '@' + page : p
+					const file = page.length ? p + '@' + page : p
 
 					return {
 						page: file
@@ -78,7 +78,7 @@ ab_tester.prototype.get_ab_list = function () {
 }
 
 ab_tester.prototype.get_ab_tested_filepath = function (url, req, res) {
-	var self = this
+	const self = this
 
 	// removes slash from the front
 	page_name = url[0] == '/' ? url.substring(1) : url
@@ -92,9 +92,9 @@ ab_tester.prototype.get_ab_tested_filepath = function (url, req, res) {
 					return resolve(url)
 				}
 
-				var ab_scenario = global.ab_test_scenarios[page_name]
+				const ab_scenario = global.ab_test_scenarios[page_name]
 
-				var picked_variation
+				let picked_variation
 
 				// check if user has cookie for this url
 				if (req.cookies['enduro_ab_' + url]) {
@@ -114,7 +114,7 @@ ab_tester.prototype.get_ab_tested_filepath = function (url, req, res) {
 }
 
 ab_tester.prototype.generate_global_ab_list_if_nonexistent = function () {
-	var self = this
+	const self = this
 
 	return new Promise(function (resolve, reject) {
 		if (typeof global.ab_test_scenarios === 'undefined') {
@@ -130,7 +130,7 @@ ab_tester.prototype.generate_global_ab_list_if_nonexistent = function () {
 }
 
 ab_tester.prototype.generate_global_ab_list = function () {
-	var self = this
+	const self = this
 
 	return self.get_ab_list()
 		.then((ab_list) => {

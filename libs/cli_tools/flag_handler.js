@@ -2,13 +2,13 @@
 // * 	flag handler
 // *	creates an object based on flags provided
 // * ———————————————————————————————————————————————————————— * //
-var flag_handler = function () {}
+const flag_handler = function () {}
 
 // local variables
-var logger = require(enduro.enduro_path + '/libs/logger')
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 // constants
-var FLAG_MAP = {
+const FLAG_MAP = {
 	f: {
 		label: 'force',
 		message: 'Force flag - weird stuff might happen'
@@ -51,7 +51,7 @@ var FLAG_MAP = {
 // * ———————————————————————————————————————————————————————— * //
 flag_handler.prototype.get_flag_object = function (flags) {
 
-	var flag_object = {}
+	let flag_object = {}
 
 	for (i in flags) {
 		if (FLAG_MAP[flags[i]]) {
@@ -66,7 +66,7 @@ flag_handler.prototype.get_flag_object = function (flags) {
 flag_handler.prototype.list_flags = function () {
 	logger.init('available flags')
 
-	var first = true
+	let first = true
 	for (f in FLAG_MAP) {
 		!first && logger.line()
 		logger.log('-' + f + ': ' + FLAG_MAP[f].label)

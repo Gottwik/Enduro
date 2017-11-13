@@ -1,4 +1,4 @@
-var local_app = function () {}
+const local_app = function () {}
 
 local_app.prototype.init = function (app) {
 	// express app available here

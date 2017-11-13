@@ -3,10 +3,10 @@
 // *
 // *	enables '@statuses:0@' notation in js files and thus enabling connecting js cms files
 // * ———————————————————————————————————————————————————————— * //
-var globalizer_handler = function () {}
+const globalizer_handler = function () {}
 
-// local dependencies
-var globalizer_helpers = require(enduro.enduro_path + '/libs/globalizer/globalizer_helpers')
+// * enduro dependencies
+const globalizer_helpers = require(enduro.enduro_path + '/libs/globalizer/globalizer_helpers')
 
 // decides whether control object is a globalizer
 function is_globalizer (content_object) {
@@ -30,11 +30,11 @@ function globalize (context, root_context) {
 	for (key in context) {
 
 		// stores whether object is a shallow globalizer
-		var is_object_shallow_globalizer = is_shallow(context[key])
+		const is_object_shallow_globalizer = is_shallow(context[key])
 		if (typeof context[key] !== 'function' && is_globalizer(context[key])) {
 
 			// fetches the context behind the link
-			var routed_context = globalizer_helpers.route_context(root_context, context[key])
+			const routed_context = globalizer_helpers.route_context(root_context, context[key])
 
 			// replaces the globalizer string with the fetched object
 			context[key] = routed_context

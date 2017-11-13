@@ -4,17 +4,17 @@
 // * 	admin api endpoint admin_api/login_by_password
 // *	@return {response} - success boolean and session info
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// Local dependencies
-var admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
-var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
+const admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
-	var username = req.query.username
-	var password = req.query.password
+	const username = req.query.username
+	const password = req.query.password
 
 	logger.timestamp(username + ' is trying to log in', 'admin_login')
 

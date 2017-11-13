@@ -2,7 +2,7 @@
 // * 	terminator tools
 // * 	offer tools to manipulat terminations
 // * ———————————————————————————————————————————————————————— * //
-var terminator_tools = function () {}
+const terminator_tools = function () {}
 
 // publicly accessible function that starts the recursive linking
 terminator_tools.prototype.get_terminator = function (context_key) {

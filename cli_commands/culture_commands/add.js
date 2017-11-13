@@ -7,11 +7,11 @@ module.exports = {
 			.example('enduro culture add en de fr es')
 	},
 	handler: function (cli_arguments) {
-		var enduro_instance = require('../../index')
+		const enduro_instance = require('../../index')
 
 		enduro_instance.init()
 			.then(() => {
-				var babel = require(enduro.enduro_path + '/libs/babel/babel')
+				const babel = require(enduro.enduro_path + '/libs/babel/babel')
 				return babel.add_culture(cli_arguments.cultures)
 			})
 	}

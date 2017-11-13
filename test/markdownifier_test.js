@@ -1,8 +1,8 @@
-var expect = require('chai').expect
+const expect = require('chai').expect
 
-var local_enduro = require('../index').quick_init()
-var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+const local_enduro = require('../index').quick_init()
+const markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('markdownifier', function () {
 
@@ -15,11 +15,11 @@ describe('markdownifier', function () {
 
 	it('should replace links with kispander anchors', function () {
 
-		var test_input = {
+		const test_input = {
 			text: 'this is a [link]{linkurl}'
 		}
 
-		var expected_output = {
+		const expected_output = {
 			text: 'this is a <a class="kispander-link" href="#ksp/linkurl">link</a>'
 		}
 

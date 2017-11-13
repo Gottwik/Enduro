@@ -2,16 +2,18 @@
 // * 	enduro.actions.developer_start
 // * ———————————————————————————————————————————————————————— * //
 
-var action = function () {}
+const action = function () {}
 
-var Promise = require('bluebird')
-var extend = require('extend')
+// * vendor dependencies
+const Promise = require('bluebird')
+const extend = require('extend')
 
-var global_data = require(enduro.enduro_path + '/libs/global_data')
-var log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
-var enduro_server = require(enduro.enduro_path + '/libs/enduro_server/enduro_server')
-var gulp_tasks = require(enduro.enduro_path + '/libs/build_tools/gulp_tasks')
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const global_data = require(enduro.enduro_path + '/libs/global_data')
+const log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
+const enduro_server = require(enduro.enduro_path + '/libs/enduro_server/enduro_server')
+const gulp_tasks = require(enduro.enduro_path + '/libs/build_tools/gulp_tasks')
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 action.prototype.action = function (config) {
 
@@ -26,7 +28,7 @@ action.prototype.action = function (config) {
 
 		logger.timestamp('developer start', 'enduro_events')
 
-		var prevent_double_callback = false
+		let prevent_double_callback = false
 
 		enduro.actions.render()
 			.then(() => {

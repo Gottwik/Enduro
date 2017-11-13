@@ -9,12 +9,12 @@ module.exports = {
 			.example('enduro juice diff afd9012rr1fA2 global/mainmenu.js')
 	},
 	handler: function (cli_arguments) {
-		var enduro_instance = require('../../index')
+		const enduro_instance = require('../../index')
 
 		enduro_instance.init()
 			.then(() => {
 
-				var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
+				const juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
 				return juicebox.diff(cli_arguments.version_hash, cli_arguments.file)
 			})
 	}

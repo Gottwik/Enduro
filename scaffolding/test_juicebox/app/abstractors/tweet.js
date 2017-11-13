@@ -1,6 +1,6 @@
 //	placeholder abstractor
 
-var abstractor = function () {}
+const abstractor = function () {}
 
 abstractor.prototype.init = function (context) {
 	return new Promise(function (resolve, reject) {

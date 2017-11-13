@@ -1,13 +1,13 @@
-// vendor dependencies
-var expect = require('chai').expect
-var request = require('request')
-var async = require('async')
-var _ = require('lodash')
+// * vendor dependencies
+const expect = require('chai').expect
+const request = require('request')
+const async = require('async')
+const _ = require('lodash')
 
-// local dependencies
-var local_enduro = require('../../index').quick_init()
-var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
-var test_utilities = require('../libs/test_utilities')
+// * enduro dependencies
+const local_enduro = require('../../index').quick_init()
+const ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
+const test_utilities = require('../libs/test_utilities')
 
 describe('A/B testing', function () {
 	this.timeout(7000)
@@ -29,7 +29,7 @@ describe('A/B testing', function () {
 
 	it('should serve different at least one different page out of 50 requests', function (done) {
 
-		var responses = []
+		let responses = []
 
 		async.each(new Array(50), function (file, callback) {
 			request('http://localhost:5000/', function (error, response, body) {

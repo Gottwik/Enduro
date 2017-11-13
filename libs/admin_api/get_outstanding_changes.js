@@ -3,11 +3,9 @@
 // *
 // *	@return {response} - diff with most current local juicebox
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// vendor dependencies
-
-// local dependencies
+// * enduro dependencies
 const juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
 const admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
 

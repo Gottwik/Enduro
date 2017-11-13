@@ -1,17 +1,17 @@
 // * ———————————————————————————————————————————————————————— * //
 // * 	markdownifier
 // * ———————————————————————————————————————————————————————— * //
-var markdownifier = function () {}
+const markdownifier = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var glob = require('glob-promise')
+// * vendor dependencies
+const Promise = require('bluebird')
+const glob = require('glob-promise')
 
 // Goes through the pages and renders them
 markdownifier.prototype.precompute = function () {
 	return new Promise(function (resolve, reject) {
 
-		var markdown_rules_path = enduro.project_path + '/app/markdown_rules/**/*.js'
+		const markdown_rules_path = enduro.project_path + '/app/markdown_rules/**/*.js'
 
 		// initalizes global precomputed markdown rules to an empty array
 		enduro.precomputed_data.markdown_rules = []
@@ -33,7 +33,7 @@ markdownifier.prototype.precompute = function () {
 // *	@return {promise} - promise with empty payload
 // * ———————————————————————————————————————————————————————— * //
 markdownifier.prototype.markdownify = function (context) {
-	var self = this
+	const self = this
 
 	return Promise.resolve()
 		.then(() => {

@@ -10,13 +10,13 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 
 	enduro.templating_engine.registerHelper('json', function (filename, options) {
-		var fs = require('fs')
-		var contents = JSON.parse(fs.readFileSync(enduro.project_path + filename, 'utf8'))
+		const fs = require('fs')
+		const contents = JSON.parse(fs.readFileSync(enduro.project_path + filename, 'utf8'))
 
 		return options.fn(contents)
 	})

@@ -1,12 +1,12 @@
-// vendor dependencies
-var expect = require('chai').expect
-var path = require('path')
-var glob = require('glob')
+// * vendor dependencies
+const expect = require('chai').expect
+const path = require('path')
+const glob = require('glob')
 
-// local dependencies
-var local_enduro = require('../../index').quick_init()
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
-var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
+// * enduro dependencies
+const local_enduro = require('../../index').quick_init()
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+const juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
 
 describe('Juicebox pull', function () {
 
@@ -21,7 +21,7 @@ describe('Juicebox pull', function () {
 	it('should create fresh folder on first pull', function () {
 		return juicebox.pull()
 			.then((hash) => {
-				var files = glob.sync(path.join(enduro.project_path, 'juicebox', '*')).map((file) => {
+				const files = glob.sync(path.join(enduro.project_path, 'juicebox', '*')).map((file) => {
 					return file.match(/juicebox_pull_testfolder\/juicebox\/(.*)$/)[1]
 				})
 
@@ -34,7 +34,7 @@ describe('Juicebox pull', function () {
 	it('should not create more files if pull is called again, but should create staging folder', function () {
 		return juicebox.pull()
 			.then(() => {
-				var files = glob.sync(path.join(enduro.project_path, 'juicebox', '*')).map((file) => {
+				const files = glob.sync(path.join(enduro.project_path, 'juicebox', '*')).map((file) => {
 					return file.match(/juicebox_pull_testfolder\/juicebox\/(.*)$/)[1]
 				})
 
@@ -46,7 +46,7 @@ describe('Juicebox pull', function () {
 	it('should not create more files if pull is called the third time', function () {
 		return juicebox.pull()
 			.then(() => {
-				var files = glob.sync(path.join(enduro.project_path, 'juicebox', '*')).map((file) => {
+				const files = glob.sync(path.join(enduro.project_path, 'juicebox', '*')).map((file) => {
 					return file.match(/juicebox_pull_testfolder\/juicebox\/(.*)$/)[1]
 				})
 
@@ -57,9 +57,9 @@ describe('Juicebox pull', function () {
 
 	it('should have extracted a cms folder into staging', function () {
 
-		var staging_folder = path.join(enduro.project_path, 'juicebox', 'staging')
+		const staging_folder = path.join(enduro.project_path, 'juicebox', 'staging')
 
-		var files = glob.sync(path.join(staging_folder, '**/*'))
+		const files = glob.sync(path.join(staging_folder, '**/*'))
 		expect(files).to.have.lengthOf.above(5)
 	})
 

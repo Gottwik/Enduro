@@ -34,7 +34,7 @@ brick_handler.prototype.load_bricks = function () {
 // * 	/bricks/:brick_name/...
 // * ———————————————————————————————————————————————————————— * //
 brick_handler.prototype.serve_brick_static_assets = function (app, express) {
-	var self = this
+	const self = this
 
 	for (brick_name in enduro.config.bricks) {
 		const bricks_asset_folder = path.join(self._get_bricks_root_folder(brick_name), 'assets')
@@ -46,7 +46,7 @@ brick_handler.prototype.serve_brick_static_assets = function (app, express) {
 // * 	require brick by brick name
 // * ———————————————————————————————————————————————————————— * //
 brick_handler.prototype._require_brick = function (brick_name) {
-	var self = this
+	const self = this
 
 	// not sure if this is the best way to handle this
 	return require(self._get_bricks_root_folder(brick_name))

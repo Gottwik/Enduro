@@ -2,27 +2,27 @@
 // * 	remote handler
 // *	uploads files to s3
 // * ———————————————————————————————————————————————————————— * //
-var filesystem = function () {}
+const filesystem = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var s3 = require('s3')
+// * vendor dependencies
+const Promise = require('bluebird')
+const s3 = require('s3')
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 filesystem.prototype.init = function () {
 	// no init required
 }
 
 filesystem.prototype.upload = function (filename, path_to_file) {
-	var self = this
+	const self = this
 
 	return new Promise(function (resolve, reject) {
 
-		var destination_url = self.get_remote_url(filename)
+		const destination_url = self.get_remote_url(filename)
 
-		var client = s3.createClient({
+		const client = s3.createClient({
 			s3Options: {
 				accessKeyId: enduro.config.variables.S3_KEY,
 				secretAccessKey: enduro.config.variables.S3_SECRET,
@@ -30,14 +30,14 @@ filesystem.prototype.upload = function (filename, path_to_file) {
 			},
 		})
 
-		var params = {
+		const params = {
 			localFile: path_to_file,
 			s3Params: {
 				Bucket: enduro.config.s3.bucket,
 				Key: filename,
 			},
 		}
-		var uploader = client.uploadFile(params)
+		const uploader = client.uploadFile(params)
 
 		uploader.on('error', function (err) {
 			console.error('unable to upload:', err.stack)

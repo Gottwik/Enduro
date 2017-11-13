@@ -1,9 +1,9 @@
-// vendor dependencies
+// * vendor dependencies
 const expect = require('chai').expect
 const path = require('path')
 const glob = require('glob')
 
-// local dependencies
+// * enduro dependencies
 const local_enduro = require('../../index').quick_init()
 const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 const juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')

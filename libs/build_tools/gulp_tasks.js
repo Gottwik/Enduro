@@ -3,34 +3,34 @@
 // *	defines gulp tasks
 // * ———————————————————————————————————————————————————————— * //
 
-// vendor dependencies
-var Promise = require('bluebird')
-var gulp = require('gulp')
-var watch = require('gulp-watch')
-var browser_sync = require('browser-sync').create()
-var fs = require('fs')
-var iconfont = require('gulp-iconfont')
-var iconfontCss = require('gulp-iconfont-css')
-var handlebars = require('gulp-handlebars')
-var defineModule = require('gulp-define-module')
-var flatten = require('gulp-flatten')
-var concat = require('gulp-concat')
-var filterBy = require('gulp-filter-by')
-var wrap = require('gulp-wrap')
-var path = require('path')
+// * vendor dependencies
+const Promise = require('bluebird')
+const gulp = require('gulp')
+const watch = require('gulp-watch')
+const browser_sync = require('browser-sync').create()
+const fs = require('fs')
+const iconfont = require('gulp-iconfont')
+const iconfontCss = require('gulp-iconfont-css')
+const handlebars = require('gulp-handlebars')
+const defineModule = require('gulp-define-module')
+const flatten = require('gulp-flatten')
+const concat = require('gulp-concat')
+const filterBy = require('gulp-filter-by')
+const wrap = require('gulp-wrap')
+const path = require('path')
 
-// local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var logger = require(enduro.enduro_path + '/libs/logger')
-var event_hooks = require(enduro.enduro_path + '/libs/external_links/event_hooks')
+// * enduro dependencies
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const logger = require(enduro.enduro_path + '/libs/logger')
+const event_hooks = require(enduro.enduro_path + '/libs/external_links/event_hooks')
 
 // Gulp tasks
-var pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator').init(gulp)
-var assets_copier = require(enduro.enduro_path + '/libs/build_tools/assets_copier').init(gulp, browser_sync)
-var assets_copier_watch = require(enduro.enduro_path + '/libs/build_tools/assets_copier').watch(gulp, browser_sync)
-var js_handler = require(enduro.enduro_path + '/libs/build_tools/js_handler').init(gulp, browser_sync)
-var css_handler = require(enduro.enduro_path + '/libs/build_tools/css_handler').init(gulp, browser_sync)
-var sprite_icons = require(enduro.enduro_path + '/libs/build_tools/sprite_icons').init(gulp, browser_sync)
+const pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator').init(gulp)
+const assets_copier = require(enduro.enduro_path + '/libs/build_tools/assets_copier').init(gulp, browser_sync)
+const assets_copier_watch = require(enduro.enduro_path + '/libs/build_tools/assets_copier').watch(gulp, browser_sync)
+const js_handler = require(enduro.enduro_path + '/libs/build_tools/js_handler').init(gulp, browser_sync)
+const css_handler = require(enduro.enduro_path + '/libs/build_tools/css_handler').init(gulp, browser_sync)
+const sprite_icons = require(enduro.enduro_path + '/libs/build_tools/sprite_icons').init(gulp, browser_sync)
 
 gulp.enduro_refresh = function (callback) {
 	logger.log('Refresh', true, 'enduro_render_events')
@@ -64,7 +64,7 @@ function browsersync_start (norefresh) {
 					return next()
 				}
 
-				var splitted_url = req.url.split('/')
+				const splitted_url = req.url.split('/')
 
 				if (splitted_url.length == 2 && enduro.config.cultures.indexOf(splitted_url[1]) + 1) {
 					req.url += '/index.html'
@@ -184,7 +184,7 @@ gulp.task('iconfont', function (cb) {
 				glyph.unicode = glyph.unicode[0].charCodeAt(0).toString(16)
 				return glyph
 			})
-			var icon_json_file_path = path.join(enduro.project_path, enduro.config.build_folder, '/_prebuilt/icons.json')
+			const icon_json_file_path = path.join(enduro.project_path, enduro.config.build_folder, '/_prebuilt/icons.json')
 			flat_helpers.ensure_directory_existence(icon_json_file_path)
 				.then(() => {
 					fs.writeFileSync(icon_json_file_path, JSON.stringify(glyphs))

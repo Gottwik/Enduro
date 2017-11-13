@@ -1,11 +1,11 @@
-// vendor dependencies
-var less = require('gulp-less')
-var sourcemaps = require('gulp-sourcemaps')
-var LessAutoPrefix = require('less-plugin-autoprefix')
-var autoprefixer = new LessAutoPrefix({ browsers: [ 'last 5 versions' ] })
+// * vendor dependencies
+const less = require('gulp-less')
+const sourcemaps = require('gulp-sourcemaps')
+const LessAutoPrefix = require('less-plugin-autoprefix')
+const autoprefixer = new LessAutoPrefix({ browsers: [ 'last 5 versions' ] })
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	Less Task
@@ -14,12 +14,12 @@ var logger = require(enduro.enduro_path + '/libs/logger')
 // *	To add paths for @import to use, add in your enduro.json:
 // *	less: { paths: [ '/paths/to/files' ] }
 // * ———————————————————————————————————————————————————————— * //
-var less_handler = function () {}
+const less_handler = function () {}
 
 less_handler.prototype.init = function (gulp, browser_sync) {
 
 	// stores task name
-	var less_handler_task_name = 'less'
+	const less_handler_task_name = 'less'
 
 	// registeres task to provided gulp
 	gulp.task(less_handler_task_name, function () {

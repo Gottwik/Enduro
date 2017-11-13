@@ -23,21 +23,19 @@ const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 // * ———————————————————————————————————————————————————————— * //
 // * 	print out diff
 // * ———————————————————————————————————————————————————————— * //
-juice_diff.prototype.print_out_diff = function (path1, path2) {
+juice_diff.prototype.print_out_diff = function (diff) {
 	const self = this
 	logger.init('Juice diff')
 
-	self.diff(path1, path2)
-		.then((diff) => {
-			diff.diffSet.forEach((item) => {
-				if (item.type == 'directory') {
-					logger.log(item.indentation + item.name)
-				} else {
-					logger.twolog(item.indentation + item.name, item.status)
-				}
-			})
-			logger.end()
-		})
+	diff.diffSet.forEach((item) => {
+		if (item.type == 'directory') {
+			logger.log(item.indentation + item.name)
+		} else {
+			logger.twolog(item.indentation + item.name, item.status)
+		}
+	})
+	
+	logger.end()
 }
 
 juice_diff.prototype.diff = function (path1, path2) {

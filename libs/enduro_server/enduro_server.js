@@ -91,6 +91,12 @@ enduro_server.prototype.run = function (server_setup) {
 				})
 		})
 
+		// robots.txt
+		app.get('/robots.txt', function (req, res) {
+			res.type('text/plain')
+			res.send("User-agent: *\nAllow: /")
+		})
+
 		// serve bricks' static assets
 		brick_handler.serve_brick_static_assets(app, express)
 

@@ -15,11 +15,12 @@ module.exports = {
 
 		enduro_instance.init()
 			.then(() => {
-
 				return juicebox.diff(cli_arguments.version_hash, cli_arguments.file)
 			})
 			.then((diff) => {
-				juice_diff.print_out_diff(diff)
+				if (diff) {
+					juice_diff.print_out_diff(diff)
+				}
 			})
 	}
 }

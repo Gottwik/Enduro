@@ -80,8 +80,9 @@ pagelist_generator.prototype.generate_cms_list = function () {
 					page.name = format_service.prettify_string(pagepath[0])
 					page.page_slug = pagepath[0].toString()
 
+
 					// mark generator template as hidden
-					if (fullpath[0] == 'generators' && fullpath[1] == fullpath[2]) {
+					if (fullpath[0] == 'generators' && fullpath.length >= 2 && fullpath[fullpath.length - 2] == fullpath[fullpath.length - 1]) {
 						page.hidden = true
 					}
 

@@ -35,6 +35,7 @@ filesystem.prototype.upload = function (filename, path_to_file) {
 			s3Params: {
 				Bucket: enduro.config.s3.bucket,
 				Key: filename,
+				ACL: 'public-read',
 			},
 		}
 		const uploader = client.uploadFile(params)
@@ -54,6 +55,8 @@ filesystem.prototype.upload = function (filename, path_to_file) {
 filesystem.prototype.get_remote_url = function (filename, juicebox) {
 	if (enduro.config.s3.cloudfront && !juicebox) {
 		return 'https://' + enduro.config.s3.cloudfront + '/' + filename
+	} else if (enduro.config.s3.region === 'us-east-1') {
+		return 'https://s3.amazonaws.com/' + enduro.config.s3.bucket + '/' + filename
 	} else {
 		return 'https://s3-' + (enduro.config.s3.region || 'us-west-1') + '.amazonaws.com/' + enduro.config.s3.bucket + '/' + filename
 	}

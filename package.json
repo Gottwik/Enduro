@@ -52,7 +52,7 @@
     "gulp-define-module": "^0.1.4",
     "gulp-filter-by": "^1.2.0",
     "gulp-flatten": "^0.3.1",
-    "gulp-handlebars": "^4.0.0",
+    "gulp-handlebars": "^5.0.0",
     "gulp-iconfont": "^9.0.2",
     "gulp-iconfont-css": "^2.0.0",
     "gulp-if": "^2.0.2",

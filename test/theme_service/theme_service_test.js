@@ -39,7 +39,7 @@ describe('[online_test] Theme manager server endpoints', function () {
 	})
 
 	it('should download and extract a theme package', function () {
-		this.timeout(5000)
+		this.timeout(15000)
 		const extract_to_directory = 'theme_extract_test'
 		global.enduro.project_path = path.join(process.cwd(), 'testfolder')
 

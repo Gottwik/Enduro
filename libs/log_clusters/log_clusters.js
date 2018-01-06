@@ -41,7 +41,7 @@ clusters['project_created'] = (context) => {
 	logger.log('Dont forget to cd into project with', true)
 	logger.tablog('$ cd ' + context.project_name, true)
 	logger.log('Then run', true)
-	logger.tablog('$ enduro', true)
+	logger.tablog('$ enduro dev', true)
 	logger.end()
 }
 

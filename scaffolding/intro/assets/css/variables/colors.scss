@@ -1,0 +1,10 @@
+$scheme: (#505160, #2980B9, #359fdc);
+
+// applied scheme
+$black: nth($scheme, 1);
+$color1: nth($scheme, 2);
+$color2: nth($scheme, 3);
+
+// basics
+$white: #fff;
+$grey: #423d3d;

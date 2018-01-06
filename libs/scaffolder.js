@@ -17,7 +17,7 @@ const log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_cluste
 const glob = require('glob')
 
 // constants
-const DEFAULT_SCAFFOLDING_NAME = 'minimalistic'
+const DEFAULT_SCAFFOLDING_NAME = 'intro'
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	scaffold

@@ -67,7 +67,7 @@
     "gulp-wrap": "^0.13.0",
     "gulp.spritesmith": "^6.9.0",
     "handlebars": "^4.0.11",
-    "inquirer": "^4.0.0",
+    "inquirer": "^5.0.0",
     "less-plugin-autoprefix": "^1.5.1",
     "lodash": "^4.15.0",
     "mkdirp": "^0.5.1",

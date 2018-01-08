@@ -6,12 +6,13 @@
 const brick_handler = function () {}
 
 // * vendor dependencies
+const Promise = require('bluebird')
 const path = require('path')
+const fs = Promise.promisifyAll(require('fs-extra'))
 
 // * enduro dependencies
 const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
-const Promise = require('bluebird')
-const fs = Promise.promisifyAll(require('fs-extra'))
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	loads, initialize and pre-store brick-related data
@@ -42,7 +43,10 @@ brick_handler.prototype.load_bricks = function () {
 	}
 	const brick_admin_settings_path = path.join(enduro.project_path, enduro.config.build_folder, '/_prebuilt/brick_admin_settings.js');
 	const brick_admin_settings_string_to_save = 'var brick_admin_settings = ' + JSON.stringify(brick_admin_settings)
-	return fs.writeFileAsync(brick_admin_settings_path, brick_admin_settings_string_to_save);
+	return flat_helpers.ensure_directory_existence(brick_admin_settings_path)
+		.then(() => {
+			return fs.writeFileAsync(brick_admin_settings_path, brick_admin_settings_string_to_save);
+		})
 }
 
 // * ———————————————————————————————————————————————————————— * //

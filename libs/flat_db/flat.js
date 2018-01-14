@@ -18,7 +18,6 @@ const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 const log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
 const brick_processors = require(enduro.enduro_path + '/libs/bricks/brick_processors')
 
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Save cms file
 // *	@param {String} filename - Path to file without extension, relative to /cms folder
@@ -45,7 +44,7 @@ flat.prototype.save = function (filename, contents) {
 		}
 
 		// formats js file so it can be edited by hand later
-		const prettyString = stringify_object(flatObj, {indent: '	', singleQuotes: true})
+		const prettyString = '(' + stringify_object(flatObj, {indent: '	', singleQuotes: true}) + ')'
 
 		// save cms file
 		flat_helpers.ensure_directory_existence(fullpath_to_cms_file)
@@ -87,21 +86,17 @@ flat.prototype.load = function (filename, is_full_absolute_path) {
 			resolve({})
 		} else {
 			fs.readFile(fullpath_to_cms_file, function (err, raw_context_data) {
-				if (err) { reject() }
-
-				// check if file is empty. return empty object if so
-				if (raw_context_data == '') {
-					return resolve({})
+				if (err) {
+					console.log(err)
+					reject()
 				}
 
 				// strip whitespace
 				raw_context_data = raw_context_data.toString().trim()
 
-				// wraps content in curly braces if it isn't already wrapped
-				// the file will still be saved with braces but might help some people if
-				// they forget to include the braces
-				if (raw_context_data[0] != '{') {
-					raw_context_data = '{' + raw_context_data + '}'
+				// check if file is empty. return empty object if so
+				if (raw_context_data == '') {
+					return resolve({})
 				}
 
 				// convert the string-based javascript into an object
@@ -113,7 +108,7 @@ flat.prototype.load = function (filename, is_full_absolute_path) {
 					log_clusters.log('malformed_context_file', filename)
 				}
 
-				// brick_processors enable bricks(plugins) to manipulate the context just before
+				// brick_processors enable bricks (plugins) to manipulate the context just before
 				// page rendering happens
 				return brick_processors.process('cms_context_processor', context)
 					.then((proccessed_context) => {

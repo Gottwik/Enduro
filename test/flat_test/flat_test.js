@@ -206,14 +206,6 @@ describe('flat db data access', function () {
 			})
 	})
 
-	it('should load cms file that is not wrapped in curly braces', function () {
-		return flat.load('non_braced_content')
-			.then((non_braced_content) => {
-				expect(non_braced_content).to.be.an('object')
-				expect(non_braced_content).to.have.property('toys')
-			})
-	})
-
 	after(function () {
 		return test_utilities.after()
 	})

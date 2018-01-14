@@ -12,11 +12,11 @@ module.exports = {
 			})
 	},
 	handler: function (cli_arguments) {
-		var enduro_instance = require('../../index')
+		const enduro_instance = require('../../index')
 
 		enduro_instance.init()
 			.then(() => {
-				var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
+				const juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
 
 				if (enduro.flags.force) {
 					return juicebox.pull(true)

@@ -6,7 +6,7 @@
 // *	{{partial 'partial name'}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 
@@ -18,7 +18,7 @@ helper.prototype.register = function () {
 		}
 
 		// Get the partial with the given name. This is a string.
-		var partial = enduro.templating_engine.partials[name]
+		const partial = enduro.templating_engine.partials[name]
 
 		// Return empty string if the partial is not defined
 		if (!partial) return ''

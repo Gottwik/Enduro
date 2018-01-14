@@ -3,16 +3,16 @@
 // *	Loads components. Note that even if component is stored
 // *	in subdirectory, it's name will be just the file name
 // * ———————————————————————————————————————————————————————— * //
-var components_handler = function () {}
+const components_handler = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var fs = require('fs')
-var async = require('async')
-var glob = require('glob')
+// * vendor dependencies
+const Promise = require('bluebird')
+const fs = require('fs')
+const async = require('async')
+const glob = require('glob')
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	read components
@@ -23,7 +23,7 @@ var logger = require(enduro.enduro_path + '/libs/logger')
 components_handler.prototype.read_components = function () {
 	return new Promise(function (resolve, reject) {
 
-		var components_path = enduro.project_path + '/components/**/*.hbs'
+		const components_path = enduro.project_path + '/components/**/*.hbs'
 
 		// fetches the files
 		glob(components_path, function (err, files) {
@@ -36,8 +36,8 @@ components_handler.prototype.read_components = function () {
 			async.each(files, function (file, callback) {
 
 				// stores file name and file extension
-				var fileReg = file.match(/([^\\/]+)\.([^\\/]+)$/)
-				var filename = fileReg[1]
+				const fileReg = file.match(/([^\\/]+)\.([^\\/]+)$/)
+				const filename = fileReg[1]
 
 				// reads the file. @data stores the component's raw contents
 				fs.readFile(file, 'utf8', function (err, data) {

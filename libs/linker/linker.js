@@ -2,25 +2,26 @@
 // * 	linker
 // *	provides global access to enduro modules and state variables
 // * ———————————————————————————————————————————————————————— * //
+const enduro_linker = function () {}
 
-// vendor depencies
-var Promise = require('bluebird')
-var glob = require('glob-promise')
-var path = require('path')
+// * vendor dependencies
+const Promise = require('bluebird')
+const glob = require('glob-promise')
+const path = require('path')
 
-var enduro_linker = function () {}
-
-var api_links = {
+const api_links = {
 	'temper': '/libs/temper/temper',
 	'pagelist_generator': '/libs/build_tools/pagelist_generator',
 	'flat': '/libs/flat_db/flat',
 	'flat_helpers': '/libs/flat_db/flat_helpers',
 	'logger': '/libs/logger',
+	'brick_processors': '/libs/bricks/brick_processors',
+	'context_modifiers': '/libs/context_tools/context_modifiers',
 }
 
 // will initialize shared variables that will represent state and configuration
 enduro_linker.prototype.init_enduro_linked_configuration = function (project_path, enduro_path, flags) {
-	var linker = {}
+	let linker = {}
 
 	// paths for project
 	linker.project_path = project_path
@@ -49,12 +50,14 @@ enduro_linker.prototype.init_enduro_linked_configuration = function (project_pat
 	linker.cms_data = {}
 	linker.cms_data.global = {}
 
+	// initialize brick_processors
+	linker.brick_processors = []
+
 	return linker
 }
 
 // will require the exposed modules one by one and return an object with them
 enduro_linker.prototype.expose_enduro_api = function () {
-
 	enduro.api = {}
 
 	for (api_link in api_links) {
@@ -64,13 +67,12 @@ enduro_linker.prototype.expose_enduro_api = function () {
 
 // will expose all the enduro.js contextless actions
 enduro_linker.prototype.expose_enduro_actions = function () {
-
 	enduro.actions = {}
 
 	return glob(enduro.enduro_path + '/libs/actions/*.js')
 		.then((action_paths) => {
 			for (action_path of action_paths) {
-				var action_name = path.basename(action_path, '.js')
+				const action_name = path.basename(action_path, '.js')
 				enduro.actions[action_name] = require(action_path).action
 			}
 		})

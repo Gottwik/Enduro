@@ -4,10 +4,10 @@
 // * 	admin api endpoint admin_api/trollhunter
 // *	@return {response} - success boolean
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// Local dependencies
-var trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
+// * enduro dependencies
+const trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

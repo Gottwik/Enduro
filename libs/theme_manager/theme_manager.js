@@ -2,17 +2,9 @@
 // * 	theme manager
 // *	downloads a theme and extracts it into a new folder
 // * ———————————————————————————————————————————————————————— * //
-var theme_manager = function () {}
+const theme_manager = function () {}
 
-// local dependencies
-const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
-const logger = require(enduro.enduro_path + '/libs/logger')
-const admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
-const format_service = require(enduro.enduro_path + '/libs/services/format_service')
-const enduro_instance = require(enduro.enduro_path + '/index')
-
-// vendor dependencies
+// * vendor dependencies
 const Promise = require('bluebird')
 const request = require('request-promise')
 const zlib = require('zlib')
@@ -24,19 +16,27 @@ const opn = require('opn')
 const _ = require('lodash')
 const path = require('path')
 
-var theme_manager_api_routes = {
+// * enduro dependencies
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+const logger = require(enduro.enduro_path + '/libs/logger')
+const admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
+const format_service = require(enduro.enduro_path + '/libs/services/format_service')
+const enduro_instance = require(enduro.enduro_path + '/index').quick_init()
+
+const theme_manager_api_routes = {
 	get_theme_by_name: 'http://www.endurojs.com/theme_manager/get_theme_by_name',
 	get_all_themes: 'http://www.endurojs.com/theme_manager/get_all_themes',
 }
 
 // Goes through the pages and renders them
 theme_manager.prototype.create_from_theme = function (theme_name) {
-	var self = this
+	const self = this
 
 	logger.init('Enduro theme service')
 
 	// will store variables for the promise chain
-	var theme_progress_variables = {}
+	let theme_progress_variables = {}
 
 	// get info for the specified theme
 	return self.fetch_theme_info_by_name(theme_name)
@@ -86,8 +86,17 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 			return self.clean_fresh_theme()
 		}, theme_error)
 
+		.then(() => {
+			logger.loading('starting enduro')
+			logger.silent()
+			return enduro_instance.init({ project_path: path.join(process.cwd(), theme_progress_variables.answers.project_name) })
+
+		}, theme_error)
+
 		// sets up admin credentials
 		.then(() => {
+			logger.noisy()
+			logger.loaded()
 			logger.twolog('setting up admin credentials', '✓')
 			logger.silent()
 			return admin_security.add_admin(theme_progress_variables.answers.login_username, theme_progress_variables.answers.login_password)
@@ -102,10 +111,11 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 
 		.then((fetched_package) => {
 			logger.loading('installing npm dependencies')
+			logger.silent()
 			return new Promise(function (resolve, reject) {
 
 				// workaround to make npm silent
-				var log_temp = console.log
+				const log_temp = console.log
 				console.log = function () {}
 
 				npm.load({
@@ -113,7 +123,9 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 					progress: false,
 					loglevel: 'error',
 				}, () => {
-					var npm_dependencies = _.chain(fetched_package.dependencies)
+					// we get all npm dependencies, but to, speed up, remove enduro, since it's
+					// probably already installed globally
+					const npm_dependencies = _.chain(fetched_package.dependencies)
 						.omit('enduro')
 						.toPairs()
 						.map((dependency) => {
@@ -122,30 +134,33 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 						.value()
 
 					npm.commands.install(theme_progress_variables.answers.project_name, npm_dependencies, function (err, data) {
-						if (err) { console.log(error) }
+						if (err) { console.log(err) }
 
-						// replace console.log
-						console.log = log_temp
-						logger.loaded()
-						resolve()
+						// trick npm into believeing it's in the theme's folder
+						npm.localPrefix = path.join(process.cwd(), theme_progress_variables.answers.project_name)
+
+						// run postinstall script
+						npm.commands.run(['postinstall'], function (err) {
+							if (err) { console.log(err) }
+
+							// no need to silence npm, enable console.log
+							console.log = log_temp
+							logger.loaded()
+							resolve()
+						})
+
 					})
 				})
 			})
 		}, theme_error)
 
 		.then(() => {
-			logger.loading('starting enduro')
-			logger.silent()
-			return enduro_instance.init({ project_path: path.join(process.cwd(), theme_progress_variables.answers.project_name) })
-
-		}, theme_error)
-
-		.then(() => {
+			logger.noisy()
+			logger.loaded()
 			return enduro.actions.start()
 		}, theme_error)
 
 		.then(() => {
-			logger.noisy()
 			logger.loaded()
 
 			logger.line()
@@ -245,7 +260,7 @@ theme_manager.prototype.download_and_extract_theme_by_gz_link = function (gz_lin
 
 	global.enduro.project_path = enduro.project_path || process.cwd()
 
-	var extract_destination = path.join(enduro.project_path, project_name)
+	const extract_destination = path.join(enduro.project_path, project_name)
 	return flat_helpers.ensure_directory_existence(path.join(extract_destination, 'fake.txt'))
 		.then(() => {
 

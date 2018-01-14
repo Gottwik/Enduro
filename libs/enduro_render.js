@@ -2,15 +2,15 @@
 // * 	enduro render
 // *	goes throught all the pages and renders them with handlebars
 // * ———————————————————————————————————————————————————————— * //
-var enduro_render = function () {}
+const enduro_render = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
+// * vendor dependencies
+const Promise = require('bluebird')
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-var page_renderer = require(enduro.enduro_path + '/libs/page_rendering/page_renderer')
-var page_queue_generator = require(enduro.enduro_path + '/libs/page_rendering/page_queue_generator')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
+const page_renderer = require(enduro.enduro_path + '/libs/page_rendering/page_renderer')
+const page_queue_generator = require(enduro.enduro_path + '/libs/page_rendering/page_queue_generator')
 
 // Goes through the pages and renders them
 enduro_render.prototype.render = function () {
@@ -20,7 +20,7 @@ enduro_render.prototype.render = function () {
 		.then((pages_to_render) => {
 
 			// converts the list of pages into list of promises
-			var pages_to_render_promises = pages_to_render.map((page_to_render) => {
+			const pages_to_render_promises = pages_to_render.map((page_to_render) => {
 				return page_renderer.render_file(page_to_render.file, page_to_render.context_file, page_to_render.culture, page_to_render.destination_path)
 			})
 			// executes the promises and return resolved promise when all are finished

@@ -1,13 +1,13 @@
-// vendor dependencies
-var Promise = require('bluebird')
-var expect = require('chai').expect
-var path = require('path')
-var fs = Promise.promisifyAll(require('fs-extra'))
+// * vendor dependencies
+const Promise = require('bluebird')
+const expect = require('chai').expect
+const path = require('path')
+const fs = Promise.promisifyAll(require('fs-extra'))
 
-// local dependencies
-var local_enduro = require('../../index').quick_init()
-var enduro_configurator = require(enduro.enduro_path + '/libs/configuration/enduro_configurator')
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+// * enduro dependencies
+const local_enduro = require('../../index').quick_init()
+const enduro_configurator = require(enduro.enduro_path + '/libs/configuration/enduro_configurator')
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('Enduro configuration adding', function () {
 
@@ -16,7 +16,7 @@ describe('Enduro configuration adding', function () {
 	})
 
 	it('read the default config', function () {
-		var public_config = require(path.join(enduro.project_path, 'enduro.json'))
+		const public_config = require(path.join(enduro.project_path, 'enduro.json'))
 		expect(public_config).to.have.property('project_name')
 		expect(public_config['project_name']).to.equal('enduro test')
 	})

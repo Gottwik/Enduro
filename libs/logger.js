@@ -2,23 +2,23 @@
 // * 	logger
 // *	enables nicer console logging for enduro
 // * ———————————————————————————————————————————————————————— * //
-var logger = function () {}
+const logger = function () {}
 
-// vendor dependencies
-var chalk = require('chalk').green
+// * vendor dependencies
+const chalk = require('chalk').green
 
 // constants
-var FRAME_WIDTH = 60
-var TAB_WIDTH = 4
+const FRAME_WIDTH = 60
+const TAB_WIDTH = 4
 
 // log abstraction. can be silenced
-var log = console.log
+let log = console.log
 
 // stores starting time of enduro app
-var t = new Date().getTime()
+let start_time = new Date().getTime()
 
 // default loggin selection
-var logtags_config = {
+const logtags_config = {
 	nice_dev_init: true,
 	enduro_events: true,
 	enduro_render_events: false,
@@ -143,17 +143,17 @@ logger.prototype.raw_err = function (message, logtag) {
 // * ———————————————————————————————————————————————————————— * //
 // * 	Loading functions
 // * ———————————————————————————————————————————————————————— * //
-var loading_symbols = '⠙⠸⠴⠦⠇⠋'
-var currently_loading_handle
-var last_message = 'loaded'
+const loading_symbols = '⠙⠸⠴⠦⠇⠋'
+let currently_loading_handle
+let last_message = 'loaded'
 logger.prototype.loading = function (message, loading_index) {
-	var self = this
+	const self = this
 
 	// store current message as last message
 	last_message = message
 
 	loading_index = loading_index || 0
-	var loading_symbol = loading_symbols[loading_index % loading_symbols.length]
+	const loading_symbol = loading_symbols[loading_index % loading_symbols.length]
 	process.stdout.write(chalk('│') + rpad(' ' + message, FRAME_WIDTH - 3 - 1) + chalk(loading_symbol) + chalk(' │') + '\r')
 
 	currently_loading_handle = setTimeout(() => {
@@ -162,7 +162,7 @@ logger.prototype.loading = function (message, loading_index) {
 }
 
 logger.prototype.loaded = function (message) {
-	var self = this
+	const self = this
 
 	// fallback to last message if no message is provided
 	message = message || last_message
@@ -197,11 +197,11 @@ function pass_tagcheck (logtag) {
 }
 
 function get_timestamp () {
-	var date = new Date()
+	const date = new Date()
 
-	var diff = date.getTime() - t
+	const diff = date.getTime() - start_time
 
-	t = date.getTime()
+	start_time = date.getTime()
 
 	return (lpad(date.getHours().toString(), 2) + ':' + lpad(date.getMinutes().toString(), 2) + ':' + lpad(date.getSeconds().toString(), 2) + ' | ' + ('+' + lpad((Math.round((diff) / 10) / 100).toString(), 8, ' ')))
 }
@@ -227,8 +227,8 @@ function rpad (text, length) {
 
 // Pads and aligns the string with specified character to center
 function cpad (text, length, char) {
-	var text_length = clear_ansi_style(text).length
-	var prev = Math.floor((length - text_length) / 2)
+	const text_length = clear_ansi_style(text).length
+	const prev = Math.floor((length - text_length) / 2)
 	return rep(prev, char) + text + rep(length - prev - text_length, char)
 }
 

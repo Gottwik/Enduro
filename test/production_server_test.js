@@ -1,7 +1,7 @@
-var expect = require('chai').expect
-var local_enduro = require('../index').quick_init()
-var request = require('request')
-var test_utilities = require('./libs/test_utilities')
+const expect = require('chai').expect
+const local_enduro = require('../index').quick_init()
+const request = require('request')
+const test_utilities = require('./libs/test_utilities')
 
 describe('Production server', function () {
 	this.timeout(7000)

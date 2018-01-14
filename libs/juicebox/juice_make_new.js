@@ -4,12 +4,12 @@
 // * 	updated all cms files to the current timestamp
 // * 	effectivelly doing a force push, since these files will be newer than anything in juicebox
 // * ———————————————————————————————————————————————————————— * //
-var juice_make_new = function () {}
+const juice_make_new = function () {}
 
-// vendor dependencies
+// * vendor dependencies
 const Promise = require('bluebird')
 
-// local dependencies
+// * enduro dependencies
 const pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')
 const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
@@ -25,7 +25,7 @@ juice_make_new.prototype.make_new = function () {
 		.then((pagelist) => {
 			logger.loaded()
 
-			var upsert_promises = []
+			let upsert_promises = []
 
 			logger.twolog('cms files to update', pagelist.flat.length.toString())
 			logger.loading('updating files')

@@ -1,21 +1,21 @@
-// vendor dependencies
-var spritesmith = require('gulp.spritesmith')
-var path = require('path')
-
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	spriteicons
 // *	will get all pngs out of assets/spriteicons folder
 // *	and generate spritesheet out of them
 // * ———————————————————————————————————————————————————————— * //
-var sprite_icons = function () {}
+
+const sprite_icons = function () {}
+// * vendor dependencies
+const spritesmith = require('gulp.spritesmith')
+const path = require('path')
+
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 sprite_icons.prototype.init = function (gulp, browser_sync) {
 
 	// stores task name
-	var sprite_icons_task_name = 'png_sprites'
+	const sprite_icons_task_name = 'png_sprites'
 
 	// registeres task to provided gulp
 	gulp.task(sprite_icons_task_name, function () {

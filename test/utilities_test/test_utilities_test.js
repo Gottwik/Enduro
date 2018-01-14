@@ -1,10 +1,10 @@
-// vendor dependencies
-var expect = require('chai').expect
-var path = require('path')
+// * vendor dependencies
+const expect = require('chai').expect
+const path = require('path')
 
-// local dependencies
-var local_enduro = require('../../index').quick_init()
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+// * enduro dependencies
+const local_enduro = require('../../index').quick_init()
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('Test utilites', function () {
 	this.timeout(7000)

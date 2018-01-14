@@ -7,7 +7,7 @@ module.exports = {
 			.example('enduro create www.example.com/bunny.jpg')
 	},
 	handler: function (cli_arguments) {
-		var enduro_instance = require('../index').init()
+		const enduro_instance = require('../index').init()
 			.then(() => {
 				enduro.actions.upload(cli_arguments.url)
 			})

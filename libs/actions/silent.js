@@ -2,11 +2,11 @@
 // * 	enduro.actions.silent
 // * ———————————————————————————————————————————————————————— * //
 
-var action = function () {}
+const action = function () {}
 
-var Promise = require('bluebird')
+const Promise = require('bluebird')
 
-var logger = require(enduro.enduro_path + '/libs/logger')
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 action.prototype.action = function () {
 	logger.silent()

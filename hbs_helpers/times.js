@@ -8,14 +8,14 @@
 // *	{{/times}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 
 	enduro.templating_engine.registerHelper('times', function (iterations, upperrange, block) {
 
 		// will store the final accumulated html
-		var accum = ''
+		let accum = ''
 
 		// if upperrange is not provided
 		if (typeof upperrange !== 'number') {
@@ -25,7 +25,7 @@ helper.prototype.register = function () {
 			iterations = Math.round(Math.random() * (upperrange - iterations) + iterations)
 		}
 
-		for (var i = 0; i < iterations; ++i) {
+		for (let i = 0; i < iterations; ++i) {
 
 			// Sets is_first variable to context
 			i == 0

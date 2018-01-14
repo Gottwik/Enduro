@@ -4,23 +4,23 @@
 // *	Good for shared resources - news, products...
 // *	Loads .js files from /cms/global folder
 // * ———————————————————————————————————————————————————————— * //
-var global_data = function () {}
+const global_data = function () {}
 
-// Vendor dependencies
-var Promise = require('bluebird')
-var async = require('async')
-var extend = require('extend')
-var glob = require('multi-glob').glob
+// * vendor dependencies
+const Promise = require('bluebird')
+const async = require('async')
+const extend = require('extend')
+const glob = require('multi-glob').glob
 
-// Local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
 global_data.prototype.get_global_data = function () {
 
 	// Constants
-	var data_path = [enduro.project_path + '/cms/global/**/*.js', enduro.project_path + '/cms/.settings.js']
+	const data_path = [enduro.project_path + '/cms/global/**/*.js', enduro.project_path + '/cms/.settings.js']
 
 	this.clear()
 
@@ -37,10 +37,10 @@ global_data.prototype.get_global_data = function () {
 			async.each(files, function (file, callback) {
 
 				// Stores filename
-				var filename = file.match(/([^\\/]+)\.([^\\/]+)$/)[1]
+				const filename = file.match(/([^\\/]+)\.([^\\/]+)$/)[1]
 
 				// path relative to cms folder
-				var fileInCms = file.match(/cms\/(.*)\.([^\\/]+)$/)[1]
+				const fileInCms = file.match(/cms\/(.*)\.([^\\/]+)$/)[1]
 
 				// Loads the file
 				if (flat_helpers.file_exists_sync(file)) {

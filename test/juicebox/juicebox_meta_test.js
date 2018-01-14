@@ -1,10 +1,10 @@
-// vendor dependencies
-var expect = require('chai').expect
+// * vendor dependencies
+const expect = require('chai').expect
 
-// local dependencies
-var local_enduro = require('../../index').quick_init()
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+// * enduro dependencies
+const local_enduro = require('../../index').quick_init()
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
 describe('Juicebox meta context', function () {
 

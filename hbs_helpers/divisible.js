@@ -6,7 +6,7 @@
 // *	{{divisible @index 2 'even' 'odd'}} // outputs even if @index % 2 == 0
 // *
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 

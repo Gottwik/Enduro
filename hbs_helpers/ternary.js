@@ -6,7 +6,7 @@
 // *	{{ternary this 'was true' 'was false'}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 

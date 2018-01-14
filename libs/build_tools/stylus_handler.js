@@ -1,23 +1,23 @@
-// vendor dependencies
-var stylus = require('gulp-stylus')
-var sourcemaps = require('gulp-sourcemaps')
-var autoprefixer = require('autoprefixer-stylus')
-
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-
 // * ———————————————————————————————————————————————————————— * //
 // * 	Stylus Task
 // *	Processes assets/css/main.styl file
 // *	All other styl files need to be imported in main.styl to get compiled
 // *	Add "stylus: true" to enduro.json
 // * ———————————————————————————————————————————————————————— * //
-var stylus_handler = function () {}
+const stylus_handler = function () {}
+
+// * vendor dependencies
+const stylus = require('gulp-stylus')
+const sourcemaps = require('gulp-sourcemaps')
+const autoprefixer = require('autoprefixer-stylus')
+
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 stylus_handler.prototype.init = function (gulp, browser_sync) {
 
 	// stores task name
-	var stylus_handler_task_name = 'stylus'
+	const stylus_handler_task_name = 'stylus'
 
 	// registeres task to provided gulp
 	gulp.task(stylus_handler_task_name, function () {

@@ -3,17 +3,17 @@
 // *	Random set of helper functions used all around
 // * ———————————————————————————————————————————————————————— * //
 
-var flat_helpers = function () {}
+const flat_helpers = function () {}
 
-// global dependencies
-var Promise = require('bluebird')
-var fs = require('fs')
-var mkdirp = require('mkdirp')
-var path = require('path')
-var rimraf = require('rimraf')
+// * vendor dependencies
+const Promise = require('bluebird')
+const fs = require('fs')
+const mkdirp = require('mkdirp')
+const path = require('path')
+const rimraf = require('rimraf')
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	file exists sync

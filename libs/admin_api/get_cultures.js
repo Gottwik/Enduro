@@ -4,10 +4,10 @@
 // * 	admin api endpoint admin_api/get_page_list
 // *	@return {response} - success boolean and flattened page list in an array
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// local dependencies
-var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+// * enduro dependencies
+const admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {

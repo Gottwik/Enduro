@@ -6,22 +6,23 @@
 // *
 // *	uses express mvc
 // * ———————————————————————————————————————————————————————— * //
-var enduro_server = function () {}
+const enduro_server = function () {}
 
-// vendor dependencies
-var express = require('express')
-var app = express()
-var session = require('express-session')
-var cors = require('cors')
-var multiparty_middleware = require('connect-multiparty')()
-var cookieParser = require('cookie-parser')
+// * vendor dependencies
+const express = require('express')
+const app = express()
+const session = require('express-session')
+const cors = require('cors')
+const multiparty_middleware = require('connect-multiparty')()
+const cookieParser = require('cookie-parser')
 
-// local dependencies
-var admin_api = require(enduro.enduro_path + '/libs/admin_api')
-var website_app = require(enduro.enduro_path + '/libs/website_app')
-var trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
-var logger = require(enduro.enduro_path + '/libs/logger')
-var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
+// * enduro dependencies
+const admin_api = require(enduro.enduro_path + '/libs/admin_api')
+const website_app = require(enduro.enduro_path + '/libs/website_app')
+const trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
+const logger = require(enduro.enduro_path + '/libs/logger')
+const ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
+const brick_handler = require(enduro.enduro_path + '/libs/bricks/brick_handler')
 
 // initialization of the sessions
 app.set('trust proxy', 1)
@@ -51,7 +52,7 @@ app.use(function (req, res, next) {
 // * ———————————————————————————————————————————————————————— * //
 enduro_server.prototype.run = function (server_setup) {
 	// stores current enduro_server instance
-	var self = this
+	const self = this
 
 	server_setup = server_setup || {}
 
@@ -76,8 +77,6 @@ enduro_server.prototype.run = function (server_setup) {
 		// forward the app and server to running enduro application
 		website_app.forward(app, enduro.server)
 
-		logger.timestamp('heroku-debug - admin folder: ' + enduro.config.admin_folder, 'heroku_debug')
-
 		// serve static files from /_generated folder
 		app.use('/admin', express.static(enduro.config.admin_folder))
 		app.use('/assets', express.static(enduro.project_path + '/' + enduro.config.build_folder + '/assets'))
@@ -91,6 +90,15 @@ enduro_server.prototype.run = function (server_setup) {
 					res.send({ success: true, message: 'enduro refreshed successfully' })
 				})
 		})
+
+		// robots.txt
+		app.get('/robots.txt', function (req, res) {
+			res.type('text/plain')
+			res.send("User-agent: *\nAllow: /")
+		})
+
+		// serve bricks' static assets
+		brick_handler.serve_brick_static_assets(app, express)
 
 		// handle for all admin api calls
 		app.all('/admin_api/*', multiparty_middleware, function (req, res) {
@@ -107,7 +115,7 @@ enduro_server.prototype.run = function (server_setup) {
 				trollhunter.login(req)
 					.then(() => {
 
-						var requested_url = req.url
+						let requested_url = req.url
 
 						let a = requested_url.split('/').filter(x => x.length)
 						// serves index.html when empty or culture-only url is provided
@@ -134,7 +142,7 @@ enduro_server.prototype.run = function (server_setup) {
 		})
 
 		// init socket and store everybody in global enduro.sockets
-		var io = require('socket.io')(enduro.server)
+		const io = require('socket.io')(enduro.server)
 		enduro.sockets = io.sockets
 	})
 }

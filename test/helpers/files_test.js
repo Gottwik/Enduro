@@ -1,8 +1,8 @@
-// vendor dependencies
-var expect = require('chai').expect
+// * vendor dependencies
+const expect = require('chai').expect
 
-var local_enduro = require('../../index').quick_init()
-var helper_handler = require(enduro.enduro_path + '/libs/helper_handler')
+const local_enduro = require('../../index').quick_init()
+const helper_handler = require(enduro.enduro_path + '/libs/helper_handler')
 
 describe('Files helper', function () {
 
@@ -11,7 +11,7 @@ describe('Files helper', function () {
 	})
 
 	it('should list files successfully:', function () {
-		expect(enduro.templating_engine.compileSync('{{#files "/../test"}} {{this}} {{/files}}')().split(' ')).to.be.instanceof(Array)
+		expect(enduro.templating_engine.compileSync('{{#files "/test"}} {{this}} {{/files}}')().split(' ')).to.be.instanceof(Array)
 	})
 
 })

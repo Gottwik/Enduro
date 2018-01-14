@@ -3,12 +3,12 @@
 // *
 // *	defines logging clusters
 // * ———————————————————————————————————————————————————————— * //
-var log_clusters = function () {}
+const log_clusters = function () {}
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
 
-var clusters = []
+let clusters = []
 
 log_clusters.prototype.log = function (cluster, context) {
 	clusters[cluster](context)
@@ -41,7 +41,7 @@ clusters['project_created'] = (context) => {
 	logger.log('Dont forget to cd into project with', true)
 	logger.tablog('$ cd ' + context.project_name, true)
 	logger.log('Then run', true)
-	logger.tablog('$ enduro', true)
+	logger.tablog('$ enduro dev', true)
 	logger.end()
 }
 

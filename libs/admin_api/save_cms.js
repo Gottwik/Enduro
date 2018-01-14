@@ -7,19 +7,19 @@
 // *	@param {string} content - content of the cms updated file - will be converted to js object and formated upon save
 // *	@return {response} - success boolean and saved cms' file content
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// local dependencies
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
-var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
-var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
-var logger = require(enduro.enduro_path + '/libs/logger')
-var admin_rights = require(enduro.enduro_path + '/libs/admin_utilities/admin_rights')
+// * enduro dependencies
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+const admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+const juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
+const logger = require(enduro.enduro_path + '/libs/logger')
+const admin_rights = require(enduro.enduro_path + '/libs/admin_utilities/admin_rights')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
 
-	var jsonString = ''
+	let jsonString = ''
 	req.on('data', function (data) {
 		jsonString += data
 	})
@@ -29,17 +29,15 @@ api_call.prototype.call = function (req, res, enduro_server) {
 		jsonString = JSON.parse(jsonString)
 
 		// gets parameters from query
-		var sid = jsonString.sid
-		var filename = jsonString.filename
-		var content = jsonString.content
+		const sid = jsonString.sid
+		const filename = jsonString.filename
+		const content = jsonString.content
 
 		// makes sure all required query parameters were sent
 		if (!sid || !filename || !content) {
 			res.send({success: false, message: 'Parameters not provided'})
 			return logger.err('parameters not provided')
 		}
-
-		// var requesting_user
 
 		admin_sessions.get_user_by_session(sid)
 			.then((user) => {

@@ -9,20 +9,20 @@
 // *	@param {string} page_path - path to the current cms page. Will try to find the object in the local context if it was not found in the global context
 // *	@return {response} - success boolean and context object
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// local dependencies
-var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
-var globalizer_helpers = require(enduro.enduro_path + '/libs/globalizer/globalizer_helpers')
+// * enduro dependencies
+const admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+const globalizer_helpers = require(enduro.enduro_path + '/libs/globalizer/globalizer_helpers')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
 
 	// gets query parameters
-	var sid = req.query.sid
-	var globalizer_string = req.query.globalizer_string
-	var page_path = req.query.page_path
+	const sid = req.query.sid
+	const globalizer_string = req.query.globalizer_string
+	const page_path = req.query.page_path
 
 	// checks if all required parameters had been received
 	if (!sid || !globalizer_string) {

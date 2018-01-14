@@ -21,9 +21,13 @@ module.exports = {
 			alias: 'c',
 			describe: 'will not watch for changes of content/cms files',
 		},
+		'noproduction': {
+			alias: 'p',
+			describe: 'will not start the production flavor',
+		},
 	},
 	handler: function (cli_arguments) {
-		var enduro_instance = require('../index')
+		const enduro_instance = require('../index')
 
 		enduro_instance.init({ flags: cli_arguments })
 			.then(() => {

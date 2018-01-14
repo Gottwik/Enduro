@@ -2,13 +2,13 @@
 // * 	babel
 // *	handles multilingual support
 // * ———————————————————————————————————————————————————————— * //
-var babel = function () {}
+const babel = function () {}
 
-// vendor dependencies
-var _ = require('lodash')
+// * vendor dependencies
+const _ = require('lodash')
 
-// local dependencies
-var enduro_configurator = require(enduro.enduro_path + '/libs/configuration/enduro_configurator')
+// * enduro dependencies
+const enduro_configurator = require(enduro.enduro_path + '/libs/configuration/enduro_configurator')
 
 // adds culture to culture array in cms folder
 babel.prototype.add_culture = function (cultures) {
@@ -16,7 +16,7 @@ babel.prototype.add_culture = function (cultures) {
 
 	// by default there exists an empty culture that generates files as if there was no culture
 	// we get rid of this culture once some cultures are added
-	var cultures_to_save = _.pull(enduro.config.cultures, '')
+	const cultures_to_save = _.pull(enduro.config.cultures, '')
 
 	enduro_configurator.set_config({ cultures: cultures_to_save })
 }
@@ -28,7 +28,7 @@ function culturize (context, culture) {
 
 	// don't botch arrays into objects
 	if (Array.isArray(context)) {
-		for (var i = 0, l = context.length; i < l; i++) {
+		for (let i = 0, l = context.length; i < l; i++) {
 			context[i] = culturize(context[i], culture)
 		}
 		return context
@@ -36,10 +36,10 @@ function culturize (context, culture) {
 
 	terminated_context = terminate(context)
 
-	var culturized_part = {}
-	for (var key in terminated_context) {
+	let culturized_part = {}
+	for (let key in terminated_context) {
 
-		var cultural_key = get_cultural_key(key, culture)
+		const cultural_key = get_cultural_key(key, culture)
 
 		if (cultural_key in context) {
 			culturized_part[key] = culturize(context[cultural_key], culture)
@@ -51,9 +51,9 @@ function culturize (context, culture) {
 }
 
 function terminate (context) {
-	var terminated_context = {}
+	let terminated_context = {}
 
-	for (var key in context) {
+	for (let key in context) {
 		if (key[0] != '$') {
 			terminated_context[key] = context[key]
 		}

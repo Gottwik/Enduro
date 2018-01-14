@@ -1,19 +1,19 @@
 
-// vendor dependencies
-var expect = require('chai').expect
-var rewire = require('rewire')
-var path = require('path')
-var request = require('request-promise')
+// * vendor dependencies
+const expect = require('chai').expect
+const rewire = require('rewire')
+const path = require('path')
+const request = require('request-promise')
 
-// local dependencies
-var local_enduro = require('../index')
-var globalizer = require(global.enduro.enduro_path + '/libs/globalizer/globalizer')
-var test_utilities = require('./libs/test_utilities')
+// * enduro dependencies
+const local_enduro = require('../index')
+const globalizer = require(global.enduro.enduro_path + '/libs/globalizer/globalizer')
+const test_utilities = require('./libs/test_utilities')
 
 describe('Globalizer - globalization', function () {
 
 	it('should link adjacent value', function () {
-		var test_context = {
+		const test_context = {
 			car: 'toyota',
 			also_car: '@@car'
 		}
@@ -23,7 +23,7 @@ describe('Globalizer - globalization', function () {
 	})
 
 	it('should link adjacent object', function () {
-		var test_context = {
+		const test_context = {
 			car: {
 				name: 'toyota',
 				price: 10
@@ -37,7 +37,7 @@ describe('Globalizer - globalization', function () {
 	})
 
 	it('should link adjacent array', function () {
-		var test_context = {
+		const test_context = {
 			cars: [
 				{
 					name: 'car1'
@@ -59,7 +59,7 @@ describe('Globalizer - globalization', function () {
 	})
 
 	it('should provide empty string when globalizer is not found', function () {
-		var test_context = {
+		const test_context = {
 			car: 'toyota',
 			whoops: '@@bicycle'
 		}
@@ -69,7 +69,7 @@ describe('Globalizer - globalization', function () {
 	})
 
 	it('should provide empty string when globalizer has non-existing key', function () {
-		var test_context = {
+		const test_context = {
 			car: {
 				name: 'toyota'
 			},
@@ -87,7 +87,7 @@ describe('Globalizer - globalization', function () {
 
 describe('Globalizer - api endpoints', function () {
 
-	var sid
+	let sid
 
 	this.timeout(7000)
 	before(function () {

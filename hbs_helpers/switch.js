@@ -8,15 +8,15 @@
 // *	returns last value as default
 // *
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 
 	enduro.templating_engine.registerHelper('switch', function () {
 
 		// create a list out of arguments
-		var arguments_list = []
-		for (var i in arguments) {
+		let arguments_list = []
+		for (let i in arguments) {
 			arguments_list.push(arguments[i])
 		}
 

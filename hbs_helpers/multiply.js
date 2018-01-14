@@ -7,7 +7,7 @@
 // *	{{multiply 2 2 2}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 

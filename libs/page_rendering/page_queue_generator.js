@@ -2,20 +2,20 @@
 // * 	enduro render
 // *	renders individual page based on source template, context and culture
 // * ———————————————————————————————————————————————————————— * //
-var page_queue_generator = function () {}
+const page_queue_generator = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var glob = require('glob-promise')
-var path = require('path')
+// * vendor dependencies
+const Promise = require('bluebird')
+const glob = require('glob-promise')
+const path = require('path')
 
-// local dependencies
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+// * enduro dependencies
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
 // Renders individual files
 page_queue_generator.prototype.generate_pagelist = function () {
 
-	var self = this
+	const self = this
 
 	return new Promise(function (resolve, reject) {
 
@@ -23,14 +23,14 @@ page_queue_generator.prototype.generate_pagelist = function () {
 		self.get_all_pages()
 			.then((files) => {
 
-				var all_pages_to_render = []
-				var pages_to_render = []
+				let all_pages_to_render = []
+				let pages_to_render = []
 
 				// iterates over files and fill all_pages_to_render list
 				for (f in files) {
 					for (c in enduro.config.cultures) {
 
-						var page_to_render = {}
+						let page_to_render = {}
 
 						// absolute path to page template file
 						page_to_render.file = files[f]
@@ -56,7 +56,7 @@ page_queue_generator.prototype.generate_pagelist = function () {
 					}
 				}
 
-				var generators = []
+				let generators = []
 
 				for (i in all_pages_to_render) {
 					if (all_pages_to_render[i].generator) {

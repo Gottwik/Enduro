@@ -2,22 +2,23 @@
 // * 	enduro.actions.render
 // * ———————————————————————————————————————————————————————— * //
 
-var action = function () {}
+const action = function () {}
 
-var Promise = require('bluebird')
+const Promise = require('bluebird')
 
-var logger = require(enduro.enduro_path + '/libs/logger')
-var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
-var global_data = require(enduro.enduro_path + '/libs/global_data')
-var helper_handler = require(enduro.enduro_path + '/libs/helper_handler')
-var components_handler = require(enduro.enduro_path + '/libs/components_handler')
-var enduro_render = require(enduro.enduro_path + '/libs/enduro_render')
-var gulp_tasks = require(enduro.enduro_path + '/libs/build_tools/gulp_tasks')
-var pregenerator = require(enduro.enduro_path + '/libs/pregenerator/pregenerator')
-var abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
-var ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
-var markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
-var event_hooks = require(enduro.enduro_path + '/libs/external_links/event_hooks')
+const logger = require(enduro.enduro_path + '/libs/logger')
+const juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
+const global_data = require(enduro.enduro_path + '/libs/global_data')
+const helper_handler = require(enduro.enduro_path + '/libs/helper_handler')
+const components_handler = require(enduro.enduro_path + '/libs/components_handler')
+const enduro_render = require(enduro.enduro_path + '/libs/enduro_render')
+const gulp_tasks = require(enduro.enduro_path + '/libs/build_tools/gulp_tasks')
+const pregenerator = require(enduro.enduro_path + '/libs/pregenerator/pregenerator')
+const abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
+const ab_tester = require(enduro.enduro_path + '/libs/ab_testing/ab_tester')
+const markdownifier = require(enduro.enduro_path + '/libs/markdown/markdownifier')
+const event_hooks = require(enduro.enduro_path + '/libs/external_links/event_hooks')
+const brick_handler = require(enduro.enduro_path + '/libs/bricks/brick_handler')
 
 action.prototype.action = function (dont_do_juice_pull) {
 
@@ -29,6 +30,9 @@ action.prototype.action = function (dont_do_juice_pull) {
 			} else {
 				return new Promise.resolve()
 			}
+		})
+		.then(() => {
+			return brick_handler.load_bricks()
 		})
 		.then(() => {
 			return global_data.get_global_data()

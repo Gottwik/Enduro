@@ -1,12 +1,12 @@
 
-// vendor dependencies
-var expect = require('chai').expect
-var rimraf = require('rimraf')
-var path = require('path')
+// * vendor dependencies
+const expect = require('chai').expect
+const rimraf = require('rimraf')
+const path = require('path')
 
-// local dependencies
-var local_enduro = require('../../index')
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+// * enduro dependencies
+const local_enduro = require('../../index')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 describe('flat helpers', function () {
 

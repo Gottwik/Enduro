@@ -9,38 +9,38 @@
 // * 		juice_newer
 // *
 // * ———————————————————————————————————————————————————————— * //
-var juice_diff = function () {}
+const juice_diff = function () {}
 
-// vendor dependencies
+// * vendor dependencies
 const dircompare = require('dir-compare')
 const _ = require('lodash')
 const path = require('path')
 
-// local dependencies
+// * enduro dependencies
 const logger = require(enduro.enduro_path + '/libs/logger')
 const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
-juice_diff.prototype.print_out_diff = function (path1, path2) {
+// * ———————————————————————————————————————————————————————— * //
+// * 	print out diff
+// * ———————————————————————————————————————————————————————— * //
+juice_diff.prototype.print_out_diff = function (diff) {
 	const self = this
 	logger.init('Juice diff')
 
-	self.diff(path1, path2)
-		.then((diff) => {
-			diff.diffSet.forEach((item) => {
-				if (item.type == 'directory') {
-					logger.log(item.indentation + item.name)
-				} else {
-					logger.twolog(item.indentation + item.name, item.status)
-				}
-			})
-			logger.end()
-		})
-
+	diff.diffSet.forEach((item) => {
+		if (item.type == 'directory') {
+			logger.log(item.indentation + item.name)
+		} else {
+			logger.twolog(item.indentation + item.name, item.status)
+		}
+	})
+	
+	logger.end()
 }
 
 juice_diff.prototype.diff = function (path1, path2) {
 
-	var store_compare_result
+	let store_compare_result
 	return dircompare.compare(path1, path2)
 		.then((compare_result) => {
 
@@ -51,12 +51,23 @@ juice_diff.prototype.diff = function (path1, path2) {
 				return (file.name1 == '.DS_Store' || file.name2 == '.DS_Store')
 			})
 
-			var abstract_cms_files = []
+			let abstract_cms_files = []
 			compare_result.diffSet.forEach((item) => {
 				abstract_cms_files.push(abstract_diff_item(item))
 			})
 
 			return Promise.all(abstract_cms_files)
+		})
+		.then(() => {
+			// let's count all the differences
+			store_compare_result.differences = 0
+			for (let i in store_compare_result.diffSet) {
+				const diff_item = store_compare_result.diffSet[i]
+				if (diff_item.type == 'file' && diff_item.status != 'equal') {
+					store_compare_result.differences++;
+				}
+			}
+			return store_compare_result
 		})
 		.then(() => {
 			return store_compare_result
@@ -88,7 +99,7 @@ function abstract_diff_item (item) {
 	item.fullpath1 = path.join(item.path1, item.name1)
 	item.fullpath2 = path.join(item.path2, item.name2)
 
-	var read_both_files_timestamps = []
+	let read_both_files_timestamps = []
 
 	read_both_files_timestamps.push(flat.load(item.fullpath1, true)
 		.then((context) => {
@@ -119,16 +130,6 @@ function figure_out_timestamp (context) {
 function figure_out_status (item) {
 	// if both files don't have meta timestamp compare creation times
 	if (!item.juicetimestamp1 && !item.juicetimestamp2) {
-		// local_newer
-		if (item.date1 > item.date2) {
-			return item.status = 'local_newer'
-		}
-
-		// juice_newer
-		if (item.date1 < item.date2) {
-			return item.status = 'juice_newer'
-		}
-
 		item.status = 'equal'
 	}
 

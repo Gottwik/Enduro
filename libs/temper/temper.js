@@ -2,14 +2,14 @@
 // * 	temper
 // *	temporarily renders one page based on provided context
 // * ———————————————————————————————————————————————————————— * //
-var temper = function () {}
+const temper = function () {}
 
-// vendor dependencies
-var extend = require('extend')
+// * vendor dependencies
+const extend = require('extend')
 
-// local dependencies
-var page_renderer = require(enduro.enduro_path + '/libs/page_rendering/page_renderer')
-var abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
+// * enduro dependencies
+const page_renderer = require(enduro.enduro_path + '/libs/page_rendering/page_renderer')
+const abstractor = require(enduro.enduro_path + '/libs/abstractor/abstractor')
 
 // Goes through the pages and renders them
 temper.prototype.render = function (filename, context) {

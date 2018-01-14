@@ -1,6 +1,6 @@
-var expect = require('chai').expect
+const expect = require('chai').expect
 
-var local_enduro = require('../../index')
+const local_enduro = require('../../index')
 
 describe('Linker', function () {
 

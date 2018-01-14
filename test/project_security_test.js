@@ -1,11 +1,11 @@
-// vendor dependencies
-var expect = require('chai').expect
+// * vendor dependencies
+const expect = require('chai').expect
 
-// local dependencies
-var local_enduro = require('../index').quick_init()
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+// * enduro dependencies
+const local_enduro = require('../index').quick_init()
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('Enduro security', function () {
 

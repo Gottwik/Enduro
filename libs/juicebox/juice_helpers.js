@@ -2,31 +2,44 @@
 // * 	juice helpers
 // *	TODO: nicer logging
 // * ———————————————————————————————————————————————————————— * //
-var juice_helpers = function () {}
+const juice_helpers = function () {}
 
-// vendor dependencies
-var dircompare = require('dir-compare')
-var path = require('path')
-var fs = require('fs-extra')
-var moment = require('moment')
-var glob = require('glob-promise')
+// * vendor dependencies
+const dircompare = require('dir-compare')
+const path = require('path')
+const fs = require('fs-extra')
+const moment = require('moment')
+const glob = require('glob-promise')
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var juice_diff = require(enduro.enduro_path + '/libs/juicebox/juice_diff')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const juice_diff = require(enduro.enduro_path + '/libs/juicebox/juice_diff')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
-juice_helpers.prototype.diff_folder_with_cms = function (folder) {
-	// local path
-	var path1 = path.join(enduro.project_path, 'cms')
+// * ———————————————————————————————————————————————————————— * //
+// * 	print out diff folder with cms
+// * ———————————————————————————————————————————————————————— * //
+juice_helpers.prototype.print_out_diff_folder_with_cms = function (folder) {
+	const local_path = path.join(enduro.project_path, 'cms')
+	const juice_path = path.join(enduro.project_path, folder)
 
-	// juice path
-	var path2 = path.join(enduro.project_path, folder)
-
-	return juice_diff.print_out_diff(path1, path2)
+	return juice_diff.print_out_diff(local_path, juice_path)
 }
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	get diff folder with cms
+// * ———————————————————————————————————————————————————————— * //
+juice_helpers.prototype.get_diff_folder_with_cms = function (folder) {
+	const local_path = path.join(enduro.project_path, 'cms')
+	const juice_path = path.join(enduro.project_path, folder)
+
+	return juice_diff.diff(local_path, juice_path)
+}
+
+// * ———————————————————————————————————————————————————————— * //
+// * 	diff file with cms
+// * ———————————————————————————————————————————————————————— * //
 juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {
 	glob(path.join(enduro.project_path, 'juicebox', 'staging', juicebox_hash, '**', file + '.js'))
 		.then((file) => {
@@ -40,8 +53,8 @@ juice_helpers.prototype.diff_file_with_cms = function (juicebox_hash, file) {
 			}
 
 			// get paths for both files
-			var staging_file_to_diff = file[0]
-			var current_file_to_diff = flat.get_full_path_to_flat_object(staging_file_to_diff.match(/\/cms\/(.*)/)[1]).replace('.js.js', '.js')
+			const staging_file_to_diff = file[0]
+			const current_file_to_diff = flat.get_full_path_to_flat_object(staging_file_to_diff.match(/\/cms\/(.*)/)[1]).replace('.js.js', '.js')
 
 			const spawn = require('child_process').exec
 
@@ -102,7 +115,7 @@ juice_helpers.prototype.spill_newer = function (folder) {
 // * ———————————————————————————————————————————————————————— * //
 juice_helpers.prototype.nice_log = function (juice, maxrows) {
 
-	var history_length = juice.history.length
+	const history_length = juice.history.length
 	maxrows = Math.min(maxrows | 20, history_length)
 
 	logger.init('Juice log')
@@ -110,7 +123,7 @@ juice_helpers.prototype.nice_log = function (juice, maxrows) {
 	log_record(juice.latest)
 	logger.line()
 
-	for (var i = 0; i < maxrows; i++) {
+	for (let i = 0; i < maxrows; i++) {
 		log_record(juice.history[history_length - i - 1])
 	}
 	logger.end()
@@ -128,16 +141,16 @@ function log_record (record) {
 }
 
 function get_diff (folder) {
-	var path1 = path.join(enduro.project_path, 'cms')
-	var path2 = path.join(enduro.project_path, folder, 'cms')
+	const path1 = path.join(enduro.project_path, 'cms')
+	const path2 = path.join(enduro.project_path, folder, 'cms')
 	return dircompare.compareSync(path1, path2, {compareSize: true})
 }
 
 function copy_file_to_cms (entry) {
 	return new Promise(function (resolve, reject) {
 
-		var from_path = path.join(entry.path2, entry.name2)
-		var to_path = path.join(enduro.project_path, 'cms', path.join(entry.path2, entry.name2).match(/\/cms\/(.*)/)[1])
+		const from_path = path.join(entry.path2, entry.name2)
+		const to_path = path.join(enduro.project_path, 'cms', path.join(entry.path2, entry.name2).match(/\/cms\/(.*)/)[1])
 
 		fs.copy(from_path, to_path, {preserveTimestamps: true}, () => {
 			resolve()

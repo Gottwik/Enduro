@@ -4,20 +4,18 @@
 // * 	endpoint: /admin_api/delete_page
 // *	deletes a page if it's possible to do so
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// vendor dependencies
-
-// local dependencies
-var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
-var page_adding_service = require(enduro.enduro_path + '/libs/admin_utilities/page_adding_service')
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+const page_adding_service = require(enduro.enduro_path + '/libs/admin_utilities/page_adding_service')
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
 
 	// stores page name and generator name
-	var pagename = req.query.pagename
+	const pagename = req.query.pagename
 
 	logger.timestamp('Trying to delete page' + pagename, 'page_manipulation')
 

@@ -3,13 +3,13 @@
 // *	this module forwards the express application to enduro application
 // *	to enable building of custom api and functionality
 // * ———————————————————————————————————————————————————————— * //
-var website_api = function () {}
+const website_api = function () {}
 
-// local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+// * enduro dependencies
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
 
 // constants
-var LOCAL_APP_FILE = enduro.project_path + '/app/app.js'
+const LOCAL_APP_FILE = enduro.project_path + '/app/app.js'
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	forward app

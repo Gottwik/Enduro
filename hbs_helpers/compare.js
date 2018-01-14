@@ -6,7 +6,7 @@
 // *	{{Compare age 20 'this dude is exactly 20 years old' 'he's not 20 years old}}
 // *
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 

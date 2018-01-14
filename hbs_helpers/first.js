@@ -7,7 +7,7 @@
 // *			<p>First person's age is: {{age}}</p>
 // *		{{/first}}
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 

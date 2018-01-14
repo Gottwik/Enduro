@@ -7,10 +7,10 @@
 // *		<p>Image: {{this}}</p>
 // *	{{/filter}}
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 // vendor dependency
-var _ = require('lodash')
+const _ = require('lodash')
 
 helper.prototype.register = function () {
 

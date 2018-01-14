@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>enduro.js page</title>
+		<link rel="stylesheet" href="/assets/css/main.css">
+		<link href="https://fonts.googleapis.com/css?family=Lato:100,200" rel="stylesheet">
+		<style type="text/css"></style>
+	</head>
+	<body>
+		{{!-- intro --}}
+		{{#with first_slide}}
+			<section class="screen">
+				<div class="center_block">
+					<p class="huge">{{header}}</p>
+					<p>{{tagline}}</p>
+				</div>
+
+				<div class="bottom_block vertical_pulsate">
+					<p>{{call_to_action}}</p>
+				</div>
+			</section>
+		{{/with}}
+
+		{{#each instruction_points}}
+			<section class="screen half color{{divisible @index 2 '1' '2'}}">
+				<div class="center_block">
+					<p class="huge">{{header}}</p>
+					<p>{{tagline}}</p>
+					<a target="_blank" class="button" href="{{link}}">Learn more</a>
+				</div>
+			</section>
+		{{/each}}
+
+		{{#with so_much_more_block}}
+			<section class="screen half color1">
+				<div class="center_block">
+					<p class="huge">{{header}}</p>
+					<p>{{tagline}}</p>
+					<ul>
+						{{#each list_of_topics}}
+							<li>{{tagline}} <a target="_blank" href="">Here</a></li>
+						{{/each}}
+					</ul>
+				</div>
+			</section>
+		{{/with}}
+
+		{{>footer}}
+
+	</body>
+
+</html>

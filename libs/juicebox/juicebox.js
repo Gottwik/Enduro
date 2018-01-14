@@ -2,27 +2,27 @@
 // * 	juicebox
 // *	deals with lack of persistent storage plus adds backup and versioning
 // * ———————————————————————————————————————————————————————— * //
-var juicebox = function () {}
+const juicebox = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var tar = require('tar')
-var path = require('path')
-var fs = require('fs')
-var rimraf = Promise.promisify(require('rimraf'))
+// * vendor dependencies
+const Promise = require('bluebird')
+const tar = require('tar')
+const path = require('path')
+const fs = Promise.promisifyAll(require('fs-extra'))
+const rimraf = Promise.promisify(require('rimraf'))
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-var remote_handler = require(enduro.enduro_path + '/libs/remote_tools/remote_handler')
-var juice_helpers = require(enduro.enduro_path + '/libs/juicebox/juice_helpers')
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
+const remote_handler = require(enduro.enduro_path + '/libs/remote_tools/remote_handler')
+const juice_helpers = require(enduro.enduro_path + '/libs/juicebox/juice_helpers')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const log_clusters = require(enduro.enduro_path + '/libs/log_clusters/log_clusters')
 
-var EXTENSION = '.tar.gz'
+const EXTENSION = '.tar.gz'
 
 // packs up the juicebox together with new juice.json
 juicebox.prototype.pack = function (user) {
-	var self = this
+	const self = this
 
 	return self.pull()
 		.then(() => {
@@ -38,7 +38,7 @@ juicebox.prototype.pack = function (user) {
 // *	@return {promise} - no data
 // * ———————————————————————————————————————————————————————— * //
 juicebox.prototype.pull = function (force) {
-	var self = this
+	const self = this
 
 	// if juicebox is not enabled or disabled by flags
 	if (!enduro.config.juicebox_enabled) {
@@ -47,7 +47,7 @@ juicebox.prototype.pull = function (force) {
 
 	logger.init('Juice pull')
 
-	var pull_juice
+	let pull_juice
 
 	if (enduro.flags.force || force) {
 		return get_latest_juice()
@@ -76,7 +76,11 @@ juicebox.prototype.pull = function (force) {
 				return spill_the_juice(latest_juicebox, path.join(enduro.project_path, 'juicebox', 'staging', pull_juice.latest.hash))
 			}, () => {
 				// latest juicebox does not exist
+				// we will spill the just created juicebox instead so we have the first
 				return self.force_pack('enduro.js')
+					.then(() => {
+						return spill_the_juice(pull_juice.latest.hash + EXTENSION, path.join(enduro.project_path, 'juicebox', 'staging', pull_juice.latest.hash))
+					})
 					.then(() => {
 						throw new Error('abort promise chain')
 					})
@@ -139,10 +143,23 @@ juicebox.prototype.force_pack = function (user) {
 	})
 }
 
+// * ———————————————————————————————————————————————————————— * //
+// * 	diff current to latest juicebox
+// * 	will compare current cms folder and latest staged juicebox diff
+// * ———————————————————————————————————————————————————————— * //
+juicebox.prototype.diff_current_to_latest_juicebox = function () {
+	const self = this
+
+	return get_latest_local_juice()
+		.then((latest_local_juicebox_hash) => {
+			return juice_helpers.get_diff_folder_with_cms(path.join('juicebox', 'staging', latest_local_juicebox_hash, 'cms'))
+		})
+}
+
 juicebox.prototype.diff = function (version_hash, file) {
 
 	// will store the specified juicebox hash
-	var juicebox_hash_to_diff
+	let juicebox_hash_to_diff
 
 	return get_latest_juice()
 		.then((juice) => {
@@ -164,7 +181,7 @@ juicebox.prototype.diff = function (version_hash, file) {
 			if (file) {
 				return juice_helpers.diff_file_with_cms(juicebox_hash_to_diff, file)
 			} else {
-				return juice_helpers.diff_folder_with_cms(path.join('juicebox', 'staging', juicebox_hash_to_diff, 'cms'))
+				return juice_helpers.get_diff_folder_with_cms(path.join('juicebox', 'staging', juicebox_hash_to_diff, 'cms'))
 			}
 		})
 }
@@ -177,7 +194,7 @@ juicebox.prototype.log = function (nojuice) {
 }
 
 juicebox.prototype.is_juicebox_enabled = function () {
-	var juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
+	const juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
 	return !flat_helpers.file_exists_sync(juicefile_path)
 }
 
@@ -193,7 +210,7 @@ function write_juicebox (juicebox_name) {
 
 function write_juicefile (juice) {
 	return new Promise(function (resolve, reject) {
-		var destination_juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
+		const destination_juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
 		flat_helpers.ensure_directory_existence(destination_juicefile_path)
 			.then(() => {
 				fs.writeFile(destination_juicefile_path, JSON.stringify(juice), function (err) {
@@ -204,6 +221,12 @@ function write_juicefile (juice) {
 	})
 }
 
+function read_juicefile () {
+	const local_juicefile_path = path.join(enduro.project_path, 'juicebox', 'juice.json')
+
+	return fs.readJson(local_juicefile_path)
+}
+
 function get_latest_juice () {
 	return remote_handler.request_file(remote_handler.get_remote_url('juicebox/juice.json', true))
 		.catch(() => {
@@ -212,7 +235,6 @@ function get_latest_juice () {
 		.spread((body, response) => {
 
 			if (body.indexOf('<?xml') + 1 && body.indexOf('<Error>') + 1) {
-				console.log(body)
 
 				// juicefile doesn't exist yet - let's create a new juicefile
 				if (body.indexOf('AccessDenied') + 1) {
@@ -221,7 +243,7 @@ function get_latest_juice () {
 				} else if (body.indexOf('NoSuchBucket') + 1) {
 					log_clusters.log('nonexistent_bucket')
 				} else {
-					console.log(body)
+					logger.raw_err(body)
 				}
 				process.exit()
 			}
@@ -229,7 +251,7 @@ function get_latest_juice () {
 			if (response.statusCode != 200) { reject('couldnt read juice file') }
 
 			// check if we got xml or json - xml means there is something wrong
-			var juicefile_in_json = JSON.parse(body)
+			const juicefile_in_json = JSON.parse(body)
 
 			return write_juicefile(juicefile_in_json)
 		})
@@ -238,20 +260,28 @@ function get_latest_juice () {
 		})
 }
 
+// gets latest juice from the local juice.json
+function get_latest_local_juice () {
+	return read_juicefile()
+		.then((latest_juicebox_data) => {
+			return latest_juicebox_data.latest.hash
+		})
+}
+
 function get_juicebox_hash_by_timestamp (timestamp) {
 	return enduro.config.project_name + '_' + timestamp
 }
 
 function get_juicebox_by_name (juicebox_name) {
-	var source_path = remote_handler.get_remote_url('juicebox/' + juicebox_name, true)
-	var destination_path = path.join(enduro.project_path, 'juicebox', juicebox_name)
+	const source_path = remote_handler.get_remote_url('juicebox/' + juicebox_name, true)
+	const destination_path = path.join(enduro.project_path, 'juicebox', juicebox_name)
 
 	if (source_path == destination_path) {
 		return new Promise.resolve(juicebox_name)
 	}
 
 	return new Promise(function (resolve, reject) {
-		var juicebox_read_stream = remote_handler.request_stream(source_path)
+		const juicebox_read_stream = remote_handler.request_stream(source_path)
 
 		juicebox_read_stream
 			.on('error', () => {
@@ -296,7 +326,7 @@ function spill_the_juice (juicebox_name, destination) {
 // provides default context of a fresh juicefile
 function get_new_juicefile () {
 
-	var timestamp = Math.floor(Date.now() / 1000)
+	const timestamp = Math.floor(Date.now() / 1000)
 
 	return {
 		history: [],

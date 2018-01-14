@@ -6,14 +6,14 @@
 // *	possible events:
 // *		post_update - fires upon any update to the build folder
 // * —————————————————————————————————————————s——————————————— * //
-var event_hooks = function () {}
+const event_hooks = function () {}
 
-// vendor dependencies
+// * vendor dependencies
 const spawn = require('child_process').exec
-var Promise = require('bluebird')
+const Promise = require('bluebird')
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
 
 event_hooks.prototype.execute_hook = function (hook_name) {
 

@@ -3,7 +3,7 @@
 // *    Will split array into chunks of specified size
 // *    taken from https://funkjedi.com/technology/412-every-nth-item-in-handlebars/
 // * ———————————————————————————————————————————————————————— * //
-var helper = function () {}
+const helper = function () {}
 
 helper.prototype.register = function () {
 
@@ -13,11 +13,11 @@ helper.prototype.register = function () {
 			return ''
 		}
 
-		var out = ''
-		var subcontext = []
-		var i = 0
+		let out = ''
+		let subcontext = []
+		let i = 0
 
-		for (var key in context) {
+		for (let key in context) {
 			if (i > 0 && i % every === 0) {
 				out += options.fn(subcontext)
 				subcontext = []

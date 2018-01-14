@@ -10,9 +10,9 @@
 // *
 // * ———————————————————————————————————————————————————————— * //
 
-var helper = function () {}
+const helper = function () {}
 
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
 helper.prototype.register = function () {
 

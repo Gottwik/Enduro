@@ -7,18 +7,18 @@
 // *
 // *	pagelist generator will generate two lists - a structured and flat list
 // * ———————————————————————————————————————————————————————— * //
-var pagelist_generator = function () {}
+const pagelist_generator = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
-var fs = require('fs-extra')
-var glob = require('glob')
-var extend = require('extend')
-var path = require('path')
+// * vendor dependencies
+const Promise = require('bluebird')
+const fs = require('fs-extra')
+const glob = require('glob')
+const extend = require('extend')
+const path = require('path')
 
-// local dependencies
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var format_service = require(enduro.enduro_path + '/libs/services/format_service')
+// * enduro dependencies
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const format_service = require(enduro.enduro_path + '/libs/services/format_service')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	init
@@ -29,9 +29,9 @@ var format_service = require(enduro.enduro_path + '/libs/services/format_service
 // *	@return {} - will call an empty callback
 // * ———————————————————————————————————————————————————————— * //
 pagelist_generator.prototype.init = function (gulp) {
-	var self = this
+	const self = this
 
-	var pagelist_generator_task_name = 'pagelist_generator'
+	const pagelist_generator_task_name = 'pagelist_generator'
 
 	// adds task to gulp
 	gulp.task(pagelist_generator_task_name, function (cb) {
@@ -65,8 +65,8 @@ pagelist_generator.prototype.generate_cms_list = function () {
 		glob(enduro.project_path + '/cms/**/*.js', function (err, files) {
 			if (err) { console.log('failed to generate cms list', err) }
 
-			var pagelist = {}
-			var flat_pagelist = []
+			let pagelist = {}
+			let flat_pagelist = []
 
 			// helper function to build the pagelist
 			function build (pagepath, partial_pages, fullpath) {
@@ -74,14 +74,15 @@ pagelist_generator.prototype.generate_cms_list = function () {
 				// decides if pagepath is folder or file
 				if (pagepath.length == 1) {
 
-					var page = {}
+					let page = {}
 					page.page = true
 					page.fullpath = '/' + fullpath.join('/')
 					page.name = format_service.prettify_string(pagepath[0])
 					page.page_slug = pagepath[0].toString()
 
+
 					// mark generator template as hidden
-					if (fullpath[0] == 'generators' && fullpath[1] == fullpath[2]) {
+					if (fullpath[0] == 'generators' && fullpath.length >= 2 && fullpath[fullpath.length - 2] == fullpath[fullpath.length - 1]) {
 						page.hidden = true
 					}
 
@@ -94,7 +95,7 @@ pagelist_generator.prototype.generate_cms_list = function () {
 						return
 					}
 
-					var folder = {}
+					let folder = {}
 					folder.folder = true
 					folder.fullpath = '/' + fullpath.join('/')
 					folder.name = format_service.prettify_string(pagepath[0])
@@ -144,7 +145,7 @@ pagelist_generator.prototype.generate_cms_list = function () {
 // *	@return {promise} - promise with cmslist
 // * ———————————————————————————————————————————————————————— * //
 pagelist_generator.prototype.save_cms_list = function (cmslist) {
-	var self = this
+	const self = this
 
 	return new Promise(function (resolve, reject) {
 
@@ -169,7 +170,7 @@ pagelist_generator.prototype.save_cms_list = function (cmslist) {
 // *	@return {promise} - promise with cmslist
 // * ———————————————————————————————————————————————————————— * //
 pagelist_generator.prototype.get_cms_list = function () {
-	var self = this
+	const self = this
 	return self.generate_cms_list()
 }
 

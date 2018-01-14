@@ -1,15 +1,16 @@
-// vendor dependencies
-var expect = require('chai').expect
-var path = require('path')
+// * vendor dependencies
+const expect = require('chai').expect
+const path = require('path')
 
-// local dependencies
-var local_enduro = require('../../index').quick_init()
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+// * enduro dependencies
+const local_enduro = require('../../index').quick_init()
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('Stylus build tool', function () {
 
 	before(function () {
+		this.timeout(5000);
 		return test_utilities.before(local_enduro, 'stylus_testfolder', 'test_stylus')
 			.then(() => {
 				return enduro.actions.render()
@@ -31,8 +32,9 @@ describe('Stylus build tool', function () {
 	it('should use autoprefixer', function () {
 		return test_utilities.request_file(path.join(enduro.config.build_folder, 'assets', 'css', 'test.css'))
 			.then((file_contents) => {
+
 				expect(file_contents).to.contain('display: -ms-flexbox;')
-					.and.to.contain('display: -webkit-flex;')
+					.and.to.contain('display: -webkit-box;')
 			})
 	})
 

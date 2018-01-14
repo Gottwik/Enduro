@@ -3,14 +3,14 @@
 // *	uploads image by providing a link by running:
 // *	enduro upload http://www.imgur.com/asd.png
 // * ———————————————————————————————————————————————————————— * //
-var cli_upload = function () {}
+const cli_upload = function () {}
 
-// vendor dependencies
-var Promise = require('bluebird')
+// * vendor dependencies
+const Promise = require('bluebird')
 
-// local dependencies
-var logger = require(enduro.enduro_path + '/libs/logger')
-var file_uploader = require(enduro.enduro_path + '/libs/admin_utilities/file_uploader')
+// * enduro dependencies
+const logger = require(enduro.enduro_path + '/libs/logger')
+const file_uploader = require(enduro.enduro_path + '/libs/admin_utilities/file_uploader')
 
 // * ———————————————————————————————————————————————————————— * //
 // * 	cli upload

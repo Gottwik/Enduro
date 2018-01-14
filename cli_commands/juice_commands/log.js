@@ -7,12 +7,12 @@ module.exports = {
 			.usage('enduro juice log')
 	},
 	handler: function (cli_arguments) {
-		var enduro_instance = require('../../index')
+		const enduro_instance = require('../../index')
 
 		enduro_instance.init()
 			.then(() => {
 
-				var juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
+				const juicebox = require(enduro.enduro_path + '/libs/juicebox/juicebox')
 				return juicebox.log()
 			})
 	}

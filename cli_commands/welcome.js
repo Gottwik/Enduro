@@ -4,10 +4,10 @@ module.exports = {
 	desc: 'prints out welcome message',
 	handler: function (cli_arguments) {
 
-		var enduro_instance = require('../index').quick_init()
-		var logger = require(enduro.enduro_path + '/libs/logger')
+		const enduro_instance = require('../index').quick_init()
+		const logger = require(enduro.enduro_path + '/libs/logger')
 
-		var chalk = require('chalk')
+		const chalk = require('chalk')
 
 		if (!cli_arguments._.length) {
 			logger.init('enduro.js')

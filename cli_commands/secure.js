@@ -7,11 +7,11 @@ module.exports = {
 			.example('enduro secure mypassword')
 	},
 	handler: function (cli_arguments) {
-		var enduro_instance = require('../index')
+		const enduro_instance = require('../index')
 
 		enduro_instance.init()
 			.then(() => {
-				var trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
+				const trollhunter = require(enduro.enduro_path + '/libs/trollhunter')
 				return trollhunter.set_passphrase(cli_arguments.passphrase)
 			})
 	}

@@ -1,10 +1,10 @@
-var expect = require('chai').expect
-var gulp = require('gulp')
+const expect = require('chai').expect
+const gulp = require('gulp')
 
-var local_enduro = require('../index').quick_init()
-var pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')
-var flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+const local_enduro = require('../index').quick_init()
+const pagelist_generator = require(enduro.enduro_path + '/libs/build_tools/pagelist_generator')
+const flat_helpers = require(enduro.enduro_path + '/libs/flat_db/flat_helpers')
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('Page list generation', function () {
 
@@ -24,7 +24,7 @@ describe('Page list generation', function () {
 	})
 
 	it('should register gulp task', function () {
-		var gulp_task_name = pagelist_generator.init(gulp)
+		const gulp_task_name = pagelist_generator.init(gulp)
 		expect(gulp.tasks[gulp_task_name]).to.not.be.undefined
 	})
 

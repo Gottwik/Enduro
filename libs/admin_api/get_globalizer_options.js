@@ -26,11 +26,11 @@
 // *		returns ['toys.mindstorms', 'toys.duplo']
 // *
 // * ———————————————————————————————————————————————————————— * //
-var api_call = function () {}
+const api_call = function () {}
 
-// local dependencies
-var admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
-var flat = require(enduro.enduro_path + '/libs/flat_db/flat')
+// * enduro dependencies
+const admin_sessions = require(enduro.enduro_path + '/libs/admin_utilities/admin_sessions')
+const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 
 // routed call
 api_call.prototype.call = function (req, res, enduro_server) {
@@ -63,7 +63,7 @@ api_call.prototype.call = function (req, res, enduro_server) {
 		.then((context_to_search_against) => {
 			// will store the specified object
 			// this is because we want to get the parent of the target specified by the globalizer string
-			var parent
+			let parent
 
 			// goes through globalizer string splitted by .
 			globalizer_chain

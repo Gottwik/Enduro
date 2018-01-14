@@ -1,7 +1,7 @@
-var expect = require('chai').expect
+const expect = require('chai').expect
 
-var local_enduro = require('../index').quick_init()
-var test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
+const local_enduro = require('../index').quick_init()
+const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('Global data handler', function () {
 

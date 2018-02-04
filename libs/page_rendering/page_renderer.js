@@ -37,6 +37,7 @@ page_renderer.prototype.render_file = function (template_path, context_path, cul
 
 		flat.load(context_path)
 			.then((context) => {
+				extend(true, context, { _meta: { context_path: context_path } })
 				return self.render_file_by_context(template_path, context, culture)
 			}, () => {
 				logger.err('something went wrong attempting to locate template_path: ' + template_path)
@@ -123,6 +124,7 @@ page_renderer.prototype.render_file_by_template_path_extend_context = function (
 	const culture = enduro.config.cultures[0]
 	return flat.load(context_path)
 		.then((context) => {
+			extend(true, context, { _meta: { context_path: context_path } })
 			extend(true, context, extended_context)
 			return self.render_file_by_context(template_path, context, culture)
 		})

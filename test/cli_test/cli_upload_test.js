@@ -6,7 +6,7 @@ const local_enduro = require('../../index').quick_init()
 const test_utilities = require(enduro.enduro_path + '/test/libs/test_utilities')
 
 describe('[online_test] cli upload', function () {
-	this.timeout(5000)
+	this.timeout(15000)
 
 	before(function () {
 		return test_utilities.before(local_enduro, 'devserver', 'test_juicebox')
@@ -53,7 +53,7 @@ describe('[online_test] cli upload', function () {
 })
 
 describe('cli upload with local filesystem', function () {
-	this.timeout(5000)
+	this.timeout(15000)
 
 	before(function () {
 		return test_utilities.before(local_enduro, 'devserver')

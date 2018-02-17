@@ -22,7 +22,7 @@ const flat = require(enduro.enduro_path + '/libs/flat_db/flat')
 const logger = require(enduro.enduro_path + '/libs/logger')
 const admin_security = require(enduro.enduro_path + '/libs/admin_utilities/admin_security')
 const format_service = require(enduro.enduro_path + '/libs/services/format_service')
-const enduro_instance = require(enduro.enduro_path + '/index')
+const enduro_instance = require(enduro.enduro_path + '/index').quick_init()
 
 const theme_manager_api_routes = {
 	get_theme_by_name: 'http://www.endurojs.com/theme_manager/get_theme_by_name',
@@ -86,8 +86,17 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 			return self.clean_fresh_theme()
 		}, theme_error)
 
+		.then(() => {
+			logger.loading('starting enduro')
+			logger.silent()
+			return enduro_instance.init({ project_path: path.join(process.cwd(), theme_progress_variables.answers.project_name) })
+
+		}, theme_error)
+
 		// sets up admin credentials
 		.then(() => {
+			logger.noisy()
+			logger.loaded()
 			logger.twolog('setting up admin credentials', '✓')
 			logger.silent()
 			return admin_security.add_admin(theme_progress_variables.answers.login_username, theme_progress_variables.answers.login_password)
@@ -102,6 +111,7 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 
 		.then((fetched_package) => {
 			logger.loading('installing npm dependencies')
+			logger.silent()
 			return new Promise(function (resolve, reject) {
 
 				// workaround to make npm silent
@@ -145,18 +155,12 @@ theme_manager.prototype.create_from_theme = function (theme_name) {
 		}, theme_error)
 
 		.then(() => {
-			logger.loading('starting enduro')
-			logger.silent()
-			return enduro_instance.init({ project_path: path.join(process.cwd(), theme_progress_variables.answers.project_name) })
-
-		}, theme_error)
-
-		.then(() => {
+			logger.noisy()
+			logger.loaded()
 			return enduro.actions.start()
 		}, theme_error)
 
 		.then(() => {
-			logger.noisy()
 			logger.loaded()
 
 			logger.line()

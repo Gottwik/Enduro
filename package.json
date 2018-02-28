@@ -46,7 +46,7 @@
     "glob": "^7.0.3",
     "glob-promise": "^3.3.0",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.1.0",
+    "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^7.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-define-module": "^0.1.4",

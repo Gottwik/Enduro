@@ -108,7 +108,7 @@ function browsersync_start (norefresh) {
 	if (!enduro.flags.nowatch) {
 
 		// Watch for any js changes
-		watch([enduro.project_path + '/assets/js/*.js'], () => { gulp.start(js_handler) })
+		watch([enduro.project_path + '/assets/js/**/*.js'], () => { gulp.start(js_handler) })
 
 		// Watch for sass or less changes
 		watch(

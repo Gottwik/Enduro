@@ -78,7 +78,6 @@ flat.prototype.load = function (filename, is_full_absolute_path) {
 			fullpath_to_cms_file = filename
 		} else {
 			fullpath_to_cms_file = self.get_full_path_to_flat_object(filename)
-
 		}
 
 		// check if file exists. return empty object if not

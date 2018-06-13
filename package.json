@@ -53,7 +53,7 @@
     "gulp-filter-by": "^1.2.0",
     "gulp-flatten": "^0.4.0",
     "gulp-handlebars": "^4.0.0",
-    "gulp-iconfont": "^9.0.2",
+    "gulp-iconfont": "^10.0.0",
     "gulp-iconfont-css": "^2.0.0",
     "gulp-if": "^2.0.2",
     "gulp-less": "^3.4.0",

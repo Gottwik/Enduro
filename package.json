@@ -62,7 +62,7 @@
     "gulp-sass-bulk-import": "^1.0.1",
     "gulp-sourcemaps": "^2.6.3",
     "gulp-stylus": "^2.7.0",
-    "gulp-uglify": "^1.5.4",
+    "gulp-uglify": "^3.0.1",
     "gulp-watch": "^4.3.5",
     "gulp-wrap": "^0.13.0",
     "gulp.spritesmith": "^6.9.0",

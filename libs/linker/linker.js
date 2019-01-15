@@ -31,7 +31,7 @@ enduro_linker.prototype.init_enduro_linked_configuration = function (project_pat
 
 	// stores templating engine for possible future replacement
 	// promised handlebars allows for asynchronous calls inside helpers
-	linker.templating_engine = require('promised-handlebars')(require('handlebars'), { Promise: Promise })
+	linker.templating_engine = require('promised-handlebars-gottwik')(require('handlebars'), { Promise: Promise })
 
 	// creates an empty object to store precomputed data
 	linker.precomputed_data = {}

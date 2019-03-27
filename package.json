@@ -75,7 +75,7 @@
     "multi-glob": "^1.0.1",
     "ncp": "^2.0.0",
     "npm": "^5.6.0",
-    "opn": "^5.1.0",
+    "opn": "^6.0.0",
     "password-hash": "^1.2.2",
     "promised-handlebars-gottwik": "^2.0.1",
     "request": "^2.83.0",

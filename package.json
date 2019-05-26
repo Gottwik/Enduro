@@ -27,7 +27,7 @@
     "url": "https://github.com/Gottwik/Enduro/issues"
   },
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^3.0.1",
     "autoprefixer-stylus": "^0.14.0",
     "babel-core": "^6.26.0",
     "base64id": "^1.0.0",

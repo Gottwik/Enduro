@@ -69,7 +69,7 @@
     "handlebars": "^4.0.11",
     "inquirer": "^4.0.0",
     "less-plugin-autoprefix": "^1.5.1",
-    "lodash": "^4.15.0",
+    "lodash": "^4.17.13",
     "mkdirp": "^0.5.1",
     "moment": "^2.20.1",
     "multi-glob": "^1.0.1",

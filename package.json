@@ -82,7 +82,7 @@
     "request-promise": "^4.2.2",
     "require-from-string": "^2.0.1",
     "rewire": "^3.0.2",
-    "rimraf": "^2.6.2",
+    "rimraf": "^3.0.0",
     "s3": "^4.4.0",
     "socket.io": "^2.0.4",
     "stringify-object": "^3.2.1",

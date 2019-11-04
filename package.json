@@ -79,7 +79,7 @@
     "password-hash": "^1.2.2",
     "promised-handlebars-gottwik": "^2.0.1",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2",
+    "request-promise": "^4.2.5",
     "require-from-string": "^2.0.1",
     "rewire": "^3.0.2",
     "rimraf": "^2.6.2",

@@ -33,7 +33,7 @@
     "base64id": "^1.0.0",
     "bluebird": "^3.5.1",
     "browser-sync": "^2.23.3",
-    "chalk": "^2.3.0",
+    "chalk": "^3.0.0",
     "connect-multiparty": "^2.1.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",

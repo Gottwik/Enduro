@@ -57,7 +57,7 @@
     "gulp-iconfont-css": "^2.0.0",
     "gulp-if": "^2.0.2",
     "gulp-less": "^3.4.0",
-    "gulp-rename": "^1.2.2",
+    "gulp-rename": "^2.0.0",
     "gulp-sass": "^3.1.2",
     "gulp-sass-bulk-import": "^1.0.1",
     "gulp-sourcemaps": "^2.6.3",

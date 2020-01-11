@@ -37,7 +37,7 @@
     "connect-multiparty": "^2.1.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
-    "dir-compare": "^1.0.1",
+    "dir-compare": "^2.0.0",
     "enduro_admin": "^1.0.73",
     "express": "^4.16.2",
     "express-session": "^1.15.6",

@@ -70,7 +70,7 @@
     "inquirer": "^4.0.0",
     "less-plugin-autoprefix": "^1.5.1",
     "lodash": "^4.15.0",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.0",
     "moment": "^2.20.1",
     "multi-glob": "^1.0.1",
     "ncp": "^2.0.0",

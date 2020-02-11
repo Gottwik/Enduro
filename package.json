@@ -78,7 +78,7 @@
     "opn": "^5.1.0",
     "password-hash": "^1.2.2",
     "promised-handlebars-gottwik": "^2.0.1",
-    "request": "^2.83.0",
+    "request": "^2.88.2",
     "request-promise": "^4.2.2",
     "require-from-string": "^2.0.1",
     "rewire": "^3.0.2",
